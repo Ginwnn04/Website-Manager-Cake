@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #ff6900;
+    --background-color: #fff;
+    --black-color: #090909;
+    --white-color: #fff;
+    --grey-color: #5c6370;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+/* Common */
+a {
+    text-decoration: none;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px 28px;
+    border-radius: 16px;
+}
+
+main {
+    width: calc(100% - 24px);
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    height: 75px;
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+
+.header .logo {
+    height: 75px;
+    width: 120px;
+}
+
+.header .hotline {
+    width: 150px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header .phone-hotline {
+    color: var(--black-color);
+    padding-bottom: 5px;
+    font-size: 1.9rem;
+    font-weight: 500;
+}
+
+.header p {
+    /* color: #999999; */
+    color: var(--grey-color);
+
+}
+
+
+.header .btn-login {
+    margin-left: auto;
+    color: var(--grey-color);
+    padding: 8px 12px;
+    background-color: #f3f3f7;
+}
+
+
+
+.nav-bar {
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    background-color: var(--white-color);
+}
+
+.top {
+    position: fixed;
+    top: 0;
+    width: calc(100% - 24px);
+    opacity: 0.9;
+}
+
+.nav-bar ul {
+    display: flex; 
+    gap: 20px;
+    align-items: center; 
+
+}
+
+.nav-bar ul a {
+    color: var(--black-color);
+}
+
+.nav-bar .btn-cart {
+    margin-left: auto;
+    
+}
+
+.content {
+    height: 1000px;
+    background-color: red;
+}
+/*  
+.nav-bar ul li:first-child a {
+    display: flex;
+    align-items: center; 
+}
+
+.nav-bar ul li:first-child a::before {
+    content: "";
+    display: inline-block;
+    margin-right: 20px;
+    height: 50px;
+    width: 50px;
+    background-image: url('../img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}  */
+
+.test {
+    display: flex;
+    align-items: center; 
+}
+
+.test1::before {
+    content: "";
+    display: inline-block;
+    margin-right: 20px;
+    height: 50px;
+    width: 50px;
+    background-image: url('../img/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
