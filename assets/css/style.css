@@ -92,23 +92,29 @@ main {
     position: fixed;
     top: 0;
     width: calc(100% - 24px);
-    opacity: 0.9;
+    background-color: rgba(255, 255, 255, 0.8);
+
 }
 
 .nav-bar ul {
     display: flex; 
-    gap: 20px;
     align-items: center; 
-
+    margin-left: -10px;
 }
 
 .nav-bar ul a {
     color: var(--black-color);
+    padding: 0 10px;
+
 }
 
 .nav-bar .btn-cart {
     margin-left: auto;
     
+}
+
+.nav-bar .search {
+    height: 100%;
 }
 
 .content {
