@@ -92,7 +92,7 @@ main {
     position: fixed;
     top: 0;
     width: calc(100% - 24px);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 1);
 
 }
 
@@ -100,6 +100,7 @@ main {
     display: flex; 
     align-items: center; 
     margin-left: -10px;
+    
 }
 
 .nav-bar ul a {
@@ -151,8 +152,15 @@ main {
     margin-right: 20px;
     height: 50px;
     width: 50px;
-    background-image: url('../img/logo.png');
+    background-image: url('../img/logo_black.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+/* banner/slider */
+.bannerWeb{
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
 }
