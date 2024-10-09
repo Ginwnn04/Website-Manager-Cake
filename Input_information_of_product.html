@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>InputInformation.html</title>
+        <meta charset="UTF-8"/>
+        <style>
+            *{box-sizing: border-box;}
+            .khungngoai{
+                border: 1px black solid;
+                border-radius: 5px;
+            }
+            .Submit{
+                position: relative;
+
+            }
+            .Test{
+                border: 1px solid black;
+            }
+            .Border{
+                border: 2px black solid;
+            }
+        </style>
+        <link href="inputform.css" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <form id="iForm">
+            <div style="display: flex;">
+                <div class="pic">
+                    <div>
+                        <label for="id_pic" style="display: block;">Hình ảnh sản phẩm</label>
+                        <input id="id_pic" type="file" accept="file/*" placeholder="Chèn ảnh sản phẩm">
+                    </div>
+                    <div id="imagePreview">
+                        <img id="preview" src="" alt="Xem trước ảnh" style="display: none;"/>
+                    </div>
+                </div>
+                <div class="infor" style="font-size: 20px;">
+                    <div style="display: flex;height: calc(25% - 4px);">
+                        <div style="width: 40%;">
+                            <label for="id_name">Tên sản phẩm:</label>
+                        </div>
+                        <div style="width: 60%;">
+                            <input id="id_name" type="text" placeholder="Nhập tên sản phẩm" required>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 40%;">
+                            <label for="id_information">Mô tả của sản phẩm:</label>
+                        </div>
+                        <div style="width: 60%;">
+                            <textarea id="id_information" type="text" placeholder="Nhập thông tin sản phẩm"></textarea>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 40%;">
+                            <label for="id_quantity">Số lượng sản phẩm:</label>
+                        </div>
+                        <div style="width: 60%;">
+                            <input id="id_quantity" type="number" placeholder="Nhập số lượng sản phẩm" required>
+                        </div>
+                    </div>
+                    <div style="display: flex;">
+                        <div style="width: 40%;">
+                            <label for="id_price">Giá cả sản phẩm:</label>
+                        </div>
+                        <div style="width: 60%;">
+                            <input id="id_price" type="number" placeholder="Nhập giá cả sản phẩm" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="submit">
+                        <button id="submit">Save</button>
+                </div>
+            </form>    
+            
+        </main>
+    <!--<h2>Danh sách sản phẩm</h2>
+    <div id="productList">
+        Danh sách sản phẩm sẽ hiển thị ở đây 
+    </div>-->
+        <script src="Input_information_of_product(JS).js"></script>
+        <script src="Script_Storange.js"></script>
+    </body>
+</html>
