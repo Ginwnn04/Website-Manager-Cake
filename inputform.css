@@ -1,9 +1,22 @@
-main {
-    width: 60%;
+#sortL {
+    background: none; 
+    border: none; 
+    cursor: pointer;
+    font-size: 24px; 
+    margin: 10px;  
+}
+#sorticon {
+    width: 50px; 
+    height: 50px; 
+    object-fit: contain; 
+}
+form {
+    width: 50%;
     margin: 0 auto;
     border: 2px black solid;
     border-radius: 5px;
-    height: 60%;
+    height: 300px;
+    position: relative;
 }
 label{
     display: inline-block;
@@ -14,17 +27,23 @@ img{
 }
 .pic{
     width: 50%;
-    height: 80%;
+    height: 250px;
+    margin: 5px;
+    padding: 5px;
+
 }
 .submit{
+    border-top: 2px solid black;
     width: 100%;
-    height: 20%;
-    border: 2px black solid;
+    height: 50px;
 }
 .infor{
+    margin: 5px;
+    padding: 5px;
     width: 50%;
-    height: 80%;
-
+    height: 250px;
+    border-left: 2px solid black;
+    border-width: 100%;
 }
 input{
     border: none;
@@ -32,4 +51,27 @@ input{
 }
 textarea{
     width: 100%;
+    border: none;
+    height: 100px;
+}
+table{
+    width: 60%;
+    height: 100px;
+    position: relative;
+    left: 20%;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+td{
+    border: 2px solid black;
+}
+th{
+    border: 2px solid black;
+}
+.sb{
+    margin: 5px;
+    padding: 5px;
+    left: 45%;
+    width: 10%;
+    position: absolute;
 }

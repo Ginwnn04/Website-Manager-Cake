@@ -21,7 +21,6 @@
             }
         </style>
         <link href="inputform.css" rel="stylesheet">
-    </head>
     <body>
         <main>
             <form id="iForm">
@@ -71,15 +70,31 @@
                 </div>
             </div>
                 <div class="submit">
-                        <button id="submit">Save</button>
+                        <button id="submit" class="sb">Save</button>
                 </div>
             </form>    
             
         </main>
-    <!--<h2>Danh sách sản phẩm</h2>
-    <div id="productList">
-        Danh sách sản phẩm sẽ hiển thị ở đây 
-    </div>-->
+    <h2>Danh sách sản phẩm</h2>
+    <div>
+        <button id="sortL">
+            <img id="sorticon" src="up.png" alt="Sắp xếp">
+        </button>
+    </div>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Mô tả</th>
+                <th>Số lượng</th>
+                <th>Hình ảnh</th>
+                <th>Chỉnh sửa</th>
+            </tr>
+        </thead>
+        <tbody id="productList"></tbody>
+    </table>
         <script src="Input_information_of_product(JS).js"></script>
         <script src="Script_Storange.js"></script>
     </body>
