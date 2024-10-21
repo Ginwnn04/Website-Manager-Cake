@@ -59,9 +59,10 @@ form.addEventListener('submit', function(event) {
             SaveP(productData);
         };
         reader.readAsDataURL(productPic);
-    }else{
+    }else if(productPic===null && editProductIndex===null){
         productData.pic='default.png';
         SaveP(productData);
+    }else{
         // Nếu không có hình ảnh mới, giữ lại hình ảnh cũ (trong trường hợp chỉnh sửa)
         if (editProductIndex !== null) {    
             try {
