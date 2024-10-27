@@ -96,8 +96,52 @@
                 </a>
             </div>
         </nav>
-     </section>
 
+        <!-- MAIN -->
+         <main>
+                <div id="dashboard">
+                    <div class="top">
+                        Dashboard
+                    </div>
+                    <div>
+                        <div class="statistical" style="background: linear-gradient(#EECC51, #203C58);">
+                            Tổng doanh thu
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="statistical" style="background: linear-gradient(#43e97b,#38f9d7);">
+                            Doanh Số
+                        </div>
+                        <div class="statistical" style="background: linear-gradient( #30cfd0,#330867);">
+                            Đánh giá
+                         </div>
+                        <div class="statistical" style="background: linear-gradient(#37ecba ,#72afd3);">
+                            Tích cực
+                        </div>
+                    </div>
+                    <div>
+                        <div class="analysis" style="background: linear-gradient(#18A5A7 , #BFFFC7);">Sales Report</div>
+                        <div class="analysis" style="background: linear-gradient(#18A5A7 , #B6C0C5);">User Stats</div>
+                    </div>
+                    <div>
+                        <div class="underdb3">
+                            Sale By Calegory 
+                            <div class="item-udb3">Today</div>
+                        </div>
+                        <div class="underdb3">
+                            Trending 
+                            <div class="item-udb3">Today</div>
+                        </div>
+                        <div class="underdb3">
+                            To-Do List 
+                            <div class="item-udb3">Today</div>
+                        </div>
+                    </div>
+                </div>
+         </main>
+        <!-- MAIN -->
+     </section>
+     <!-- CONTENT -->
     <script src="admin_script.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
