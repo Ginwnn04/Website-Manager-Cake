@@ -21,7 +21,7 @@ body {
 }
 
 main {
-    width: 100%
+    width: 100%;
     margin: 0 auto;
     padding: 0 128px;
 }
@@ -125,7 +125,7 @@ a {
 }
 
 .content {
-    height: 1000px;
+    height: 2000px;
     /* background-color: #ccc; */
 }
 
@@ -230,3 +230,132 @@ a {
     padding: 0px;
     margin: 0px;
 }
+
+/* Thong diep */
+.thongDiep {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    height: 200px;
+    font-size: 12pt;
+}
+
+.td_item {
+    width: calc(33.3% - 40px);
+    margin-top: 20px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.td_item h4 {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.td_item i {
+    font-size: 100px;
+    margin-bottom: 10px;
+}
+
+.td_item p {
+    font-size: 12pt;
+    color: #333;
+    line-height: 1.6;
+    margin: 0 10px;
+    text-align: justify;
+}
+
+
+
+/* footer */
+footer {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: Arial, sans-serif;
+}
+
+.footer_item {
+    width: calc(25% - 40px);
+    margin-top: 20px;
+    font-size: 12pt;
+    line-height: 1.4;
+}
+
+.footer_item h4 {
+    border-bottom: 1px solid var(--grey-color);
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.footer_item p {
+    margin: 0;
+    text-align: justify;
+    max-width: 100%;
+}
+
+.footer_item ul {
+    list-style: none;
+    padding: 0;
+    text-align: justify;
+    margin-left: 10px;
+}
+.list_menu li:hover{
+    color: var(--primary-color);
+}
+.footer_item img {
+    max-width: 80%;
+    height: auto;
+    margin: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.follow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.follow a {
+    color: var(--black-color);
+    font-size: 30px;
+}
+
+.follow a:hover {
+    color: var(--grey-color);
+}
+
+@media only screen and (max-width: 768px) {
+    .footer_item {
+        width: calc(100% - 40px);
+    }
+    .td_item{
+        width: calc(100% - 40px);
+    }
+}
+@media only screen and (min-width:767px) and (max-width: 991px) {
+    .footer_item {
+        width: calc(50% - 40px);
+    }
+    .td_item{
+        width: calc(50% - 40px);
+    }
+}
+@media only screen and (min-width:992px) and (max-width: 1199px) {
+    .footer_item {
+        width: calc(50% - 40px);
+    }
+}
+
+
