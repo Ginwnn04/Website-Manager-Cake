@@ -139,6 +139,7 @@ main {
     height: 500px;
     object-fit: cover;
     display: none;
+    border-radius: 15px;
 }
 
 .banner-slide img.visible {
@@ -195,7 +196,7 @@ main {
 
 .dots {
     text-align: center;
-    margin-top: 10px;
+    margin: 10px 0;
 }
 
 .dot {
