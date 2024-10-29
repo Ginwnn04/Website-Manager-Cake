@@ -5,11 +5,23 @@ body {
     padding: 0;
 }
 
+img {
+    width: 100%;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #fdfdfd;
+}
+
+/* Header */
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10%;
+    /* padding: 10px 10%; */
     background-color: #fff;
     border-bottom: 2px solid #ddd;
 }
@@ -107,9 +119,10 @@ body {
 }
 
 /* Banner quảng cáo */
+
 .banner {
     position: relative;
-    width: 80%;
+    /* width: 80%; */
     overflow: hidden;
     margin: 10px auto;
     border-radius: 15px;
@@ -324,3 +337,91 @@ body {
 .gallery-container {
     display: none;
 }
+
+
+
+/* Main content */
+.container {
+    margin: 32px 0;
+    border-radius: 8px;
+    /* display: flex; */
+}
+
+.nav-bar {
+    font-weight: 550;
+    margin-left: -4px;
+}
+
+.nav-bar ul {
+    list-style-type: none;
+
+}
+.nav-bar ul li {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(234,236,240,1);
+    box-shadow: 0px 6px 34px rgba(215, 216, 222, 0.41);
+    margin-left: 4px;
+}
+
+.nav-bar ul li:hover {
+    background-color: #ff7f00;
+    color: #fff;
+    
+}
+
+.content {
+    margin-left: -30px;
+}
+
+.list-product {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-item {
+    margin: 30px 0 30px 30px;
+    width: calc(100% / 5 - 30px - 2px);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 6px 34px rgba(215, 216, 222, 0.41);
+    border: 1px solid rgba(234,236,240,1);
+}
+
+.product-item .info-product {
+    margin: 12px;
+}
+
+.product-item .img-product img {
+    border-radius: 12px;
+}
+
+.product-item .name-product,
+.product-item .price-product  {
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.product-item .details-product {
+    font-size: 16px;
+    color: #ccc;
+    margin-top: 10px;
+}
+
+.product-item .bottom-product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 8px 12px;
+    background-color: #ff7f00;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+}
+
