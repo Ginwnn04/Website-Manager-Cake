@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <main>
         <header class="header">
             <div class="header-left">
@@ -60,17 +59,31 @@
 
         <div class="container">
             <div class="nav-bar">
-                <ul>
-                    <li>
-                        <i class="fa-solid fa-filter"></i>
-                        Lọc
-                    </li>
-                    <li>Toasts</li>
-                    <li>Dry Cakes</li>
-                    <li>Buns</li>
-                    <li>Pudding</li>
-                    <li>Cookies</li>
-                </ul>
+                <h3 class="category">Loại bánh</h3>
+                <div class="btn-select">
+                    <ul>
+                        <li>Toasts</li>
+                        <li>Dry Cakes</li>
+                        <li>Buns</li>
+                        <li>Pudding</li>
+                        <li>Cookies</li>
+                    </ul>
+                </div>
+                <h3 class="category">Sắp xếp theo</h3>
+                <div class="btn-select">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-arrow-down-short-wide"></i>
+                            Tăng dần
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                            Giảm dần
+                        </li>
+                    </ul>
+
+
+                </div>
             </div>
             <div class="content">
                 <div class="list-product">
@@ -154,66 +167,83 @@
                             </div>
                         </div>
                     </div>
+                    <div class="product-item">
+                        <div class="img-product">
+                            <img src="./assets/img/banhkem.jpg" alt="">
+                        </div>
+                        <div class="info-product">
+                            <h3 class="name-product">Bánh kem sinh nhật</h3>
+                            <h3 class="details-product">Bánh kem sinh nhật</h3>
+                            <div class="bottom-product">
+                                <h3 class="price-product">300.000 VNĐ</h3>
+                                <a href="#!" class="btn">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    Thêm
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-
-        <!--Form đăng nhập-->
-        <div class="form-popup" id="loginForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
-                <h2>Đăng nhập</h2>
-                <label for="login-username">Số điện thoại hoặc Gmail:</label>
-                <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-                <label for="login-password">Mật khẩu:</label>
-                <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
-                <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
-                <button type="submit" class="btn">Đăng nhập</button>
-                <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
-            </form>
-        </div>
-
-        <!-- Form đăng ký -->
-        <div class="form-popup" id="signupForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
-                <h2>Đăng ký</h2>
-                <label for="signup-phone">Số điện thoại:</label>
-                <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
-                <label for="signup-email">Gmail:</label>
-                <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
-                <label for="signup-password">Mật khẩu:</label>
-                <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
-                <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
-                <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
-                <button type="submit" class="btn">Đăng ký</button>
-                <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
-            </form>
-        </div>
-
-        <!-- Form quên mật khẩu -->
-        <div class="form-popup" id="forgotPasswordForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
-                <h2>Quên mật khẩu</h2>
-                <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
-                <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-                <button type="submit" class="btn">Xác thực tài khoản</button>
-            </form>
-        </div>
-
-        <!-- Bộ sưu tập hình ảnh -->
-        <div class="gallery-container" style="display:none;">
-            <h1>Bộ sưu tập</h1>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="./assets/img/gallery2.jpg" alt="Image 1"></div>
-                <div class="gallery-item"><img src="./assets/img/gallery1.jpg" alt="Image 2"></div>
-                <div class="gallery-item"><img src="./assets/img/gallery3.jpg" alt="Image 3"></div>
-
-            </div>
-        </div>
     </main>
+
+    <!--Form đăng nhập-->
+    <div class="form-popup" id="loginForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
+            <h2>Đăng nhập</h2>
+            <label for="login-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <label for="login-password">Mật khẩu:</label>
+            <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
+            <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
+            <button type="submit" class="btn">Đăng nhập</button>
+            <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
+        </form>
+    </div>
+
+    <!-- Form đăng ký -->
+    <div class="form-popup" id="signupForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
+            <h2>Đăng ký</h2>
+            <label for="signup-phone">Số điện thoại:</label>
+            <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
+            <label for="signup-email">Gmail:</label>
+            <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
+            <label for="signup-password">Mật khẩu:</label>
+            <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
+            <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
+            <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit" class="btn">Đăng ký</button>
+            <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
+        </form>
+    </div>
+
+    <!-- Form quên mật khẩu -->
+    <div class="form-popup" id="forgotPasswordForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <button type="submit" class="btn">Xác thực tài khoản</button>
+        </form>
+    </div>
+
+    <!-- Bộ sưu tập hình ảnh -->
+    <div class="gallery-container" style="display:none;">
+        <h1>Bộ sưu tập</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="./assets/img/gallery2.jpg" alt="Image 1"></div>
+            <div class="gallery-item"><img src="./assets/img/gallery1.jpg" alt="Image 2"></div>
+            <div class="gallery-item"><img src="./assets/img/gallery3.jpg" alt="Image 3"></div>
+
+        </div>
+    </div>
+
+
 
     <script>
         function openForm(formId) {
