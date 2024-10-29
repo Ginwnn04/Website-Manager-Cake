@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 10%;
     background-color: #fff;
     border-bottom: 2px solid #ddd;
 }
@@ -41,26 +41,32 @@ body {
 
 .header-center {
     flex-grow: 1;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 60x;
 }
 
 .navbar a {
-    margin: 0 15px;
     text-decoration: none;
     color: #333;
     font-size: 16px;
     padding: 10px 15px;
-    border: 2px solid transparent;
+    margin-right: 10px; /* Khoảng cách giữa các mục */
+    border: 2px solid #ff7f00;
     border-radius: 5px;
     transition: all 0.3s ease;
     background-color: #f9f9f9;
 }
 
+.navbar a:last-child {
+    margin-right: 0; 
+}
+
+
 .navbar a:hover {
-    border: 2px solid #ff7f00;
     color: #ff7f00;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(255, 127, 0, 0.4); /* Hiệu ứng sáng khi hover */
 }
 
 .header-right {
@@ -103,11 +109,11 @@ body {
 /* Banner quảng cáo */
 .banner {
     position: relative;
-    width: 75%;
+    width: 80%;
     overflow: hidden;
-    margin-top: 20px;
-    margin-left: 200px;
-    margin-right: 200px;
+    margin: 10px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .banner-slide {
@@ -117,7 +123,7 @@ body {
 
 .banner-slide img {
     width: 100%;
-    height: 400px;
+    height: 500px;
     object-fit: cover;
     display: none;
 }
@@ -126,6 +132,7 @@ body {
     display: block;
 }
 
+/* hiệu ứng banner */
 .banner-slide img.flip-in {
     animation: flip-in 0.6s forwards;
 }
@@ -260,7 +267,8 @@ body {
 .form-container a:hover {
     text-decoration: underline;
 }
-/* đóng form */
+
+/* dot đóng form */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -278,4 +286,41 @@ body {
 .close-btn:hover {
     background-color: #ff7f00;
     color: white;
+}
+.gallery-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.gallery-container h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Khoảng cách giữa các ô ảnh */
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+.gallery-container {
+    display: none;
 }

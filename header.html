@@ -22,7 +22,7 @@
         <div class="header-center">
             <nav class="navbar">
                 <a href="#">Trang chủ</a>
-                <a href="#">Gallery</a>
+                <a href="javascript:void(0);" onclick="showGallery()">Gallery</a>
                 <a href="#">Giới thiệu</a>
                 <a href="#">Tin tức & Khuyến mãi</a>
                 <a href="#">Liên hệ</a>
@@ -101,6 +101,17 @@
         </form>
     </div>
 
+    <!-- Bộ sưu tập hình ảnh -->
+    <div class="gallery-container" style="display:none;">
+        <h1>Bộ sưu tập</h1>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="./assets/img/gallery2.jpg" alt="Image 1"></div>
+            <div class="gallery-item"><img src="./assets/img/gallery1.jpg" alt="Image 2"></div>
+            <div class="gallery-item"><img src="./assets/img/gallery3.jpg" alt="Image 3"></div>
+            
+        </div>
+    </div>
+
     <script>
         function openForm(formId) {
             document.getElementById("loginForm").style.display = "none";
@@ -111,6 +122,11 @@
 
         function closeForm(formId) {
             document.getElementById(formId).style.display = "none";
+        }
+
+        // Hiển thị Gallery
+        function showGallery() {
+            document.querySelector('.gallery-container').style.display = 'block';
         }
 
         let currentIndex = 0;
