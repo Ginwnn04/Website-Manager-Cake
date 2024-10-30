@@ -324,3 +324,110 @@ body {
 .gallery-container {
     display: none;
 }
+/* Popup hình ảnh */
+.image-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.image-popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+}
+/* CSS cơ bản cho toàn trang */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #ececec;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #ff7f00;
+    font-family: 'Great Vibes', cursive;
+}
+
+/* tiêu đề */
+h2 {
+    color: #ff7f00;
+}
+
+/* Style giới thiệu */
+#aboutSection {
+    display: none;
+    display: block;
+    margin: 0 auto; /* Căn giữa */
+    width: 80%; /* chiều rộng */
+    padding: 20px;
+    background-color: #e8e2cd; /* Thêm màu nền */
+    border-radius: 5px; /* bo góc */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* bóng */
+}
+
+
+#aboutSection header {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    p:first-of-type {
+        font-weight: bold;
+        font-size: 24px;
+    }
+}
+
+#aboutSection section {
+    padding: 20px;
+    margin: 20px;
+    background-color: #ececec;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#aboutSection ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#aboutSection footer {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Style nút "Trở về" */
+#aboutSection button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ff7f00;
+    color: #ececec;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#aboutSection button:hover {
+    background-color: #e06a00;
+}
