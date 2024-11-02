@@ -16,6 +16,8 @@
     --light_orange:#ffe0d3;
     --orange:#fd7238;
     --black:#000000;
+    --purple:#838BED;
+    --light_purple: #CED1E6;
 }
 
 a {
@@ -31,7 +33,10 @@ body {
 html {
     overflow: hidden;
 }
-
+button{
+    border: none;
+    cursor: pointer;
+}
 
 /* SIDEBAR */
 #sidebar {
@@ -44,6 +49,8 @@ html {
     z-index: 1000; 
     transition: 2s ease;
     overflow-x: hidden;
+    height: 100vh; 
+    overflow-y: auto;
 }
 #sidebar.hide{
     width: 60px;
@@ -158,6 +165,9 @@ html {
     position: relative;
     left: 280px;
     transition: 2s ease;
+    top: 0;
+    height: 100vh; 
+    overflow-y: auto; 
 }
 #sidebar.hide ~ #content{
     width: calc(100% - 60px);
@@ -316,30 +326,39 @@ html {
 
 /* DASHBOARD */
 #dashboard {
-    border: 2px solid none;
-    background: var(--light);
+    overflow: hidden;
+}
+#dashboard .head{
+    width: 100%;
     padding: 10px;
-    margin: 10px;
-    height: 700px;
-    width: calc(100% - 6px);
-    border-radius: 20px;
-    padding-right:20px ;
+    padding-left: 30px;
 } 
 
-#dashboard .top{
-    border: solid 2px var(--grey);
-    box-sizing: border-box;
-    height: 10%;
-    width: calc(100% - 10px);
-    margin: 10px 5px;
-    padding-left:30px;
-    font-size: 30px ;
-    border-radius: 10px;
-    background: var(--light);
-    display: flex;
+#dashboard .head .left{
+    /* background: var(--light); */
     align-items: center;
-    background: linear-gradient(#0ba360,#3cba92);
-    color: var(--light);
+    color: var(--black);
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#dashboard .head .left h1{
+    font-size: 36px;
+    font-weight: 600px;
+    display: block;
+
+}
+#dashboard .head .left .breadcrumb{
+    display:flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+#dashboard .head .left .breadcrumb li a{
+    color: var(--dark_grey);
+    pointer-events: none;
+}
+#dashboard .head .left .breadcrumb li a.active{
+    color: var(--blue);
+    pointer-events: unset;
 }
 #dashboard .statistical {
     border: solid 2px var(--grey);
@@ -350,45 +369,458 @@ html {
     padding: 20px;
     float: left;
     font-size: 20px;
-    color: var(--light);
-    border-radius: 10px;
+    color: var(--black);
+    border-radius: 20px;
     z-index: 1;
+    background-color: var(--light);
+    display: flex;
+    align-items: center;
+    grid-gap:24px;
+    /* justify-content: center; */
+}
+#dashboard .statistical .bx{
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: var(--grey);
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#dashboard .statistical .bx.bx-money-withdraw{
+    color: var(--blue);
+    background-color: var(--light_blue);
+}
+#dashboard .statistical .bx.bxs-calendar{
+    color: var(--orange);
+    background-color: var(--light_orange);
+}
+#dashboard .statistical .bx.bx-star{
+    color: var(--yellow);
+    background-color: var(--light_yellow);
+}
+#dashboard .statistical .bx.bx-group{
+    color: var(--purple);
+    background-color: var(--light_purple);
 }
 #dashboard .analysis{
     height: 300px;
-    width: calc(50% - 10px);
+    width: calc(50% - 20px);
     border: solid 2px var(--grey);
     box-sizing: border-box;
-    margin: 5px;
+    margin: 10px;
     margin-top: 10px;
     padding: 20px;
     float: left;
     font-size: 30px;
     border-radius: 10px;
     background: var(--light);
-    color: var(--light);
-}
-.underdb3{
-    height: 180px;
-    width: calc(33.3% - 20px);
-    border: solid 2px black;
-    box-sizing: border-box;
-    margin: 10px;
-    padding: 20px;
-    float: left;
-    font-size: 20px;
-    position: relative;
-}
-.item-udb3{
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    border: solid 2px black;
-    box-sizing: border-box;
-    padding: 5px;
+    color: var(--black);
 }
 
-canvas {
+
+#account_manager {
+    overflow: hidden;
+}
+
+#order_manager .head,
+#account_manager .head{
     width: 100%;
-    height: 200px;
-  }
+    padding: 10px;
+    padding-left: 30px;
+} 
+
+#order_manager .head .left,
+#account_manager .head .left{
+    /* background: var(--light); */
+    align-items: center;
+    color: var(--black);
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#order_manager .head .left h1,
+#account_manager .head .left h1{
+    font-size: 36px;
+    font-weight: 600px;
+    display: block;
+
+}
+
+#order_manager .head .left .breadcrumb,
+#account_manager .head .left .breadcrumb{
+    display:flex;
+    align-items: center;
+    grid-gap: 16px;
+}
+
+#order_manager .head .left .breadcrumb li a,
+#account_manager .head .left .breadcrumb li a{
+    color: var(--dark_grey);
+    pointer-events: none;
+}
+
+#order_manager .head .left .breadcrumb li a.active,
+#account_manager .head .left .breadcrumb li a.active{
+    color: var(--blue);
+    pointer-events: unset;
+}
+
+
+#account_manager .table_data{
+    display: flex;
+	flex-wrap: wrap;
+	grid-gap: 24px;
+	margin-top: 24px;
+	width: 100%;
+	color: var(--black);
+}
+
+#order_manager .table_data > div,
+#account_manager .table_data > div{
+    border-radius: 20px;
+    background: var(--light);
+    padding: 40px;
+}
+
+#order_manager .table_data .user,
+#account_manager .table_data .user{
+    flex-basis: calc(100% - 24px);
+}
+
+#order_manager .table_data .user .top,
+#account_manager .table_data .user .top {
+    font-size: 24px;
+    display: flex;
+    padding-bottom: 20px;
+    position: relative;
+}
+#order_manager .table_data .user .top .icon,
+#account_manager .table_data .user .top .icon{
+    position: absolute;
+    right: 20px;
+    height: 30px;
+    display: flex;
+}
+
+#account_manager .table_data .user .top .icon .search{
+    display: flex;
+}
+
+#account_manager .table_data .user .top .icon .search input{
+    padding: 0 24px;
+    height: 100%;
+    width: 300px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 20px;
+    background: var(--grey);
+    outline: none;
+}
+
+
+#account_manager .table_data .user .top .icon .search button{
+    width: 40px;
+    height: 100%;
+    font-size: 20px;
+    color: var(--light);
+    background: var(--orange);
+    border-radius: 0 20px 20px 0;
+    border: none;
+    justify-items: center;
+    align-items: center;
+    margin: 0;
+    cursor: pointer;
+
+}
+#order_manager .table_data .user .top .icon .bx.bx-filter,
+#account_manager .table_data .user .top .icon .bx.bx-filter{
+    cursor: pointer;
+    margin-left: 15px;
+}
+#account_manager .table_data .user .top .icon .bx.bx-plus{
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+#account_manager .table_data .user table{
+    width: 100%;
+}
+#account_manager .table_data .user table th{
+    padding-bottom: 12px;
+    font-size: 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--black);
+}
+#account_manager .table_data .user table td{
+    padding: 16px 0px;
+}
+#account_manager .table_data .user table tr td:first-child{
+    display: flex;
+    align-items: center;
+}
+#account_manager .table_data .user table .bx.bx-cog{
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+
+/* Order Manager */
+#order_manager {
+    margin: 10px;
+}
+
+#order_manager .table_data .user .top .icon {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+
+#order_manager .table_data .user .top .icon .bx.bx-filter {
+    font-size: 24px; 
+    margin-left: 10px;     
+}
+#order_manager .table_data .user .top .icon {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+}
+
+#order_manager .table_data .user .top .icon .search {
+    display: flex;
+    align-items: center; 
+    border-radius: 20px; 
+    overflow: hidden; 
+}
+
+#order_manager .table_data .user .top .icon .search input {
+    padding: 0 16px; 
+    height: 30px; 
+    width: 200px;
+    border: none;
+    border-radius: 20px 0 0 20px; 
+    font-size: 16px; 
+    background: var(--grey);
+    outline: none;
+    
+}
+
+#order_manager .table_data .user .top .icon .search button {
+    width: 40px; 
+    height: 30px; 
+    font-size: 20px;
+    color: var(--light);
+    background: var(--orange);
+    border-radius: 0 20px 20px 0; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s; 
+}
+
+#order_manager .table_data .user .top .icon .search button:hover {
+    background: var(--blue); 
+}
+
+#order_manager .table_data .user .top .addOrderBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+
+#order_manager .table_data .user table {
+    width: 100%;
+    border-collapse: collapse; 
+}
+
+#order_manager .table_data .user table th,
+#order_manager .table_data .user table td {
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--dark_grey); 
+}
+
+#order_manager .table_data .user table th {
+    background-color: var(--light); 
+    color: var(--black); 
+    font-weight: bold; 
+    font-size: 20px; 
+}
+
+#order_manager .table_data .user table tr {
+    transition: background-color 0.3s ease; 
+}
+
+#order_manager .table_data .user table tr:hover {
+    background-color: var(--grey); 
+}
+
+
+#order_manager .table_data .user table th:nth-child(1),
+#order_manager .table_data .user table td:nth-child(1) {
+    width: 10%; /* Chiều rộng cho Mã Đơn Hàng */
+}
+
+#order_manager .table_data .user table th:nth-child(2),
+#order_manager .table_data .user table td:nth-child(2) {
+    width: 25%; /* Chiều rộng cho Tên Khách Hàng */
+}
+
+#order_manager .table_data .user table th:nth-child(3),
+#order_manager .table_data .user table td:nth-child(3) {
+    width: 15%; /* Chiều rộng cho Ngày đặt */
+}
+
+#order_manager .table_data .user table th:nth-child(4),
+#order_manager .table_data .user table td:nth-child(4) {
+    width: 15%; /* Chiều rộng cho Trạng thái */
+}
+
+#order_manager .table_data .user table th:nth-child(5),
+#order_manager .table_data .user table td:nth-child(5) {
+    width: 15%; /* Chiều rộng cho Tổng Tiền */
+}
+
+#order_manager .table_data .user table th:nth-child(6),
+#order_manager .table_data .user table td:nth-child(6) {
+    width: 20%; /* Chiều rộng cho Hành động */
+}
+.edit-order, .delete-order, #addOrderBtn{
+    padding: 5px ;
+    background-color: var(--orange);
+    color: var(--light);
+    margin: 5px;
+}
+.edit-order:hover, .delete-order:hover, #addOrderBtn:hover{
+    background-color: var(--blue);
+}
+
+#order_manager .table_data .user .pagination {
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0; 
+}
+
+#order_manager .table_data .user .pagination button {
+    background-color: var(--orange);
+    color: var(--light);
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px 15px; 
+    margin: 0 5px; 
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    font-size: 14px; 
+}
+
+#order_manager .table_data .user .pagination button:hover {
+    background-color: var(--blue);
+    transform: scale(1.05); 
+}
+#order_manager .table_data .user .pagination button.current {
+    background-color: var(--blue); 
+    color: var(--black); 
+}
+
+
+
+
+/* CSS cho Modal */
+/* Modal nền */
+#orderModal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+/* Nội dung modal */
+#orderModal .modal-content {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.4s ease;
+}
+
+/* Hiệu ứng mở modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Tiêu đề của modal */
+#orderModal .modal-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: var(--black);
+    text-align: center;
+}
+
+/* Nút đóng modal */
+#closeModal {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--black);
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#closeModal:hover {
+    color: var(--orange);
+}
+
+/* Các trường nhập liệu */
+#orderModal .modal-content input[type="text"],
+#orderModal .modal-content input[type="number"],
+#orderModal .modal-content input[type="date"],
+#orderModal .modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Nút lưu */
+#orderModal .modal-content button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: var(--light);
+    background-color: var(--orange);
+    border: none;
+    border-radius: 4px;
+}
+
+#orderModal .modal-content button[type="submit"]:hover {
+    background-color: var(--blue);
+}
