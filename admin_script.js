@@ -52,33 +52,35 @@ window.addEventListener('resize', function() {
         }
     }
 })
-window.onload = function() {
-    var ctx1 = document.getElementById('revenueChart').getContext('2d');
-    var revenueChart = new Chart(ctx1, {
-        type: 'bar',
-        data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            datasets: [{
-                label: 'Revenue',
-                data: [12, 19, 3, 5, 2, 3, 7],
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                },
-                x: {
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)'
-                    }
-                }
-            }
-        }
-    });
-};
+// Chuyển đổi qua lại giữa các phần trong menu
+const Dashboard = document.querySelector('#dashboard');
+const AccountManager=document.querySelector('#account_manager');
+AccountManager.style.display = 'none';
+Dashboard.style.display = 'block';
+function showDashboard(event){
+  const selectedItem = event.currentTarget.id;
+  if(selectedItem==='dashboard_show'){
+    Dashboard.style.display='block';
+  }else{
+    Dashboard.style.display='none';
+  }
+}
+
+
+
+function showAccountManager(event){
+  const selectedItem = event.currentTarget.id;
+  if(selectedItem==='account'){
+    AccountManager.style.display='block';
+  }else{
+    AccountManager.style.display='none';
+  }
+}
+allSideMenu.forEach(item =>{
+  item.addEventListener('click',showAccountManager);
+  item.addEventListener('click',showDashboard);
+});
+function toggleForm() {
+  const form = document.querySelector('.add_account');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}

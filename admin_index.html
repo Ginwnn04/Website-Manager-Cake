@@ -18,11 +18,11 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img class="avatar"src="https://detuoivinhloc.net/wp-content/uploads/2024/05/anh-doremon.jpg" alt="hình avatar">
+            <img class="avatar"src="https://png.pngtree.com/element_our/20200609/ourlarge/pngtree-default-avatar-image_2235111.jpg" alt="hình avatar">
         </div>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -40,9 +40,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" id="account">
                     <i class='bx bxs-user-account' ></i>
-                    <span class="text">Tài khoản người dùng</span>
+                    <span class="text">Quản Lí Tài Khoản</span>
                 </a>
             </li>
             <li>
@@ -76,8 +76,8 @@
             <i class='bx bx-menu'></i>
             <form action="#">
                 <div class="form-input" >
-                    <input type="seach" placeholder="Seach...">
-                    <button type="submit" class="seach-btm"><i class='bx bx-search-alt'></i></button>
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btm"><i class='bx bx-search-alt'></i></button>
                 </div>
             </form>
             <div class="item">
@@ -100,42 +100,266 @@
         <!-- MAIN -->
          <main>
                 <div id="dashboard">
-                    <div class="top">
-                        Dashboard
+                    <div class="head">
+                        <div class="left">
+                            <h1>Dashboard</h1>
+                            <ul class="breadcrumb"> 
+                                <li>
+                                    <a href="#">Dashboard</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                     <a class="active" href="#">Home</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div>
-                        <div class="statistical" style="background: linear-gradient(#EECC51, #203C58);">
-                            Tổng doanh thu
-                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        <div class="statistical" >
+                            <i class='bx bx-money-withdraw'></i>
+                            <span class="text">
+                                <h3>$1020</h3>
+                                <p>Tổng Thu </p>
+                            </span>
                         </div>
-                        <div class="statistical" style="background: linear-gradient(#43e97b,#38f9d7);">
-                            Doanh Số
+                        <div class="statistical" >
+                            <i class='bx bxs-calendar'></i>
+                            <span class="text">
+                                <h3>218</h3>
+                                <p>Đơn Hàng </p>
+                            </span>
+                            
                         </div>
-                        <div class="statistical" style="background: linear-gradient( #30cfd0,#330867);">
-                            Đánh giá
+                        <div class="statistical" >
+                            <i class='bx bx-star' ></i>
+                            <span class="text">
+                                <h3>4.9</h3>
+                                <p>Đánh giá</p>
+                            </span>
+                            
                          </div>
-                        <div class="statistical" style="background: linear-gradient(#37ecba ,#72afd3);">
-                            Tích cực
+                        <div class="statistical" >
+                            <i class='bx bx-group'></i>
+                            <span class="text">
+                                <h3>2421</h3>
+                                <p>Khách</p>
+                            </span>
+                            
+                        </div>
+                        <div class="analysis">
+                            Báo Cáo Bán Hàng
+                        </div>
+                        <div class="analysis" >
+                            Thông Kê Người Dùng
                         </div>
                     </div>
+                </div>
+
+                <div id="account_manager">
+                    <div class="head">
+                        <div class="left">
+                            <h1>Quản Lí Tài Khoản</h1>
+                            <ul class="breadcrumb"> 
+                                <li>
+                                    <a href="#">Account Manager</a>
+                                </li>
+                                <li><i class='bx bx-chevron-right'></i></li>
+                                <li>
+                                     <a class="active" href="#">Home</a>
+                                </li>
+                            </ul>
+                        </div>
                     <div>
-                        <div class="analysis" style="background: linear-gradient(#18A5A7 , #BFFFC7);">Sales Report</div>
-                        <div class="analysis" style="background: linear-gradient(#18A5A7 , #B6C0C5);">User Stats</div>
+                    <div class="table_data">
+                        <div class="user">
+                            <div class="top">
+                                <h3>Tài Khoản</h3>
+                                <div class="icon">
+                                    <div class="search" >
+                                        <input type="search" placeholder="Search...">
+                                        <button type="submit" class="search_account"><i class='bx bx-search-alt-2'></i></button>
+                                    </div>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-plus' onclick="toggleForm()" style="cursor: pointer;"></i>
+                                </div>
+                                
+                            </div>
+                            <fieldset class="add_account">
+                                <legend>Thêm Tài Khoản</legend>
+                                <form >
+                                    <i class='bx bx-x'></i>
+                                    <div class="form_input">
+                                        <table >
+                                            <tr class="h1">
+                                                <td>Tên Người Dùng</td>
+                                                <td><input type="text" name="name" placeholder="Nhập tên của bạn" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tài Khoản</td>
+                                                <td><input type="text" name="username" placeholder="Nhập mật khẩu của bạn"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mật khẩu</td>
+                                                <td><input type="password" name="password" placeholder="Nhập mật khẩu ..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nhập Lại Mật Khẩu</td>
+                                                <td><input type="password" name="repassword" placeholder="Nhập lại mật khẩu ..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số Điện Thoại</td>
+                                                <td><input type="password" name="phone" placeholder="Nhập số điện thoại"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngày sinh</td>
+                                                <td><input type="date" placeholder="Nhập ngày sinh"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="gender">Giới tính</label>
+                                                </td>
+                                                <td class="hh">
+                                                    <label><input type="radio" name="gender" size="60px">Nam</label>
+                                                    <label><input type="radio" name="gender">Nữ</label>
+                                                    <label><input type="radio" name="gender">Khác</label>
+                                                </td>
+                                            </tr>
+                                            <tr class="address">
+                                                <td>Địa Chỉ</td>
+                                                <td>
+                                                    <textarea name="address" id="" rows="4" placeholder="Nhập địa chỉ"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr class="button_ac">
+                                                <td colspan="2">
+                                                    <button>Tạo tài khoản</button>
+                                                    <button type="reset">Nhập lại</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                   
+                                </form>
+                            </fieldset>
+                            <div class="info_account">
+                                <table >
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>User Name</th>
+                                            <th>Password</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Setting</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Admin</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Client</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Sales</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Sales</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Client</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Client</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <img src="" alt="">
+                                                <p>Joe</p>
+                                            </td>
+                                            <td>joe2104</td>
+                                            <td>2319210</td>
+                                            <td>0339126723</td>
+                                            <td>Client</td>
+                                            <td>Online</td>
+                                            <td>
+                                                <i class='bx bx-cog' ></i>
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
                     </div>
-                    <div>
-                        <div class="underdb3">
-                            Sale By Calegory 
-                            <div class="item-udb3">Today</div>
-                        </div>
-                        <div class="underdb3">
-                            Trending 
-                            <div class="item-udb3">Today</div>
-                        </div>
-                        <div class="underdb3">
-                            To-Do List 
-                            <div class="item-udb3">Today</div>
-                        </div>
-                    </div>
+                    
+                        
                 </div>
          </main>
         <!-- MAIN -->
