@@ -14,12 +14,8 @@ const sideBar = document.getElementById('sidebar');
 const avatar = document.querySelector('#sidebar .avatar');
 menuBar.addEventListener('click', function(){
     sideBar.classList.toggle('hide');
-    if (avatar.style.visibility === 'hidden') {
-        avatar.style.visibility = 'visible';
-    } else {
-        avatar.style.visibility = 'hidden';
-    }
-})
+    avatar.style.visibility = avatar.style.visibility === 'hidden' ? 'visible' : 'hidden';
+});
 
 if (window.innerWidth < 760) {
     sideBar.classList.add('hide');
@@ -39,11 +35,7 @@ searchButton.addEventListener('click', function (e) {
     if (window.innerWidth < 600) {
         e.preventDefault();
         searchForm.classList.toggle('show');
-        if (searchForm.classList.contains('show')) {
-            searchButtonIcon.classList.replace('bx-search-alt', 'bx-x-circle');
-        } else {
-            searchButtonIcon.classList.replace('bx-x-circle', 'bx-search-alt');
-        }
+        searchButtonIcon.classList.replace(searchForm.classList.contains('show') ? 'bx-search-alt' : 'bx-x-circle', searchForm.classList.contains('show') ? 'bx-x-circle' : 'bx-search-alt');
     }
 });
 
@@ -52,7 +44,7 @@ const AccountManager = document.querySelector('#account_manager');
 const OrderManager = document.querySelector('#order_manager');
 
 AccountManager.style.display = 'none';
-OrderManager.style.display = 'none'; 
+OrderManager.style.display = 'none';
 Dashboard.style.display = 'block';
 
 function showDashboard(event) {
@@ -100,7 +92,6 @@ let currentEditingOrderId = null;
 let currentPage = 1;
 const ordersPerPage = 8;
 
-// Hàm tải và hiển thị đơn hàng từ localStorage
 function loadOrdersFromLocalStorage() {
     const orders = JSON.parse(localStorage.getItem('orders')) || [];
     orders.forEach(order => addOrderToTable(order));
@@ -157,7 +148,7 @@ function updatePagination(totalOrders) {
     for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement('button');
         pageBtn.innerText = i;
-        pageBtn.classList.toggle('current', i === currentPage); // Thêm lớp current nếu đây là trang hiện tại
+        pageBtn.classList.toggle('current', i === currentPage);
         pageBtn.addEventListener('click', function () {
             currentPage = i;
             updateOrderTable();
@@ -214,6 +205,7 @@ function addOrderToTable(order) {
         <td>
             <button class="edit-order">Sửa</button>
             <button class="delete-order">Xóa</button>
+            <button class="detail-order">Chi tiết</button>
         </td>
     `;
     orderTableBody.appendChild(row);
@@ -235,7 +227,30 @@ function addOrderToTable(order) {
         document.getElementById('totalAmount').value = order.totalAmount;
         orderModal.style.display = 'flex';
     });
+
+    row.querySelector('.detail-order').addEventListener('click', function () {
+        document.getElementById('detailOrderId').innerText = `Mã đơn: ${order.orderId}`;
+        document.getElementById('detailCustomerName').innerText = `Khách hàng: ${order.customerName}`;
+        document.getElementById('detailOrderDate').innerText = `Ngày đặt: ${order.orderDate}`;
+        document.getElementById('detailOrderStatus').innerText = `Trạng thái: ${order.orderStatus}`;
+        document.getElementById('detailTotalAmount').innerText = `Tổng tiền: ${order.totalAmount}`;
+        document.getElementById('detailPhone').innerText = `Điện thoại: ${order.phone}`;
+        document.getElementById('detailAddress').innerText = `Địa chỉ: ${order.address}`;
+        
+        // Hiển thị hình ảnh sản phẩm nếu có
+        const productImage = document.getElementById('productImage');
+        productImage.src = order.productImage || ''; // Giả định `order.productImage` chứa đường dẫn đến hình ảnh
+        productImage.style.display = order.productImage ? 'block' : 'none'; // Hiển thị hoặc ẩn hình ảnh
+
+        document.getElementById('orderDetailModal').style.display = 'flex';
+    });
 }
+
+
+// Đóng modal chi tiết đơn hàng
+document.getElementById('closeDetailModal').addEventListener('click', function () {
+    document.getElementById('orderDetailModal').style.display = 'none';
+});
 
 // Tìm kiếm đơn hàng
 function performSearch() {

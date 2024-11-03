@@ -477,26 +477,26 @@ button{
 	color: var(--black);
 }
 
-#order_manager .table_data > div,
+
 #account_manager .table_data > div{
     border-radius: 20px;
     background: var(--light);
     padding: 40px;
 }
 
-#order_manager .table_data .user,
+
 #account_manager .table_data .user{
     flex-basis: calc(100% - 24px);
 }
 
-#order_manager .table_data .user .top,
+
 #account_manager .table_data .user .top {
     font-size: 24px;
     display: flex;
     padding-bottom: 20px;
     position: relative;
 }
-#order_manager .table_data .user .top .icon,
+
 #account_manager .table_data .user .top .icon{
     position: absolute;
     right: 20px;
@@ -534,7 +534,7 @@ button{
     cursor: pointer;
 
 }
-#order_manager .table_data .user .top .icon .bx.bx-filter,
+
 #account_manager .table_data .user .top .icon .bx.bx-filter{
     cursor: pointer;
     margin-left: 15px;
@@ -571,21 +571,33 @@ button{
     margin: 10px;
 }
 
+
+#order_manager .table_data{
+    background-color: var(--light);
+    border-radius: 10px;
+    padding: 15px 0 10px 15px;
+}
+#order_manager .table_data .user .top{
+    position: relative;
+}
+#order_manager .table_data .user .top .text {
+    font-size: 24pt;
+    margin-left: 10px;
+    font-weight: bold;
+}
 #order_manager .table_data .user .top .icon {
     display: flex;
     align-items: center;
     gap: 10px; 
+    position: absolute;
+    top: 40px;
+    right: 10px;
 }
 
 
 #order_manager .table_data .user .top .icon .bx.bx-filter {
     font-size: 24px; 
     margin-left: 10px;     
-}
-#order_manager .table_data .user .top .icon {
-    display: flex;
-    align-items: center; 
-    gap: 10px; 
 }
 
 #order_manager .table_data .user .top .icon .search {
@@ -638,6 +650,7 @@ button{
 #order_manager .table_data .user table {
     width: 100%;
     border-collapse: collapse; 
+    margin-top: 50px;
 }
 
 #order_manager .table_data .user table th,
@@ -692,13 +705,13 @@ button{
 #order_manager .table_data .user table td:nth-child(6) {
     width: 20%; /* Chiều rộng cho Hành động */
 }
-.edit-order, .delete-order, #addOrderBtn{
+.edit-order, .delete-order, .detail-order, #addOrderBtn{
     padding: 5px ;
     background-color: var(--orange);
     color: var(--light);
     margin: 5px;
 }
-.edit-order:hover, .delete-order:hover, #addOrderBtn:hover{
+.edit-order:hover, .delete-order:hover, .detail-order:hover, #addOrderBtn:hover{
     background-color: var(--blue);
 }
 
@@ -741,7 +754,6 @@ button{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); 
-    display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000; 
@@ -753,7 +765,7 @@ button{
     padding: 20px;
     border-radius: 8px;
     width: 400px;
-    max-width: 90%;
+    max-width: 80%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
     animation: fadeIn 0.4s ease;
@@ -785,7 +797,7 @@ button{
     border: none;
     font-size: 20px;
     font-weight: bold;
-    color: var(--black);
+    color: var(--orange);
     position: absolute;
     right: 20px;
     top: 15px;
@@ -794,7 +806,7 @@ button{
 }
 
 #closeModal:hover {
-    color: var(--orange);
+    color: var(--blue);
 }
 
 /* Các trường nhập liệu */
@@ -824,3 +836,112 @@ button{
 #orderModal .modal-content button[type="submit"]:hover {
     background-color: var(--blue);
 }
+/* CSS cho modal hiển thị chi tiết đơn hàng */
+#orderDetailModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Làm mờ nền khi mở modal */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--light);
+    padding: 30px;
+    border-radius: 10px;
+    width: 700px;
+    max-width: 80%;
+    max-height: 80%; 
+    text-align: left;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    position: relative;
+    color: var(--black);
+    overflow-y: auto; 
+}
+
+.modal-content h2 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--orange);
+    text-align: center;
+}
+
+.modal-content p {
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.modal-content p span {
+    font-weight: bold;
+    color: var(--black);
+}
+
+/* Nút đóng modal */
+.modal-content #closeDetailModal {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 16pt;
+    cursor: pointer;
+    color: var(--orange);
+    transition: color 0.3s;
+}
+
+.modal-content #closeDetailModal:hover {
+    color: var(--blue);
+}
+
+/* Container cho 2 cột */
+.detail-columns {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+
+.detail-column {
+    width: calc(50% - 0px);
+}
+
+.modal-content img {
+    width: 100%;
+    max-width: 100px;
+    margin-top: 15px;
+}
+
+
+/* Điều chỉnh trang */
+@media only screen and (max-width: 768px) {
+    #order_manager .table_data .user .top .icon .search input{
+        width: 150px;
+    }
+    .detail-columns {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    .detail-column {
+        width: calc(100% - 0px);
+    }
+    
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+    
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    
+}
+
