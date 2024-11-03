@@ -283,3 +283,141 @@ document.querySelector('#order_manager .top input[type="search"]').addEventListe
 
 statusFilter.addEventListener('change', performSearch);
 window.addEventListener('load', loadOrdersFromLocalStorage);
+// PRODUCT
+const Product=document.querySelector('.product-container');
+Product.style.display = 'none';
+const Category=document.querySelector('.category-container');
+Category.style.display = 'none';
+document.querySelector('.jsFilter').addEventListener('click',function(){
+  document.querySelector('.filter-menu').classList.toggle('active');
+});
+document.querySelector('.grid').addEventListener('click',function(){
+  document.querySelector('.list').classList.remove('active');
+  document.querySelector('.grid').classList.add('active');
+  document.querySelector('.products-area-wrapper').classList.remove('tableView');
+  document.querySelector('.products-area-wrapper').classList.add('gridView');
+});
+document.querySelector('.list').addEventListener('click',function(){
+  document.querySelector('.list').classList.add('action');
+  document.querySelector('.grid').classList.remove('action');
+  document.querySelector('.products-area-wrapper').classList.remove('gridView');
+  document.querySelector('.products-area-wrapper').classList.add('tableView');
+});
+function toggleAddProductForm(){
+  const form=document.getElementById('addProductForm');
+  form.style.display=form.style.display==='block' ? 'none':'block';
+}
+document.querySelector('.product-content-headerButton').addEventListener('click',toggleAddProductForm);
+const ProductSeseion=document.querySelector('.product-container');
+const CategorySesseion=document.querySelector('.category-container');
+function showProductSection(event) {
+  const selectedItem = event.currentTarget.id;
+  if (selectedItem === 'product') {
+    ProductSeseion.style.display='block';
+    CategorySesseion.style.display='none';
+    AccountManager.style.display = 'none';
+    OrderManager.style.display = 'none';
+    Dashboard.style.display = 'none';
+  } else {
+    ProductSeseion.style.display='none'; 
+  }
+}
+allSideMenu.forEach((item,) => {
+  item.addEventListener('click', showProductSection);
+});
+function showCategorySession(event){
+  const selectedItem = event.currentTarget.id;
+  if(selectedItem==='category'){
+    CategorySesseion.style.display='block';
+    ProductSeseion.style.display='none';
+    AccountManager.style.display = 'none';
+    OrderManager.style.display = 'none';
+    Dashboard.style.display = 'none';
+  }else{
+    CategorySesseion.style.display='none';
+  }
+}
+allSideMenu.forEach(item =>{
+  item.addEventListener('click',showCategorySession);
+});
+const TotalPages=document.querySelectorAll('.products-page').length;
+function navigateToPage(action){
+  if(action==='first')
+    currentPage=1;
+  else if(action === 'last')
+    currentPage=TotalPages;
+  else if(action === 'prev' && currentPage > 1)
+    currentPage--;
+  else if(action === 'next' && currentPage < TotalPages)
+    currentPage++;
+  else if(typeof(action) === 'number')  
+    currentPage=action;
+  updatePaginationDisplay();
+}
+function updatePaginationDisplay(){
+  Array.from(document.querySelectorAll('.products-page')).forEach((page,index)=>{
+    page.style.display= index === (currentPage-1) ? 'block' : 'none';
+  });
+  const PageButtons=document.querySelector('.page-numbers');
+  PageButtons.innerHTML='';
+  createButton(1,PageButtons);
+  if(currentPage > 3){
+    const ellipsis=document.createElement('span');
+    ellipsis.textContent='...';
+    PageButtons.appendChild(ellipsis);
+  }
+  const startPage=Math.max(2,currentPage-2);
+  const endPage=Math.min(TotalPages-1,currentPage+2);
+  for(let i=startPage;i<=endPage;i++)
+    createButton(i,PageButtons);
+  if(currentPage < TotalPages-2){
+    const ellipsis=document.createElement('span');
+    ellipsis.textContent='...';
+    PageButtons.appendChild(ellipsis);
+  }
+  if(TotalPages>1)
+    createButton(TotalPages,PageButtons);
+  document.querySelector('.pagination button[onclick="navigateToPage(\'prev\')"]').disabled=currentPage===1;
+  document.querySelector('.pagination button[onclick="navigateToPage(\'next\')"]').disabled=currentPage===TotalPages;
+}
+function createButton(PageNumber,container){
+  const button=document.createElement('button');
+  button.textContent=PageNumber;
+  button.onclick= () => navigateToPage(PageNumber);
+  button.classList.toggle('active',PageNumber === currentPage);
+  container.appendChild(button);
+}
+updatePaginationDisplay();
+// PRODUCT
+//CATEGORY
+
+function toggleCategoryForm() {
+  const form = document.getElementById('categoryForm');
+  form.style.display = form.style.display === 'block' ? 'none' : 'block';
+}
+function resetForm() {
+  document.getElementById('categoryName').value = '';
+  document.getElementById('description').value = '';
+}
+function submitCategory() {
+  const categoryName = document.getElementById('categoryName').value;
+  const description = document.getElementById('description').value;
+  
+  if (categoryName.trim()) {
+      console.log('Tên Loại:', categoryName);
+      console.log('Mô Tả:', description);
+      resetForm();
+      toggleCategoryForm();
+  } else {
+      alert('Vui lòng nhập tên loại!');
+  }
+}
+
+function cancelCategory() {
+  resetForm(); 
+  toggleCategoryForm(); 
+}
+function toggleAddCategoryForm(){
+  const form=document.getElementById('addCategoryForm');
+  form.style.display=form.style.display==='block' ? 'none':'block';
+}
