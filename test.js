@@ -169,7 +169,6 @@ function renderProducts() {
                 </div>
                 <div class="info-product">
                     <h3 class="name-product">${product.name}</h3>
-                    <h3 class="details-product">${product.description}</h3>
                     <div class="bottom-product">
                         <h3 class="price-product">${product.price}</h3>
                         <button class="btn">

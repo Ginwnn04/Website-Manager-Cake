@@ -27,6 +27,10 @@ main {
     background-color: var(--background-color);
 }
 
+.container {
+    max-width: 1130px;
+    margin: 0 auto;
+}
 /* Dùng chung */
 
 .btn {
@@ -44,12 +48,8 @@ main {
 /* Header */
 
 #header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 85px;
-    align-items: center;
     background-color: var(--background-color);
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .header-left {
@@ -57,8 +57,8 @@ main {
     align-items: center;
 }
 
-.header-left .logo img {
-    width: 100px;
+.header-left .logo {
+    width: 80px;
     height: auto;
 }
 
@@ -67,13 +67,13 @@ main {
 }
 
 .header-left .hotline span {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     color: #333;
 }
 
 .header-left .hotline p {
-    margin: 0;
+    font-size: 16px;
     color: #999;
 }
 
@@ -84,30 +84,85 @@ main {
     gap: 60x;
 }
 
-.header-center .btn-nav-header {
+.header-center .search {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-center .search .search-txt {
+    border-radius: 30px;
+    line-height: 37px;
+    padding: 0 48px;
+    width: 350px;
+    border: none;
+    background-color: #f0f0f0; 
+    cursor: text;
+}
+
+.header-center .search .search-txt:focus {
+    outline: none;
+}
+
+.header-center .search .search-icon {
+    line-height: 37px;
+    font-weight: 600;
+    position: absolute;
+    left: 20px;
+}
+
+.header-center .search .filter-products {
+    background-color: var(--primary-color);
+    width: 75px;
+    height: 30px;
+    border: none;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    border-radius: 30px;
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+
+
+
+.nav-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.navbar {
+    line-height: 37px;
+    margin: 5px auto;
+}
+
+.navbar .btn-nav-header {
     background-color: var(--white-color);
     color: #000;
     position: relative;
     font-weight: 550;
 }
 
-.header-center .btn-nav-header:hover {
+.navbar .btn-nav-header:hover {
     color: var(--primary-color);
 }
 
-.header-center .btn-nav-header::after {
+.navbar .btn-nav-header::after {
     position: absolute;
     content: "";
     width: 0;
     height: 2px;
     background-color: var(--primary-color);
     bottom: 0;
-    left: 0;
-    transition: width 0.4s ease;
+    left: 50%;
+    transition: 0.4s ease;
+    transform: translate(-50%);
 }
 
-.header-center .btn-nav-header:hover::after {
-    width: 100%; /* Khi hover sẽ mở rộng ra 100% */
+.navbar .btn-nav-header:hover::after {
+    width: 80%; 
 }
 
 .header-right {
@@ -128,12 +183,6 @@ main {
 .login-btn:hover {
     background-color: #ddd;
     
-}
-
-
-.navbar {
-    line-height: 37px;
-    margin: 15px auto;
 }
 
 
@@ -359,9 +408,6 @@ main {
 
 
 /* Main content */
-.container {
-    margin: 32px 0;
-}
 
 .title {
     font-size: 20px;
@@ -382,8 +428,8 @@ main {
 }
 
 .product-item {
-    margin: 15px 0 15px 30px;
-    width: calc(100% / 5 - 30px - 2px);
+    margin: 0px 0 10px 10px;
+    width: calc(100% / 5 - 10px);
     background-color: var(--white-color);
     border-radius: 12px;
     box-shadow: 0px 6px 34px rgba(215, 216, 222, 0.41);
@@ -407,7 +453,7 @@ main {
 
 .product-item .name-product,
 .product-item .price-product  {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 550;
 }
 
@@ -415,12 +461,6 @@ main {
     min-height: 40px;
 }
 
-.product-item .details-product {
-    font-size: 16px;
-    color: var(--grey-color);
-    margin-top: 10px;
-    min-height: 70px;
-}
 
 .product-item .bottom-product {
     display: flex;

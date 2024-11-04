@@ -11,142 +11,159 @@
 </head>
 
 <body>
-    <main>
-        <header id="header">
-            <div class="header-left">
-                <div class="logo">
-                    <img src="./assets/img/logo_black.png" alt="Bakery Logo">
+    <header id="header">
+        <div class="container">
+            <div class="nav-top">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="./assets/img/logo_black.png" alt="Bakery Logo">
+                    </div>
+                    <div class="hotline">
+                        <span>19002660</span>
+                        <p>Hotline đặt hàng</p>
+                    </div>
                 </div>
-                <div class="hotline">
-                    <span>19002660</span>
-                    <p>Hotline đặt hàng</p>
+                <div class="header-center">
+                    <div class="search">
+                        <input class="search-txt" type="text" placeholder="Tìm kiếm sản phẩm">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <button class="filter-products">
+                            <i class="fa-solid fa-filter filter-icon"></i>
+                            <span>Lọc</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="header-center">
-                <div class="search">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm">
-                    <button>
-                        <i class="fas fa-search"></i>
+                <div class="header-right">
+                    <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
+                    <button class="btn">
+                        <i class="fas fa-shopping-cart"></i> Giỏ hàng
                     </button>
                 </div>
             </div>
-            <div class="header-right">
-                <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
-                <button class="btn">
-                    <i class="fas fa-shopping-cart"></i> Giỏ hàng
-                </button>
-            </div>
-        </header>
+        </div>
+    </header>
+    <div class="container">
         <nav class="navbar">
-            <a id="header-home" class="btn btn-nav-header" href="#!">Trang chủ</a>
-            <a class=" btn btn-nav-header" href="#!"">Toasts</a>
-            <a id="header-introduct" class="btn btn-nav-header" href="#!">Dry cakes</a>
-            <a id="header-news" class="btn btn-nav-header" href="#!">Buns</a>
-            <a id="header-contact" class="btn btn-nav-header" href="#!">Cakes</a>
-            <a id="header-contact" class="btn btn-nav-header" href="#!">Cookies</a>
+            <a class="btn btn-nav-header" href="#!">Trang chủ</a>
+            <a class=" btn btn-nav-header" href="#!">Toasts</a>
+            <a class="btn btn-nav-header" href="#!">Dry cakes</a>
+            <a class="btn btn-nav-header" href="#!">Buns</a>
+            <a class="btn btn-nav-header" href="#!">Cakes</a>
+            <a class="btn btn-nav-header" href="#!">Cookies</a>
+            <a class="btn btn-nav-header" href="#!">Buns</a>
+            <a class="btn btn-nav-header" href="#!">Cakes</a>
+            <a class="btn btn-nav-header" href="#!">Cookies</a>
 
         </nav>
-        <div id="main-content">
-            <div id="page-home">
-                <div class="banner">
-                    <div class="banner-slide">
-                        <img src="./assets/img/banner1.png" alt="Quảng cáo 1" class="fade">
-                        <img src="./assets/img/banner2.jpg" alt="Quảng cáo 2" class="fade">
-                        <img src="./assets/img/banner3.png" alt="Quảng cáo 3" class="fade">
+    </div>
+    <main>
+        <div class="container">
+            <div id="main-content">
+                <div id="page-home">
+                    <div class="banner">
+                        <div class="banner-slide">
+                            <img src="./assets/img/banner1.png" alt="Quảng cáo 1" class="fade">
+                            <img src="./assets/img/banner2.jpg" alt="Quảng cáo 2" class="fade">
+                            <img src="./assets/img/banner3.png" alt="Quảng cáo 3" class="fade">
+                        </div>
+                        <div class="banner-controls">
+                            <button class="prev" onclick="prevSlide()">&#10094;</button>
+                            <button class="next" onclick="nextSlide()">&#10095;</button>
+                        </div>
+                        <div class="dots">
+                            <span class="dot active" onclick="showSlide(0)"></span>
+                            <span class="dot" onclick="showSlide(1)"></span>
+                            <span class="dot" onclick="showSlide(2)"></span>
+                        </div>
                     </div>
-                    <div class="banner-controls">
-                        <button class="prev" onclick="prevSlide()">&#10094;</button>
-                        <button class="next" onclick="nextSlide()">&#10095;</button>
-                    </div>
-                    <div class="dots">
-                        <span class="dot active" onclick="showSlide(0)"></span>
-                        <span class="dot" onclick="showSlide(1)"></span>
-                        <span class="dot" onclick="showSlide(2)"></span>
-                    </div>
-                </div>
 
-                <div class="container">
-                    <h2 class="title">Khám phá thực đơn của chúng tôi</h2>
-                    <div class="content">
-                        <div class="list-product">
+                    <div class="product-content">
+                        <h2 class="title">Khám phá thực đơn của chúng tôi</h2>
+                        <div class="content">
+                            <div class="list-product">
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thong diep -->
+                    <div class="thongDiep">
+                        <div class="td_item">
+                            <h4>AN TOÀN THỰC PHẨM</h4>
+                            <i class="fa-solid fa-shield"></i>
+                            <p>Với phương châm "Chất lượng làm nên uy tín", chúng tôi luôn nỗ lực để tạo ra những sản
+                                phẩm
+                                không
+                                chỉ
+                                ngon mà còn an toàn cho sức khỏe người tiêu dùng.</p>
+                        </div>
+                        <div class="td_item">
+                            <h4>NGUYÊN LIỆU</h4>
+                            <i class="fa-solid fa-cake-candles"></i>
+                            <p>Chúng tôi luôn ưu tiên sử dụng các nguyên liệu sạch, tự nhiên và có nguồn gốc rõ ràng để
+                                tạo
+                                ra
+                                những
+                                chiếc bánh thơm ngon nhất.</p>
+                        </div>
+                        <div class="td_item">
+                            <h4>GIAO HÀNG NHANH</h4>
+                            <i class="fa-sharp fa-solid fa-truck-fast"></i>
+                            <p>Đóng gói cẩn thận và đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng. Giao hàng trên
+                                nhiều
+                                khu
+                                vực
+                                và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Thong diep -->
-                <div class="thongDiep">
-                    <div class="td_item">
-                        <h4>AN TOÀN THỰC PHẨM</h4>
-                        <i class="fa-solid fa-shield"></i>
-                        <p>Với phương châm "Chất lượng làm nên uy tín", chúng tôi luôn nỗ lực để tạo ra những sản phẩm
-                            không
-                            chỉ
-                            ngon mà còn an toàn cho sức khỏe người tiêu dùng.</p>
-                    </div>
-                    <div class="td_item">
-                        <h4>NGUYÊN LIỆU</h4>
-                        <i class="fa-solid fa-cake-candles"></i>
-                        <p>Chúng tôi luôn ưu tiên sử dụng các nguyên liệu sạch, tự nhiên và có nguồn gốc rõ ràng để tạo
-                            ra
-                            những
-                            chiếc bánh thơm ngon nhất.</p>
-                    </div>
-                    <div class="td_item">
-                        <h4>GIAO HÀNG NHANH</h4>
-                        <i class="fa-sharp fa-solid fa-truck-fast"></i>
-                        <p>Đóng gói cẩn thận và đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng. Giao hàng trên nhiều
-                            khu
-                            vực
-                            và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.</p>
-                    </div>
+            </div>
+
+            <!-- Footer -->
+            <div id="footer">
+                <div class="footer_item">
+                    <h4>GIỚI THIỆU</h4>
+                    <p>Celeste Bakery là thương hiệu bánh ngọt mang phong cách châu Âu, chuyên cung cấp những chiếc bánh
+                        được làm từ nguyên liệu tươi ngon nhất với phương pháp làm bánh thủ công. Chúng tôi tin rằng mỗi
+                        chiếc bánh không chỉ là một món ăn mà còn là sự sẻ chia niềm vui và hạnh phúc, với hy vọng mang
+                        đến
+                        cho bạn những trải nghiệm ngọt ngào và tinh tế nhất trong từng hương vị.</p>
                 </div>
-            </div>
 
-
-        </div>
-
-        <!-- Footer -->
-        <div id="footer">
-            <div class="footer_item">
-                <h4>GIỚI THIỆU</h4>
-                <p>Celeste Bakery là thương hiệu bánh ngọt mang phong cách châu Âu, chuyên cung cấp những chiếc bánh
-                    được làm từ nguyên liệu tươi ngon nhất với phương pháp làm bánh thủ công. Chúng tôi tin rằng mỗi
-                    chiếc bánh không chỉ là một món ăn mà còn là sự sẻ chia niềm vui và hạnh phúc, với hy vọng mang đến
-                    cho bạn những trải nghiệm ngọt ngào và tinh tế nhất trong từng hương vị.</p>
-            </div>
-
-            <div class="footer_item">
-                <h4>DANH MỤC</h4>
-                <ul class="list_menu">
-                    <li><a href=""></a>Trang chủ</li>
-                    <li><a href=""></a>Bánh sinh nhật</li>
-                    <li><a href=""></a>Bánh ngọt</li>
-                    <li><a href=""></a>Bánh mì</li>
-                    <li><a href=""></a>Bánh quy khô</li>
-                </ul>
-            </div>
-
-            <div class="footer_item">
-                <h4>THÔNG TIN</h4>
-                <ul>
-                    <li>Địa chỉ: 273 An Dương Vương, Phường 3, Quận 5, TP.HCM</li>
-                    <li>Điện thoại: (84 - 28) 38.354409 - 38.352309</li>
-                    <li>Email: daihocsaigon@sgu.edu.vn</li>
-                </ul>
-            </div>
-
-            <div class="footer_item">
-                <h4>THEO DÕI CHÚNG TÔI</h4>
-                <div class="follow">
-                    <a href="">
-                        <i class="fa-brands fa-square-facebook"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa-brands fa-square-instagram"></i>
-                    </a>
+                <div class="footer_item">
+                    <h4>DANH MỤC</h4>
+                    <ul class="list_menu">
+                        <li><a href=""></a>Trang chủ</li>
+                        <li><a href=""></a>Bánh sinh nhật</li>
+                        <li><a href=""></a>Bánh ngọt</li>
+                        <li><a href=""></a>Bánh mì</li>
+                        <li><a href=""></a>Bánh quy khô</li>
+                    </ul>
                 </div>
-                <img src="./assets/img/logo_black.png" alt="Celeste Bakery Logo">
+
+                <div class="footer_item">
+                    <h4>THÔNG TIN</h4>
+                    <ul>
+                        <li>Địa chỉ: 273 An Dương Vương, Phường 3, Quận 5, TP.HCM</li>
+                        <li>Điện thoại: (84 - 28) 38.354409 - 38.352309</li>
+                        <li>Email: daihocsaigon@sgu.edu.vn</li>
+                    </ul>
+                </div>
+
+                <div class="footer_item">
+                    <h4>THEO DÕI CHÚNG TÔI</h4>
+                    <div class="follow">
+                        <a href="">
+                            <i class="fa-brands fa-square-facebook"></i>
+                        </a>
+                        <a href="">
+                            <i class="fa-brands fa-square-instagram"></i>
+                        </a>
+                    </div>
+                    <img src="./assets/img/logo_black.png" alt="Celeste Bakery Logo">
+                </div>
             </div>
         </div>
     </main>
@@ -195,7 +212,7 @@
             <button type="submit" class="btn">Xác thực tài khoản</button>
         </form>
     </div>
-    
+
 
 
 
