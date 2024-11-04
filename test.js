@@ -1,35 +1,3 @@
-btnHeader = document.querySelectorAll('.btn-nav-header');
-btnHeader.forEach(btn => {
-    btn.addEventListener("click", function () {
-        hiddenAllContent();
-        switch (btn.id) {
-            case 'header-home':
-                document.getElementById('page-home').style.display = 'block';
-                break;
-            case 'header-introduct':
-                document.getElementById('page-introduct').style.display = 'block';
-
-                break;
-            case 'header-news':
-                document.getElementById('page-news').style.display = 'block';
-
-                break;
-            case 'header-contact':
-                document.getElementById('page-contact').style.display = 'block';
-
-                break;
-        }
-    });
-});
-
-function hiddenAllContent() {
-    const content = document.getElementById('main-content').children;
-    [...content].forEach(x => {
-        x.style.display = 'none';
-    });
-}
-
-
 const products = [
     {
         "name": "Banana Chocolate",
@@ -188,16 +156,7 @@ const products = [
     // Thêm sản phẩm khác...
 ];
 
-const categories = [
-    { "name": "Toatst" },
-    { "name": "Dry cakes"},
-    { "name": "Buns" },
-    { "name": "Cakes" },
-    { "name": "Cookies" }
-];
-
 const productContainer = document.getElementsByClassName("list-product")[0];
-
 function renderProducts() {
     productContainer.innerHTML = "";
     products.forEach(product => {
@@ -224,48 +183,5 @@ function renderProducts() {
     });
 }
 
-function renderCategories() {
-    const categoryContainer = document.getElementsByClassName("list-category")[0];
-    categories.forEach(category => {
-        const categoryItem = document.createElement("li");
-        categoryItem.innerHTML = `
-            <button class="btn btn-nav-category">${category.name}</button>
-        `;
-        categoryContainer.appendChild(categoryItem);
-    });
-}
 renderProducts();
-renderCategories();
 
-const listBtnCategory = document.querySelectorAll('.list-category .btn-nav-category');
-let s = new Array();
-listBtnCategory.forEach(btn => {
-    btn.addEventListener("click",() => {
-        if (btn.classList.contains('active')) {
-            btn.classList.remove('active');
-            let pos;
-            s.forEach((item, index) => { 
-                if (item === btn.textContent) {
-                    pos = index;
-                    return;
-                }
-            });
-            s.splice(pos, 1);
-        }
-        else {
-            btn.classList.add('active');
-            s.push(btn.textContent);
-        }        
-    });
-});
-
-
-const listBtnSort = document.querySelectorAll('.list-sort .btn-nav-category');
-listBtnSort.forEach(btn => {
-    btn.addEventListener("click",() => {
-        listBtnSort.forEach(btn => {
-            btn.classList.remove('active');
-        });
-        btn.classList.add('active');
-    });
-});

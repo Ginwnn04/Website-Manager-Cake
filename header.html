@@ -23,13 +23,12 @@
                 </div>
             </div>
             <div class="header-center">
-                <nav class="navbar">
-                    <a id="header-home" class="btn btn-nav-header" href="#">Trang chủ</a>
-                    <a class="btn btn-nav-header" href="javascript:void(0);" onclick="showGallery()">Gallery</a>
-                    <a id="header-introduct" class="btn btn-nav-header" href="#">Giới thiệu</a>
-                    <a id="header-news" class="btn btn-nav-header" href="#">Tin tức & Khuyến mãi</a>
-                    <a id="header-contact" class="btn btn-nav-header" href="#">Liên hệ</a>
-                </nav>
+                <div class="search">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
             <div class="header-right">
                 <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
@@ -38,7 +37,15 @@
                 </button>
             </div>
         </header>
+        <nav class="navbar">
+            <a id="header-home" class="btn btn-nav-header" href="#!">Trang chủ</a>
+            <a class=" btn btn-nav-header" href="#!"">Toasts</a>
+            <a id="header-introduct" class="btn btn-nav-header" href="#!">Dry cakes</a>
+            <a id="header-news" class="btn btn-nav-header" href="#!">Buns</a>
+            <a id="header-contact" class="btn btn-nav-header" href="#!">Cakes</a>
+            <a id="header-contact" class="btn btn-nav-header" href="#!">Cookies</a>
 
+        </nav>
         <div id="main-content">
             <div id="page-home">
                 <div class="banner">
@@ -59,34 +66,7 @@
                 </div>
 
                 <div class="container">
-                    <div class="nav-bar">
-                        <h3 class="category">Loại bánh</h3>
-                        <div class="btn-select">
-                            <ul class="list-category">
-
-                            </ul>
-                        </div>
-                        <h3 class="category">Sắp xếp theo</h3>
-                        <div class="btn-select">
-                            <ul class="list-sort">
-                                <li>
-                                    <button class="btn btn-nav-category">
-                                        <i class="fa-solid fa-arrow-down-short-wide"></i>
-                                        Tăng dần
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="btn btn-nav-category">
-                                        <i class="fa-solid fa-arrow-down-wide-short"></i>
-                                        Giảm dần
-                                    </button>
-
-                                </li>
-                            </ul>
-
-
-                        </div>
-                    </div>
+                    <h2 class="title">Khám phá thực đơn của chúng tôi</h2>
                     <div class="content">
                         <div class="list-product">
 
@@ -123,17 +103,6 @@
                 </div>
             </div>
 
-            <div id="page-introduct" style="display: none;">
-                <h1>Đây là trang giới thiệu</h1>
-            </div>
-
-            <div id="page-contact" style="display: none;">
-                <h1>Đây là trang liên hệ</h1>
-            </div>
-
-            <div id="page-news" style="display: none;">
-                <h1>Đây là trang tin tức</h1>
-            </div>
 
         </div>
 
@@ -182,6 +151,7 @@
         </div>
     </main>
 
+
     <!--Form đăng nhập-->
     <div class="form-popup" id="loginForm">
         <form class="form-container">
@@ -225,21 +195,12 @@
             <button type="submit" class="btn">Xác thực tài khoản</button>
         </form>
     </div>
-
-    <!-- Bộ sưu tập hình ảnh -->
-    <div class="gallery-container" style="display:none;">
-        <h1>Bộ sưu tập</h1>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="./assets/img/gallery2.jpg" alt="Image 1"></div>
-            <div class="gallery-item"><img src="./assets/img/gallery1.jpg" alt="Image 2"></div>
-            <div class="gallery-item"><img src="./assets/img/gallery3.jpg" alt="Image 3"></div>
-
-        </div>
-    </div>
+    
 
 
 
     <script>
+        // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
         function openForm(formId) {
             document.getElementById("loginForm").style.display = "none";
             document.getElementById("signupForm").style.display = "none";
@@ -247,19 +208,44 @@
             document.getElementById(formId).style.display = "block";
         }
 
+        // Hàm đóng form
         function closeForm(formId) {
             document.getElementById(formId).style.display = "none";
         }
 
-        // Hiển thị Gallery
+        // Hàm hiển thị Gallery
         function showGallery() {
+            // Hiển thị trang bộ sưu tập
             document.querySelector('.gallery-container').style.display = 'block';
+
+            // Ẩn phần giới thiệu
+            document.getElementById('aboutSection').style.display = 'none';
+
+            // Cuộn tới trang bộ sưu tập
+            document.getElementById("gallerySection").scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Hàm ẩn Gallery khi nhấn vào các mục khác
+        function hideGallery() {
+            document.querySelector('.gallery-container').style.display = 'none';
+        }
+
+        // Hàm hiển thị phần giới thiệu
+        function showAbout() {
+            // Ẩn Gallery
+            hideGallery();
+            // Hiển thị phần giới thiệu
+            document.getElementById('aboutSection').style.display = 'block';
+            // Cuộn tới phần giới thiệu
+            document.getElementById("aboutSection").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Khai báo slide show
         let currentIndex = 0;
         const slides = document.querySelectorAll('.banner-slide img');
         const dots = document.querySelectorAll('.dot');
 
+        // Hàm để hiển thị slide
         function showSlide(index) {
             const prevIndex = currentIndex;
             currentIndex = (index + slides.length) % slides.length;
@@ -282,24 +268,66 @@
             });
         }
 
+        // Hàm để chuyển đến slide tiếp theo
         function nextSlide() {
             showSlide(currentIndex + 1);
         }
 
+        // Hàm để chuyển đến slide trước đó
         function prevSlide() {
             showSlide(currentIndex - 1);
         }
 
+        // Thiết lập slide show tự động
         showSlide(currentIndex);
         setInterval(nextSlide, 3000);
 
+
+        // Khởi động trang
         window.onload = function () {
+            // Ẩn tất cả các form
             document.getElementById("loginForm").style.display = "none";
             document.getElementById("signupForm").style.display = "none";
             document.getElementById("forgotPasswordForm").style.display = "none";
+
+            // Ẩn phần Gallery và Giới thiệu khi tải trang
+            hideGallery();
+            document.getElementById('aboutSection').style.display = 'none';
         };
+
+        // Khi người dùng click vào một ảnh, gọi hàm openImagePopup với URL của ảnh đó.
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function () {
+                openImagePopup(this.src);
+            });
+        });
+        // Hàm openImagePopup nhận URL hình ảnh và hiển thị nó trong cửa sổ popup
+        function openImagePopup(src) {
+            const popup = document.getElementById("imagePopup");
+            const popupImage = document.getElementById("popupImage");
+            popupImage.src = src;
+            popup.style.display = "flex"; // Hiển thị popup
+        }
+
+        // Đóng popup
+        function closeImagePopup(event) {
+            const popupImage = document.getElementById("popupImage");
+            // Kiểm tra nếu ấn bên ngoài ảnh, thì đóng popup
+            if (!popupImage.contains(event.target)) {
+                document.getElementById("imagePopup").style.display = "none";
+            }
+        }
+
+        // Thêm sự kiện cho các mục trong navbar
+        document.querySelectorAll('.navbar-item').forEach(item => {
+            item.addEventListener('click', function () {
+                hideGallery(); // Ẩn Gallery
+                document.getElementById('aboutSection').style.display = 'none'; // Ẩn Giới thiệu
+            });
+        });
     </script>
     <script src="./test.js"></script>
+
 </body>
 
 </html>

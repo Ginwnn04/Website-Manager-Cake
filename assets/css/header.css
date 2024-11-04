@@ -23,7 +23,6 @@ img {
 
 
 main {
-    width: 80%;
     margin: 0 auto;
     background-color: var(--background-color);
 }
@@ -47,8 +46,8 @@ main {
 #header {
     display: flex;
     justify-content: space-between;
+    padding: 0 85px;
     align-items: center;
-    /* padding: 10px 10%; */
     background-color: var(--background-color);
     border-bottom: 2px solid #ddd;
 }
@@ -129,6 +128,12 @@ main {
 .login-btn:hover {
     background-color: #ddd;
     
+}
+
+
+.navbar {
+    line-height: 37px;
+    margin: 15px auto;
 }
 
 
@@ -358,46 +363,13 @@ main {
     margin: 32px 0;
 }
 
-.nav-bar {
-
-}
-
-.category {
-    margin: 12px 0;
+.title {
+    font-size: 20px;
     font-weight: 550;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
 }
-
-.btn-select {
-    margin-left: -8px;
-}
-
-.btn-select ul {
-    list-style-type: none;
-
-}
-.btn-select ul li {
-    display: inline-block;
-    margin-left: 8px;
-}
-
-.btn-select .btn-nav-category {
-    display: inline-block;
-    background-color: var(--white-color);
-    color: #000;
-    border: 1px solid rgba(234,236,240,1);
-    box-shadow: 0px 6px 34px rgba(215, 216, 222, 0.41);
-}
-
-.btn-select .btn-nav-category:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-}
-
-.active {
-    background-color: var(--primary-color) !important; 
-    color: var(--white-color) !important;
-}
-
 
 .content {
     margin-left: -30px;
@@ -583,4 +555,22 @@ main {
     .footer_item {
         width: calc(50% - 40px);
     }
+/* Popup hình ảnh */
+.image-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.image-popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
 }
