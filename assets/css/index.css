@@ -52,7 +52,6 @@ main {
 }
 
 .show-cart {
-    visibility: visible !important;
     transform: translateX(0) !important;
 }
 
@@ -720,7 +719,6 @@ main {
     height: 90%;
     padding: 12px;
     z-index: 2;
-    visibility: hidden;
     transform: translateX(100%);
     transition: .5s ease;
 }
