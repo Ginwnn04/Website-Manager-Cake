@@ -156,13 +156,15 @@ const products = [
     // Thêm sản phẩm khác...
 ];
 
+
+
+
 const productContainer = document.getElementsByClassName("list-product")[0];
 function renderProducts() {
     productContainer.innerHTML = "";
     products.forEach(product => {
         const productItem = document.createElement("div");
             productItem.classList.add("product-item");
-
             productItem.innerHTML = `
                 <div class="img-product">
                     <img src="${product.image}" alt="${product.name}">
@@ -186,7 +188,7 @@ renderProducts();
 
 window.addEventListener('scroll', () => {
     var navbar = document.getElementsByClassName("navbar")[0];
-    if (window.pageYOffset >= 30) {
+    if (window.pageYOffset >= 20) {
       navbar.classList.add("hide");  
       
     }
@@ -195,4 +197,21 @@ window.addEventListener('scroll', () => {
     
     }
 });
-  
+
+
+const btnCart = document.getElementsByClassName("btn-cart")[0];
+btnCart.addEventListener("click", () => {
+    const modal = document.getElementsByClassName("modal")[0];
+    const cart = document.getElementsByClassName("cart")[0];
+    modal.classList.add("show-modal");
+    cart.classList.add("show-cart");
+});
+
+const wrapper = document.getElementsByClassName("modal")[0];
+wrapper.addEventListener("click", (e) => {
+    if (e.target.classList.contains("show-modal")) {
+        wrapper.classList.remove("show-modal");
+        const cart = document.getElementsByClassName("cart")[0];
+        cart.classList.remove("show-cart");
+    }
+});
