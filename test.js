@@ -181,6 +181,18 @@ function renderProducts() {
             productContainer.appendChild(productItem);  
     });
 }
-
 renderProducts();
 
+
+window.addEventListener('scroll', () => {
+    var navbar = document.getElementsByClassName("navbar")[0];
+    if (window.pageYOffset >= 30) {
+      navbar.classList.add("hide");  
+      
+    }
+    else {
+      navbar.classList.remove("hide"); 
+    
+    }
+});
+  
