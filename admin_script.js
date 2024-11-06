@@ -283,6 +283,8 @@ document.querySelector('#order_manager .top input[type="search"]').addEventListe
 
 statusFilter.addEventListener('change', performSearch);
 window.addEventListener('load', loadOrdersFromLocalStorage);
+
+
 // PRODUCT
 const Product=document.querySelector('.product-container');
 Product.style.display = 'none';
