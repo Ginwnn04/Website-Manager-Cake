@@ -18,13 +18,13 @@
     --black:#000000;
     --purple:#838BED;
     --light_purple: #CED1E6;
-    --darkblue:#092f42;
     --product-bg: #f9f9f9;
     --product-content-secondary-color: #f3f6fd;
     --product-content-main-color: #1f1c2e;
     --action-color: #2869ff;
     --action-color-hover: #6291fd;
     --filter-reset: #2c394f;
+    --darkblue:#092f42
 }
 
 a {
@@ -40,10 +40,7 @@ body {
 html {
     overflow: hidden;
 }
-button{
-    border: none;
-    cursor: pointer;
-}
+
 
 /* SIDEBAR */
 #sidebar {
@@ -56,8 +53,8 @@ button{
     z-index: 1000; 
     transition: 2s ease;
     overflow-x: hidden;
-    height: 100vh; 
-    overflow-y: auto;
+    height: 100vh; /* Chiều cao 100% viewport */
+    overflow-y: auto; /* Thanh cuộn riêng cho sidebar nếu nội dung dài */
 }
 #sidebar.hide{
     width: 60px;
@@ -173,8 +170,8 @@ button{
     left: 280px;
     transition: 2s ease;
     top: 0;
-    height: 100vh; 
-    overflow-y: auto; 
+    height: 100vh; /* Chiều cao 100% viewport */
+    overflow-y: auto; /* Thanh cuộn dọc cho phần content */
 }
 #sidebar.hide ~ #content{
     width: calc(100% - 60px);
@@ -425,8 +422,6 @@ button{
     background: var(--light);
     color: var(--black);
 }
-
-
 #account_manager {
     overflow: hidden;
 }
@@ -473,8 +468,6 @@ button{
     color: var(--blue);
     pointer-events: unset;
 }
-
-
 #account_manager .table_data{
     display: flex;
 	flex-wrap: wrap;
@@ -483,38 +476,29 @@ button{
 	width: 100%;
 	color: var(--black);
 }
-
-
 #account_manager .table_data > div{
     border-radius: 20px;
     background: var(--light);
     padding: 40px;
 }
-
-
 #account_manager .table_data .user{
     flex-basis: calc(100% - 24px);
 }
-
-
 #account_manager .table_data .user .top {
     font-size: 24px;
     display: flex;
     padding-bottom: 20px;
     position: relative;
 }
-
 #account_manager .table_data .user .top .icon{
     position: absolute;
     right: 20px;
     height: 30px;
     display: flex;
 }
-
 #account_manager .table_data .user .top .icon .search{
     display: flex;
 }
-
 #account_manager .table_data .user .top .icon .search input{
     padding: 0 24px;
     height: 100%;
@@ -525,8 +509,6 @@ button{
     background: var(--grey);
     outline: none;
 }
-
-
 #account_manager .table_data .user .top .icon .search button{
     width: 40px;
     height: 100%;
@@ -541,37 +523,102 @@ button{
     cursor: pointer;
 
 }
-
 #account_manager .table_data .user .top .icon .bx.bx-filter{
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 #account_manager .table_data .user .top .icon .bx.bx-plus{
     cursor: pointer;
     margin-left: 20px;
 }
 
-#account_manager .table_data .user table{
+#account_manager .table_data .user .info_account table{
     width: 100%;
 }
-#account_manager .table_data .user table th{
+#account_manager .table_data .user .info_account table th{
     padding-bottom: 12px;
     font-size: 18px;
     text-align: left;
     border-bottom: 1px solid var(--black);
 }
-#account_manager .table_data .user table td{
+#account_manager .table_data .user .info_account table td{
     padding: 16px 0px;
 }
-#account_manager .table_data .user table tr td:first-child{
+#account_manager .table_data .user .info_account table tr td:first-child{
     display: flex;
     align-items: center;
 }
-#account_manager .table_data .user table .bx.bx-cog{
+#account_manager .table_data .user .info_account table .bx.bx-cog{
     cursor: pointer;
     margin-left: 20px;
 }
+/* Phần thêm account trong Quản lí tài khoản */
+.add_account{
+    border-radius: 10px;
+    background:var(--grey);
+    width: 600px;
+    height:80%;
+    position: absolute;
+    top: 120px;
+    left: 250px;
+    display: none; 
+    
+}
+.add_account legend{
+    font-size: 30px;
+    position: absolute;
+    left: 20px;
+    top: -20px;
+    z-index: 2;
+    border: 2px solid var(--grey); 
+    background: var(--grey);
+}
 
+.add_account .bx.bx-x{
+    position: absolute;
+    right: 20px;
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+    z-index: 10;
+}
+.add_account .form_input table{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 600px;
+    font-size: 24px;
+    height: 100%;
+    border-collapse: collapse;
+    /* border: #000000 2px solid; */
+}
+
+.add_account .form_input table textarea{
+    border-radius: 8px;
+    padding: 0 10px;
+    width: 80%;
+    font-size: 20px;
+}
+.add_account .form_input table input {
+    height: 40px; /* Chiều cao cho tất cả input */
+    border-radius: 8px;
+    width: 80%;
+    font-size: 20px;
+    padding: 0  10px;
+}
+.add_account .form_input table input[type="radio"] {
+    height: auto; /* Giữ nguyên chiều cao cho radio */
+    width: auto;  /* Giữ nguyên chiều rộng cho radio */
+    padding-right: 40px;   /* Đặt lại margin nếu cần */
+}
+
+.add_account .form_input .button_ac button{
+    border-radius: 8px;
+    padding: 0 5px;
+    height: 30px;
+    margin: 10px;
+    font-size: 20px;
+}
 
 /* Order Manager */
 #order_manager {
@@ -844,7 +891,6 @@ button{
     background-color: var(--blue);
 }
 /* CSS cho modal hiển thị chi tiết đơn hàng */
-/* Nền tối cho modal */
 #orderDetailModal {
     display: none;
     position: fixed;
@@ -852,28 +898,26 @@ button{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6); /* Làm mờ nền khi mở modal */
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
-/* Nội dung của modal */
 .modal-content {
     background-color: var(--light);
     padding: 30px;
     border-radius: 10px;
     width: 700px;
     max-width: 80%;
-    max-height: 80%;
+    max-height: 80%; 
     text-align: left;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng */
     position: relative;
     color: var(--black);
-    overflow-y: auto;
+    overflow-y: auto; 
 }
 
-/* Tiêu đề modal */
 .modal-content h2 {
     font-size: 24pt;
     font-weight: bold;
@@ -896,7 +940,7 @@ button{
 /* Nút đóng modal */
 .modal-content #closeDetailModal {
     position: absolute;
-    top: 10px;
+    top: 0;
     right: 10px;
     background-color: transparent;
     border: none;
@@ -910,7 +954,7 @@ button{
     color: var(--blue);
 }
 
-/* Cột chi tiết */
+/* Container cho 2 cột */
 .detail-columns {
     display: flex;
     justify-content: space-between;
@@ -918,29 +962,16 @@ button{
     margin-bottom: 15px;
 }
 
+
 .detail-column {
-    width: calc(50% - 10px);
+    width: calc(50% - 0px);
 }
 
-/* Căn giữa hình ảnh sản phẩm */
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.image-container img {
+.modal-content img {
+    width: 100%;
     max-width: 100px;
-    max-height: 100px;
-    object-fit: contain;
-    border-radius: 5px;
+    margin-top: 15px;
 }
-
-
 
 
 /* Điều chỉnh trang */

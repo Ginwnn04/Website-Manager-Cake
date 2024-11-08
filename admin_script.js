@@ -42,10 +42,14 @@ searchButton.addEventListener('click', function (e) {
 const Dashboard = document.querySelector('#dashboard');
 const AccountManager = document.querySelector('#account_manager');
 const OrderManager = document.querySelector('#order_manager');
+const ProductSeseion=document.querySelector('.product-container');
+const CategorySesseion=document.querySelector('.category-container');
 
+Dashboard.style.display = 'block';
 AccountManager.style.display = 'none';
 OrderManager.style.display = 'none';
-Dashboard.style.display = 'block';
+ProductSeseion.style.display = 'none';
+CategorySesseion.style.display = 'none';
 
 function showDashboard(event) {
     const selectedItem = event.currentTarget.id;
@@ -73,11 +77,30 @@ function showOrderManager(event) {
         OrderManager.style.display = 'none';
     }
 }
+function showProductSection(event) {
+  const selectedItem = event.currentTarget.id;
+  if (selectedItem === 'product') {
+    ProductSeseion.style.display='block';
+  } else {
+    ProductSeseion.style.display='none'; 
+  }
+}
+
+function showCategorySession(event){
+  const selectedItem = event.currentTarget.id;
+  if(selectedItem==='category'){
+    CategorySesseion.style.display='block';
+  }else{
+    CategorySesseion.style.display='none';
+  }
+}
 
 allSideMenu.forEach(item => {
     item.addEventListener('click', showAccountManager);
     item.addEventListener('click', showDashboard);
     item.addEventListener('click', showOrderManager);
+    item.addEventListener('click', showProductSection);
+    item.addEventListener('click', showCategorySession);
 });
 
 // Quản lý đơn hàng và phân trang
@@ -283,8 +306,6 @@ document.querySelector('#order_manager .top input[type="search"]').addEventListe
 
 statusFilter.addEventListener('change', performSearch);
 window.addEventListener('load', loadOrdersFromLocalStorage);
-
-
 // PRODUCT
 const Product=document.querySelector('.product-container');
 Product.style.display = 'none';
@@ -310,38 +331,7 @@ function toggleAddProductForm(){
   form.style.display=form.style.display==='block' ? 'none':'block';
 }
 document.querySelector('.product-content-headerButton').addEventListener('click',toggleAddProductForm);
-const ProductSeseion=document.querySelector('.product-container');
-const CategorySesseion=document.querySelector('.category-container');
-function showProductSection(event) {
-  const selectedItem = event.currentTarget.id;
-  if (selectedItem === 'product') {
-    ProductSeseion.style.display='block';
-    CategorySesseion.style.display='none';
-    AccountManager.style.display = 'none';
-    OrderManager.style.display = 'none';
-    Dashboard.style.display = 'none';
-  } else {
-    ProductSeseion.style.display='none'; 
-  }
-}
-allSideMenu.forEach((item,) => {
-  item.addEventListener('click', showProductSection);
-});
-function showCategorySession(event){
-  const selectedItem = event.currentTarget.id;
-  if(selectedItem==='category'){
-    CategorySesseion.style.display='block';
-    ProductSeseion.style.display='none';
-    AccountManager.style.display = 'none';
-    OrderManager.style.display = 'none';
-    Dashboard.style.display = 'none';
-  }else{
-    CategorySesseion.style.display='none';
-  }
-}
-allSideMenu.forEach(item =>{
-  item.addEventListener('click',showCategorySession);
-});
+
 const TotalPages=document.querySelectorAll('.products-page').length;
 function navigateToPage(action){
   if(action==='first')

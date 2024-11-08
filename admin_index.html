@@ -22,7 +22,7 @@
         </div>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -892,9 +892,9 @@
                         </div>
                         <select id="statusFilter">
                             <option value="all">Tất cả trạng thái</option>
-                            <option value="Chưa xử lý">Chưa xử lý</option>
-                            <option value="Đã xác nhận">Đã xác nhận</option>
-                            <option value="Đã giao thành công">Đã giao thành công</option>
+                            <option value="Chờ xử lý">Chờ xử lý</option>
+                            <option value="Đang giao">Đang giao</option>
+                            <option value="Hoàn thành">Hoàn thành</option>
                             <option value="Đã hủy">Đã hủy</option>
                         </select>
                         
@@ -943,9 +943,9 @@
                 <input type="date" id="orderDate" placeholder="Ngày đặt hàng" required>
                 <select id="orderStatus" required>
                     <option value="" disabled selected>Trạng thái đơn hàng</option>
-                    <option value="Chưa xử lý">Chưa xử lý</option>
-                    <option value="Đã xác nhận">Đã xác nhận</option>
-                    <option value="Đã giao thành công">Đã giao thành công</option>
+                    <option value="Chờ xử lý">Chờ xử lý</option>
+                    <option value="Đang giao">Đang giao</option>
+                    <option value="Hoàn thành">Hoàn thành</option>
                     <option value="Đã hủy">Đã hủy</option>
                 </select>
                 <input type="number" id="totalAmount" placeholder="Tổng số tiền" required>
@@ -977,9 +977,7 @@
             
             <p id="detailAddress"></p>
             <p>Sản phẩm:</p>
-            <div class="image-container">
-                <img id="productImage" src="./assets/img/gallery10.jpg" alt="Hình ảnh sản phẩm" />
-            </div>
+            <img id="productImage" src="path/to/image.jpg" alt="Hình ảnh sản phẩm" />
         </div>
     </div>
     
