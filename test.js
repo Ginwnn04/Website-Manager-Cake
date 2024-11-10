@@ -156,49 +156,105 @@ const products = [
     // Thêm sản phẩm khác...
 ];
 
+let filteredProducts = [...products]; // Biến toàn cục lưu trữ danh sách sản phẩm đã lọc hoặc danh sách ban đầu
 
-
-
+// Lấy phần tử hiển thị danh sách sản phẩm
 const productContainer = document.getElementsByClassName("list-product")[0];
-function renderProducts() {
-    productContainer.innerHTML = "";
-    products.forEach(product => {
-        const productItem = document.createElement("div");
-            productItem.classList.add("product-item");
-            productItem.innerHTML = `
-                <div class="img-product">
-                    <img src="${product.image}" alt="${product.name}">
-                </div>
-                <div class="info-product">
-                    <h3 class="name-product">${product.name}</h3>
-                    <div class="bottom-product">
-                        <h3 class="price-product">${product.price}</h3>
-                        <button class="btn">
-                            <i class="fa-solid fa-cart-plus"></i> Thêm
-                        </button>
-                    </div>
-                </div>
-            `;
 
-            productContainer.appendChild(productItem);  
+// Hàm hiển thị sản phẩm
+function renderProducts(productsToRender) {
+    productContainer.innerHTML = "";
+    productsToRender.forEach((product, index) => {
+        const productItem = document.createElement("div");
+        productItem.classList.add("product-item");
+        productItem.innerHTML = `
+            <div class="img-product" onclick="openProductDetail(${index})">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="info-product">
+                <h3 class="name-product" onclick="openProductDetail(${index})">${product.name}</h3>
+                <div class="bottom-product">
+                    <h3 class="price-product">${product.price}</h3>
+                    <button class="btn">
+                        <i class="fa-solid fa-cart-plus"></i> Thêm
+                    </button>
+                </div>
+            </div>
+        `;
+        productContainer.appendChild(productItem);
     });
 }
-renderProducts();
 
+// Hàm mở form chi tiết sản phẩm
+function openProductDetail(index) {
+    const product = filteredProducts[index];
 
-window.addEventListener('scroll', () => {
-    var navbar = document.getElementsByClassName("navbar")[0];
-    if (window.pageYOffset >= 20) {
-      navbar.classList.add("hide");  
-      
+    document.getElementById("product-image").src = product.image;
+    document.getElementById("product-name").textContent = product.name;
+    document.getElementById("product-price").textContent = product.price;
+    document.getElementById("product-description").textContent = product.description;
+
+    document.getElementById("quantity").value = 1;
+
+    // Lưu giá gốc của sản phẩm và cập nhật tổng thanh toán ban đầu
+    const basePrice = parseInt(product.price.replace(/[^0-9]/g, ''));
+    updateTotalPrice(basePrice);
+
+    // Hiển thị form chi tiết sản phẩm
+    document.getElementById("product-detail-modal").style.display = "flex";
+}
+
+// Hàm tổng thanh toán
+function updateTotalPrice(basePrice) {
+    const quantity = parseInt(document.getElementById("quantity").value);
+    const totalPrice = basePrice * quantity;
+    document.getElementById("total-price").textContent = `${totalPrice.toLocaleString()} ₫`;
+}
+
+// đóng form chi tiết sản phẩm
+function closeProductDetail() {
+    document.getElementById("product-detail-modal").style.display = "none";
+}
+
+// Hàm tăng số lượng
+function increaseQuantity() {
+    const quantityInput = document.getElementById("quantity");
+    quantityInput.value = parseInt(quantityInput.value) + 1;
+
+    const basePrice = parseInt(document.getElementById("product-price").textContent.replace(/[^0-9]/g, ''));
+    updateTotalPrice(basePrice);
+}
+
+// Hàm giảm số lượng
+function decreaseQuantity() {
+    const quantityInput = document.getElementById("quantity");
+    if (parseInt(quantityInput.value) > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
+
+        const basePrice = parseInt(document.getElementById("product-price").textContent.replace(/[^0-9]/g, ''));
+        updateTotalPrice(basePrice);
     }
-    else {
-      navbar.classList.remove("hide"); 
-    
+}
+
+// Hàm thêm vào giỏ hàng
+function addToCart() {
+    const productName = document.getElementById("product-name").textContent;
+    const quantity = document.getElementById("quantity").value;
+    alert(`Đã thêm ${quantity} x ${productName} vào giỏ hàng.`);
+}
+
+
+// Sự kiện khi người dùng cuộn trang để ẩn/hiện thanh điều hướng
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementsByClassName("navbar")[0];
+    if (window.pageYOffset >= 20) {
+        navbar.classList.add("hide");  
+    } else {
+        navbar.classList.remove("hide"); 
     }
 });
 
-
+// Xử lý hiển thị giỏ hàng
 const btnCart = document.getElementsByClassName("btn-cart")[0];
 btnCart.addEventListener("click", () => {
     const modal = document.getElementsByClassName("modal")[0];
@@ -207,6 +263,7 @@ btnCart.addEventListener("click", () => {
     cart.classList.add("show-cart");
 });
 
+// Đóng giỏ hàng khi click ra ngoài modal
 const wrapper = document.getElementsByClassName("modal")[0];
 wrapper.addEventListener("click", (e) => {
     if (e.target.classList.contains("show-modal")) {
@@ -214,4 +271,163 @@ wrapper.addEventListener("click", (e) => {
         const cart = document.getElementsByClassName("cart")[0];
         cart.classList.remove("show-cart");
     }
+});
+
+// Hàm lọc sản phẩm
+function applyFilters() {
+    const category = document.getElementById("category-filter").value;
+    const minPrice = parseInt(document.getElementById("min-price").value) || 0;
+    const maxPrice = parseInt(document.getElementById("max-price").value) || Infinity;
+
+    // Lọc sản phẩm theo tiêu chí
+    filteredProducts = products.filter(product => {
+        const productPrice = parseInt(product.price.replace(/[^0-9]/g, ""));
+        const categoryMatch = !category || product.category === category;
+        const priceMatch = productPrice >= minPrice && productPrice <= maxPrice;
+        return categoryMatch && priceMatch;
+    });
+
+    renderProducts(filteredProducts); // Hiển thị sản phẩm đã lọc
+}
+
+// Hàm sắp xếp sản phẩm đã lọc
+function sortProducts(order) {
+    filteredProducts.sort((a, b) => {
+        const priceA = parseInt(a.price.replace(/[^0-9]/g, ''));
+        const priceB = parseInt(b.price.replace(/[^0-9]/g, ''));
+        return order === 'asc' ? priceA - priceB : priceB - priceA;
+    });
+
+    renderProducts(filteredProducts);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Lấy các phần tử cần thiết
+    const filterBar = document.getElementById("filter-bar");
+    const searchInput = document.querySelector(".search-txt");
+    const filterButton = document.querySelector(".filter-products");
+    const navLinks = document.querySelectorAll(".btn-nav-header");
+    const logo = document.querySelector(".logo img");
+    const sortButton = document.getElementById("sort-button");
+    const sortOptions = document.getElementById("sort-options");
+
+    
+    filterBar.style.display = "none";
+
+    renderProducts(filteredProducts);
+
+    // Hàm hiển thị thanh lọc
+    function showFilterBar() {
+        filterBar.style.display = "flex";
+        setTimeout(() => {
+            const fixedPosition = window.pageYOffset + filterBar.getBoundingClientRect().top - 70;
+            window.scrollTo({ top: fixedPosition, behavior: "smooth" });
+        }, 100);
+    }
+
+    function hideFilterBar() {
+        filterBar.style.display = "none";
+    }
+
+    filterButton.addEventListener("click", showFilterBar);
+    searchInput.addEventListener("focus", showFilterBar);
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", hideFilterBar);
+    });
+
+    // Lọc sản phẩm theo từ khóa
+    searchInput.addEventListener("input", () => {
+        const keyword = searchInput.value.trim().toLowerCase();
+        if (keyword === "") {
+            renderProducts(filteredProducts);
+        } else {
+            const keywordFilteredProducts = filteredProducts.filter(product => {
+                return product.name.toLowerCase().includes(keyword) ||
+                        product.category.toLowerCase().includes(keyword);
+            });
+            renderProducts(keywordFilteredProducts);
+        }
+    });
+
+    document.getElementById("apply-filter").addEventListener("click", applyFilters);
+
+    sortButton.addEventListener("click", function (event) {
+        event.stopPropagation();
+        sortOptions.style.display = sortOptions.style.display === "none" ? "block" : "none";
+    });
+
+    sortOptions.addEventListener("click", (e) => {
+        const sortOrder = e.target.getAttribute("data-sort");
+        if (sortOrder) {
+            sortProducts(sortOrder);
+            sortOptions.style.display = "none";
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        if (!sortButton.contains(e.target) && !sortOptions.contains(e.target)) {
+            sortOptions.style.display = "none";
+        }
+    });
+
+    //  click vào logo cuộn lên đầu trang
+    if (logo) {
+        logo.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            renderProducts(products);
+        });
+    } else {
+        console.error("Không tìm thấy logo. Hãy kiểm tra lại selector của logo.");
+    }
+
+    // Hàm gợi ý giá
+    function suggestPriceByRounding(inputId, prefix) {
+        const inputElement = document.getElementById(inputId);
+        const suggestionBox = document.createElement("div");
+        suggestionBox.className = "price-suggestion";
+    
+        const oldSuggestion = document.querySelector(`#${inputId} + .price-suggestion`);
+        if (oldSuggestion) oldSuggestion.remove();
+    
+        if (!prefix || isNaN(prefix)) return;
+    
+        // gợi ý giá chẵn
+        const baseNumber = parseInt(prefix);
+        const suggestedPrices = [];
+        for (let i = 1; i <= 5; i++) {
+            const price = baseNumber * Math.pow(10, i);
+            if (price >= 1000 && price <= 1000000) {
+                suggestedPrices.push(price);
+            }
+        }
+    
+        // Hiển thị gợi ý giá chẵn
+        suggestionBox.innerHTML = suggestedPrices.map(price => `<div>${price.toLocaleString()} ₫</div>`).join("");
+        if (suggestedPrices.length > 0) {
+            inputElement.parentNode.insertBefore(suggestionBox, inputElement.nextSibling);
+    
+            const inputRect = inputElement.getBoundingClientRect();
+            suggestionBox.style.position = "absolute";
+            suggestionBox.style.left = `${inputRect.left}px`;
+            suggestionBox.style.top = `${inputRect.bottom + window.scrollY}px`;
+            suggestionBox.style.width = `${inputRect.width}px`;
+        }
+    
+        suggestionBox.addEventListener("click", function (e) {
+            inputElement.value = e.target.textContent.replace(/[^0-9]/g, "");
+            suggestionBox.remove();
+        });
+    }
+
+    // Gợi ý giá
+    document.getElementById("min-price").addEventListener("input", function () {
+        if (this.value < 0) this.value = 0;
+        suggestPriceByRounding("min-price", this.value);
+    });
+
+    document.getElementById("max-price").addEventListener("input", function () {
+        if (this.value < 0) this.value = 0;
+        suggestPriceByRounding("max-price", this.value);
+    });
 });
