@@ -2,6 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
 }
 
 :root {
@@ -809,30 +811,50 @@ main {
 .show-overlay {
     display: block;
 }
-.filter-bar {
-    display: none; /* Ẩn mặc định */
-    padding: 10px 20px;
-    background-color: #f9f9f9;
+.navbar-filter {
+    line-height: 50px;
+    transform: translateY(-63px);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 4;
+    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 10%);
+    background-color: var(--white-color);
+    transition: 0.6s ease;
+}
+
+.filter-bar--open {
+    transform: translateY(63px);
+    transition: 0.6s ease;
+}
+
+.filter {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between; 
+    column-gap: 15px;
 }
 
 .filter-select {
     padding: 8px 12px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
+    background-color: #f0f0f0;
 }
-.price-filter input[type="number"] {
+.filter-select:focus {
+    outline: none;
+
+}
+
+.filter-left input[type="number"] {
     width: 150px;
     padding: 10px;
     font-size: 14px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center;
-    background-color: #f7f7f7;
+    border: none;
+    /* text-align: center; */
+    background-color: #f0f0f0;
 
     /* Ẩn nút điều chỉnh lên/xuống trên các trình duyệt */
     -webkit-appearance: none; /* Chrome, Safari */
@@ -841,15 +863,14 @@ main {
 }
 
 /* Ẩn nút tăng giảm trên Chrome và Safari */
-.price-filter input[type="number"]::-webkit-outer-spin-button,
-.price-filter input[type="number"]::-webkit-inner-spin-button {
+.filter-left input[type="number"]::-webkit-outer-spin-button,
+.filter-left input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.price-filter input[type="number"]:focus {
-    border-color: var(--primary-color);
+.filter-left input[type="number"]:focus {
     outline: none;
-    background-color: #fff;
+
 }
 
 .price-suggestion {
@@ -870,56 +891,14 @@ main {
 }
 
 
-/* Nút "Sắp xếp" */
-#sort-button {
-    position: relative;
-    background-color: transparent;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    border: 1px solid var(--primary-color);
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    height: 42px;
-    z-index: 1;
-}
 
-/* Định dạng menu sắp xếp */
-#sort-options {
-    display: none;
-    position: absolute;
-    top: 104%;
-    left: 950px;
-    min-width: 150px;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    border-radius: 5px;
-    padding: 5px 0;
-}
 
-/* Định dạng từng tùy chọn */
-.sort-option {
-    padding: 8px 16px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    text-align: left;
-    white-space: nowrap;
-}
 
-.sort-option:hover {
-    background-color: #f0f0f0;
-}
 
 .filter-select,
 .price-filter input[type="number"],
-#apply-filter,
-#sort-button {
-    height: 42px;
+#apply-filter{
+    height: 37px;
     box-sizing: border-box;
     margin: 0;
     vertical-align: middle;
@@ -930,6 +909,33 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.filter-right {
+    margin-top: 3px;
+    display: flex;
+    column-gap: 15px;
+}
+
+
+.filter-right .btn-desc,
+.filter-right .btn-asc,
+.filter-right .btn-close {
+    background-color: #f0f0f0;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: var(--black-color);
+}
+
+.filter-right .btn-desc:hover,
+.filter-right .btn-asc:hover,
+.filter-right .btn-close:hover {
+    background-color: var(--primary-color);
+    padding: 10px 16px;
+    border-radius: 5px;
+
+    color: var(--white-color);
 }
 
 /* Nút "Áp dụng" */

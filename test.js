@@ -185,6 +185,8 @@ function renderProducts(productsToRender) {
     });
 }
 
+renderProducts(products);
+
 // Hàm mở form chi tiết sản phẩm
 function openProductDetail(index) {
     const product = filteredProducts[index];
@@ -287,7 +289,6 @@ function applyFilters() {
         return categoryMatch && priceMatch;
     });
 
-    renderProducts(filteredProducts); // Hiển thị sản phẩm đã lọc
 }
 
 // Hàm sắp xếp sản phẩm đã lọc
@@ -301,11 +302,28 @@ function sortProducts(order) {
     renderProducts(filteredProducts);
 }
 
+const searchInput = document.querySelector(".search-txt");
+searchInput.addEventListener("click", () => {
+    const productContent = document.querySelector(".product-content");
+    const fixedPosition = window.pageYOffset + productContent.getBoundingClientRect().top - 200;
+    window.scrollTo({ top: fixedPosition, behavior: "smooth" });
+});
+    
+const filterProduct = document.querySelector(".filter-product");
+filterProduct.addEventListener("click", () => {
+    const filterBar = document.querySelector(".navbar-filter");
+    if (filterBar.classList.contains("filter-bar--open")) {
+        filterBar.classList.remove("filter-bar--open");
+    }
+    else {
+        filterBar.classList.add("filter-bar--open");
+    }
+});
+
 document.addEventListener("DOMContentLoaded", function () {
     // Lấy các phần tử cần thiết
-    const filterBar = document.getElementById("filter-bar");
+    const filterBar = document.querySelector(".navbar-filter");
     const searchInput = document.querySelector(".search-txt");
-    const filterButton = document.querySelector(".filter-products");
     const navLinks = document.querySelectorAll(".btn-nav-header");
     const logo = document.querySelector(".logo img");
     const sortButton = document.getElementById("sort-button");
@@ -316,25 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     renderProducts(filteredProducts);
 
-    // Hàm hiển thị thanh lọc
-    function showFilterBar() {
-        filterBar.style.display = "flex";
-        setTimeout(() => {
-            const fixedPosition = window.pageYOffset + filterBar.getBoundingClientRect().top - 70;
-            window.scrollTo({ top: fixedPosition, behavior: "smooth" });
-        }, 100);
-    }
 
-    function hideFilterBar() {
-        filterBar.style.display = "none";
-    }
-
-    filterButton.addEventListener("click", showFilterBar);
-    searchInput.addEventListener("focus", showFilterBar);
-
-    navLinks.forEach(link => {
-        link.addEventListener("click", hideFilterBar);
-    });
 
     // Lọc sản phẩm theo từ khóa
     searchInput.addEventListener("input", () => {
