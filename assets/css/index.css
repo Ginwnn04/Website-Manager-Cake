@@ -47,6 +47,7 @@ main {
     justify-content: flex-end;
     align-items: center;
     visibility: hidden;
+    z-index: 11;
 }
 
 .show-modal {
@@ -118,7 +119,7 @@ main {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 6;
 }
 
 .header-left {
@@ -812,21 +813,22 @@ main {
     display: block;
 }
 .navbar-filter {
-    line-height: 50px;
-    transform: translateY(-63px);
     position: fixed;
+    line-height: 50px;
+    transform: translateY(12px);
+    background-color: var(--white-color);
     left: 0;
     right: 0;
     top: 0;
     z-index: 4;
-    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 10%);
-    background-color: var(--white-color);
     transition: 0.6s ease;
+    visibility: hidden;
 }
 
 .filter-bar--open {
-    transform: translateY(63px);
-    transition: 0.6s ease;
+    transform: translateY(calc(100% + 12px));
+    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 10%);
+    visibility: inherit;
 }
 
 .filter {

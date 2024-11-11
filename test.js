@@ -305,11 +305,11 @@ function sortProducts(order) {
 const searchInput = document.querySelector(".search-txt");
 searchInput.addEventListener("click", () => {
     const productContent = document.querySelector(".product-content");
-    const fixedPosition = window.pageYOffset + productContent.getBoundingClientRect().top - 200;
+    const fixedPosition = window.pageYOffset + productContent.getBoundingClientRect().top - 140;
     window.scrollTo({ top: fixedPosition, behavior: "smooth" });
 });
     
-const filterProduct = document.querySelector(".filter-product");
+const filterProduct = document.querySelector(".filter-products");
 filterProduct.addEventListener("click", () => {
     const filterBar = document.querySelector(".navbar-filter");
     if (filterBar.classList.contains("filter-bar--open")) {
@@ -318,6 +318,12 @@ filterProduct.addEventListener("click", () => {
     else {
         filterBar.classList.add("filter-bar--open");
     }
+});
+
+const btnClose = document.querySelector(".btn-close");
+btnClose.addEventListener("click", () => {
+    const filterBar = document.querySelector(".navbar-filter");
+    filterBar.classList.remove("filter-bar--open");
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -330,7 +336,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const sortOptions = document.getElementById("sort-options");
 
     
-    filterBar.style.display = "none";
 
     renderProducts(filteredProducts);
 
@@ -352,24 +357,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("apply-filter").addEventListener("click", applyFilters);
 
-    sortButton.addEventListener("click", function (event) {
-        event.stopPropagation();
-        sortOptions.style.display = sortOptions.style.display === "none" ? "block" : "none";
-    });
+    // sortButton.addEventListener("click", function (event) {
+    //     event.stopPropagation();
+    //     sortOptions.style.display = sortOptions.style.display === "none" ? "block" : "none";
+    // });
 
-    sortOptions.addEventListener("click", (e) => {
-        const sortOrder = e.target.getAttribute("data-sort");
-        if (sortOrder) {
-            sortProducts(sortOrder);
-            sortOptions.style.display = "none";
-        }
-    });
+    // sortOptions.addEventListener("click", (e) => {
+    //     const sortOrder = e.target.getAttribute("data-sort");
+    //     if (sortOrder) {
+    //         sortProducts(sortOrder);
+    //         sortOptions.style.display = "none";
+    //     }
+    // });
 
-    document.addEventListener("click", function (e) {
-        if (!sortButton.contains(e.target) && !sortOptions.contains(e.target)) {
-            sortOptions.style.display = "none";
-        }
-    });
+    // document.addEventListener("click", function (e) {
+    //     if (!sortButton.contains(e.target) && !sortOptions.contains(e.target)) {
+    //         sortOptions.style.display = "none";
+    //     }
+    // });
 
     //  click vào logo cuộn lên đầu trang
     if (logo) {
