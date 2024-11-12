@@ -103,209 +103,175 @@ allSideMenu.forEach(item => {
     item.addEventListener('click', showCategorySession);
 });
 
-// Quản lý đơn hàng và phân trang
-const orderModal = document.getElementById('orderModal');
-const addOrderBtn = document.getElementById('addOrderBtn');
-const closeModal = document.getElementById('closeModal');
-const orderForm = document.getElementById('orderForm');
-const orderTableBody = document.querySelector('#order_manager .table_data table tbody');
-const statusFilter = document.querySelector('#order_manager .top select');
+// ---------------------- Quản lý đơn hàng và phân trang -----------------------------
+// Biến toàn cục để quản lý phân trang
+const ITEMS_PER_PAGE = 8;  // Số đơn hàng hiển thị mỗi trang
+let currentPage = 1;  // Trang hiện tại
 
-let currentEditingOrderId = null;
-let currentPage = 1;
-const ordersPerPage = 8;
+// Hiển thị danh sách đơn hàng với phân trang
+function displayOrders() {
+  const orderList = document.getElementById("orderList");
+  const pagination = document.getElementById("pagination");
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const searchQuery = document.getElementById("orderSearchInput").value.toLowerCase();
+  const filterStatus = document.getElementById("statusFilter").value;
 
-function loadOrdersFromLocalStorage() {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    orders.forEach(order => addOrderToTable(order));
-    updateOrderTable();
-}
+  // Lọc danh sách đơn hàng dựa trên trạng thái và từ khóa tìm kiếm
+  const filteredOrders = orders.filter(order => {
+    const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
+                               order.user.fullName.toLowerCase().includes(searchQuery) ||
+                               order.status.toLowerCase().includes(searchQuery);
+    const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+    return matchesSearchQuery && matchesStatus;
+  });
 
-if (addOrderBtn) {
-    addOrderBtn.addEventListener('click', function () {
-        currentEditingOrderId = null;
-        orderModal.style.display = 'flex';
-        document.getElementById('orderId').value = generateOrderId();
-    });
-}
+  const totalOrders = filteredOrders.length;
+  const totalPages = Math.ceil(totalOrders / ITEMS_PER_PAGE);
 
-function generateOrderId() {
-    let orderCount = parseInt(localStorage.getItem('orderCount')) || 0;
-    orderCount++;
-    localStorage.setItem('orderCount', orderCount);
-    return `id${String(orderCount).padStart(4, '0')}`;
-}
+  // Lấy các đơn hàng của trang hiện tại
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentOrders = filteredOrders.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-if (closeModal) {
-    closeModal.addEventListener('click', function () {
-        orderModal.style.display = 'none';
-    });
-}
-
-function updateOrderTable() {
-    orderTableBody.innerHTML = '';
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const start = (currentPage - 1) * ordersPerPage;
-    const end = start + ordersPerPage;
-    const ordersToDisplay = orders.slice(start, end);
-
-    ordersToDisplay.forEach(order => addOrderToTable(order));
-    updatePagination(orders.length);
-}
-
-function updatePagination(totalOrders) {
-    const totalPages = Math.ceil(totalOrders / ordersPerPage);
-    const paginationContainer = document.querySelector('#order_manager .pagination');
-    paginationContainer.innerHTML = '';
-
-    if (currentPage > 1) {
-        const backBtn = document.createElement('button');
-        backBtn.innerText = 'Trở lại';
-        backBtn.addEventListener('click', function () {
-            currentPage--;
-            updateOrderTable();
-        });
-        paginationContainer.appendChild(backBtn);
-    }
-
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement('button');
-        pageBtn.innerText = i;
-        pageBtn.classList.toggle('current', i === currentPage);
-        pageBtn.addEventListener('click', function () {
-            currentPage = i;
-            updateOrderTable();
-        });
-        paginationContainer.appendChild(pageBtn);
-    }
-
-    if (currentPage < totalPages) {
-        const nextBtn = document.createElement('button');
-        nextBtn.innerText = 'Tiếp theo';
-        nextBtn.addEventListener('click', function () {
-            currentPage++;
-            updateOrderTable();
-        });
-        paginationContainer.appendChild(nextBtn);
-    }
-}
-
-orderForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const newOrder = {
-        orderId: document.getElementById('orderId').value,
-        customerName: document.getElementById('customerName').value,
-        orderDate: document.getElementById('orderDate').value,
-        orderStatus: document.getElementById('orderStatus').value,
-        totalAmount: document.getElementById('totalAmount').value
-    };
-
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    if (currentEditingOrderId) {
-        const updatedOrders = orders.map(order => order.orderId === currentEditingOrderId ? newOrder : order);
-        localStorage.setItem('orders', JSON.stringify(updatedOrders));
-        alert('Cập nhật đơn hàng thành công!');
-    } else {
-        orders.push(newOrder);
-        localStorage.setItem('orders', JSON.stringify(orders));
-        alert('Thêm đơn hàng thành công!');
-    }
-
-    updateOrderTable();
-    orderModal.style.display = 'none';
-    orderForm.reset();
-});
-
-function addOrderToTable(order) {
+  // Hiển thị đơn hàng
+  orderList.innerHTML = '';
+  currentOrders.forEach(order => {
     const row = document.createElement('tr');
+    const productImages = order.items.map(item => `<img src="${item.image}" alt="${item.name}" style="width:50px; height:50px;">`).join(' ');
+
     row.innerHTML = `
         <td>${order.orderId}</td>
-        <td>${order.customerName}</td>
-        <td>${order.orderDate}</td>
-        <td>${order.orderStatus}</td>
-        <td>${order.totalAmount}</td>
+        <td>${order.user.fullName}</td>
+        <td>${order.user.phone}</td>
+        <td>${order.totalPrice}</td>
         <td>
-            <button class="edit-order">Sửa</button>
-            <button class="delete-order">Xóa</button>
-            <button class="detail-order">Chi tiết</button>
+            <select onchange="updateOrderStatus('${order.orderId}', this.value)">
+                <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
+                <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
+                <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
+                <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
+            </select>
+        </td>
+        <td class="actions">
+            <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
+            <button onclick="deleteOrder('${order.orderId}')">Xóa</button>
         </td>
     `;
-    orderTableBody.appendChild(row);
+    orderList.appendChild(row);
+  });
 
-    row.querySelector('.delete-order').addEventListener('click', function () {
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const updatedOrders = orders.filter(o => o.orderId !== order.orderId);
-        localStorage.setItem('orders', JSON.stringify(updatedOrders));
-        row.remove();
-        updateOrderTable();
-    });
-
-    row.querySelector('.edit-order').addEventListener('click', function () {
-        currentEditingOrderId = order.orderId;
-        document.getElementById('orderId').value = order.orderId;
-        document.getElementById('customerName').value = order.customerName;
-        document.getElementById('orderDate').value = order.orderDate;
-        document.getElementById('orderStatus').value = order.orderStatus;
-        document.getElementById('totalAmount').value = order.totalAmount;
-        orderModal.style.display = 'flex';
-    });
-
-    row.querySelector('.detail-order').addEventListener('click', function () {
-        document.getElementById('detailOrderId').innerText = `Mã đơn: ${order.orderId}`;
-        document.getElementById('detailCustomerName').innerText = `Khách hàng: ${order.customerName}`;
-        document.getElementById('detailOrderDate').innerText = `Ngày đặt: ${order.orderDate}`;
-        document.getElementById('detailOrderStatus').innerText = `Trạng thái: ${order.orderStatus}`;
-        document.getElementById('detailTotalAmount').innerText = `Tổng tiền: ${order.totalAmount}`;
-        document.getElementById('detailPhone').innerText = `Điện thoại: ${order.phone}`;
-        document.getElementById('detailAddress').innerText = `Địa chỉ: ${order.address}`;
-        
-        // Hiển thị hình ảnh sản phẩm nếu có
-        const productImage = document.getElementById('productImage');
-        productImage.src = order.productImage || ''; // Giả định `order.productImage` chứa đường dẫn đến hình ảnh
-        productImage.style.display = order.productImage ? 'block' : 'none'; // Hiển thị hoặc ẩn hình ảnh
-
-        document.getElementById('orderDetailModal').style.display = 'flex';
-    });
+  // Hiển thị nút phân trang
+  displayPagination(totalPages);
 }
 
+// Hiển thị các nút phân trang
+function displayPagination(totalPages) {
+  const pagination = document.getElementById("pagination");
+  pagination.innerHTML = '';  // Xóa các nút phân trang cũ
 
-// Đóng modal chi tiết đơn hàng
-document.getElementById('closeDetailModal').addEventListener('click', function () {
-    document.getElementById('orderDetailModal').style.display = 'none';
-});
-
-// Tìm kiếm đơn hàng
-function performSearch() {
-    const searchInput = document.querySelector('#order_manager .top input[type="search"]');
-    const searchTerm = searchInput.value.toLowerCase();
-    const selectedStatus = statusFilter.value;
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    
-    const filteredOrders = orders.filter(order => {
-        const matchesSearchTerm = order.customerName.toLowerCase().includes(searchTerm) || order.orderId.toLowerCase().includes(searchTerm);
-        const matchesStatus = selectedStatus === 'all' || order.orderStatus === selectedStatus;
-        return matchesSearchTerm && matchesStatus;
-    });
-
-    orderTableBody.innerHTML = '';
-    filteredOrders.forEach(order => addOrderToTable(order));
-}
-
-document.querySelector('.search_order').addEventListener('click', function (e) {
-    e.preventDefault();
-    performSearch();
-});
-
-document.querySelector('#order_manager .top input[type="search"]').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        performSearch();
+  // Tạo các nút phân trang
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.classList.add('page-btn');
+    if (i === currentPage) {
+      pageButton.classList.add('active');
     }
+    pageButton.onclick = () => changePage(i);
+    pagination.appendChild(pageButton);
+  }
+}
+
+// Chuyển trang
+function changePage(pageNumber) {
+  currentPage = pageNumber;
+  displayOrders();
+}
+
+// Cập nhật tình trạng đơn hàng
+function updateOrderStatus(orderId, status) {
+  const orders = JSON.parse(localStorage.getItem('orders')) || [];
+  const order = orders.find(order => order.orderId === orderId);
+  if (order) {
+      order.status = status;
+      localStorage.setItem('orders', JSON.stringify(orders));
+      displayOrders(); // Cập nhật lại danh sách khi trạng thái thay đổi
+  }
+}
+
+// Xóa đơn hàng
+function deleteOrder(orderId) {
+  let orders = JSON.parse(localStorage.getItem('orders')) || [];
+  orders = orders.filter(order => order.orderId !== orderId);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  alert("Đơn hàng đã bị xóa!");
+  displayOrders(); // Cập nhật danh sách sau khi xóa
+}
+
+// Hiển thị chi tiết đơn hàng
+function viewOrderDetails(orderId) {
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const order = orders.find(order => order.orderId === orderId);
+  
+  if (order) {
+    const orderDetailContent = document.getElementById("orderDetailContent");
+    let productDetails = order.items.map(item => `
+        <div class="product-item">
+            <img src="${item.image}" alt="${item.name}">
+        </div>
+    `).join('');  
+
+    orderDetailContent.innerHTML = `
+      <button onclick="closeModal('orderDetailModal')" class="closeDetail">Đóng</button>
+      <h2>Chi tiết đơn hàng</h2>
+      <p><strong>Mã đơn:</strong> ${order.orderId}</p>
+      <p><strong>Khách hàng:</strong> ${order.user.fullName}</p>
+      <p><strong>Số điện thoại:</strong> ${order.user.phone}</p>
+      <p><strong>Địa chỉ:</strong> ${order.user.address}</p>
+      <p><strong>Sản phẩm:</strong></p>
+      <div class="product-item-detail">
+        ${productDetails}
+      </div>
+      <p><strong>Tổng tiền:</strong> ${order.totalPrice} VND</p>
+      <p><strong>Tình trạng:</strong> ${order.status}</p>
+    `;
+    
+    // Mở modal
+    document.getElementById("orderDetailModal").style.display = "flex";
+  }
+}
+
+// Đóng modal xem chi tiết
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Xử lý sự kiện khi người dùng gõ vào ô tìm kiếm hoặc nhấn Enter
+document.getElementById("orderSearchInput").addEventListener("input", function() {
+  displayOrders();  // Cập nhật lại danh sách khi người dùng thay đổi ô tìm kiếm
 });
 
-statusFilter.addEventListener('change', performSearch);
-window.addEventListener('load', loadOrdersFromLocalStorage);
+document.getElementById("orderSearchInput").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    displayOrders();  // Cập nhật lại danh sách khi người dùng nhấn Enter
+  }
+});
+
+// Xử lý sự kiện khi người dùng chọn trạng thái từ bộ lọc
+document.getElementById("statusFilter").addEventListener("change", function() {
+  displayOrders(); // Cập nhật lại danh sách khi người dùng thay đổi trạng thái lọc
+});
+
+// Khi trang tải lần đầu
+window.onload = function() {
+  displayOrders();  // Hiển thị danh sách đơn hàng ngay khi tải trang
+};
+
+
+
+
+// --------------------------Quản lý đơn hàng ---------------------------------------------
+
+
 // PRODUCT
 const Product=document.querySelector('.product-container');
 Product.style.display = 'none';

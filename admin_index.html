@@ -865,7 +865,7 @@
         </div>
     </div>
 
-    <!-- Order Manager -->
+    <!--------------------------------------- Order Manager ----------------------------------->
     <div id="order_manager">
         <div class="head">
             <div class="left">
@@ -892,97 +892,50 @@
                         </div>
                         <select id="statusFilter">
                             <option value="all">Tất cả trạng thái</option>
-                            <option value="Chờ xử lý">Chờ xử lý</option>
-                            <option value="Đang giao">Đang giao</option>
-                            <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="Chưa xử lý">Chưa xử lý</option>
+                            <option value="Đã xác nhận">Đã xác nhận</option>
+                            <option value="Đã giao thành công">Đã giao thành công</option>
                             <option value="Đã hủy">Đã hủy</option>
                         </select>
-                        
-                        <button id="addOrderBtn">Thêm</button> 
                     </div>
                 </div>
                 
                 <table>
                     <thead>
                         <tr>
-                            <th>Mã Đơn</th>
-                            <th>Khách Hàng</th>
-                            <th>Ngày Đặt</th>
-                            <th>Trạng Thái</th>
-                            <th>Tổng Tiền</th>
-                            <th>Hành Động</th>
+                            <th>Mã đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Số điện thoại</th>
+                            <th>Tổng tiền</th>
+                            <th>Tình trạng</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
-                    <tbody class="table_data">
-                        <!-- Dữ liệu đơn hàng -->
-                    </tbody>
+                    <tbody id="orderList"></tbody>
                 </table>
-                
-                <!-- Phần chứa nút phân trang -->
-                <div class="pagination">
-                    <!-- Nút phân trang -->
-                </div>
+                <!-- Phần hiển thị nút phân trang -->
+                <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
+
             </div>
         </div>
-        
     </div>
+    
 </main>
 <!-- MAIN -->
 </section>
 <!-- CONTENT -->
 
-
-    <!-- Test thêm đơn hàng -->
-    <div id="orderModal">
+    <!-- Modal xem chi tiết đơn hàng -->
+    <div id="orderDetailModal" style="display:none;">
         <div class="modal-content">
-            <button id="closeModal" class="close-button">x</button>
-            <h2>Thêm/Sửa Đơn Hàng</h2>
-            <form id="orderForm">
-                <input type="text" id="orderId" placeholder="Mã đơn hàng" required>
-                <input type="text" id="customerName" placeholder="Khách hàng" required>
-                <input type="date" id="orderDate" placeholder="Ngày đặt hàng" required>
-                <select id="orderStatus" required>
-                    <option value="" disabled selected>Trạng thái đơn hàng</option>
-                    <option value="Chờ xử lý">Chờ xử lý</option>
-                    <option value="Đang giao">Đang giao</option>
-                    <option value="Hoàn thành">Hoàn thành</option>
-                    <option value="Đã hủy">Đã hủy</option>
-                </select>
-                <input type="number" id="totalAmount" placeholder="Tổng số tiền" required>
-                <button type="submit">Lưu đơn hàng</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal hiển thị chi tiết đơn hàng -->
-    <div id="orderDetailModal">
-        <div class="modal-content">
-            <button id="closeDetailModal">x</button>
-            <h2>Chi tiết đơn hàng</h2>
-            
-            <div class="detail-columns">
-                
-                <div class="detail-column">
-                    <p id="detailOrderId"></p>
-                    <p id="detailCustomerName"></p>
-                    <p id="detailOrderDate"></p>
-                </div>
-                
-                <div class="detail-column">
-                    <p id="detailOrderStatus"></p>
-                    <p id="detailTotalAmount"></p>
-                    <p id="detailPhone"></p>
-                </div>
-            </div>
-            
-            <p id="detailAddress"></p>
-            <p>Sản phẩm:</p>
-            <img id="productImage" src="path/to/image.jpg" alt="Hình ảnh sản phẩm" />
+            <div id="orderDetailContent"></div>
         </div>
     </div>
     
+
+
     
-    <!-- Test thêm đơn hàng -->
+    <!--------------------------------------- Order Manager ----------------------------------->
     <script src="admin_script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>

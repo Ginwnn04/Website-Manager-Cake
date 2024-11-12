@@ -40,7 +40,10 @@ body {
 html {
     overflow: hidden;
 }
-
+button{
+    cursor: pointer;
+    border: none;
+}
 
 /* SIDEBAR */
 #sidebar {
@@ -620,7 +623,7 @@ html {
     font-size: 20px;
 }
 
-/* Order Manager */
+/* ------------------------------------Quản lý đơn hàng -----------------------------------*/
 #order_manager {
     margin: 10px;
 }
@@ -645,7 +648,7 @@ html {
     gap: 10px; 
     position: absolute;
     top: 40px;
-    right: 10px;
+    right: 50px;
 }
 
 
@@ -689,208 +692,48 @@ html {
     background: var(--blue); 
 }
 
-#order_manager .table_data .user .top .addOrderBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    border-radius: 50%;
-    margin-left: 10px;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-}
 
-
-#order_manager .table_data .user table {
+/* Phần bảng */
+#order_manager table {
     width: 100%;
-    border-collapse: collapse; 
-    margin-top: 50px;
+    border-collapse: collapse;
+    margin-top: 40px;
 }
 
-#order_manager .table_data .user table th,
-#order_manager .table_data .user table td {
-    padding: 10px; 
-    text-align: left; 
-    border-bottom: 1px solid var(--dark_grey); 
-}
-
-#order_manager .table_data .user table th {
-    background-color: var(--light); 
-    color: var(--black); 
-    font-weight: bold; 
-    font-size: 20px; 
-}
-
-#order_manager .table_data .user table tr {
-    transition: background-color 0.3s ease; 
-}
-
-#order_manager .table_data .user table tr:hover {
-    background-color: var(--grey); 
-}
-
-
-#order_manager .table_data .user table th:nth-child(1),
-#order_manager .table_data .user table td:nth-child(1) {
-    width: 10%; /* Chiều rộng cho Mã Đơn Hàng */
-}
-
-#order_manager .table_data .user table th:nth-child(2),
-#order_manager .table_data .user table td:nth-child(2) {
-    width: 25%; /* Chiều rộng cho Tên Khách Hàng */
-}
-
-#order_manager .table_data .user table th:nth-child(3),
-#order_manager .table_data .user table td:nth-child(3) {
-    width: 15%; /* Chiều rộng cho Ngày đặt */
-}
-
-#order_manager .table_data .user table th:nth-child(4),
-#order_manager .table_data .user table td:nth-child(4) {
-    width: 15%; /* Chiều rộng cho Trạng thái */
-}
-
-#order_manager .table_data .user table th:nth-child(5),
-#order_manager .table_data .user table td:nth-child(5) {
-    width: 15%; /* Chiều rộng cho Tổng Tiền */
-}
-
-#order_manager .table_data .user table th:nth-child(6),
-#order_manager .table_data .user table td:nth-child(6) {
-    width: 20%; /* Chiều rộng cho Hành động */
-}
-.edit-order, .delete-order, .detail-order, #addOrderBtn{
-    padding: 5px ;
-    background-color: var(--orange);
-    color: var(--light);
-    margin: 5px;
-}
-.edit-order:hover, .delete-order:hover, .detail-order:hover, #addOrderBtn:hover{
-    background-color: var(--blue);
-}
-
-#order_manager .table_data .user .pagination {
-    display: flex;
-    justify-content: center; 
-    margin: 20px 0; 
-}
-
-#order_manager .table_data .user .pagination button {
-    background-color: var(--orange);
-    color: var(--light);
-    border: none; 
-    border-radius: 5px; 
-    padding: 10px 15px; 
-    margin: 0 5px; 
-    transition: background-color 0.3s ease, transform 0.2s ease; 
-    font-size: 14px; 
-}
-
-#order_manager .table_data .user .pagination button:hover {
-    background-color: var(--blue);
-    transform: scale(1.05); 
-}
-#order_manager .table_data .user .pagination button.current {
-    background-color: var(--blue); 
-    color: var(--black); 
-}
-
-
-
-
-/* CSS cho Modal */
-/* Modal nền */
-#orderModal {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); 
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; 
-}
-
-/* Nội dung modal */
-#orderModal .modal-content {
-    background-color: var(--light);
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 80%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: fadeIn 0.4s ease;
-}
-
-/* Hiệu ứng mở modal */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Tiêu đề của modal */
-#orderModal .modal-content h2 {
-    margin-top: 0;
-    font-size: 24px;
+#order_manager th, #order_manager td {
+    padding: 12px 15px;
+    text-align: left;
     color: var(--black);
-    text-align: center;
 }
 
-/* Nút đóng modal */
-#closeModal {
-    background: transparent;
+
+#order_manager tbody tr:hover {
+    background-color: var(--grey);
+}
+#order_manager th {
+    font-size: 16px;
+}
+#order_manager td {
+    font-size: 14px;
+}
+
+
+
+/* Các nút thao tác */
+#order_manager button {
+    background-color:var(--orange);
     border: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--orange);
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-#closeModal:hover {
-    color: var(--blue);
-}
-
-/* Các trường nhập liệu */
-#orderModal .modal-content input[type="text"],
-#orderModal .modal-content input[type="number"],
-#orderModal .modal-content input[type="date"],
-#orderModal .modal-content select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-/* Nút lưu */
-#orderModal .modal-content button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
     color: var(--light);
-    background-color: var(--orange);
-    border: none;
-    border-radius: 4px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
-#orderModal .modal-content button[type="submit"]:hover {
-    background-color: var(--blue);
+#order_manager button:hover {
+    background-color: var(--action-color-hover);
 }
-/* CSS cho modal hiển thị chi tiết đơn hàng */
+
+/* Modal chi tiết đơn hàng */
 #orderDetailModal {
     display: none;
     position: fixed;
@@ -898,107 +741,125 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Làm mờ nền khi mở modal */
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
+    align-items: center;
     z-index: 1000;
 }
 
 .modal-content {
-    background-color: var(--light);
-    padding: 30px;
-    border-radius: 10px;
-    width: 700px;
-    max-width: 80%;
-    max-height: 80%; 
-    text-align: left;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    background-color:var(--light);
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+    overflow-y: auto;
     position: relative;
-    color: var(--black);
-    overflow-y: auto; 
 }
 
-.modal-content h2 {
-    font-size: 24pt;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: var(--orange);
-    text-align: center;
-}
-
-.modal-content p {
-    font-size: 12pt;
-    line-height: 1.5;
-    margin: 10px 0;
-}
-
-.modal-content p span {
-    font-weight: bold;
-    color: var(--black);
-}
-
-/* Nút đóng modal */
-.modal-content #closeDetailModal {
+.modal-content button.closeDetail {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 16pt;
-    cursor: pointer;
     color: var(--orange);
-    transition: color 0.3s;
+    background-color: var(--light);
 }
 
-.modal-content #closeDetailModal:hover {
-    color: var(--blue);
+
+.modal-content button.closeDetail:hover {
+    color: var(--action-color-hover);
 }
 
-/* Container cho 2 cột */
-.detail-columns {
+.modal-content h2{
+    text-align: center;
+    color: var(--orange);
+    padding: 10px;
+}
+.modal-content p{
+    
+    padding: 5px;
+}
+.product-item-detail {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin-bottom: 15px;
+    flex-wrap: wrap;  /* Cho phép các ảnh xuống hàng khi không còn đủ không gian */
+    justify-content: center;  /* Căn giữa các ảnh trong hàng */
+    gap: 10px;  /* Khoảng cách giữa các ảnh */
 }
 
-
-.detail-column {
-    width: calc(50% - 0px);
+.product-item {
+    display: flex;
+    justify-content: center;  /* Căn giữa ảnh trong phần tử */
 }
 
-.modal-content img {
-    width: 100%;
-    max-width: 100px;
-    margin-top: 15px;
+.product-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#pagination .page-btn {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--orange);
+    transition: background-color 0.3s;
+}
+
+#pagination .page-btn:hover {
+    background-color: var(--action-color-hover);
+    color: var(--light);
+}
+
+#pagination .page-btn.active {
+    background-color: var(--action-color);
+    color: var(--light);
 }
 
 
 /* Điều chỉnh trang */
 @media only screen and (max-width: 768px) {
-    #order_manager .table_data .user .top .icon .search input{
+    /* Thu gọn kích thước ô tìm kiếm */
+    #order_manager .table_data .user .top .icon .search input {
         width: 150px;
     }
-    .detail-columns {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        margin-bottom: 15px;
+
+    #order_manager th {
+        font-size: 14px;
+        padding: 8px 10px;  
     }
-    .detail-column {
-        width: calc(100% - 0px);
+
+    #order_manager td {
+        font-size: 12px;
+        padding: 8px 10px;  
     }
-    
+    #order_manager .table_data table button{
+        margin-bottom: 5px;
+    }
+    .modal-content {
+        max-width: 350px;
+    }
 }
 
+
 @media only screen and (min-width: 769px) and (max-width: 991px) {
-    
+    #order_manager .table_data table button{
+        margin-bottom: 5px;
+    }
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     
 }
 
+/*---------------------------------- Quản lý đơn hàng------------------------------------- */
 
 
 /* CONTENT */
