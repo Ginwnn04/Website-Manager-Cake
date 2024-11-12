@@ -51,15 +51,12 @@
 
     <nav class="navbar">
         <div class="container">
-            <a class="btn btn-nav-header" href="#!">Trang chủ</a>
-            <a class=" btn btn-nav-header" href="#!">Toasts</a>
-            <a class="btn btn-nav-header" href="#!">Bánh Khô</a>
-            <a class="btn btn-nav-header" href="#!">Bánh bao</a>
-            <a class="btn btn-nav-header" href="#!">Bánh ngọt</a>
-            <a class="btn btn-nav-header" href="#!">Bánh quy</a>
-            <a class="btn btn-nav-header" href="#!">Buns</a>
-            <a class="btn btn-nav-header" href="#!">Cakes</a>
-            <a class="btn btn-nav-header" href="#!">Cookies</a>
+            <a class="btn btn-nav-header" href="#!" value="">Trang chủ</a>
+            <a class="btn btn-nav-header" href="#!" value="Dyr Cakes">Bánh Khô</a>
+            <a class="btn btn-nav-header" href="#!" value="Buns">Bánh Bao</a>
+            <a class="btn btn-nav-header" href="#!" value="Cakes">Bánh Ngọt</a>
+            <a class="btn btn-nav-header" href="#!" value="Cookie">Bánh Quy</a>
+            <a class="btn btn-nav-header" href="#!" value="Toasts">Bánh mì</a>
         </div>
     </nav>
     <!-- Thanh lọc sản phẩm -->
@@ -235,26 +232,9 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="cart-item">
-                        <div class="img-product">
-                            <img src="./assets/img/gallery10.jpg" alt="">
-                        </div>
-                        <div class="infor-checkout">
-                            <span class="name-product-checkout">Tên món</span>
-                            <span>Đơn giá: </span>
-                            <span class="unit-product-checkout">120.000 VND</span>
-                            <span class="quantity-product-checkout">Số lượng</span>
-                            <div class="btnCustom">
-                                <input type="text" class="txtCustom" value="1">
-                                <button class="btnCustomDesc">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                                <button class="btnCustomAsc">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <button class="btn-delete-checkout">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="payment">
@@ -329,7 +309,7 @@
                     <span>Số lượng:</span>
                     <div class="btnCustom">
                         <button class="btnCustomAsc" onclick="decreaseQuantity()">-</button>
-                        <input type="text" class="txtCustom" id="quantity" value="1" min="1" readonly>
+                        <input type="text" class="txtCustom" id="quantity" value="1" min="1">
                         <button class="btnCustomDesc" onclick="increaseQuantity()">+</button>
                     </div>
                 </div>
