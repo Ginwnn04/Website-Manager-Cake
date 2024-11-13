@@ -213,34 +213,12 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
                 <div class="list-cart-item">
-                    <div class="cart-item">
-                        <div class="img-product">
-                            <img src="./assets/img/gallery10.jpg" alt="">
-                        </div>
-                        <div class="infor-checkout">
-                            <span class="name-product-checkout">Tên món</span>
-                            <span>Đơn giá: </span>
-                            <span class="unit-product-checkout">120.000 VND</span>
-                            <span class="quantity-product-checkout">Số lượng</span>
-                            <div class="btnCustom">
-                                <input type="text" class="txtCustom" value="1">
-                                <button class="btnCustomDesc">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                                <button class="btnCustomAsc">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button class="btn-delete-checkout">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
-                    </div>
+                    
                 </div>
                 <div class="payment">
                     <div class="total-payment">
                         <span>Tổng tiền</span>
-                        <span>100.000 VND</span>
+                        <span class="total-price-cart">100.000 VND</span>
                     </div>
                     <button class="btnPayment">Thanh toán</button>
                 </div>
@@ -307,14 +285,14 @@
                 <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
                 <div class="quantity-wrapper">
                     <span>Số lượng:</span>
-                    <div class="btnCustom">
-                        <button class="btnCustomAsc" onclick="decreaseQuantity()">-</button>
-                        <input type="text" class="txtCustom" id="quantity" value="1" min="1">
-                        <button class="btnCustomDesc" onclick="increaseQuantity()">+</button>
+                    <div class="btnCustom" value="details-product">
+                        <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
+                        <input type="text" class="txtCustom quantity"  value="1" min="1">
+                        <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>
                 <div class="total-price">
-                    <p>Tổng thanh toán: <span id="total-price"></span></p>
+                    <p>Thành tiền: <span id="total-price"></span></p>
                 </div>
                 <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
             </div>
@@ -380,7 +358,9 @@
 
 
     </script>
+    <script src="./data.js"></script>
     <script src="./test.js"></script>
+
 
 </body>
 
