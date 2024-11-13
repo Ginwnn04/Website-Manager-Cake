@@ -4,263 +4,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Website</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
 </head>
 
 <body>
-    <main>
-        <header class="header">
-            <!-- Logo -->
-            <img class="logo" src="./assets/img/logo_black.png" alt="">
-
-            <!-- Hotline -->
-            <div class="hotline">
-                <a href="#!" class="phone-hotline">19002660</a>
-                <p>Hotline đặt hàng</p>
+    <header id="header">
+        <div class="container">
+            <div class="nav-top">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="./assets/img/logo_black.png" alt="Bakery Logo">
+                    </div>
+                    <div class="hotline">
+                        <span>19002660</span>
+                        <p>Hotline đặt hàng</p>
+                    </div>
+                </div>
+                <div class="header-center">
+                    <div class="search">
+                        <input class="search-txt" type="text" placeholder="Tìm kiếm sản phẩm">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <button class="filter-products">
+                            <i class="fa-solid fa-filter filter-icon"></i>
+                            <span>Lọc</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
+                    <button class="btn btn-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Giỏ hàng</span>
+                    </button>
+                </div>
             </div>
-
-            <!-- Button login -->
-            <a href="" class="btn btn-login">Đăng nhập</a>
-        </header>
-
-        <!-- Navigation -->
-        <nav class="nav-bar">
-            <ul>
-                <li><a href="">Bánh sinh nhật</a></li>
-                <li><a href="">Bánh ngọt</a></li>
-                <li><a href="">Bánh mỳ</a></li>
-                <li><a href="">Bánh tươi</a></li>
-                <li><a href="">Bánh quy khô</a></li>
-            </ul>
-
-            <!-- Search -->
-
-
-
-            <!-- Giỏ hàng -->
-            <a href="" class="btn btn-cart">Giỏ hàng</a>
-
-        </nav>
-
-        <!-- Banner/Slide -->
-        <div class="banner">
-            <img class="bannerWeb"src="./assets/img/bannerWeb.png" alt="">
-            
         </div>
+    </header>
 
-        
-        <div class="content">
+    <nav class="navbar">
+        <div class="container">
+            <a class="btn btn-nav-header" href="#!" value="">Trang chủ</a>
+            <a class="btn btn-nav-header" href="#!" value="Dyr Cakes">Bánh Khô</a>
+            <a class="btn btn-nav-header" href="#!" value="Buns">Bánh Bao</a>
+            <a class="btn btn-nav-header" href="#!" value="Cakes">Bánh Ngọt</a>
+            <a class="btn btn-nav-header" href="#!" value="Cookie">Bánh Quy</a>
+            <a class="btn btn-nav-header" href="#!" value="Toasts">Bánh mì</a>
+        </div>
+    </nav>
+    <!-- Thanh lọc sản phẩm -->
+    <nav class="navbar-filter">
+        <div class="container filter">
+            <div class="filter-left">
+                <label for="">Phân loại</label>
+                <select id="category-filter" class="filter-select">
+                    <option value="">Tất cả</option>
+                    <option value="Buns">Bánh bao</option>
+                    <option value="Cookies">Bánh quy</option>
+                    <option value="Toasts">Bánh mì</option>
+                    <option value="Dry Cakes">Bánh khô</option>
+                    <option value="Cakes">Bánh ngọt</option>
+                </select>
+                <label for="min-price">Giá từ</label>
+                <input type="number" id="min-price" placeholder="Nhập giá tối thiểu">
 
-            <!-- Products -->
-    
-            <div class="product-list">
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
+                <label for="max-price">đến</label>
+                <input type="number" id="max-price" placeholder="Nhập giá tối đa">
 
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="img">
-                        <img src="./assets/img/banhkem.jpg" alt="">
-                    </div>
-                    
-                    <div class="infor-product">
-                        <p class="name-product">Bánh kem siêu ngon</p>
-                        <p class="desc-product">Bánh kem được làm từ kem nhập khẩu của Đức....</p>    
-                        <div class="bottom-product">
-                            <div>
-                                <p class="">Giá chỉ</p>
-                                <p class="price-product">500.000 VND</p>    
-                                
-                            </div>
-                            <a href="" class="btn btn-select">Chọn</a>
-                        </div>
-                    </div>
-                </div>
-      
+                <button id="apply-filter" class="btn">
+                    <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                </button>
             </div>
-            
+            <div class="filter-right">
+                <button class="btn btn-asc">
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </button>
+                <button class="btn btn-desc">
+                    <i class="fa-solid fa-arrow-up-z-a"></i>
+                </button>
+                <button class="btn btn-close">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+    <div id="main-content">
+        <div class="container">
+            <div class="banner">
+                <div class="banner-slide">
+                    <img src="./assets/img/banner1.png" alt="Quảng cáo 1" class="fade">
+                    <img src="./assets/img/banner2.jpg" alt="Quảng cáo 2" class="fade">
+                    <img src="./assets/img/banner3.png" alt="Quảng cáo 3" class="fade">
+                </div>
+                <div class="banner-controls">
+                    <button class="prev" onclick="prevSlide()">&#10094;</button>
+                    <button class="next" onclick="nextSlide()">&#10095;</button>
+                </div>
+                <div class="dots">
+                    <span class="dot active" onclick="showSlide(0)"></span>
+                    <span class="dot" onclick="showSlide(1)"></span>
+                    <span class="dot" onclick="showSlide(2)"></span>
+                </div>
+            </div>
+            <div class="product-content">
+                <h2 class="title">Khám phá thực đơn của chúng tôi</h2>
+                <div class="content">
+                    <div class="list-product">
+                    </div>
+                </div>
+            </div>
+
             <!-- Thong diep -->
             <div class="thongDiep">
                 <div class="td_item">
                     <h4>AN TOÀN THỰC PHẨM</h4>
-                    <i class="fa-sharp fa-solid fa-shield-heart"></i>
-                    <p>Với phương châm "Chất lượng làm nên uy tín", chúng tôi luôn nỗ lực để tạo ra những sản phẩm không chỉ ngon mà còn an toàn cho sức khỏe người tiêu dùng.</p>
+                    <i class="fa-solid fa-shield"></i>
+                    <p>Với phương châm "Chất lượng làm nên uy tín", chúng tôi luôn nỗ lực để tạo ra những sản
+                        phẩm
+                        không
+                        chỉ
+                        ngon mà còn an toàn cho sức khỏe người tiêu dùng.</p>
                 </div>
                 <div class="td_item">
                     <h4>NGUYÊN LIỆU</h4>
                     <i class="fa-solid fa-cake-candles"></i>
-                    <p>Chúng tôi luôn ưu tiên sử dụng các nguyên liệu sạch, tự nhiên và có nguồn gốc rõ ràng để tạo ra những chiếc bánh thơm ngon nhất.</p>
+                    <p>Chúng tôi luôn ưu tiên sử dụng các nguyên liệu sạch, tự nhiên và có nguồn gốc rõ ràng để
+                        tạo
+                        ra
+                        những
+                        chiếc bánh thơm ngon nhất.</p>
                 </div>
                 <div class="td_item">
                     <h4>GIAO HÀNG NHANH</h4>
                     <i class="fa-sharp fa-solid fa-truck-fast"></i>
-                    <p>Đóng gói cẩn thận và đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng. Giao hàng trên nhiều khu vực và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.</p>
+                    <p>Đóng gói cẩn thận và đảm bảo sản phẩm nguyên vẹn khi đến tay khách hàng. Giao hàng trên
+                        nhiều
+                        khu
+                        vực
+                        và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.
+                    </p>
                 </div>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <footer>
+    </div>
+    <!-- Footer -->
+    <div class="container">
+        <div id="footer">
             <div class="footer_item">
                 <h4>GIỚI THIỆU</h4>
-                <p>Celeste Bakery là thương hiệu bánh ngọt mang phong cách châu Âu, chuyên cung cấp những chiếc bánh được làm từ nguyên liệu tươi ngon nhất với phương pháp làm bánh thủ công. Chúng tôi tin rằng mỗi chiếc bánh không chỉ là một món ăn mà còn là sự sẻ chia niềm vui và hạnh phúc, với hy vọng mang đến cho bạn những trải nghiệm ngọt ngào và tinh tế nhất trong từng hương vị.</p>
+                <p>Celeste Bakery là thương hiệu bánh ngọt mang phong cách châu Âu, chuyên cung cấp những chiếc bánh
+                    được làm từ nguyên liệu tươi ngon nhất với phương pháp làm bánh thủ công. Chúng tôi tin rằng mỗi
+                    chiếc bánh không chỉ là một món ăn mà còn là sự sẻ chia niềm vui và hạnh phúc, với hy vọng mang
+                    đến
+                    cho bạn những trải nghiệm ngọt ngào và tinh tế nhất trong từng hương vị.</p>
             </div>
-        
+
             <div class="footer_item">
                 <h4>DANH MỤC</h4>
                 <ul class="list_menu">
@@ -271,7 +178,7 @@
                     <li><a href=""></a>Bánh quy khô</li>
                 </ul>
             </div>
-        
+
             <div class="footer_item">
                 <h4>THÔNG TIN</h4>
                 <ul>
@@ -280,7 +187,7 @@
                     <li>Email: daihocsaigon@sgu.edu.vn</li>
                 </ul>
             </div>
-        
+
             <div class="footer_item">
                 <h4>THEO DÕI CHÚNG TÔI</h4>
                 <div class="follow">
@@ -293,10 +200,189 @@
                 </div>
                 <img src="./assets/img/logo_black.png" alt="Celeste Bakery Logo">
             </div>
+        </div>
+    </div>
 
-        </footer>
-    </main>
-    <script src="./script.js"></script>
+
+    <!-- Giỏ hàng -->
+    <div class="modal">
+        <div class="cart">
+            <div class="content-cart">
+                <div class="title-cart">
+                    Giỏ hàng
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+                <div class="list-cart-item">
+                    <div class="cart-item">
+                        <div class="img-product">
+                            <img src="./assets/img/gallery10.jpg" alt="">
+                        </div>
+                        <div class="infor-checkout">
+                            <span class="name-product-checkout">Tên món</span>
+                            <span>Đơn giá: </span>
+                            <span class="unit-product-checkout">120.000 VND</span>
+                            <span class="quantity-product-checkout">Số lượng</span>
+                            <div class="btnCustom">
+                                <input type="text" class="txtCustom" value="1">
+                                <button class="btnCustomDesc">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                                <button class="btnCustomAsc">
+                                    <i class="fa-solid fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn-delete-checkout">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="payment">
+                    <div class="total-payment">
+                        <span>Tổng tiền</span>
+                        <span>100.000 VND</span>
+                    </div>
+                    <button class="btnPayment">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Form đăng nhập-->
+    <div class="form-popup" id="loginForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
+            <h2>Đăng nhập</h2>
+            <label for="login-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <label for="login-password">Mật khẩu:</label>
+            <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
+            <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
+            <button type="submit" class="btn">Đăng nhập</button>
+            <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
+        </form>
+    </div>
+
+    <!-- Form đăng ký -->
+    <div class="form-popup" id="signupForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
+            <h2>Đăng ký</h2>
+            <label for="signup-phone">Số điện thoại:</label>
+            <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
+            <label for="signup-email">Gmail:</label>
+            <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
+            <label for="signup-password">Mật khẩu:</label>
+            <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
+            <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
+            <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit" class="btn">Đăng ký</button>
+            <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
+        </form>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Form quên mật khẩu -->
+    <div class="form-popup" id="forgotPasswordForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <button type="submit" class="btn">Xác thực tài khoản</button>
+        </form>
+    </div>
+    <!-- Form chi tiết sản phẩm -->
+    <div id="product-detail-modal" class="modal-detail">
+        <div class="product-detail-content">
+            <span class="close-btn" onclick="closeProductDetail()">&times;</span>
+            <div class="product-detail-left">
+                <img id="product-image" src="" alt="Product Image">
+            </div>
+            <div class="product-detail-right">
+                <h2 id="product-name">Tên Sản Phẩm</h2>
+                <p class="product-price" id="product-price">Giá: 0 ₫</p>
+                <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
+                <label for="note">Ghi chú:</label>
+                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                <div class="quantity-wrapper">
+                    <span>Số lượng:</span>
+                    <div class="btnCustom">
+                        <button class="btnCustomAsc" onclick="decreaseQuantity()">-</button>
+                        <input type="text" class="txtCustom" id="quantity" value="1" min="1">
+                        <button class="btnCustomDesc" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+                <div class="total-price">
+                    <p>Tổng thanh toán: <span id="total-price"></span></p>
+                </div>
+                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
+        function openForm(formId) {
+            document.getElementById("overlay").classList.add("show-overlay");
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("forgotPasswordForm").style.display = "none";
+            document.getElementById(formId).style.display = "block";
+        }
+        // Hàm đóng form
+        function closeForm(formId) {
+            document.getElementById(formId).style.display = "none";
+            document.getElementById("overlay").classList.remove("show-overlay");
+        }
+        // Khai báo slide show
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.banner-slide img');
+        const dots = document.querySelectorAll('.dot');
+
+        // Hàm để hiển thị slide
+        function showSlide(index) {
+            const prevIndex = currentIndex;
+            currentIndex = (index + slides.length) % slides.length;
+
+            slides.forEach((slide, i) => {
+                slide.classList.remove('visible', 'flip-in', 'flip-out');
+                if (i === currentIndex) {
+                    slide.classList.add('visible', 'flip-in');
+                }
+                if (i === prevIndex) {
+                    slide.classList.add('flip-out');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === currentIndex) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Hàm để chuyển đến slide tiếp theo
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
+
+        // Hàm để chuyển đến slide trước đó
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
+
+        // Thiết lập slide show tự động
+        showSlide(currentIndex);
+        setInterval(nextSlide, 3000);
+
+
+
+    </script>
+    <script src="./test.js"></script>
+
 </body>
+
 
 </html>
