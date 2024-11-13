@@ -136,8 +136,6 @@ function displayOrders() {
   orderList.innerHTML = '';
   currentOrders.forEach(order => {
     const row = document.createElement('tr');
-    const productImages = order.items.map(item => `<img src="${item.image}" alt="${item.name}" style="width:50px; height:50px;">`).join(' ');
-
     row.innerHTML = `
         <td>${order.orderId}</td>
         <td>${order.user.fullName}</td>
@@ -152,8 +150,8 @@ function displayOrders() {
             </select>
         </td>
         <td class="actions">
-            <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
             <button onclick="deleteOrder('${order.orderId}')">Xóa</button>
+            <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
         </td>
     `;
     orderList.appendChild(row);
