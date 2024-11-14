@@ -1,6 +1,9 @@
 const USER_LOGIN = "userLogin";
 let listProduct = [];
 let listProductFilter = [];
+let listProvince = [];
+let listDistrict = [];
+let listWard = [];
 
 
 
@@ -15,11 +18,86 @@ let listProductFilter = [];
 // localStorage.setItem(USER_LOGIN, JSON.stringify(userLogin));
 
 window.onload = loadDataProduct();
-
+window.onload = getDataProvince();
 
 function formatPrice(price) {
     return price.toLocaleString('vi-VN') + " ₫";
 }
+
+async function getDataProvince() {
+    const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+        const data = await response.json();
+        listProvince = [...data];
+
+    } catch (error) {
+      console.error(error.message);
+    }
+}
+
+async function getDataDistrict(idProvince) {
+    const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+        const data = await response.json();
+        listDistrict = [...data];
+        renderDistrict();        
+    } catch (error) {
+      console.error(error.message);
+    }
+}
+async function getDataWard(idDistrict) {
+    const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=" + idDistrict;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+        const data = await response.json();
+        listWard = [...data];
+        renderWard();        
+    } catch (error) {
+      console.error(error.message);
+    }
+}
+
+
+
+
+function renderProvince() {
+    const selectProvince = document.getElementById("province");
+    txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
+    listProvince.forEach(province => {
+      
+        txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
+    });
+    selectProvince.innerHTML = txtInner;
+}
+function renderDistrict() {
+    const selectDistrict = document.getElementById("district");
+    txtInner = `<option value="" disabled selected>Chọn quận/huyện</option>`;
+    listDistrict.forEach(district => {
+      
+        txtInner += `<option value="${district.idDistrict}">${district.name}</option>`;
+    });
+    selectDistrict.innerHTML = txtInner;
+}
+function renderWard() {
+    const selectWard = document.getElementById("ward");
+    txtInner = `<option value="" disabled selected>Chọn phường/xã</option>`;
+    listWard.forEach(ward => {
+        txtInner += `<option value="${ward.idCommune}">${ward.name}</option>`;
+    });
+    selectWard.innerHTML = txtInner;
+}
+
 
 function parsePrice(priceString) {
     const price = priceString.replace(/[^\d]/g, '');
@@ -188,11 +266,17 @@ btnCart.addEventListener("click", () => {
                     </div>
                     `;
         listItemComponent.innerHTML = cartEmpty;
-        
     }
     else {
-        let cartContent = "";
-        userCurrent.cart.forEach((product, index) => {
+        renderCart(userCurrent.cart);
+    }
+    modal.classList.add("show-modal");
+    cart.classList.add("show-cart");
+});
+
+function renderCart(cart) {
+    let cartContent = "";
+        cart.forEach((product, index) => {
             cartContent += `
                     <div class="cart-item">
                         <div class="img-product">
@@ -215,21 +299,53 @@ btnCart.addEventListener("click", () => {
                                 </button>
                             </div>
                         </div>
-                        <button class="btn-delete-checkout">
+                        <button class="btn-delete-checkout" onclick="deleteProduct(${index})">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
                     </div>`  
         });
-        listItemComponent.innerHTML = cartContent;
-        let totalPrice = 0;
-        userCurrent.cart.forEach(product => {
-            totalPrice += product.quantity * product.price;
-        });
-        const totalPriceComponent = document.querySelector(".total-price-cart");
-        totalPriceComponent.innerHTML = formatPrice(totalPrice);
-    }
-    modal.classList.add("show-modal");
-    cart.classList.add("show-cart");
+    const listItemComponent = document.querySelector(".list-cart-item");
+    listItemComponent.innerHTML = cartContent;
+    let totalPrice = 0;
+    cart.forEach(product => {
+        totalPrice += product.quantity * product.price;
+    });
+    const totalPriceComponent = document.querySelector(".total-price-cart");
+    totalPriceComponent.innerHTML = formatPrice(totalPrice);
+}
+
+function deleteProduct(index) {
+    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    userCurrent.cart.splice(index, 1);
+    localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+    renderCart(userCurrent.cart);
+}
+
+const btnPayment = document.querySelector('.btnPayment');
+btnPayment.addEventListener("click", () => {
+    document.querySelector(".modal-payment").classList.add("modal-payment--show");
+    renderProvince();
+});
+
+const cbxProvince = document.getElementById("province");
+cbxProvince.addEventListener("change", () => {
+    const idProvince = cbxProvince.value;
+    const cbxWard = document.getElementById("ward");
+    cbxWard.innerHTML = `<option value="" disabled selected>Chọn phường/xã</option>`;
+    getDataDistrict(idProvince);
+});
+
+const cbxDistrict = document.getElementById("district");
+cbxDistrict.addEventListener("change", () => {
+    const idDistrict = cbxDistrict.value;
+    getDataWard(idDistrict);
+});
+    
+
+
+const btnBack = document.querySelector('.btn-back');
+btnBack.addEventListener("click", () => {
+    document.querySelector(".modal-payment").classList.remove("modal-payment--show");
 });
 
 // Đóng giỏ hàng khi click ra ngoài modal
