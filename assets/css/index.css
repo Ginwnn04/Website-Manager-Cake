@@ -1219,14 +1219,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-.group-cbx #province {
-    flex-grow: 3;
-}
-.group-cbx #district {
-    flex-grow: 2;
-}
-.group-cbx #commune {
-    flex-flow: 2;
+.group-cbx #province,
+.group-cbx #district,
+.group-cbx #ward {
+    width: calc((100% - 20px) / 3);
 }
 
 
