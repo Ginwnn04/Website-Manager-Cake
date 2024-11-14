@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
 
 <body>
@@ -39,7 +40,11 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
+                    <button class="btn login-btn" onclick="openForm('loginForm')">
+                        <i class="fa-solid fa-user-large"></i>
+                        <span>Đăng nhập</span>
+                        
+                    </button>
                     <button class="btn btn-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
@@ -52,10 +57,10 @@
     <nav class="navbar">
         <div class="container">
             <a class="btn btn-nav-header" href="#!" value="">Trang chủ</a>
-            <a class="btn btn-nav-header" href="#!" value="Dyr Cakes">Bánh Khô</a>
+            <a class="btn btn-nav-header" href="#!" value="Dry Cakes">Bánh Khô</a>
             <a class="btn btn-nav-header" href="#!" value="Buns">Bánh Bao</a>
             <a class="btn btn-nav-header" href="#!" value="Cakes">Bánh Ngọt</a>
-            <a class="btn btn-nav-header" href="#!" value="Cookie">Bánh Quy</a>
+            <a class="btn btn-nav-header" href="#!" value="Cookies">Bánh Quy</a>
             <a class="btn btn-nav-header" href="#!" value="Toasts">Bánh mì</a>
         </div>
     </nav>
@@ -84,10 +89,13 @@
             </div>
             <div class="filter-right">
                 <button class="btn btn-asc">
-                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                    <i class="fa-solid fa-arrow-up-z-a"></i>
                 </button>
                 <button class="btn btn-desc">
-                    <i class="fa-solid fa-arrow-up-z-a"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </button>
+                <button class="btn btn-reset">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
                 <button class="btn btn-close">
                     <i class="fa-solid fa-circle-xmark"></i>
@@ -124,7 +132,7 @@
             </div>
 
             <!-- Thong diep -->
-            <div class="thongDiep">
+            <!-- <div class="thongDiep">
                 <div class="td_item">
                     <h4>AN TOÀN THỰC PHẨM</h4>
                     <i class="fa-solid fa-shield"></i>
@@ -153,7 +161,7 @@
                         và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.
                     </p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Footer -->
@@ -213,12 +221,12 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
                 <div class="list-cart-item">
-                    
+
                 </div>
                 <div class="payment">
                     <div class="total-payment">
                         <span>Tổng tiền</span>
-                        <span class="total-price-cart">100.000 VND</span>
+                        <span class="total-price-cart" ">0 đ</span>
                     </div>
                     <button class="btnPayment">Thanh toán</button>
                 </div>
@@ -287,7 +295,7 @@
                     <span>Số lượng:</span>
                     <div class="btnCustom" value="details-product">
                         <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
-                        <input type="text" class="txtCustom quantity"  value="1" min="1">
+                        <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1">
                         <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
                     </div>
                 </div>

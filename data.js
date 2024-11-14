@@ -7,6 +7,7 @@ function loadDataToLocal() {
     if (localStorage.getItem(LIST_PRODUCT) === null) {
         const listProduct = [
             {
+                "id": 1,
                 "name": "Banana Chocolate",
                 "price": 24000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02971_optimized.png",
@@ -14,6 +15,7 @@ function loadDataToLocal() {
                 "category": "Buns"
             },
             {
+                "id": 2,
                 "name": "Bacon Cheese Onion",
                 "price": 32000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc03115_optimized.png",
@@ -21,6 +23,7 @@ function loadDataToLocal() {
                 "category": "Buns"
             },
             {
+                "id": 3,
                 "name": "Banana Peanut",
                 "price": 24000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02946_optimized.png",
@@ -28,6 +31,7 @@ function loadDataToLocal() {
                 "category": "Buns"
             },
             {
+                "id": 4,
                 "name": "Cheese Croissant",
                 "price": 28000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc03375_optimized.png",
@@ -35,6 +39,7 @@ function loadDataToLocal() {
                 "category": "Buns"
             },
             {
+                "id": 5,
                 "name": "Cheese Boat",
                 "price": 22000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc03256_optimized.png",
@@ -42,6 +47,7 @@ function loadDataToLocal() {
                 "category": "Buns"
             },
             {
+                "id": 6,
                 "name": "Chocolate Cookies",
                 "price": 99000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc03142_optimized.png",
@@ -49,6 +55,7 @@ function loadDataToLocal() {
                 "category": "Cookies"
             },
             {
+                "id": 7,
                 "name": "Almond Cookies",
                 "price": 99000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc03146_optimized.png",
@@ -56,6 +63,7 @@ function loadDataToLocal() {
                 "category": "Cookies"
             },
             {
+                "id": 8,
                 "name": "Brioche",
                 "price": 92000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02364_optimized.png",
@@ -63,6 +71,7 @@ function loadDataToLocal() {
                 "category": "Toasts"
             },
             {
+                "id": 9,
                 "name": "California Toast",
                 "price": 55000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02270_optimized.png",
@@ -70,6 +79,7 @@ function loadDataToLocal() {
                 "category": "Toasts"
             },
             {
+                "id": 10,
                 "name": "Dark Rye Toast",
                 "price": 55000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02286_optimized-1.png",
@@ -77,6 +87,7 @@ function loadDataToLocal() {
                 "category": "Toasts"
             },
             {
+                "id": 11,
                 "name": "Fresh Baguette",
                 "price": 48000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02384_optimized.png",
@@ -84,6 +95,7 @@ function loadDataToLocal() {
                 "category": "Toasts"
             },
             {
+                "id": 12,
                 "name": "Hokkaido Roll",
                 "price": 169000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2024/01/HOKKAIDO-ROLL-169K_SP-ROLL-1.jpg",
@@ -91,6 +103,7 @@ function loadDataToLocal() {
                 "category": "Dry Cakes"
             },
             {
+                "id": 13,
                 "name": "Japan Light Cheese",
                 "price": 138000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02649_optimized.png",
@@ -98,6 +111,7 @@ function loadDataToLocal() {
                 "category": "Dry Cakes"
             },
             {
+                "id": 14,
                 "name": "Combo Drycake 3pcs",
                 "price": 85000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02769_optimized.png",
@@ -105,6 +119,7 @@ function loadDataToLocal() {
                 "category": "Dry Cakes"
             },
             {
+                "id": 15,
                 "name": "Banana Cake",
                 "price": 139000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02662_optimized.png",
@@ -112,6 +127,7 @@ function loadDataToLocal() {
                 "category": "Dry Cakes"
             },
             {
+                "id": 16,
                 "name": "Pandan Japan Light Cheese",
                 "price": 138000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2024/04/Pandan-Japan-Light-Cheese_129k.png",
@@ -119,6 +135,7 @@ function loadDataToLocal() {
                 "category": "Dry Cakes"
             },
             {
+                "id": 17,
                 "name": "Bánh kem Blueberry",
                 "price": 490000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02564_optimized.png",
@@ -126,6 +143,7 @@ function loadDataToLocal() {
                 "category": "Cakes"
             },
             {
+                "id": 18,
                 "name": "Fresh Cream",
                 "price": 420000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/z5288998176966_5d5e76e5a65947c69e8490722cd4df32.jpg",
@@ -133,6 +151,7 @@ function loadDataToLocal() {
                 "category": "Cakes"
             },
             {
+                "id": 19,
                 "name": "Black Forest C",
                 "price": 550000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02466_optimized.png",
@@ -140,6 +159,7 @@ function loadDataToLocal() {
                 "category": "Cakes"
             },
             {
+                "id": 20,
                 "name": "Party Pink",
                 "price": 600000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02474_optimized.png",
@@ -147,6 +167,7 @@ function loadDataToLocal() {
                 "category": "Cakes"
             },
             {
+                "id": 21,
                 "name": "Rainbow Bliss C",
                 "price": 550000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/dsc02437_optimized.png",
@@ -154,6 +175,7 @@ function loadDataToLocal() {
                 "category": "Cakes"
             },
             {
+                "id": 22,
                 "name": "Rainbow Fresh Cream",
                 "price": 460000,
                 "image": "https://breadtalkvietnam.com/wp-content/uploads/2023/06/z5288430562579_36de56043d15079eb6f1064890b7109b.jpg",

@@ -17,7 +17,7 @@
 body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
-    
+    overflow-y: auto
 }
 
 img {
@@ -33,6 +33,7 @@ main {
 .container {
     max-width: 1130px;
     margin: 0 auto;
+    padding: 0 24px;
 }
 
 .modal {
@@ -56,6 +57,7 @@ main {
 
 .show-cart {
     transform: translateX(0) !important;
+    
 }
 
 
@@ -711,20 +713,20 @@ main {
 
 .cart {
     width: 400px;
+    height: 90%;
+    min-height: 150px;
     background-color: #fff;
     border-radius: 15px;
-    height: 90%;
     padding: 12px;
     z-index: 2;
     transform: translateX(100%);
     transition: .5s ease;
+    overflow: hidden;
 }
 
 .cart .content-cart{
     display: flex;
-    height: 100%;
     flex-direction: column;
-    justify-content: space-around;
 }
 
 
@@ -732,15 +734,15 @@ main {
 .cart .content-cart .title-cart{
     text-align: center;
     border-bottom: 1px solid #ddd;
-    padding: 3px 0 15px 0;
     font-weight: 500;
     font-size: 16px;
-    height: 10%;
+    /* height: 4%; */
+    padding-bottom: 10px;
 }
 
 .content-cart .list-cart-item {
-    height: 70%;
-    overflow-y: auto;
+    /* height: calc(83%);
+    overflow-y: auto; */
 }
 
 .list-cart-item .cart-item {
@@ -773,7 +775,7 @@ main {
 .cart-item .unit-product-checkout {
     display: inline-block;
     font-weight: 500;
-    width: 150px;
+    width: auto;
     margin: 10px 15px 0 0;
 }
 
@@ -801,15 +803,20 @@ main {
 }
 
 .content-cart .payment {
-    height: 20%;
+    position: absolute;
+    bottom: 0px;
+    left: 12px;
+    right: 12px;
     border-top: 1px solid #ddd;
-    padding: 20px 8px 0 8px;
+    padding: 20px 8px 12px 8px;
+    z-index: 3;
+    background-color: var(--background-color);
 }
 
 .content-cart .payment .total-payment {
     display: flex;
     justify-content: space-between;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
 }
 .content-cart .payment .btnPayment {
@@ -886,6 +893,7 @@ main {
     -webkit-appearance: none; /* Chrome, Safari */
     -moz-appearance: textfield; /* Firefox */
     appearance: textfield; /* Các trình duyệt hiện đại */
+    position: relative;
 }
 
 /* Ẩn nút tăng giảm trên Chrome và Safari */
@@ -946,7 +954,8 @@ main {
 
 .filter-right .btn-desc,
 .filter-right .btn-asc,
-.filter-right .btn-close {
+.filter-right .btn-close,
+.filter-right .btn-reset {
     background-color: #f0f0f0;
     padding: 10px 16px;
     border-radius: 5px;
@@ -956,12 +965,19 @@ main {
 
 .filter-right .btn-desc:hover,
 .filter-right .btn-asc:hover,
-.filter-right .btn-close:hover {
+.filter-right .btn-close:hover,
+.filter-right .btn-reset:hover {
     background-color: var(--primary-color);
     padding: 10px 16px;
     border-radius: 5px;
-
     color: var(--white-color);
+}
+
+.btn--active {
+    background-color: var(--primary-color) !important; 
+    padding: 10px 16px !important; 
+    border-radius: 5px !important; 
+    color: var(--white-color) !important; 
 }
 
 /* Nút "Áp dụng" */
@@ -1074,3 +1090,85 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
+@media screen and (max-width: 767.98px) {
+    .header-left {
+        flex-grow: 4;
+
+    }
+    
+    .header-left .hotline {
+        /* margin-left: 10px; */
+        display: none;
+    }
+
+    .header-center {
+        flex-grow: unset;
+    }
+
+    .header-center .search-txt,
+    .header-center .filter-products {
+        display: none;
+    }
+    .header-center .search .search-icon {
+        position: unset;
+        width: 40px;
+        height: 37px;
+        text-align: center;
+        margin-right: 10px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+
+    }
+    .header-right .btn>span {
+        display: none;
+    }
+
+    .navbar {
+        line-height: normal;
+    }
+    .navbar>.container {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 10px;
+    } 
+
+    .list-product .product-item {
+        width: calc(100% - 10px);
+    }
+
+
+    
+    .footer_item {
+        width: calc(100% - 40px);
+    }
+    .td_item{
+        width: calc(100% - 40px);
+    }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+    .header-right .btn>span {
+        display: none;
+    }
+    .navbar-filter {
+        transform: translateY(-37px);
+        height: 100px;
+    }
+    .filter-bar--open {
+        transform: translateY(calc(100% - 37px));
+    }
+    .navbar-filter .filter {
+        flex-wrap: wrap;
+    } 
+    
+
+
+    .list-product .product-item {
+        width: calc(100% / 3 - 10px);
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1199.98px) {
+    
+}
