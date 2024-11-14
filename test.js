@@ -254,7 +254,7 @@ const btnCart = document.getElementsByClassName("btn-cart")[0];
 btnCart.addEventListener("click", () => {
     const modal = document.getElementsByClassName("modal")[0];
     const cart = document.getElementsByClassName("cart")[0];
-
+    document.body.style.overflow = "hidden";
     const userCurrent = localStorage.getItem(USER_LOGIN) ? JSON.parse(localStorage.getItem(USER_LOGIN)) : null;
     const listItemComponent = document.querySelector(".list-cart-item");
     if (userCurrent === null || userCurrent.cart.length === 0) {
@@ -273,6 +273,23 @@ btnCart.addEventListener("click", () => {
     modal.classList.add("show-modal");
     cart.classList.add("show-cart");
 });
+
+
+function renderItemCheckout(listItem) {
+    let txtHtml = "";
+    listItem.forEach(product => {
+        txtHtml += `
+                    <div class="item">
+                        <span class="quantity-item">${product.quantity}x</span>
+                        <span class="name-item">${product.name}</span>
+                        <span class="price-item">${formatPrice(product.price)}</span>
+                    </div>`;
+    });
+    const listItemComponent = document.querySelector(".list-details");
+    listItemComponent.innerHTML = txtHtml;
+
+}
+
 
 function renderCart(cart) {
     let cartContent = "";
@@ -325,6 +342,7 @@ const btnPayment = document.querySelector('.btnPayment');
 btnPayment.addEventListener("click", () => {
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
     renderProvince();
+    renderItemCheckout(JSON.parse(localStorage.getItem(USER_LOGIN)).cart);
 });
 
 const cbxProvince = document.getElementById("province");
@@ -353,6 +371,7 @@ const wrapper = document.getElementsByClassName("modal")[0];
 wrapper.addEventListener("click", (e) => {
     if (e.target.classList.contains("show-modal")) {
         wrapper.classList.remove("show-modal");
+        document.body.style.overflow = "unset";
         const cart = document.getElementsByClassName("cart")[0];
         cart.classList.remove("show-cart");
     }
