@@ -7,19 +7,37 @@ let listWard = [];
 
 
 
-// const userLogin = {
-//     fullName: "Nguyen Nhat Quang",
-//     phone: "0123456789",
-//     password: "123456",
-//     dateCreate: "2022-10-10",
-//     status: "1",
-//     cart: []
-// };
-// localStorage.setItem(USER_LOGIN, JSON.stringify(userLogin));
+const userLogin = {
+    fullName: "Nguyen Nhat Quang",
+    phone: "0123456789",
+    password: "123456",
+    dateCreate: "2022-10-10",
+    address: "294 An Dương Vương",
+    provinceId: "01",
+    districtId: "005",
+    wardId: "00169",
+    status: "1",
+    cart: []
+};
+localStorage.setItem(USER_LOGIN, JSON.stringify(userLogin));
 
 window.onload = loadDataProduct();
 window.onload = getDataProvince();
+window.onload = callBackVnPay();
 
+function callBackVnPay() {
+    const modal = document.querySelector(".modal-payment");
+    const modalIsShow = localStorage.getItem("modalIsShow") ? true : false;
+    if (modalIsShow) {
+        renderPayment();
+    }
+}
+
+const test = document.querySelector("#province");
+test.addEventListener("change", () => {
+    const hihi = test.options[test.selectedIndex].text;
+    alert(hihi);
+});
 function formatPrice(price) {
     return price.toLocaleString('vi-VN') + " ₫";
 }
@@ -339,11 +357,44 @@ function deleteProduct(index) {
 }
 
 const btnPayment = document.querySelector('.btnPayment');
-btnPayment.addEventListener("click", () => {
+btnPayment.addEventListener("click", renderPayment);
+
+function renderPayment() {
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
+    localStorage.setItem("modalIsShow", "true");
     renderProvince();
+    renderInforUser();
     renderItemCheckout(JSON.parse(localStorage.getItem(USER_LOGIN)).cart);
-});
+}
+
+function renderInforUser() {
+    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    document.getElementById("txtName").value = userCurrent.fullName;
+    document.getElementById("txtPhone").value = userCurrent.phone;
+    document.getElementById("txtAddress").value = userCurrent.address;
+    listProvince.forEach((province, index) => {
+        if (province.idProvince === userCurrent.provinceId) {
+            document.getElementById("province").selectedIndex = index + 1;
+            renderDistrict(userCurrent.provinceId);
+        }
+    });
+    listDistrict.forEach((district, index) => {
+        if (district.idDistrict === userCurrent.districtId) {
+            console.log("2");
+            document.getElementById("district").selectedIndex = index + 1;
+            renderWard(userCurrent.districtId);
+            return;
+        }    
+    });
+    
+    listWard.forEach((ward, index) => {
+        console.log("3");
+        if (ward.idCommune === userCurrent.wardId) {
+            document.getElementById("ward").selectedIndex = index + 1;
+            return;
+        }
+    });
+}
 
 const cbxProvince = document.getElementById("province");
 cbxProvince.addEventListener("change", () => {
@@ -364,6 +415,7 @@ cbxDistrict.addEventListener("change", () => {
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
     document.querySelector(".modal-payment").classList.remove("modal-payment--show");
+    localStorage.removeItem("modalIsShow");
 });
 
 // Đóng giỏ hàng khi click ra ngoài modal
