@@ -111,18 +111,34 @@ let currentPage = 1;  // Trang hiện tại
 // Hiển thị danh sách đơn hàng với phân trang
 function displayOrders() {
   const orderList = document.getElementById("orderList");
-  const pagination = document.getElementById("pagination");
   const orders = JSON.parse(localStorage.getItem("orders")) || [];
   const searchQuery = document.getElementById("orderSearchInput").value.toLowerCase();
   const filterStatus = document.getElementById("statusFilter").value;
+  let startDate = document.getElementById("startDate").value; // Ngày bắt đầu
+  let endDate = document.getElementById("endDate").value; // Ngày kết thúc
 
-  // Lọc danh sách đơn hàng dựa trên trạng thái và từ khóa tìm kiếm
+  // Kiểm tra nếu endDate nhỏ hơn startDate, yêu cầu người dùng sửa
+  if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
+      alert("Ngày kết thúc không thể nhỏ hơn ngày bắt đầu. Vui lòng chọn lại ngày kết thúc hợp lệ.");
+      document.getElementById("endDate").value = ''; // Reset trường ngày kết thúc
+      return; // Dừng lại không lọc theo ngày nếu ngày kết thúc không hợp lệ
+  }
+
+  // Lọc danh sách đơn hàng dựa trên trạng thái, từ khóa tìm kiếm và khoảng thời gian
   const filteredOrders = orders.filter(order => {
-    const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
-                               order.user.fullName.toLowerCase().includes(searchQuery) ||
-                               order.status.toLowerCase().includes(searchQuery);
-    const matchesStatus = filterStatus === "all" || order.status === filterStatus;
-    return matchesSearchQuery && matchesStatus;
+      const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
+                                 order.user.fullName.toLowerCase().includes(searchQuery) ||
+                                 order.status.toLowerCase().includes(searchQuery);
+      const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+
+      // Kiểm tra nếu có khoảng thời gian lọc thì mới lọc theo ngày
+      const orderDate = new Date(order.date);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+
+      const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
+
+      return matchesSearchQuery && matchesStatus && matchesDateRange;
   });
 
   const totalOrders = filteredOrders.length;
@@ -135,31 +151,42 @@ function displayOrders() {
   // Hiển thị đơn hàng
   orderList.innerHTML = '';
   currentOrders.forEach(order => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>${order.orderId}</td>
-        <td>${order.user.fullName}</td>
-        <td>${order.user.phone}</td>
-        <td>${order.totalPrice}</td>
-        <td>
-            <select onchange="updateOrderStatus('${order.orderId}', this.value)">
-                <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
-                <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
-                <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
-                <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
-            </select>
-        </td>
-        <td class="actions">
-            <button onclick="deleteOrder('${order.orderId}')">Xóa</button>
-            <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
-        </td>
-    `;
-    orderList.appendChild(row);
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          <td>${order.orderId}</td>
+          <td>${order.user.fullName}</td>
+          <td>${order.user.phone}</td>
+          <td>${order.date}</td>
+          <td>${order.totalPrice}</td>
+          <td>
+              <select onchange="updateOrderStatus('${order.orderId}', this.value)">
+                  <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
+                  <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
+                  <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
+                  <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
+              </select>
+          </td>
+          <td class="actions">
+              <button onclick="deleteOrder('${order.orderId}')">Xóa</button>
+              <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
+          </td>
+      `;
+      orderList.appendChild(row);
   });
 
   // Hiển thị nút phân trang
   displayPagination(totalPages);
 }
+
+
+// Lắng nghe thay đổi ngày bắt đầu hoặc ngày kết thúc
+document.getElementById("startDate").addEventListener("change", function() {
+  displayOrders(); // Cập nhật lại danh sách khi thay đổi ngày bắt đầu
+});
+
+document.getElementById("endDate").addEventListener("change", function() {
+  displayOrders(); // Cập nhật lại danh sách khi thay đổi ngày kết thúc
+});
 
 // Hiển thị các nút phân trang
 function displayPagination(totalPages) {

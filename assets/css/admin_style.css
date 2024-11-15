@@ -704,7 +704,7 @@ button{
 }
 
 #order_manager th, #order_manager td {
-    padding: 12px 15px;
+    padding: 12px 10px;
     text-align: left;
     color: var(--black);
 }
@@ -714,7 +714,7 @@ button{
     background-color: var(--grey);
 }
 #order_manager th {
-    font-size: 16px;
+    font-size: 18px;
 }
 #order_manager td {
     font-size: 14px;

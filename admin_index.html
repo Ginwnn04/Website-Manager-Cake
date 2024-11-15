@@ -889,6 +889,16 @@
                             <input type="search" placeholder="Search..." id="orderSearchInput">
                             <button type="submit" class="search_order"><i class='bx bx-search-alt-2'></i></button>
                         </div>
+                        <!-- Lọc theo khoảng thời gian -->
+                        <div>
+                            <label for="startDate">Từ ngày:</label>
+                            <input type="date" id="startDate" />
+                        </div>
+                        <div>
+                            <label for="endDate">Đến ngày:</label>
+                            <input type="date" id="endDate" />
+                        </div>
+
                         <select id="statusFilter">
                             <option value="all">Tất cả trạng thái</option>
                             <option value="Chưa xử lý">Chưa xử lý</option>
@@ -906,6 +916,7 @@
                                 <th>Mã đơn</th>
                                 <th>Khách hàng</th>
                                 <th>Số điện thoại</th>
+                                <th>Ngày đặt</th>
                                 <th>Tổng tiền</th>
                                 <th>Tình trạng</th>
                                 <th>Thao tác</th>

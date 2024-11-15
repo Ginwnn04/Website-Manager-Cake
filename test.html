@@ -586,11 +586,13 @@ function finalizePurchase() {
     const address = document.getElementById("confirmAddress").value; 
     const currentUser = JSON.parse(localStorage.getItem('currentUser')); 
     const currentDate = new Date();
-    const day = currentDate.getDate();
-    const month = currentDate.getMonth() + 1; 
-    const year = currentDate.getFullYear();
     
-    const formattedDate = `${day}/${month}/${year}`;
+    // Lấy ngày theo định dạng yyyy-mm-dd
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Đảm bảo tháng luôn có 2 chữ số
+    const day = String(currentDate.getDate()).padStart(2, '0'); // Đảm bảo ngày luôn có 2 chữ số
+    
+    const formattedDate = `${year}-${month}-${day}`; // Định dạng yyyy-mm-dd
     
     let itemsToPurchase = [];
     let totalPrice = 0;
@@ -621,15 +623,37 @@ function finalizePurchase() {
             phone: currentUser.phone, 
             address: address 
         },
-        date: formattedDate, // Lưu ngày đặt hàng
+        date: formattedDate, // Lưu ngày theo định dạng yyyy-mm-dd
         items: itemsToPurchase,  
         totalPrice: totalPrice,  
         status: "Chưa xử lý",  
     };
 
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
-    orders.unshift(order);
+    
+    // Thêm đơn hàng mới vào mảng orders
+    orders.unshift(order);  // Đẩy đơn hàng mới từ finalizePurchase lên đầu mảng
+
+    // Đảm bảo `newOrder` chứa các phần tử, nếu không hãy debug bằng cách console.log
+    const newOrder = [
+        { orderId: "id123456781", user: { fullName: "Lê Công Vinh", phone: "0902580641", address: "453/133 Lê Văn Sỹ, phường 12, quận 3, Tp.HCM" }, date: "2024-11-10", items: [{ name: "Bánh kem", price: 150000, image: "undefined" }], totalPrice: 150000, status: "Chưa xử lý" },
+        { orderId: "id123456782", user: { fullName: "Nguyễn Thị Lan", phone: "0902580642", address: "123/45 Nguyễn Thị Minh Khai, quận 1, Tp.HCM" }, date: "2024-11-11", items: [{ name: "Bánh mì", price: 20000, image: "undefined" }], totalPrice: 20000, status: "Chưa xử lý" },
+    ];
+
+    // Debug log để kiểm tra xem `orders` trước và sau khi thêm dữ liệu có thay đổi không
+    console.log("Orders before update:", orders);
+    
+    // Thêm đơn hàng mới vào mảng orders
+    orders.push(...newOrder);  // Dùng spread operator để thêm các phần tử từ newOrder vào orders
+
+    // Debug log sau khi cập nhật mảng orders
+    console.log("Orders after update:", orders);
+
+    // Lưu lại toàn bộ mảng orders vào localStorage
     localStorage.setItem('orders', JSON.stringify(orders));
+
+    // Kiểm tra lại xem dữ liệu đã được lưu vào localStorage chưa
+    console.log("Orders saved to localStorage:", localStorage.getItem('orders'));
 
     if (!singleItemPurchase) {
         cart = [];
@@ -640,7 +664,6 @@ function finalizePurchase() {
     alert("Đặt hàng thành công!");
     closeModal('confirmationModal'); 
 }
-
 
 
 // Load user data and products when the page is loaded
