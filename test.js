@@ -33,6 +33,7 @@ function callBackVnPay() {
     }
 }
 
+
 const test = document.querySelector("#province");
 test.addEventListener("change", () => {
     const hihi = test.options[test.selectedIndex].text;
@@ -278,7 +279,7 @@ btnCart.addEventListener("click", () => {
     if (userCurrent === null || userCurrent.cart.length === 0) {
         const cartEmpty = `
                     <div class="empty-cart"
-                        style="height: 100%;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
+                        style="height: 400px;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
                         <img src="./rb_5858.png" alt="" style="height: 300px; width: 300px; display: block;">
                         <h1 style="font-size: 20px;font-weight: 500;">Rất tiếc, ban chưa chọn món!</h1>
                     </div>
@@ -378,22 +379,26 @@ function renderInforUser() {
             renderDistrict(userCurrent.provinceId);
         }
     });
-    listDistrict.forEach((district, index) => {
-        if (district.idDistrict === userCurrent.districtId) {
-            console.log("2");
-            document.getElementById("district").selectedIndex = index + 1;
-            renderWard(userCurrent.districtId);
-            return;
-        }    
-    });
-    
-    listWard.forEach((ward, index) => {
-        console.log("3");
-        if (ward.idCommune === userCurrent.wardId) {
-            document.getElementById("ward").selectedIndex = index + 1;
-            return;
-        }
-    });
+    getDataDistrict(userCurrent.provinceId);
+    getDataWard(userCurrent.districtId);
+    setTimeout(() => {
+        listDistrict.forEach((district, index) => {
+            if (district.idDistrict === userCurrent.districtId) {
+                console.log("2");
+                document.getElementById("district").selectedIndex = index + 1;
+                renderWard(userCurrent.districtId);
+                return;
+            }    
+        });
+        
+        listWard.forEach((ward, index) => {
+            console.log("3");
+            if (ward.idCommune === userCurrent.wardId) {
+                document.getElementById("ward").selectedIndex = index + 1;
+                return;
+            }
+        });
+    }, 500);
 }
 
 const cbxProvince = document.getElementById("province");
@@ -410,6 +415,18 @@ cbxDistrict.addEventListener("change", () => {
     getDataWard(idDistrict);
 });
     
+const btnCustom = document.querySelectorAll(".btn-custom");
+btnCustom.forEach(btn => { 
+    btn.addEventListener("click", () => {
+        btnCustom.forEach(btn => {
+            btn.classList.remove("btn-custom--active");    
+        });
+        btn.classList.add("btn-custom--active");
+
+    });
+
+});
+
 
 
 const btnBack = document.querySelector('.btn-back');
