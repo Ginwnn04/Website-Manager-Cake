@@ -13,10 +13,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </head>
 
 <body>
-    <header id="header">
+    <header class="header">
         <div class="container">
             <div class="nav-top">
                 <div class="header-left">
@@ -39,7 +40,11 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="btn login-btn" onclick="openForm('loginForm')">Đăng nhập</button>
+                    <button class="btn login-btn" onclick="openForm('loginForm')">
+                        <i class="fa-solid fa-user-large"></i>
+                        <span>Đăng nhập</span>
+
+                    </button>
                     <button class="btn btn-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
@@ -52,10 +57,10 @@
     <nav class="navbar">
         <div class="container">
             <a class="btn btn-nav-header" href="#!" value="">Trang chủ</a>
-            <a class="btn btn-nav-header" href="#!" value="Dyr Cakes">Bánh Khô</a>
+            <a class="btn btn-nav-header" href="#!" value="Dry Cakes">Bánh Khô</a>
             <a class="btn btn-nav-header" href="#!" value="Buns">Bánh Bao</a>
             <a class="btn btn-nav-header" href="#!" value="Cakes">Bánh Ngọt</a>
-            <a class="btn btn-nav-header" href="#!" value="Cookie">Bánh Quy</a>
+            <a class="btn btn-nav-header" href="#!" value="Cookies">Bánh Quy</a>
             <a class="btn btn-nav-header" href="#!" value="Toasts">Bánh mì</a>
         </div>
     </nav>
@@ -84,10 +89,13 @@
             </div>
             <div class="filter-right">
                 <button class="btn btn-asc">
-                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                    <i class="fa-solid fa-arrow-up-z-a"></i>
                 </button>
                 <button class="btn btn-desc">
-                    <i class="fa-solid fa-arrow-up-z-a"></i>
+                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                </button>
+                <button class="btn btn-reset">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
                 <button class="btn btn-close">
                     <i class="fa-solid fa-circle-xmark"></i>
@@ -97,7 +105,7 @@
         </div>
     </nav>
 
-    <div id="main-content">
+    <div class="main-content">
         <div class="container">
             <div class="banner">
                 <div class="banner-slide">
@@ -124,7 +132,7 @@
             </div>
 
             <!-- Thong diep -->
-            <div class="thongDiep">
+            <!-- <div class="thongDiep">
                 <div class="td_item">
                     <h4>AN TOÀN THỰC PHẨM</h4>
                     <i class="fa-solid fa-shield"></i>
@@ -153,7 +161,7 @@
                         và nhanh mang lại trải nghiệm mua sắm tiện lợi. Hỗ trợ đổi trả nếu sản phẩm có vấn đề.
                     </p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- Footer -->
@@ -203,7 +211,6 @@
         </div>
     </div>
 
-
     <!-- Giỏ hàng -->
     <div class="modal">
         <div class="cart">
@@ -213,174 +220,208 @@
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
                 <div class="list-cart-item">
-                    <div class="cart-item">
-                        <div class="img-product">
-                            <img src="./assets/img/gallery10.jpg" alt="">
-                        </div>
-                        <div class="infor-checkout">
-                            <span class="name-product-checkout">Tên món</span>
-                            <span>Đơn giá: </span>
-                            <span class="unit-product-checkout">120.000 VND</span>
-                            <span class="quantity-product-checkout">Số lượng</span>
-                            <div class="btnCustom">
-                                <input type="text" class="txtCustom" value="1">
-                                <button class="btnCustomDesc">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                                <button class="btnCustomAsc">
-                                    <i class="fa-solid fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <button class="btn-delete-checkout">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
-                    </div>
+
                 </div>
                 <div class="payment">
                     <div class="total-payment">
                         <span>Tổng tiền</span>
-                        <span>100.000 VND</span>
+                        <span class="total-price-cart" ">0 đ</span>
                     </div>
-                    <button class="btnPayment">Thanh toán</button>
+                    <button class=" btnPayment">Thanh toán</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--Form đăng nhập-->
-    <div class="form-popup" id="loginForm">
-        <form class="form-container">
-            <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
-            <h2>Đăng nhập</h2>
-            <label for="login-username">Số điện thoại hoặc Gmail:</label>
-            <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-            <label for="login-password">Mật khẩu:</label>
-            <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
-            <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
-            <button type="submit" class="btn">Đăng nhập</button>
-            <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
-        </form>
-    </div>
 
-    <!-- Form đăng ký -->
-    <div class="form-popup" id="signupForm">
-        <form class="form-container">
-            <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
-            <h2>Đăng ký</h2>
-            <label for="signup-phone">Số điện thoại:</label>
-            <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
-            <label for="signup-email">Gmail:</label>
-            <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
-            <label for="signup-password">Mật khẩu:</label>
-            <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
-            <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
-            <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
-            <button type="submit" class="btn">Đăng ký</button>
-            <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
-        </form>
-    </div>
-    <div class="overlay" id="overlay"></div>
+        <!-- Modal payment -->
+        <div class="modal-payment">
+            <header class="header">
+                <div class="container">
+                    <div class="wrapper-paymen">
+                        <button class="btn-back">
+                            <i class="fa-solid fa-arrow-right"></i>
 
-    <!-- Form quên mật khẩu -->
-    <div class="form-popup" id="forgotPasswordForm">
-        <form class="form-container">
-            <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
-            <h2>Quên mật khẩu</h2>
-            <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
-            <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-            <button type="submit" class="btn">Xác thực tài khoản</button>
-        </form>
-    </div>
-    <!-- Form chi tiết sản phẩm -->
-    <div id="product-detail-modal" class="modal-detail">
-        <div class="product-detail-content">
-            <span class="close-btn" onclick="closeProductDetail()">&times;</span>
-            <div class="product-detail-left">
-                <img id="product-image" src="" alt="Product Image">
-            </div>
-            <div class="product-detail-right">
-                <h2 id="product-name">Tên Sản Phẩm</h2>
-                <p class="product-price" id="product-price">Giá: 0 ₫</p>
-                <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
-                <label for="note">Ghi chú:</label>
-                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
-                <div class="quantity-wrapper">
-                    <span>Số lượng:</span>
-                    <div class="btnCustom">
-                        <button class="btnCustomAsc" onclick="decreaseQuantity()">-</button>
-                        <input type="text" class="txtCustom" id="quantity" value="1" min="1">
-                        <button class="btnCustomDesc" onclick="increaseQuantity()">+</button>
+                        </button>
+                        <span>Thanh toán</span>
                     </div>
                 </div>
-                <div class="total-price">
-                    <p>Tổng thanh toán: <span id="total-price"></span></p>
+            </header>
+            <div class="container">
+                <div class="form-infor">
+                    <div class="infor-general">
+                        <span class="title">Thông tin chung</span>
+                        <div class="infor-opt">
+                            <button class="btn-custom">
+                                <span>Thông tin tài khoản</span>
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                            <button class="btn-custom">
+                                <span>Thông tin mới</span>
+                                <i class="fa-regular fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="infor-user">
+                            <input type="text" id="txtName" class="input-user" placeholder="Họ và tên">
+                            <div class="group-txt">
+                                <input type="text" id="txtAddress" class="input-user" placeholder="Địa chỉ">
+                                <input type="text" id="txtPhone" class="input-user" placeholder="Số điện thoại">
+                            </div>
+                            <div class="group-cbx">
+                                <select name="province" id="province" class="input-user" required>
+                                </select>
+                                <select name="district" id="district" class="input-user">
+                                    <option value="" disabled selected>Chọn quận/huyện</option>
+                                </select>
+                                <select name="ward" id="ward" class="input-user">
+                                    <option value="" disabled selected>Chọn phường/xã</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infor-order">
+                        <span class="title">Đơn hàng</span>
+                    </div>
                 </div>
-                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
-        function openForm(formId) {
-            document.getElementById("overlay").classList.add("show-overlay");
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("signupForm").style.display = "none";
-            document.getElementById("forgotPasswordForm").style.display = "none";
-            document.getElementById(formId).style.display = "block";
-        }
-        // Hàm đóng form
-        function closeForm(formId) {
-            document.getElementById(formId).style.display = "none";
-            document.getElementById("overlay").classList.remove("show-overlay");
-        }
-        // Khai báo slide show
-        let currentIndex = 0;
-        const slides = document.querySelectorAll('.banner-slide img');
-        const dots = document.querySelectorAll('.dot');
+        <!--Form đăng nhập-->
+        <div class="form-popup" id="loginForm">
+            <form class="form-container">
+                <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
+                <h2>Đăng nhập</h2>
+                <label for="login-username">Số điện thoại hoặc Gmail:</label>
+                <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+                <label for="login-password">Mật khẩu:</label>
+                <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
+                <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
+                <button type="submit" class="btn">Đăng nhập</button>
+                <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
+            </form>
+        </div>
 
-        // Hàm để hiển thị slide
-        function showSlide(index) {
-            const prevIndex = currentIndex;
-            currentIndex = (index + slides.length) % slides.length;
+        <!-- Form đăng ký -->
+        <div class="form-popup" id="signupForm">
+            <form class="form-container">
+                <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
+                <h2>Đăng ký</h2>
+                <label for="signup-phone">Số điện thoại:</label>
+                <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
+                <label for="signup-email">Gmail:</label>
+                <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
+                <label for="signup-password">Mật khẩu:</label>
+                <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
+                <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
+                <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
+                <button type="submit" class="btn">Đăng ký</button>
+                <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
+            </form>
+        </div>
+        <div class="overlay" id="overlay"></div>
 
-            slides.forEach((slide, i) => {
-                slide.classList.remove('visible', 'flip-in', 'flip-out');
-                if (i === currentIndex) {
-                    slide.classList.add('visible', 'flip-in');
-                }
-                if (i === prevIndex) {
-                    slide.classList.add('flip-out');
-                }
-            });
+        <!-- Form quên mật khẩu -->
+        <div class="form-popup" id="forgotPasswordForm">
+            <form class="form-container">
+                <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
+                <h2>Quên mật khẩu</h2>
+                <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
+                <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+                <button type="submit" class="btn">Xác thực tài khoản</button>
+            </form>
+        </div>
+        <!-- Form chi tiết sản phẩm -->
+        <div id="product-detail-modal" class="modal-detail">
+            <div class="product-detail-content">
+                <span class="close-btn" onclick="closeProductDetail()">&times;</span>
+                <div class="product-detail-left">
+                    <img id="product-image" src="" alt="Product Image">
+                </div>
+                <div class="product-detail-right">
+                    <h2 id="product-name">Tên Sản Phẩm</h2>
+                    <p class="product-price" id="product-price">Giá: 0 ₫</p>
+                    <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
+                    <label for="note">Ghi chú:</label>
+                    <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                    <div class="quantity-wrapper">
+                        <span>Số lượng:</span>
+                        <div class="btnCustom" value="details-product">
+                            <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
+                            <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1"
+                                min="1">
+                            <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                    </div>
+                    <div class="total-price">
+                        <p>Thành tiền: <span id="total-price"></span></p>
+                    </div>
+                    <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
+                </div>
+            </div>
+        </div>
 
-            dots.forEach((dot, i) => {
-                dot.classList.remove('active');
-                if (i === currentIndex) {
-                    dot.classList.add('active');
-                }
-            });
-        }
+        <script>
+            // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
+            function openForm(formId) {
+                document.getElementById("overlay").classList.add("show-overlay");
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("signupForm").style.display = "none";
+                document.getElementById("forgotPasswordForm").style.display = "none";
+                document.getElementById(formId).style.display = "block";
+            }
+            // Hàm đóng form
+            function closeForm(formId) {
+                document.getElementById(formId).style.display = "none";
+                document.getElementById("overlay").classList.remove("show-overlay");
+            }
+            // Khai báo slide show
+            let currentIndex = 0;
+            const slides = document.querySelectorAll('.banner-slide img');
+            const dots = document.querySelectorAll('.dot');
 
-        // Hàm để chuyển đến slide tiếp theo
-        function nextSlide() {
-            showSlide(currentIndex + 1);
-        }
+            // Hàm để hiển thị slide
+            function showSlide(index) {
+                const prevIndex = currentIndex;
+                currentIndex = (index + slides.length) % slides.length;
 
-        // Hàm để chuyển đến slide trước đó
-        function prevSlide() {
-            showSlide(currentIndex - 1);
-        }
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('visible', 'flip-in', 'flip-out');
+                    if (i === currentIndex) {
+                        slide.classList.add('visible', 'flip-in');
+                    }
+                    if (i === prevIndex) {
+                        slide.classList.add('flip-out');
+                    }
+                });
 
-        // Thiết lập slide show tự động
-        showSlide(currentIndex);
-        setInterval(nextSlide, 3000);
+                dots.forEach((dot, i) => {
+                    dot.classList.remove('active');
+                    if (i === currentIndex) {
+                        dot.classList.add('active');
+                    }
+                });
+            }
+
+            // Hàm để chuyển đến slide tiếp theo
+            function nextSlide() {
+                showSlide(currentIndex + 1);
+            }
+
+            // Hàm để chuyển đến slide trước đó
+            function prevSlide() {
+                showSlide(currentIndex - 1);
+            }
+
+            // Thiết lập slide show tự động
+            showSlide(currentIndex);
+            setInterval(nextSlide, 3000);
 
 
 
-    </script>
-    <script src="./test.js"></script>
+        </script>
+        <script src="./data.js"></script>
+        <script src="./test.js"></script>
+
 
 </body>
 
