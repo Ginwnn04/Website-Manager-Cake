@@ -781,14 +781,14 @@ button{
 }
 .product-item-detail {
     display: flex;
-    flex-wrap: wrap;  /* Cho phép các ảnh xuống hàng khi không còn đủ không gian */
-    justify-content: center;  /* Căn giữa các ảnh trong hàng */
-    gap: 10px;  /* Khoảng cách giữa các ảnh */
+    flex-wrap: wrap;  
+    justify-content: center;  
+    gap: 10px;  
 }
 
 .product-item {
     display: flex;
-    justify-content: center;  /* Căn giữa ảnh trong phần tử */
+    justify-content: center;  
 }
 
 .product-item img {
