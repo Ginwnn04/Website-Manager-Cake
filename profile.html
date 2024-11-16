@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Cá Nhân</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Bố cục tổng thể */
+        body {
+            font-family: "Roboto", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar bên trái */
+        .sidebar {
+            width: 300px;
+            background-color: #ff7f00;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-icon {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            font-size: 64px; /* Kích thước icon */
+            color: #ff7f00;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu {
+            width: 90%;
+            background-color: white;
+            border-radius: 10px; /* Bo góc cho khung menu */
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ cho khung menu */
+        }
+
+        .menu button {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 15px;
+            text-align: left;
+            color: #ff7f00;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px; /* Bo góc nút bấm */
+            transition: all 0.3s ease;
+        }
+
+        .menu button:hover,
+        .menu button.active {
+            background-color: #e06c00;
+            color: white;
+        }
+
+        /* Nội dung bên phải */
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Khung thông tin */
+        section {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        /* Nút Sửa */
+        .edit-btn {
+            position: absolute;
+            top: 170px;
+            right: 50px;
+            background-color: #ff7f00;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            background-color: #e06c00;
+        }
+
+        /* Dropdown */
+        #address-fields select {
+            flex: 1;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+
+        #address-fields select:disabled {
+            background-color: #e9e9e9;
+            color: #777;
+        }
+
+        #address-fields {
+            display: flex;
+            gap: 10px;
+        }
+
+         /* Định dạng input cho các trường thông tin */
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #333;
+        background-color: #fff;
+        font-weight: bold;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:disabled {
+        background-color: #f9f9f9;
+        color: #333;
+        font-weight: normal;
+        border-color: #ddd;
+    }
+
+    input[type="text"]:enabled {
+        border: 2px solid #ff7f00;
+        box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
+    }
+
+    /* Dropdown */
+    select {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        color: #333;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    select:enabled {
+        border: 2px solid #ff7f00;
+        box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
+    }
+
+    select:disabled {
+        background-color: #f9f9f9;
+        color: #777;
+        border-color: #ddd;
+    }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="user-icon">
+            <i class="fa-solid fa-user"></i> <!-- Icon user -->
+        </div>
+        <div class="menu">
+            <button class="menu-btn active" data-tab="personal-info">Thông Tin Cá Nhân</button>
+            <button class="menu-btn" data-tab="purchase-history">Lịch Sử Mua Hàng</button>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Thông Tin Cá Nhân -->
+        <section id="personal-info" class="active">
+            <h2>Thông Tin Cá Nhân</h2>
+            <button class="edit-btn" id="edit-btn">Sửa</button>
+            <form id="info-form">
+                <label><strong>Họ và tên:</strong></label>
+                <input type="text" id="user-name" value="Nguyen Van A" disabled>
+
+                <label><strong>Số điện thoại:</strong></label>
+                <input type="text" id="user-phone" value="0123456789" disabled>
+
+                <label><strong>Email:</strong></label>
+                <input type="text" id="user-email" value="nguyenvana@gmail.com" disabled>
+
+                <label><strong>Địa chỉ:</strong></label>
+<!-- Ô hiển thị địa chỉ gộp -->
+<input type="text" id="address-summary" value="" disabled style="margin-bottom: 10px;"/>
+
+<!-- Các dropdown và ô nhập chỉ hiển thị khi nhấn sửa -->
+<div id="address-fields" style="display: none; gap: 10px;">
+    <select id="province" disabled>
+        <option value="">Chọn Tỉnh/Thành</option>
+    </select>
+    <select id="district" disabled>
+        <option value="">Chọn Quận/Huyện</option>
+    </select>
+    <select id="ward" disabled>
+        <option value="">Chọn Phường/Xã</option>
+    </select>
+    <input type="text" id="street" placeholder="Tên đường/Số nhà" disabled style="flex: 1;"/>
+</div>
+
+            </form>
+        </section>
+
+        <!-- Lịch Sử Mua Hàng -->
+        <section id="purchase-history">
+            <h2>Lịch Sử Mua Hàng</h2>
+            <ul id="purchase-list">
+                ...
+            </ul>
+        </section>
+    </div>
+    <script src="profile.js"></script>
+</body>
+</html>

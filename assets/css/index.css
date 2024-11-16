@@ -17,9 +17,8 @@
 body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
+    overflow-y: auto
 }
-
-
 
 /* select {
     -webkit-appearance: none;
@@ -754,8 +753,8 @@ main {
 }
 
 .content-cart .list-cart-item {
-    max-height: 650px; 
-    overflow-y: auto;
+    /* height: calc(83%);
+    overflow-y: auto; */
 }
 
 .list-cart-item .cart-item {
@@ -1116,7 +1115,6 @@ input[type="number"]::-webkit-inner-spin-button {
     /* display: none; */
     transform: translateX(100%);
     transition: 0.6s ease;
-    overflow: hidden;
 }
 
 .modal-payment--show {
@@ -1159,7 +1157,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .container .form-infor {
     margin-top: 80px;
     width: 100%;
-    height: 100vh;
+    height: 500px;
     display: flex;
     gap: 30px;
 }
@@ -1180,26 +1178,18 @@ input[type="number"]::-webkit-inner-spin-button {
     background-color: var(--background-color);
 }
 
-.btn-custom--active {
-    border: 1px solid var(--primary-color) !important;
-}
-
-
 
 .container .form-infor .title {
     font-size: 16px;
     font-weight: 500;
     display: block;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
 }
 
-.form-infor .infor-left {
+.form-infor .infor-general {
     width: calc(60%);
     background-color: #fff;
     border-radius: 15px;
     padding: 24px;
-    align-self: flex-start;
 }
 
 .infor-user .input-user {
@@ -1211,14 +1201,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .infor-user #txtName {
     width: 100%;
-}
-
-.infor-left #noteOrder {
-    margin-top: 10px;
-    width: 100%;
-    height: 50px;
-    padding: 6px 12px;
-    border-radius: 10px;
 }
 
 .infor-user .group-txt,
@@ -1243,128 +1225,12 @@ input[type="number"]::-webkit-inner-spin-button {
     width: calc((100% - 20px) / 3);
 }
 
-.infor-left .infor-general {
-    margin-bottom: 25px;
-}
 
-
-
-.form-infor .infor-right {
+.form-infor .infor-order {
     width: 40%;
-    height: auto;
     background-color: #fff;
     border-radius: 15px;
     padding: 24px;
-    align-self: flex-start;
-}
-
-.infor-cash {
-    
-}
-
-.method-cash {
-    display: flex;
-    gap: 20px;
-    margin-top: 15px;
-}
-
-.method-cash > input {
-    width: 20px;
-}
-
-.infor-right {
-    display: flex;  
-    flex-direction: column;
-    
-    /* flex-wrap: wrap; */
-}
-
-.infor-right .infor-order {
-    margin: 15px 0;
-}
-
-.infor-right .list-details {
-    /* max-height: 250px; */
-    /* overflow-y: auto; */
-    /* margin-right: -15px; */
-}
-
-
-.infor-right .item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-
-
-
-.infor-payment {
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-    /* position: absolute;
-    left: 24px;
-    right: 24px;
-    bottom: 24px; */
-}
-
-.infor-payment .amount {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 10px;
-}
-.infor-payment .ship-cod {
-    display: flex;
-    justify-content: space-between;
-}
-.infor-payment .total {
-    border-top: 1px solid #f0f0f0;
-    padding-top: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.infor-payment .btn-order {
-    width: 100%;
-    background-color: var(--primary-color);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--background-color);
-}
-
-/* .item .quantity-item,
-.item .name-item,
-.item .price-item {
-    font-weight: 500;
-} */
-
-.item .quantity-item {
-    width: 20%;
-}
-.item .name-item {
-    width: 60%;
-
-}
-.item .price-item {
-    width: 20%;
-    text-align: right;
 }
 
 
@@ -1450,4 +1316,52 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (min-width: 1024px) and (max-width: 1199.98px) {
     
+}
+.user-icon {
+    width: 40px; /* Kích thước icon */
+    height: 40px;
+    border-radius: 50%; /* Làm cho icon thành hình tròn */
+    background-color: #00e6ad; /* Màu nền của icon */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* Màu của biểu tượng */
+    font-size: 20px; /* Kích thước biểu tượng người */
+    cursor: pointer;
+}
+
+.user-icon:hover {
+    background-color: #00cbe6; /* Màu nền khi hover */
+}
+
+.user-options {
+    display: none;
+    position: absolute;
+    top: 55px; /* Điều chỉnh khoảng cách từ icon đến form */
+    left: 83%; /* Căn giữa form theo icon */
+    transform: translateX(-50%); /* Dịch chuyển form để căn giữa với icon */
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.user-option-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold; /* Thêm dòng này để chữ in đậm */
+}
+
+.user-option-btn:hover {
+    background-color: #f0f0f0;
 }
