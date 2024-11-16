@@ -274,6 +274,29 @@ btnCart.addEventListener("click", () => {
     cart.classList.add("show-cart");
 });
 
+function renderItemCheckout(listItem) {
+    let txtHtml = "";
+    let totalPrice = 0;
+    listItem.forEach(product => {
+        totalPrice += product.quantity * product.price;
+        txtHtml += `
+                    <div class="item">
+                        <span class="quantity-item">${product.quantity}x</span>
+                        <span class="name-item">${product.name}</span>
+                        <span class="price-item">${formatPrice(product.price)}</span>
+                    </div>`;
+    });
+    const listItemComponent = document.querySelector(".list-details");
+    listItemComponent.innerHTML = txtHtml;
+    const totalAmountPayment = document.querySelector(".amount-payment");
+    totalAmountPayment.innerHTML = formatPrice(totalPrice);
+
+    const totalPricePayment = document.querySelector(".total-price-payment");
+    totalPricePayment.innerHTML = formatPrice(totalPrice + 50000);
+
+
+}
+
 function renderCart(cart) {
     let cartContent = "";
         cart.forEach((product, index) => {
@@ -322,10 +345,49 @@ function deleteProduct(index) {
 }
 
 const btnPayment = document.querySelector('.btnPayment');
-btnPayment.addEventListener("click", () => {
+btnPayment.addEventListener("click", renderPayment);
+
+function renderPayment() {
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
+    localStorage.setItem("modalIsShow", "true");
     renderProvince();
-});
+    renderInforUser();
+    renderItemCheckout(JSON.parse(localStorage.getItem(USER_LOGIN)).cart);
+}
+
+
+function renderInforUser() {
+    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    document.getElementById("txtName").value = userCurrent.fullName;
+    document.getElementById("txtPhone").value = userCurrent.phone;
+    document.getElementById("txtAddress").value = userCurrent.address;
+    listProvince.forEach((province, index) => {
+        if (province.idProvince === userCurrent.provinceId) {
+            document.getElementById("province").selectedIndex = index + 1;
+            renderDistrict(userCurrent.provinceId);
+        }
+    });
+    getDataDistrict(userCurrent.provinceId);
+    getDataWard(userCurrent.districtId);
+    setTimeout(() => {
+        listDistrict.forEach((district, index) => {
+            if (district.idDistrict === userCurrent.districtId) {
+                console.log("2");
+                document.getElementById("district").selectedIndex = index + 1;
+                renderWard(userCurrent.districtId);
+                return;
+            }    
+        });
+        
+        listWard.forEach((ward, index) => {
+            console.log("3");
+            if (ward.idCommune === userCurrent.wardId) {
+                document.getElementById("ward").selectedIndex = index + 1;
+                return;
+            }
+        });
+    }, 500);
+}
 
 const cbxProvince = document.getElementById("province");
 cbxProvince.addEventListener("change", () => {
@@ -341,7 +403,17 @@ cbxDistrict.addEventListener("change", () => {
     getDataWard(idDistrict);
 });
     
+const btnCustom = document.querySelectorAll(".btn-custom");
+btnCustom.forEach(btn => { 
+    btn.addEventListener("click", () => {
+        btnCustom.forEach(btn => {
+            btn.classList.remove("btn-custom--active");    
+        });
+        btn.classList.add("btn-custom--active");
 
+    });
+
+});
 
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
