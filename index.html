@@ -225,7 +225,7 @@
                 <div class="payment">
                     <div class="total-payment">
                         <span>Tổng tiền</span>
-                        <span class="total-price-cart" ">0 đ</span>
+                        <span class="total-price-cart">0 đ</span>
                     </div>
                     <button class=" btnPayment">Thanh toán</button>
                     </div>
@@ -310,7 +310,7 @@
                         <div class="infor-payment">
                             <div class="amount">
                                 <span>Thành tiền</span>
-                                <span>200.000 đ</span>
+                                <span class="amount-payment">200.000 đ</span>
                             </div>
                             <div class="ship-cod">
                                 <span>Phí vận chuyển</span>
@@ -318,7 +318,7 @@
                             </div>
                             <div class="total">
                                 <span>Tổng thanh toán</span>
-                                <span>250.000 đ</span>
+                                <span class="total-price-payment">250.000 đ</span>
                             </div>
                             <button class="btn-order">Đặt hàng</button>
                         </div>
@@ -400,7 +400,27 @@
                 </div>
             </div>
         </div>
+        <!-- Icon người dùng -->
+        <button class="user-icon" onclick="toggleUserOptions()">
+            <i class="fa-solid fa-user"></i>
+        </button>
 
+        <!-- Form tùy chọn -->
+        <div class="user-options" id="userOptions">
+            <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+            <button class="user-option-btn" onclick="logoutUser()">Đăng xuất</button>
+        </div>
+        <!-- Modal xác nhận đăng xuất -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-modal-content">
+                <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
+                <p>Bạn có chắc muốn đăng xuất?</p>
+                <div class="logout-modal-buttons">
+                    <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
+                    <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
+                </div>
+            </div>
+        </div>
         <script>
             // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
             function openForm(formId) {

@@ -17,9 +17,8 @@
 body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
+    overflow-y: auto
 }
-
-
 
 /* select {
     -webkit-appearance: none;
@@ -754,8 +753,8 @@ main {
 }
 
 .content-cart .list-cart-item {
-    max-height: 650px; 
-    overflow-y: auto;
+    /* height: calc(83%);
+    overflow-y: auto; */
 }
 
 .list-cart-item .cart-item {
@@ -1368,7 +1367,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-
 @media screen and (max-width: 767.98px) {
     .header-left {
         flex-grow: 4;
@@ -1450,4 +1448,52 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (min-width: 1024px) and (max-width: 1199.98px) {
     
+}
+.user-icon {
+    width: 40px; /* Kích thước icon */
+    height: 40px;
+    border-radius: 50%; /* Làm cho icon thành hình tròn */
+    background-color: #00e6ad; /* Màu nền của icon */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* Màu của biểu tượng */
+    font-size: 20px; /* Kích thước biểu tượng người */
+    cursor: pointer;
+}
+
+.user-icon:hover {
+    background-color: #00cbe6; /* Màu nền khi hover */
+}
+
+.user-options {
+    display: none;
+    position: absolute;
+    top: 55px; /* Điều chỉnh khoảng cách từ icon đến form */
+    left: 83%; /* Căn giữa form theo icon */
+    transform: translateX(-50%); /* Dịch chuyển form để căn giữa với icon */
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.user-option-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold; /* Thêm dòng này để chữ in đậm */
+}
+
+.user-option-btn:hover {
+    background-color: #f0f0f0;
 }
