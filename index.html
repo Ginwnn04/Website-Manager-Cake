@@ -225,7 +225,7 @@
                 <div class="payment">
                     <div class="total-payment">
                         <span>Tổng tiền</span>
-                        <span class="total-price-cart" ">0 đ</span>
+                        <span class="total-price-cart">0 đ</span>
                     </div>
                     <button class=" btnPayment">Thanh toán</button>
                     </div>
@@ -249,38 +249,79 @@
             </header>
             <div class="container">
                 <div class="form-infor">
-                    <div class="infor-general">
-                        <span class="title">Thông tin chung</span>
-                        <div class="infor-opt">
-                            <button class="btn-custom">
-                                <span>Thông tin tài khoản</span>
-                                <i class="fa-solid fa-user"></i>
-                            </button>
-                            <button class="btn-custom">
-                                <span>Thông tin mới</span>
-                                <i class="fa-regular fa-plus"></i>
-                            </button>
+                    <div class="infor-left">
+                        <div class="infor-general">
+                            <span class="title">Thông tin chung</span>
+                            <div class="infor-opt">
+                                <button class="btn-custom">
+                                    <span>Thông tin tài khoản</span>
+                                    <i class="fa-solid fa-user"></i>
+                                </button>
+                                <button class="btn-custom">
+                                    <span>Thông tin mới</span>
+                                    <i class="fa-regular fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="infor-user">
+                                <input type="text" id="txtName" class="input-user" placeholder="Họ và tên">
+                                <div class="group-txt">
+                                    <input type="text" id="txtAddress" class="input-user" placeholder="Địa chỉ">
+                                    <input type="text" id="txtPhone" class="input-user" placeholder="Số điện thoại">
+                                </div>
+                                <div class="group-cbx">
+                                    <select name="province" id="province" class="input-user" required>
+                                    </select>
+                                    <select name="district" id="district" class="input-user">
+                                        <option value="" disabled selected>Chọn quận/huyện</option>
+                                    </select>
+                                    <select name="ward" id="ward" class="input-user">
+                                        <option value="" disabled selected>Chọn phường/xã</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <textarea name="noteOrder" id="noteOrder" placeholder="Ghi chú cho đơn hàng"></textarea>
                         </div>
-                        <div class="infor-user">
-                            <input type="text" id="txtName" class="input-user" placeholder="Họ và tên">
-                            <div class="group-txt">
-                                <input type="text" id="txtAddress" class="input-user" placeholder="Địa chỉ">
-                                <input type="text" id="txtPhone" class="input-user" placeholder="Số điện thoại">
-                            </div>
-                            <div class="group-cbx">
-                                <select name="province" id="province" class="input-user" required>
-                                </select>
-                                <select name="district" id="district" class="input-user">
-                                    <option value="" disabled selected>Chọn quận/huyện</option>
-                                </select>
-                                <select name="ward" id="ward" class="input-user">
-                                    <option value="" disabled selected>Chọn phường/xã</option>
-                                </select>
-                            </div>
+                        <div class="infor-cash">
+                            <span class="title">Phương thức chuyển khoản</span>
+                            <ul>
+                                <li class="method-cash">
+                                    <input type="radio" name="chb-cash" value="cash" checked>
+                                    <span>Thanh toán bằng tiền mặt</span>
+                                </li>
+                                <li class="method-cash">
+                                    <input type="radio" name="chb-cash" value="transfer">
+                                    <span>Thanh toán trực tuyến</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="infor-order">
+                    <div class="infor-right">
                         <span class="title">Đơn hàng</span>
+                        <div class="infor-order">
+                            <div class="list-details">
+                                <div class="item">
+                                    <span class="quantity-item">1x</span>
+                                    <span class="name-item">Hủ tiếu xào bơ tỏi</span>
+                                    <span class="price-item">150.000 đ</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="infor-payment">
+                            <div class="amount">
+                                <span>Thành tiền</span>
+                                <span class="amount-payment">200.000 đ</span>
+                            </div>
+                            <div class="ship-cod">
+                                <span>Phí vận chuyển</span>
+                                <span>50.000 đ</span>
+                            </div>
+                            <div class="total">
+                                <span>Tổng thanh toán</span>
+                                <span class="total-price-payment">250.000 đ</span>
+                            </div>
+                            <button class="btn-order">Đặt hàng</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -359,7 +400,27 @@
                 </div>
             </div>
         </div>
+        <!-- Icon người dùng -->
+        <button class="user-icon" onclick="toggleUserOptions()">
+            <i class="fa-solid fa-user"></i>
+        </button>
 
+        <!-- Form tùy chọn -->
+        <div class="user-options" id="userOptions">
+            <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+            <button class="user-option-btn" onclick="logoutUser()">Đăng xuất</button>
+        </div>
+        <!-- Modal xác nhận đăng xuất -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-modal-content">
+                <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
+                <p>Bạn có chắc muốn đăng xuất?</p>
+                <div class="logout-modal-buttons">
+                    <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
+                    <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
+                </div>
+            </div>
+        </div>
         <script>
             // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
             function openForm(formId) {

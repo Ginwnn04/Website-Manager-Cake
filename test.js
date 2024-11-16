@@ -274,6 +274,29 @@ btnCart.addEventListener("click", () => {
     cart.classList.add("show-cart");
 });
 
+function renderItemCheckout(listItem) {
+    let txtHtml = "";
+    let totalPrice = 0;
+    listItem.forEach(product => {
+        totalPrice += product.quantity * product.price;
+        txtHtml += `
+                    <div class="item">
+                        <span class="quantity-item">${product.quantity}x</span>
+                        <span class="name-item">${product.name}</span>
+                        <span class="price-item">${formatPrice(product.price)}</span>
+                    </div>`;
+    });
+    const listItemComponent = document.querySelector(".list-details");
+    listItemComponent.innerHTML = txtHtml;
+    const totalAmountPayment = document.querySelector(".amount-payment");
+    totalAmountPayment.innerHTML = formatPrice(totalPrice);
+
+    const totalPricePayment = document.querySelector(".total-price-payment");
+    totalPricePayment.innerHTML = formatPrice(totalPrice + 50000);
+
+
+}
+
 function renderCart(cart) {
     let cartContent = "";
         cart.forEach((product, index) => {
@@ -322,10 +345,49 @@ function deleteProduct(index) {
 }
 
 const btnPayment = document.querySelector('.btnPayment');
-btnPayment.addEventListener("click", () => {
+btnPayment.addEventListener("click", renderPayment);
+
+function renderPayment() {
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
+    localStorage.setItem("modalIsShow", "true");
     renderProvince();
-});
+    renderInforUser();
+    renderItemCheckout(JSON.parse(localStorage.getItem(USER_LOGIN)).cart);
+}
+
+
+function renderInforUser() {
+    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    document.getElementById("txtName").value = userCurrent.fullName;
+    document.getElementById("txtPhone").value = userCurrent.phone;
+    document.getElementById("txtAddress").value = userCurrent.address;
+    listProvince.forEach((province, index) => {
+        if (province.idProvince === userCurrent.provinceId) {
+            document.getElementById("province").selectedIndex = index + 1;
+            renderDistrict(userCurrent.provinceId);
+        }
+    });
+    getDataDistrict(userCurrent.provinceId);
+    getDataWard(userCurrent.districtId);
+    setTimeout(() => {
+        listDistrict.forEach((district, index) => {
+            if (district.idDistrict === userCurrent.districtId) {
+                console.log("2");
+                document.getElementById("district").selectedIndex = index + 1;
+                renderWard(userCurrent.districtId);
+                return;
+            }    
+        });
+        
+        listWard.forEach((ward, index) => {
+            console.log("3");
+            if (ward.idCommune === userCurrent.wardId) {
+                document.getElementById("ward").selectedIndex = index + 1;
+                return;
+            }
+        });
+    }, 500);
+}
 
 const cbxProvince = document.getElementById("province");
 cbxProvince.addEventListener("change", () => {
@@ -341,7 +403,17 @@ cbxDistrict.addEventListener("change", () => {
     getDataWard(idDistrict);
 });
     
+const btnCustom = document.querySelectorAll(".btn-custom");
+btnCustom.forEach(btn => { 
+    btn.addEventListener("click", () => {
+        btnCustom.forEach(btn => {
+            btn.classList.remove("btn-custom--active");    
+        });
+        btn.classList.add("btn-custom--active");
 
+    });
+
+});
 
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
@@ -597,4 +669,91 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Danh sách tài khoản mẫu
+const users = [
+    { username: 'nguyenminhvu591@gmail.com', password: '1', fullName: 'Nguyen Minh Vu', phone: '0123456789', email: 'nguyenminhvu591@gmail.com', cart: [] },
+    { username: '0123456789', password: '2', fullName: 'Nguyen Van B', phone: '0123456789', email: 'nguyenvanb@gmail.com', cart: [] },
+    { username: 'sgu@gmail.com', password: '3', fullName: 'Nguyen Van C', phone: '0987654321', email: 'sgu@gmail.com', cart: [] }
+];
 
+// Hàm xử lý đăng nhập
+function loginUser() {
+    const username = document.getElementById("login-username").value;
+    const password = document.getElementById("login-password").value;
+
+    // Tìm thông tin người dùng trong danh sách tài khoản
+    const user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        // Đăng nhập thành công: lưu trạng thái và thông tin người dùng
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userLogin', JSON.stringify(user)); // Lưu thông tin người dùng
+        alert("Đăng nhập thành công!");
+        closeForm('loginForm'); // Đóng form đăng nhập
+        updateLoginButton(); // Cập nhật trạng thái nút đăng nhập
+    } else {
+        alert("Thông tin đăng nhập không chính xác.");
+    }
+}
+
+// Nút icon
+function updateLoginButton() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const loginBtn = document.querySelector(".login-btn") || document.querySelector(".user-icon");
+
+    if (isLoggedIn && loginBtn) {
+        // Nếu đã đăng nhập, chuyển nút thành icon người dùng
+        loginBtn.innerHTML = '<i class="fa-solid fa-user"></i>';
+        loginBtn.classList.remove("login-btn");
+        loginBtn.classList.add("user-icon");
+
+        // Thêm sự kiện hiển thị tùy chọn người dùng
+        loginBtn.onclick = toggleUserOptions;
+    } else if (loginBtn) {
+        // Nếu chưa đăng nhập, hiển thị nút "Đăng nhập"
+        loginBtn.innerHTML = "Đăng nhập";
+        loginBtn.classList.remove("user-icon");
+        loginBtn.classList.add("login-btn");
+        loginBtn.onclick = () => openForm('loginForm'); // Mở form đăng nhập
+    }
+}
+
+// Hàm hiển thị/ẩn form tùy chọn tài khoản khi nhấn vào icon người dùng
+function toggleUserOptions() {
+    const userOptions = document.getElementById("userOptions");
+    userOptions.style.display = userOptions.style.display === "block" ? "none" : "block";
+}
+
+// Hàm đăng xuất tài khoản
+function logoutUser() {
+    localStorage.removeItem('isLoggedIn'); // Xóa trạng thái đăng nhập
+    localStorage.removeItem('userLogin'); // Xóa thông tin người dùng
+    updateLoginButton(); // Cập nhật lại nút thành "Đăng nhập"
+    document.getElementById("userOptions").style.display = "none"; // Ẩn tùy chọn tài khoản
+    alert("Bạn đã đăng xuất thành công!");
+    window.location.href = "index.html"; // Quay về trang chính
+}
+
+// Kiểm tra trạng thái đăng nhập khi tải trang
+document.addEventListener("DOMContentLoaded", updateLoginButton);
+
+// Sự kiện gọi hàm đăng nhập khi nhấn nút đăng nhập trong form
+document.querySelector(".form-container").addEventListener("submit", (e) => {
+    e.preventDefault();
+    loginUser();
+});
+
+// Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
+document.addEventListener("click", function (e) {
+    const userOptions = document.getElementById("userOptions");
+    const userIcon = document.querySelector(".user-icon");
+
+    if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
+        userOptions.style.display = "none";
+    }
+});
+
+// Chuyển đến trang thông tin cá nhân
+function viewProfile() {
+    window.location.href = "profile.html";
+}
