@@ -632,23 +632,20 @@ button{
 #order_manager .table_data{
     background-color: var(--light);
     border-radius: 10px;
-    padding: 15px 0 10px 15px;
-}
-#order_manager .table_data .user .top{
-    position: relative;
+    padding: 15px 10px;
 }
 #order_manager .table_data .user .top .text {
     font-size: 24pt;
     margin-left: 10px;
     font-weight: bold;
 }
-#order_manager .table_data .user .top .icon {
+#order_manager .table_data .user .top .icon,.group-cbx {
     display: flex;
     align-items: center;
     gap: 10px; 
-    position: absolute;
-    top: 40px;
-    right: 50px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-top: 10px;
 }
 
 
@@ -700,7 +697,7 @@ button{
 #order_manager table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 #order_manager th, #order_manager td {

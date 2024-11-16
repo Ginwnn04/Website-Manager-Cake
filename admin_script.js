@@ -124,22 +124,28 @@ function displayOrders() {
       return; // Dừng lại không lọc theo ngày nếu ngày kết thúc không hợp lệ
   }
 
-  // Lọc danh sách đơn hàng dựa trên trạng thái, từ khóa tìm kiếm và khoảng thời gian
+  const selectedDistrict = document.getElementById("district").value;
+
+  // Lọc danh sách đơn hàng dựa trên quận, trạng thái, từ khóa tìm kiếm, và khoảng thời gian
   const filteredOrders = orders.filter(order => {
-      const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
-                                 order.user.fullName.toLowerCase().includes(searchQuery) ||
-                                 order.status.toLowerCase().includes(searchQuery);
-      const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+    const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
+                               order.user.fullName.toLowerCase().includes(searchQuery) ||
+                               order.status.toLowerCase().includes(searchQuery);
+    const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+    
+    // Kiểm tra khớp quận
+    const matchesDistrict = selectedDistrict === "" || order.user.district === selectedDistrict;  
 
-      // Kiểm tra nếu có khoảng thời gian lọc thì mới lọc theo ngày
-      const orderDate = new Date(order.date);
-      const start = startDate ? new Date(startDate) : null;
-      const end = endDate ? new Date(endDate) : null;
+    const orderDate = new Date(order.date);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
+    const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
 
-      const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
-
-      return matchesSearchQuery && matchesStatus && matchesDateRange;
+    return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict;
   });
+
+
+
 
   const totalOrders = filteredOrders.length;
   const totalPages = Math.ceil(totalOrders / ITEMS_PER_PAGE);
@@ -157,6 +163,7 @@ function displayOrders() {
           <td>${order.user.fullName}</td>
           <td>${order.user.phone}</td>
           <td>${order.date}</td>
+          <td>${order.user.district}</td>
           <td>${order.totalPrice}</td>
           <td>
               <select onchange="updateOrderStatus('${order.orderId}', this.value)">
@@ -178,6 +185,19 @@ function displayOrders() {
   displayPagination(totalPages);
 }
 
+document.getElementById("resetFilters").addEventListener("click", function() {
+  // Đặt lại giá trị của các bộ lọc về mặc định
+  document.getElementById("province").value = "";
+  document.getElementById("district").value = "";
+  document.getElementById("orderSearchInput").value = "";
+  document.getElementById("statusFilter").value = "all";
+  document.getElementById("startDate").value = "";
+  document.getElementById("endDate").value = "";
+
+  // Hiển thị lại toàn bộ danh sách đơn hàng
+  displayOrders();
+});
+
 
 // Lắng nghe thay đổi ngày bắt đầu hoặc ngày kết thúc
 document.getElementById("startDate").addEventListener("change", function() {
@@ -187,6 +207,76 @@ document.getElementById("startDate").addEventListener("change", function() {
 document.getElementById("endDate").addEventListener("change", function() {
   displayOrders(); // Cập nhật lại danh sách khi thay đổi ngày kết thúc
 });
+
+let listProvince = [];
+let listDistrict = [];
+let listWard = [];
+window.onload = getDataProvince();
+async function getDataProvince() {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    listProvince = [...data];
+    renderProvince(); // Gọi hàm renderProvince ngay sau khi có dữ liệu
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+
+async function getDataDistrict(idProvince) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listDistrict = [...data];
+      renderDistrict();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+
+function renderProvince() {
+  const selectProvince = document.getElementById("province");
+  txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
+  listProvince.forEach(province => {
+    
+      txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
+  });
+  selectProvince.innerHTML = txtInner;
+}
+function renderDistrict() {
+  const selectDistrict = document.getElementById("district");
+  txtInner = `<option value="" disabled selected>Chọn quận/huyện</option>`;
+  listDistrict.forEach(district => {
+    
+      txtInner += `<option value="${district.name}">${district.name}</option>`;
+  });
+  selectDistrict.innerHTML = txtInner;
+}
+
+
+const cbxProvince = document.getElementById("province");
+cbxProvince.addEventListener("change", () => {
+    const idProvince = cbxProvince.value;
+    getDataDistrict(idProvince); // Gọi hàm lấy quận/huyện theo idProvince
+    
+});
+
+const cbxDistrict = document.getElementById("district");
+cbxDistrict.addEventListener("change", () => {
+    
+    displayOrders();
+});
+
 
 // Hiển thị các nút phân trang
 function displayPagination(totalPages) {
@@ -252,6 +342,9 @@ function viewOrderDetails(orderId) {
       <p><strong>Khách hàng:</strong> ${order.user.fullName}</p>
       <p><strong>Số điện thoại:</strong> ${order.user.phone}</p>
       <p><strong>Địa chỉ:</strong> ${order.user.address}</p>
+      <p><strong>Quận/Huyện:</strong>${order.user.district}</p>
+      <p><strong>Phường/Xã:</strong>${order.user.ward}</p>
+      <p><strong>Tỉnh/Thành:</strong>${order.user.province}</p>
       <p><strong>Sản phẩm:</strong></p>
       <div class="product-item-detail">
         ${productDetails}

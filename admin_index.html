@@ -889,7 +889,14 @@
                             <input type="search" placeholder="Search..." id="orderSearchInput">
                             <button type="submit" class="search_order"><i class='bx bx-search-alt-2'></i></button>
                         </div>
-                        <!-- Lọc theo khoảng thời gian -->
+                        <button id="resetFilters">Đặt lại</button>
+                        <select id="statusFilter">
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="Chưa xử lý">Chưa xử lý</option>
+                            <option value="Đã xác nhận">Đã xác nhận</option>
+                            <option value="Đã giao thành công">Đã giao thành công</option>
+                            <option value="Đã hủy">Đã hủy</option>
+                        </select>
                         <div>
                             <label for="startDate">Từ ngày:</label>
                             <input type="date" id="startDate" />
@@ -898,14 +905,15 @@
                             <label for="endDate">Đến ngày:</label>
                             <input type="date" id="endDate" />
                         </div>
-
-                        <select id="statusFilter">
-                            <option value="all">Tất cả trạng thái</option>
-                            <option value="Chưa xử lý">Chưa xử lý</option>
-                            <option value="Đã xác nhận">Đã xác nhận</option>
-                            <option value="Đã giao thành công">Đã giao thành công</option>
-                            <option value="Đã hủy">Đã hủy</option>
+                    </div>
+                    <div class="group-cbx">
+                        <select name="province" id="province" class="input-user" required>
+                            
                         </select>
+                        <select name="district" id="district" class="input-user">
+                            <option value="" disabled selected>Chọn quận/huyện</option>
+                        </select>
+                        
                     </div>
                 </div>
                 
@@ -917,6 +925,7 @@
                                 <th>Khách hàng</th>
                                 <th>Số điện thoại</th>
                                 <th>Ngày đặt</th>
+                                <th>Quận</th>
                                 <th>Tổng tiền</th>
                                 <th>Tình trạng</th>
                                 <th>Thao tác</th>

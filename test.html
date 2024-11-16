@@ -323,6 +323,17 @@ button:hover {
                 <input type="text" id="confirmPhone" disabled><br>
                 <label>Địa chỉ:</label>
                 <input type="text" id="confirmAddress"><br>
+                <div class="group-cbx">
+                    <select name="province" id="province" class="input-user" required>
+                        
+                    </select>
+                    <select name="district" id="district" class="input-user">
+                        <option value="" disabled selected>Chọn quận/huyện</option>
+                    </select>
+                    <select name="ward" id="ward" class="input-user">
+                        <option value="" disabled selected>Chọn phường/xã</option>
+                    </select>
+                </div>
                 <div id="confirmProductList"></div> <!-- Thêm phần này để hiển thị ảnh sản phẩm -->
                 <p id="confirmTotalPrice">Tổng tiền: 0 VND</p>
                 <button onclick="finalizePurchase()">Xác nhận</button>
@@ -583,16 +594,24 @@ function confirmSinglePurchase(name, price, image) {
 
 // Finalize the purchase
 function finalizePurchase() {
-    const address = document.getElementById("confirmAddress").value; 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')); 
+    const address = document.getElementById("confirmAddress").value;
+    const provinceSelect = document.getElementById("province");
+    const districtSelect = document.getElementById("district");
+    const wardSelect = document.getElementById("ward");
+
+    // Lấy tên tỉnh, quận, phường
+    const province = provinceSelect.options[provinceSelect.selectedIndex].text;
+    const district = districtSelect.options[districtSelect.selectedIndex].text;
+    const ward = wardSelect.options[wardSelect.selectedIndex].text;
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const currentDate = new Date();
     
-    // Lấy ngày theo định dạng yyyy-mm-dd
     const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Đảm bảo tháng luôn có 2 chữ số
-    const day = String(currentDate.getDate()).padStart(2, '0'); // Đảm bảo ngày luôn có 2 chữ số
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
     
-    const formattedDate = `${year}-${month}-${day}`; // Định dạng yyyy-mm-dd
+    const formattedDate = `${year}-${month}-${day}`;
     
     let itemsToPurchase = [];
     let totalPrice = 0;
@@ -621,39 +640,21 @@ function finalizePurchase() {
         user: { 
             fullName: currentUser.fullName, 
             phone: currentUser.phone, 
-            address: address 
+            address: address,
+            province: province,
+            district: district,
+            ward: ward
         },
-        date: formattedDate, // Lưu ngày theo định dạng yyyy-mm-dd
-        items: itemsToPurchase,  
-        totalPrice: totalPrice,  
-        status: "Chưa xử lý",  
+        date: formattedDate,
+        items: itemsToPurchase,
+        totalPrice: totalPrice,
+        status: "Chưa xử lý",
     };
 
     let orders = JSON.parse(localStorage.getItem('orders')) || [];
-    
-    // Thêm đơn hàng mới vào mảng orders
-    orders.unshift(order);  // Đẩy đơn hàng mới từ finalizePurchase lên đầu mảng
+    orders.unshift(order);
 
-    // Đảm bảo `newOrder` chứa các phần tử, nếu không hãy debug bằng cách console.log
-    const newOrder = [
-        { orderId: "id123456781", user: { fullName: "Lê Công Vinh", phone: "0902580641", address: "453/133 Lê Văn Sỹ, phường 12, quận 3, Tp.HCM" }, date: "2024-11-10", items: [{ name: "Bánh kem", price: 150000, image: "undefined" }], totalPrice: 150000, status: "Chưa xử lý" },
-        { orderId: "id123456782", user: { fullName: "Nguyễn Thị Lan", phone: "0902580642", address: "123/45 Nguyễn Thị Minh Khai, quận 1, Tp.HCM" }, date: "2024-11-11", items: [{ name: "Bánh mì", price: 20000, image: "undefined" }], totalPrice: 20000, status: "Chưa xử lý" },
-    ];
-
-    // Debug log để kiểm tra xem `orders` trước và sau khi thêm dữ liệu có thay đổi không
-    console.log("Orders before update:", orders);
-    
-    // Thêm đơn hàng mới vào mảng orders
-    orders.push(...newOrder);  // Dùng spread operator để thêm các phần tử từ newOrder vào orders
-
-    // Debug log sau khi cập nhật mảng orders
-    console.log("Orders after update:", orders);
-
-    // Lưu lại toàn bộ mảng orders vào localStorage
     localStorage.setItem('orders', JSON.stringify(orders));
-
-    // Kiểm tra lại xem dữ liệu đã được lưu vào localStorage chưa
-    console.log("Orders saved to localStorage:", localStorage.getItem('orders'));
 
     if (!singleItemPurchase) {
         cart = [];
@@ -662,8 +663,98 @@ function finalizePurchase() {
 
     singleItemPurchase = null;
     alert("Đặt hàng thành công!");
-    closeModal('confirmationModal'); 
+    closeModal('confirmationModal');
 }
+
+let listProvince = [];
+let listDistrict = [];
+let listWard = [];
+window.onload = getDataProvince();
+async function getDataProvince() {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const data = await response.json();
+    listProvince = [...data];
+    renderProvince(); // Gọi hàm renderProvince ngay sau khi có dữ liệu
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+
+async function getDataDistrict(idProvince) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listDistrict = [...data];
+      renderDistrict();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+async function getDataWard(idDistrict) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=" + idDistrict;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listWard = [...data];
+      renderWard();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+function renderProvince() {
+  const selectProvince = document.getElementById("province");
+  txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
+  listProvince.forEach(province => {
+    
+      txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
+  });
+  selectProvince.innerHTML = txtInner;
+}
+function renderDistrict() {
+  const selectDistrict = document.getElementById("district");
+  txtInner = `<option value="" disabled selected>Chọn quận/huyện</option>`;
+  listDistrict.forEach(district => {
+    
+      txtInner += `<option value="${district.idDistrict}">${district.name}</option>`;
+  });
+  selectDistrict.innerHTML = txtInner;
+}
+function renderWard() {
+  const selectWard = document.getElementById("ward");
+  txtInner = `<option value="" disabled selected>Chọn phường/xã</option>`;
+  listWard.forEach(ward => {
+      txtInner += `<option value="${ward.idCommune}">${ward.name}</option>`;
+  });
+  selectWard.innerHTML = txtInner;
+}
+
+const cbxProvince = document.getElementById("province");
+cbxProvince.addEventListener("change", () => {
+    const idProvince = cbxProvince.value;
+    getDataDistrict(idProvince); // Gọi hàm lấy quận/huyện theo idProvince
+    const cbxWard = document.getElementById("ward");
+    cbxWard.innerHTML = `<option value="" disabled selected>Chọn phường/xã</option>`; // Reset danh sách phường/xã
+});
+
+const cbxDistrict = document.getElementById("district");
+cbxDistrict.addEventListener("change", () => {
+    const idDistrict = cbxDistrict.value;
+    getDataWard(idDistrict); // Gọi hàm lấy phường/xã theo idDistrict
+});
 
 
 // Load user data and products when the page is loaded
