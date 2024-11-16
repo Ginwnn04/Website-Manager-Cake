@@ -40,10 +40,7 @@ body {
 html {
     overflow: hidden;
 }
-button{
-    cursor: pointer;
-    border: none;
-}
+
 
 /* SIDEBAR */
 #sidebar {
@@ -248,7 +245,8 @@ button{
     cursor: pointer;
 }
 #content nav .item{
-    padding-left: 15% ;
+    position: absolute;
+    right: 10px;
     display: flex;
     align-items: center;
     transition: 2s ease;
@@ -367,64 +365,18 @@ button{
     color: var(--blue);
     pointer-events: unset;
 }
-#dashboard .statistical {
-    border: solid 2px var(--grey);
-    box-sizing: border-box;
-    height: 150px;
-    width: calc(25% - 10px);
-    margin: 0 5px;
-    padding: 20px;
-    float: left;
-    font-size: 20px;
-    color: var(--black);
-    border-radius: 20px;
-    z-index: 1;
-    background-color: var(--light);
-    display: flex;
-    align-items: center;
-    grid-gap:24px;
-    /* justify-content: center; */
-}
-#dashboard .statistical .bx{
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    background: var(--grey);
-    font-size: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#dashboard .statistical .bx.bx-money-withdraw{
-    color: var(--blue);
-    background-color: var(--light_blue);
-}
-#dashboard .statistical .bx.bxs-calendar{
-    color: var(--orange);
-    background-color: var(--light_orange);
-}
-#dashboard .statistical .bx.bx-star{
-    color: var(--yellow);
-    background-color: var(--light_yellow);
-}
-#dashboard .statistical .bx.bx-group{
-    color: var(--purple);
-    background-color: var(--light_purple);
-}
-#dashboard .analysis{
-    height: 300px;
-    width: calc(50% - 20px);
-    border: solid 2px var(--grey);
-    box-sizing: border-box;
-    margin: 10px;
-    margin-top: 10px;
-    padding: 20px;
-    float: left;
-    font-size: 30px;
-    border-radius: 10px;
+
+#chart_div {
+    min-width: 800px;
+    width: 60%;
+    height: 500px;
+    margin: 0 ;
     background: var(--light);
-    color: var(--black);
-}
+    margin-left: 24px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
 #account_manager {
     overflow: hidden;
 }
@@ -476,6 +428,7 @@ button{
 	flex-wrap: wrap;
 	grid-gap: 24px;
 	margin-top: 24px;
+    margin-left: 12px;
 	width: 100%;
 	color: var(--black);
 }
@@ -535,93 +488,284 @@ button{
     margin-left: 20px;
 }
 
-#account_manager .table_data .user .info_account table{
-    width: 100%;
-}
-#account_manager .table_data .user .info_account table th{
-    padding-bottom: 12px;
-    font-size: 18px;
-    text-align: left;
-    border-bottom: 1px solid var(--black);
-}
-#account_manager .table_data .user .info_account table td{
-    padding: 16px 0px;
-}
-#account_manager .table_data .user .info_account table tr td:first-child{
-    display: flex;
-    align-items: center;
-}
-#account_manager .table_data .user .info_account table .bx.bx-cog{
-    cursor: pointer;
-    margin-left: 20px;
-}
 /* Phần thêm account trong Quản lí tài khoản */
-.add_account{
-    border-radius: 10px;
-    background:var(--grey);
-    width: 600px;
-    height:80%;
-    position: absolute;
-    top: 120px;
-    left: 250px;
+
+
+#add_account {
     display: none; 
-    
-}
-.add_account legend{
-    font-size: 30px;
-    position: absolute;
-    left: 20px;
-    top: -20px;
-    z-index: 2;
-    border: 2px solid var(--grey); 
-    background: var(--grey);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
 }
 
-.add_account .bx.bx-x{
+/* Nội dung modal */
+#add_account .add_acc_content {
+    background-color: var(--light);
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 80%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.4s ease;
+}
+
+/* Hiệu ứng mở modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+#add_account .bx.bx-x{
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--orange);
     position: absolute;
     right: 20px;
-    font-size: 30px;
-    color: red;
+    top: 15px;
     cursor: pointer;
-    z-index: 10;
+    transition: color 0.3s;
 }
-.add_account .form_input table{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 600px;
+
+/* Tiêu đề của modal */
+#add_account .add_acc_content h2 {
+    margin-top: 0;
     font-size: 24px;
+    color: var(--black);
+    text-align: center;
+}
+
+#add_account .bx.bx-x:hover {
+    color: var(--blue);
+}
+
+/* Các trường nhập liệu */
+#add_account .add_acc_content input[type="text"],
+#add_account .add_acc_content input[type="number"],
+#add_account .add_acc_content select  {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Nút lưu */
+#add_account .add_acc_content button[type="submit"],
+#add_account .add_acc_content button[type="reset"] {
+    width: 49%;
+    padding: 12px;
+    font-size: 16px;
+    color: var(--light);
+    background-color: var(--orange);
+    border: none;
+    border-radius: 4px;
+}
+
+#add_account .add_acc_content button[type="submit"]:hover,
+#add_account .add_acc_content button[type="reset"]:hover {
+    background-color: var(--blue);
+}
+
+
+/* Hiển thị phần tài khoản */
+.info_account table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 50px;
+}
+
+.info_account table th,
+.info_accounttable td {
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--dark_grey); 
+}
+
+.info_account table th {
+    background-color: var(--light); 
+    color: var(--black); 
+    font-weight: bold; 
+    font-size: 20px; 
+}
+
+.info_account table tr {
+    transition: background-color 0.3s ease; 
+}
+
+.info_account table tr:hover {
+    background-color: var(--grey); 
+}
+
+
+.info_account table th:nth-child(1),
+.info_account table td:nth-child(1) {
+    width: 20%; /* Chiều rộng cho Tên Khách Hàng */
+}
+.info_account table th:nth-child(2),
+.info_account table td:nth-child(2) {
+    width: 15%; /* Chiều rộng cho Tài Khoản */
+}
+.info_account table th:nth-child(3),
+.info_account table td:nth-child(3) {
+    width: 15%; /* Chiều rộng cho Mật Khẩu*/
+}
+
+.info_account table th:nth-child(4),
+.info_account table td:nth-child(4) {
+    width: 15%; /* Chiều rộng cho Số điện thoại */
+}
+.info_account table th:nth-child(5),
+.info_account table td:nth-child(5) {
+    width: 15%; /* Chiều rộng cho Vai Trò */
+}
+
+
+.info_account table th:nth-child(7),
+.info_account table td:nth-child(7) {
+    width: 15%; /* Chiều rộng cho Setting */
+}
+
+.info_account table {
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 50px;
+}
+
+.info_account table th,
+.info_account table td {
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--dark_grey); 
+}
+
+.info_account table th {
+    background-color: var(--light); 
+    color: var(--black); 
+    font-weight: bold; 
+    font-size: 24px; 
+}
+.info_account table td  {
+    font-size: 20px;
+}
+
+.info_account table tr {
+    transition: background-color 0.3s ease; 
+}
+
+.info_account table tr:hover {
+    background-color: var(--grey); 
+}
+.edit_account, .block_account, .detail_account {
+    padding: 5px ;
+    background-color: var(--orange);
+    color: var(--light);
+    margin: 5px;
+}
+.edit_account:hover, .block_account:hover, .detail_account:hover{
+    background-color: var(--blue);
+}
+
+#update_account{
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: var(--light);
+    background-color: var(--orange);
+    border: none;
+    border-radius: 4px;
+    display: none;
+    
+    
+}
+#update_account:hover{
+    background-color: var(--blue);
+}
+
+
+#detail_account {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    border-collapse: collapse;
-    /* border: #000000 2px solid; */
+    background-color: rgba(0, 0, 0, 0.7); 
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
 }
 
-.add_account .form_input table textarea{
+/* Nội dung modal */
+#detail_account .detail_acc_content {
+    background-color: var(--light);
+    padding: 20px;
     border-radius: 8px;
-    padding: 0 10px;
-    width: 80%;
-    font-size: 20px;
-}
-.add_account .form_input table input {
-    height: 40px; /* Chiều cao cho tất cả input */
-    border-radius: 8px;
-    width: 80%;
-    font-size: 20px;
-    padding: 0  10px;
-}
-.add_account .form_input table input[type="radio"] {
-    height: auto; /* Giữ nguyên chiều cao cho radio */
-    width: auto;  /* Giữ nguyên chiều rộng cho radio */
-    padding-right: 40px;   /* Đặt lại margin nếu cần */
+    width: 400px;
+    max-width: 80%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.4s ease;
+    font-size: 24px;
 }
 
-.add_account .form_input .button_ac button{
-    border-radius: 8px;
-    padding: 0 5px;
-    height: 30px;
+/* Hiệu ứng mở modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+#detail_account .bx.bx-x{
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--orange);
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#detail_account  .detail_acc_content h2 {
+    margin-top: 0;
+    font-size: 34px;
+    color: var(--orange);
+    text-align: center;
+}
+
+#detail_account .bx.bx-x:hover {
+    color: var(--blue);
+}
+
+#detail_account  .detail_acc_content .detail_table p {
     margin: 10px;
-    font-size: 20px;
 }
+
+
+
+
+
 
 /* ------------------------------------Quản lý đơn hàng -----------------------------------*/
 #order_manager {
@@ -848,6 +992,10 @@ button{
 }
 
 /*---------------------------------- Quản lý đơn hàng------------------------------------- */
+
+
+
+
 
 
 /* CONTENT */
