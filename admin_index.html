@@ -22,7 +22,7 @@
         </div>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
                     <span class="text">Dashboard</span>
                 </a>
@@ -96,9 +96,6 @@
             <div class="item">
                 <a href="#" >
                     <i class='bx bx-list-ul'></i>
-                </a>
-                <a href="#">
-                    <i class='bx bxs-cart'></i>
                 </a>
                 <a href="#" class="notification">
                     <i class='bx bx-bell bx-tada' ></i>
@@ -694,6 +691,17 @@
 </div>
 </div>
 <!-- MAIN -->
+
+
+
+
+
+
+
+
+
+
+
 <main>
     <div id="dashboard">
         <div class="head">
@@ -710,41 +718,8 @@
                 </ul>
             </div>
         </div>
-        <div>
-            <div class="statistical">
-                <i class='bx bx-money-withdraw'></i>
-                <span class="text">
-                    <h3>$1020</h3>
-                    <p>Tổng Thu</p>
-                </span>
-            </div>
-            <div class="statistical">
-                <i class='bx bxs-calendar'></i>
-                <span class="text">
-                    <h3>218</h3>
-                    <p>Đơn Hàng</p>
-                </span>
-            </div>
-            <div class="statistical">
-                <i class='bx bx-star'></i>
-                <span class="text">
-                    <h3>4.9</h3>
-                    <p>Đánh giá</p>
-                </span>
-            </div>
-            <div class="statistical">
-                <i class='bx bx-group'></i>
-                <span class="text">
-                    <h3>2421</h3>
-                    <p>Khách</p>
-                </span>
-            </div>
-            <div class="analysis">
-                Báo Cáo Bán Hàng
-            </div>
-            <div class="analysis">
-                Thông Kê Người Dùng
-            </div>
+        <div id="border_chart">
+             <div id="chart_div"></div>
         </div>
     </div>
 
@@ -756,7 +731,8 @@
                     <li>
                         <a href="#">Account Manager</a>
                     </li>
-                    <li><i class='bx bx-chevron-right'></i></li>
+                    <li>
+                        <i class='bx bx-chevron-right'></i></li>
                     <li>
                         <a class="active" href="#">Home</a>
                     </li>
@@ -769,101 +745,85 @@
                     <h3>Tài Khoản</h3>
                     <div class="icon">
                         <div class="search">
-                            <input type="search" placeholder="Search...">
-                            <button type="submit" class="search_account"><i class='bx bx-search-alt-2'></i></button>
+                            <input type="search" placeholder="Search..." id="search_account">
+                            <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2' onclick="searchAccount()"></i></button>
                         </div>
                         <i class='bx bx-filter'></i>
-                        <i class='bx bx-plus'></i>
+                        <i class='bx bx-plus' onclick="showForm()"></i>
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>User Name</th>
-                            <th>Password</th>
-                            <th>Phone</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Setting</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src="" alt="">
-                                <p>Joe</p>
-                            </td>
-                            <td>joe2104</td>
-                            <td>2319210</td>
-                            <td>0339126723</td>
-                            <td>Admin</td>
-                            <td>Online</td>
-                            <td>
-                                <i class='bx bx-cog'></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="" alt="">
-                                <p>Joe</p>
-                            </td>
-                            <td>joe2104</td>
-                            <td>2319210</td>
-                            <td>0339126723</td>
-                            <td>Client</td>
-                            <td>Online</td>
-                            <td>
-                                <i class='bx bx-cog'></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="" alt="">
-                                <p>Joe</p>
-                            </td>
-                            <td>joe2104</td>
-                            <td>2319210</td>
-                            <td>0339126723</td>
-                            <td>Sales</td>
-                            <td>Online</td>
-                            <td>
-                                <i class='bx bx-cog'></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="" alt="">
-                                <p>Joe</p>
-                            </td>
-                            <td>joe2104</td>
-                            <td>2319210</td>
-                            <td>0339126723</td>
-                            <td>Sales</td>
-                            <td>Online</td>
-                            <td>
-                                <i class='bx bx-cog'></i>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="" alt="">
-                                <p>Joe</p>
-                            </td>
-                            <td>joe2104</td>
-                            <td>2319210</td>
-                            <td>0339126723</td>
-                            <td>Client</td>
-                            <td>Online</td>
-                            <td>
-                                <i class='bx bx-cog'></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="add_account">
+                    <div class="add_acc_content">
+                        <i class='bx bx-x' onclick="hideForm() "></i>
+                        <h2>Thêm tài khoản</h2>
+                        <form id="accountForm">
+                            <input type="text" id="name" placeholder="Tên người dùng" class="form_input" required >
+                            <input type="text" id="username" placeholder="Tài khoản"  class="form_input" required>
+                            <input type="text" id="password" placeholder="Mật khẩu"  class="form_input" required>
+                            <input type="number" id="phone" placeholder="Số điện thoại"  class="form_input" required>
+                            <input type="text" id="address" placeholder="Địa chỉ"  class="form_input" required>
+                            <input type="hidden" id="index" >
+                            <select id="role" required>
+                                <option value="all" disabled selected>Chọn vai trò</option>
+                                <option value="admin">Admin</option>
+                                <option value="sales">Bán hàng</option>
+                                <option value="client">Khách hàng</option>
+                            </select>
+                            <button type="submit" onclick="addNewAccount()" id="save_account">Lưu tài khoản</button>
+                            <button type="reset" id="reset_account">Nhập lại</button>
+                            <button id="update_account" onclick="changeAccount()" >Cập nhật tài khoản</button>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="info_account">
+                    <table id="accountTable">
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Tài Khoản</th>
+                                <th>Mật khẩu</th>
+                                <th>Số điện thoại</th>
+                                <th>Role</th>
+                                <th>Setting</th>
+                            </tr>
+                        </thead>
+                        <tbody class="account_data">
+                            <!-- Dữ liệu tài khoản -->
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <!-- Nút phân trang -->
+                    </div>
+                </div>
+                <div id="detail_account">
+                    <div class="detail_acc_content">
+                        <i class='bx bx-x' onclick="hideDetailAccount()" ></i>
+                        <h2>Chi tiết Tài Khoản</h2>
+                        
+                        <div class="detail_table">
+                            <p id="detail_name"></p>
+                            <p id="detail_username"></p>
+                            <p id="detail_password"></p>
+                            <p id="detail_phone"></p>
+                            <p id="detail_address"></p>
+                            <p id="detail_role"></p>  
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
 
     <!-- Order Manager -->
     <div id="order_manager">
@@ -983,7 +943,8 @@
     
     
     <!-- Test thêm đơn hàng -->
-    <script src="admin_script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="admin_script.js"></script>
+  
 </body>
 </html>
