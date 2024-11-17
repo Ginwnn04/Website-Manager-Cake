@@ -14,17 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("user-phone").value = userData.phone || "Chưa cập nhật";
     document.getElementById("user-email").value = userData.email || "Chưa cập nhật";
 
-    // // Fallback dữ liệu nếu API không trả về đủ dữ liệu
-    // const fallbackDistricts = {
-    //     "01": ["Quận 1", "Quận 2", "Quận 3", "Quận 4", "Quận 5"],
-    //     "79": ["Quận 1", "Quận 3", "Quận 5", "Quận 7", "Quận 10", "Huyện Bình Chánh"]
-    // };
-
-    // const fallbackWards = {
-    //     "001": ["Phường 1", "Phường 2", "Phường 3", "Phường 4"],
-    //     "002": ["Phường 5", "Phường 6", "Phường 7", "Phường 8"]
-    // };
-
     async function fetchAPI(url) {
         try {
             const response = await fetch(url);
@@ -57,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const district = document.getElementById("district").options[document.getElementById("district").selectedIndex]?.text || "";
         const province = document.getElementById("province").options[document.getElementById("province").selectedIndex]?.text || "";
 
-        //
         document.getElementById("address-summary").value = `${street}, ${ward}, ${district}, ${province}`;
     }
 
@@ -70,13 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wardDropdown.innerHTML = '<option value="">Chọn Phường/Xã</option>';
 
         if (provinceCode) {
-            let districts = await fetchAPI(`https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${provinceCode}&limit=-1`);
-            if (districts.length === 0 && fallbackDistricts[provinceCode]) {
-                districts = fallbackDistricts[provinceCode].map((name, index) => ({
-                    code: `${provinceCode}${index + 1}`,
-                    name_with_type: name,
-                }));
-            }
+            const districts = await fetchAPI(`https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${provinceCode}&limit=-1`);
             populateSelect(districtDropdown, districts, "name_with_type", "code");
             districtDropdown.disabled = false;
         } else {
@@ -92,13 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wardDropdown.innerHTML = '<option value="">Chọn Phường/Xã</option>';
 
         if (districtCode) {
-            let wards = await fetchAPI(`https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${districtCode}&limit=-1`);
-            if (wards.length === 0 && fallbackWards[districtCode]) {
-                wards = fallbackWards[districtCode].map((name, index) => ({
-                    code: `${districtCode}${index + 1}`,
-                    name_with_type: name,
-                }));
-            }
+            const wards = await fetchAPI(`https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${districtCode}&limit=-1`);
             populateSelect(wardDropdown, wards, "name_with_type", "code");
             wardDropdown.disabled = false;
         } else {
@@ -160,6 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.add("active");
             document.getElementById(button.dataset.tab).classList.add("active");
         });
+    });
+
+    // Xử lý sự kiện nút "Quay về Trang Chính"
+    document.querySelector('.return-home-btn').addEventListener('click', () => {
+        window.location.href = "index.html"; // Đường dẫn đến trang chính
     });
 
     initializeProvinces();

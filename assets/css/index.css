@@ -1450,29 +1450,29 @@ input[type="number"]::-webkit-inner-spin-button {
     
 }
 .user-icon {
-    width: 40px; /* Kích thước icon */
+    width: 40px;
     height: 40px;
-    border-radius: 50%; /* Làm cho icon thành hình tròn */
-    background-color: #00e6ad; /* Màu nền của icon */
+    border-radius: 50%;
+    background-color: #00e6ad;
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff; /* Màu của biểu tượng */
-    font-size: 20px; /* Kích thước biểu tượng người */
+    color: #fff;
+    font-size: 20px;
     cursor: pointer;
 }
 
 .user-icon:hover {
-    background-color: #00cbe6; /* Màu nền khi hover */
+    background-color: #00cbe6;
 }
 
 .user-options {
     display: none;
     position: absolute;
-    top: 55px; /* Điều chỉnh khoảng cách từ icon đến form */
-    left: 83%; /* Căn giữa form theo icon */
-    transform: translateX(-50%); /* Dịch chuyển form để căn giữa với icon */
+    top: 55px;
+    left: 81%;
+    transform: translateX(-50%);
     width: 200px;
     padding: 10px;
     background-color: white;
