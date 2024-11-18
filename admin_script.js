@@ -761,36 +761,634 @@ window.onload = function() {
 
 
 
-// PRODUCT
-//CATEGORY
+//--------------------------Product and Category-------------------------------------------
 
-function toggleCategoryForm() {
-  const form = document.getElementById('categoryForm');
-  form.style.display = form.style.display === 'block' ? 'none' : 'block';
+document.querySelector('.jsFilter').addEventListener('click', function () {
+  document.querySelector('.filter-menu').classList.toggle('active');
+});
+
+function InitProductView(){
+  const tabltViewButton=document.querySelector('.list');
+  const gridViewButton=document.querySelector('.grid');
+  const ProductView=document.querySelector('.products-area-wrapper');
+  tabltViewButton.classList.add('active');
+  gridViewButton.classList.remove('active');
+  ProductView.classList.add('tableView');
+  ProductView.classList.remove('gridView');
 }
-function resetForm() {
-  document.getElementById('categoryName').value = '';
-  document.getElementById('description').value = '';
+InitProductView();
+function toggleView(viewType){
+  const tabltViewButton=document.querySelector('.list');
+  const gridViewButton=document.querySelector('.grid');
+  const ProductView=document.querySelector('.products-area-wrapper');
+  if(viewType==='table'){
+    tabltViewButton.classList.add('active');
+    gridViewButton.classList.remove('active');
+    ProductView.classList.add('tableView');
+    ProductView.classList.remove('gridView');
+  }else if(viewType==='grid'){
+    tabltViewButton.classList.remove('active');
+    gridViewButton.classList.add('active');
+    ProductView.classList.remove('tableView');
+    ProductView.classList.add('gridView');
+  }
 }
-function submitCategory() {
-  const categoryName = document.getElementById('categoryName').value;
-  const description = document.getElementById('description').value;
-  
-  if (categoryName.trim()) {
-      console.log('Tên Loại:', categoryName);
-      console.log('Mô Tả:', description);
-      resetForm();
-      toggleCategoryForm();
+document.querySelector('.list').addEventListener('click', () => toggleView('table'));
+document.querySelector('.grid').addEventListener('click', () => toggleView('grid'));
+
+function randomId(existingId) {
+  const now=new Date();
+  const time=`${String(now.getDate()).padStart(2,'0')}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getFullYear()).slice(-2)}${String(now.getHours()).padStart(2,'0')}`;
+  let id;
+  let fullid;
+  do {
+    id = Math.random().toString(36).substring(2, 6).toUpperCase();
+    fullid = id+time;
+  } while (existingId.includes(fullid));
+  return fullid;
+}
+document.querySelector('.product-content-headerButton').addEventListener('click', toggleAddProductForm);
+//PRODUCT
+function toggleAddProductForm() {
+  formP.style.display = formP.style.display === 'block' ? 'none' : 'block';
+}
+function resetFormP() {
+  document.getElementById('productName').value='';
+  document.getElementById('productCategory').value='';
+  document.getElementsByName('Status').value='';
+  document.getElementById('productDescription').value='';
+  document.getElementById('productStock').value='';
+  document.getElementById('productPrice').value='';
+  const productImageInput = document.getElementById('productImage');
+  if (productImageInput) {
+    productImageInput.value = '';
+  }
+  preview.style.display='none';
+}
+function cancelProduct() {
+  resetFormP();
+  formP.style.display='none';
+  editProductIndex=null;
+}
+document.getElementById('cancelProduct').addEventListener('click',cancelProduct);
+
+const ImageP = document.getElementById('productImageP');
+const formP = document.getElementById('addProductForm');
+const preview = document.getElementById('productPreviewImage');
+const default_image = "./assets/img/banhkem.jpg"; // Ảnh mặc định
+function convertDefaultImageToBase64(imagePath, callback) {
+  fetch(imagePath).then((response) => {
+      if (!response.ok) {
+        throw new Error(`Không thể tải ảnh từ ${imagePath}`);
+      }
+      return response.blob();
+    }).then((blob) => {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result); // Chuỗi Base64 trả về thông qua callback
+      };
+      reader.readAsDataURL(blob);
+    })
+    .catch((error) => {
+      console.error("Lỗi chuyển ảnh thành Base64:", error);
+    });
+}
+// convertDefaultImageToBase64(default_image, (base64String) => {
+//   default_image = base64String; 
+// });
+const productPage = document.querySelector('.products-page');
+const categoryOption = document.getElementById('productCategory');
+const categoryOptionFilter = document.getElementById('productCategoryFilter');
+let categories = JSON.parse(localStorage.getItem('categories')) || [];
+let products = JSON.parse(localStorage.getItem('products')) || [];
+let editProductIndex = null; 
+// Hiển thị danh sách category
+function updateCategoryOptions() {
+    categoryOption.innerHTML = '<option value="">Chọn loại sản phẩm</option>'; // Thêm tuỳ chọn mặc định
+    if (!categories.length) {
+        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
+        return;
+    }
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        categoryOption.appendChild(option);
+    });
+}
+function updateCategoryOptionsFilter() {
+    categoryOptionFilter.innerHTML = '<option value="">Chọn loại sản phẩm</option>'; // Thêm tuỳ chọn mặc định
+    if (!categories.length) {
+        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
+        return;
+    }
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.textContent = category.name;
+        categoryOptionFilter.appendChild(option);
+    });
+}
+
+// Hiển thị preview ảnh khi người dùng chọn ảnh mới
+ImageP.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = default_image; 
+        preview.style.display = 'block'; 
+    }
+});
+
+// Xử lý submit form
+formP.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const ProductName = document.getElementById('productName').value.trim();
+  const ProductCategory = document.getElementById('productCategory').value;
+  const selectedCategory = categories.find(category => category.id === ProductCategory);
+  if (!selectedCategory) {
+    alert("Loại sản phẩm không hợp lệ!");
+    return;
+  }
+  //const ProductStatus = document.getElementById('Status').value.trim();
+  const ProductStatus = document.querySelector('input[name="status"]:checked')?.value;
+  if (!ProductStatus) {
+    alert("Vui lòng chọn trạng thái!");
+    return;
+  }
+  const ProductDescription = document.getElementById('productDescription').value.trim();
+  const ProductStock = document.getElementById('productStock').value.trim();
+  const ProductPrice = document.getElementById('productPrice').value.trim();
+  if (!ProductName) {
+    alert("Tên sản phẩm không được để trống!");
+    document.getElementById('productName').focus();
+    return;
+  }
+  if (!ProductStock || isNaN(ProductStock)) {
+    alert("Số lượng sản phẩm không hợp lệ!");
+    document.getElementById('productStock').focus();
+    return;
+  }
+  if (!ProductPrice || isNaN(ProductPrice)) {
+    alert("Giá sản phẩm không hợp lệ!");
+    document.getElementById('productPrice').focus();
+    return;
+  }
+
+  let productData = {
+    name: ProductName,
+    id: editProductIndex !== null ? products[editProductIndex].id : randomId(products.map(prod => prod.id)),
+    category: selectedCategory.name,
+    status: ProductStatus,
+    description: ProductDescription,
+    stock: ProductStock,
+    price: ProductPrice,
+    image: default_image 
+  };
+  // Nếu có ảnh mới, thay thế ảnh mặc định
+  if (ImageP.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      productData.image = e.target.result; 
+      saveProduct(productData);
+    };
+    reader.readAsDataURL(ImageP.files[0]);
   } else {
-      alert('Vui lòng nhập tên loại!');
+    saveProduct(productData); 
+  }
+
+  formP.reset();
+  formP.style.display='none';
+  preview.style.display = 'none';
+  displayProducts();
+});
+
+// Lưu sản phẩm
+function saveProduct(productData) {
+  if (editProductIndex !== null) {
+    products[editProductIndex] = productData;
+    alert("Sản phẩm đã được cập nhật!");
+    editProductIndex = null;
+  } else {
+    products.unshift(productData);
+    alert("Sản phẩm đã được thêm!");
+  }
+  localStorage.setItem('products', JSON.stringify(products));
+  cancelProduct();
+}
+window.addEventListener('load', updateCategoryOptions);
+window.addEventListener('load', updateCategoryOptionsFilter);
+
+function deleteP(index) {
+  products.splice(index, 1);
+  localStorage.setItem('products', JSON.stringify(products));
+  displayProducts();
+}
+
+function confirmDelete(index) {
+  if (confirm("Bạn có chắc muốn xoá sản phẩm này không?")) deleteP(index);
+}
+
+function editP(index) {
+  editProductIndex = index;
+  const product = products[index];
+  formP.style.display = 'block';
+  document.getElementById('productName').value = product.name;
+  document.getElementById('productCategory').value = categories.find(cat => cat.name === product.category)?.id || '';
+  document.getElementsByName('Status').value = product.status;
+  document.getElementById('productDescription').value = product.description;
+  document.getElementById('productStock').value = product.stock;
+  document.getElementById('productPrice').value = product.price;
+  // Hiển thị ảnh nếu có
+  if (product.image && product.image !== default_image) {
+    preview.src = product.image;
+    preview.style.display = 'block';
+  } else {
+    preview.src=default_image;
+    preview.style.display = 'none';
   }
 }
 
+let currentPageP = 1;
+const maxIndex = 12;
+
+function displayProducts() {
+  const products = JSON.parse(localStorage.getItem('products')) || [];
+  productPage.innerHTML = '';
+  const startIndex = (currentPageP - 1) * maxIndex;
+  const endIndex = startIndex + maxIndex;
+  const View = products.slice(startIndex, endIndex);
+  
+  View.forEach((product, index) => {
+    addInToListP(product, index);
+  });
+
+  updatePaginationDisplay(products.length);
+}
+
+function addInToListP(product, index) {
+  const productItem = document.createElement('div');
+  productItem.classList.add('products-row');
+  const statusClass = product.status === 'Active' ? 'active' : 'disabled';
+  const statusDisplay = `<span class="cell-label">Status:</span>
+                         <span class="${statusClass}">${product.status}</span>`;
+  productItem.innerHTML = `
+    <button class="cell-more-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </button>
+    <div class="product-cell image">
+      <img src="${product.image}">
+      <span>${product.name}</span>
+    </div>
+    <div class="product-cell id">
+      <span class="cell-label">Id</span>${product.id}
+    </div>
+    <div class="product-cell category">
+      <span class="cell-label"> Categories:</span>${product.category}
+    </div>
+    <div class="product-cell status-cell">
+      ${statusDisplay}
+    </div>
+    <div class="product-cell description">
+      <span class="cell-label">Description:</span>${product.description}
+    </div>
+    <div class="product-cell stock">
+      <span class="cell-label">Stock:</span>${product.stock}
+    </div>
+    <div class="product-cell price">
+      <span class="cell-label">Price:</span>${product.price}
+    </div>    
+    <div class="product-cell tools">
+      <button class="tool-button" onclick="confirmDelete(${index});">Delete</button>
+      <button class="tool-button" onclick="editP(${index});">Edit</button>
+    </div>
+  `;
+  productPage.appendChild(productItem);
+}
+
+function navigateToPage(action) {
+  const products = JSON.parse(localStorage.getItem('products')) || [];
+  const totalPages = Math.ceil(products.length / maxIndex);
+  
+  if (action === 'first') currentPageP = 1;
+  else if (action === 'last') currentPageP = totalPages;
+  else if (action === 'prev' && currentPageP > 1) currentPageP--;
+  else if (action === 'next' && currentPageP < totalPages) currentPageP++;
+  else if (typeof (action) === 'number') currentPageP = action;
+  if (currentPageP < 1) currentPageP = 1;
+  currentPageP = Math.min(Math.max(1, currentPageP), totalPages);
+  displayProducts();
+}
+function updatePaginationDisplay(totalProducts) {
+  const totalPages = Math.ceil(totalProducts / maxIndex);
+  const pageButtons = document.querySelector('.page-numbers');
+  pageButtons.innerHTML = '';
+  const prevButton = document.querySelector('.pagination button[onclick="navigateToPage(\'prev\')"]');
+  prevButton.disabled = currentPageP === 1;
+  const nextButton = document.querySelector('.pagination button[onclick="navigateToPage(\'next\')"]');
+  nextButton.disabled = currentPageP === totalPages;
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i;
+    pageButton.onclick = () => navigateToPage(i);
+    pageButton.classList.toggle('active', i === currentPageP);
+    pageButtons.appendChild(pageButton);
+  }
+}
+
+function createButton(PageNumber, container) {
+  const button = document.createElement('button');
+  button.textContent = PageNumber;
+  button.onclick = () => navigateToPage(PageNumber);
+  button.classList.toggle('active', PageNumber === currentPageP);
+  container.appendChild(button);
+}
+
+updatePaginationDisplay();
+document.getElementById('sortByNameP').addEventListener('click', () => sortProduct('nameP'));
+document.getElementById('sortByIdP').addEventListener('click', () => sortProduct('idP'));
+document.getElementById('sortByStockP').addEventListener('click', () => sortProduct('stockP'));
+document.getElementById('sortByCategoryP').addEventListener('click',() => sortProduct('categoryP'));
+document.getElementById('sortByPriceP').addEventListener('click',()=>sortProduct('priceP'));
+let sortOrderP={name:'asc',id:'asc',stock:'asc',category:'asc',price:'asc'}
+function sortProduct(attribute) {
+  products = JSON.parse(localStorage.getItem('products')) || [];
+  let order=sortOrderP[attribute];
+  products.sort((a, b) => {
+    if (attribute === 'nameP') {
+      return order === 'asc' ? (a.name.localeCompare(b.name)) : (b.name.localeCompare(a.name));
+    }
+    if (attribute === 'idP') {
+      return order === 'asc' ? (a.id.localeCompare(b.id)) : (b.id.localeCompare(a.id));
+    }
+    if (attribute === 'categoryP') {
+      return order === 'asc' ? (a.category.localeCompare(b.category)) : (b.category.localeCompare(a.category));
+    }
+    if (attribute === 'stockP') {
+      return order === 'asc' ? (a.stock - b.stock) : (b.stock - a.stock);
+    }
+    if (attribute === 'priceP') {
+      return order === 'asc' ? (a.price - b.price) : (b.price - a.price);
+    }
+    return 0;
+  });
+  sortOrderP[attribute]=order==='asc'?'desc':'asc';
+  localStorage.setItem('products', JSON.stringify(products));
+  displayProducts();
+}
+const statusOption = document.getElementById('statusOption');
+const resetFilterButton = document.getElementById('resetFilter');
+const applyFilterButton = document.getElementById('applyFilter');
+const SearchInputP=document.getElementById('search-product');
+function searchProducts() {
+  const searchInputValue = SearchInputP.value.toLowerCase().trim();
+  if (!searchInputValue) {
+    displayFilteredProducts(products); 
+    return;
+  }
+  const searchTerms = searchInputValue.split(/\s+/);
+  const filteredProducts = products.filter(product => {
+    let score = 0;
+    score += product.name.toLowerCase().includes(searchTerms) ? 10 : 0;
+    score += product.category.toLowerCase().includes(searchTerms) ? 8 : 0;
+    score += product.description && product.description.toLowerCase().includes(searchTerms) ? 5 : 0;
+    score += product.stock.toString().includes(searchTerms) ? 2 : 0;
+    score += product.price.toString().includes(searchTerms) ? 2 : 0;
+    return score > 0;
+  });
+
+  displayFilteredProducts(filteredProducts);
+}
+
+function displayFilteredProducts(filteredProducts) {
+  productPage.innerHTML = '';
+  const startIndex = (currentPageP - 1) * maxIndex;
+  const endIndex = startIndex + maxIndex;
+  const View = filteredProducts.slice(startIndex, endIndex);
+  
+  View.forEach((product, index) => {
+    addInToListP(product, index);
+  });
+  updatePaginationDisplay(filteredProducts.length);
+}
+const categoryOptionFilterChoose=document.getElementById('productCategoryFilter');
+function filterProducts() {
+  products=JSON.parse(localStorage.getItem('products')) || [];
+  categories=JSON.parse(localStorage.getItem('categories')) || [];
+  const CategoryId = categoryOptionFilterChoose.value;
+  let selectedCategoryId = "All Categories";  
+  const category = categories.find(category => category.id === CategoryId);
+  if (category) {
+    selectedCategoryId = category.name;
+  }
+  const selectedStatus = statusOption.value.toLowerCase().trim();  
+  const filteredProducts = products.filter(product => {
+    let matchCategory = selectedCategoryId === "All Categories" || product.category === selectedCategoryId;
+    let matchStatus = selectedStatus === "All Status" || product.status.toLowerCase() === selectedStatus;
+    return matchCategory && matchStatus;
+  });
+  displayFilteredProducts(filteredProducts); 
+}
+SearchInputP.addEventListener('input', searchProducts);
+applyFilterButton.addEventListener('click', filterProducts);
+resetFilterButton.addEventListener('click', () => {
+  categoryOption.value = "All Categories";
+  statusOption.value = "All Status";
+  displayFilteredProducts(products); 
+});
+displayProducts();
+//PRODUCT
+//CATEGORY
+const formC = document.getElementById('categoryForm');
+const Submit = document.getElementById('saveCategoryInput');
+let editCategoryIndex=null;
+function resetForm() {
+  document.getElementById('categoryName').value = '';
+  document.getElementById('categoryDescription').value = '';
+}
 function cancelCategory() {
-  resetForm(); 
-  toggleCategoryForm(); 
+  resetForm();
+  formC.style.display='none';
+  editCategoryIndex=null;
 }
-function toggleAddCategoryForm(){
-  const form=document.getElementById('addCategoryForm');
-  form.style.display=form.style.display==='block' ? 'none':'block';
+function toggleAddCategoryForm() {
+  formC.style.display = formC.style.display === 'block' ? 'none' : 'block';
 }
+document.getElementById('openCategoryForm').addEventListener('click',toggleAddCategoryForm);
+document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
+Submit.addEventListener('click', function (event) {
+  event.preventDefault();
+  const Categoryname = document.getElementById('categoryName').value;
+  const Categorydescription = document.getElementById('categoryDescription').value;
+  if(editCategoryIndex!==null){
+    categories[editCategoryIndex].name=Categoryname;
+    categories[editCategoryIndex].description=Categorydescription;
+    alert("Loại sản phẩm đã được cập nhật!");
+  }else{
+    const category = {
+      id: randomId(categories.map(cat => cat.id)),
+      name: Categoryname,
+      description: Categorydescription,
+      stock: 0
+    }
+    if(categories.some((c,i)=>c.name===Categoryname && i!==editProductIndex)){
+      alert("Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
+      return;
+    }
+    categories.unshift(category);
+    alert("Đã thêm thành công!");
+  }
+  localStorage.setItem('categories',JSON.stringify(categories));
+  formC.reset();
+  formC.style.display='none';
+  editCategoryIndex=null;
+  displayCategories();
+});
+function updateStock() {
+  categories.forEach(category=>{
+      const count = products.filter(prod => prod.category === category.name);
+      let sumcnt=0;
+      count.forEach(cnt=>{
+        sumcnt+=parseInt(cnt.stock);
+      })
+      category.stock = sumcnt.toString();
+  });
+  localStorage.setItem('categories',JSON.stringify(categories));
+}
+updateStock();
+const categoryPage=document.querySelector('.categories-page');
+function displayCategories(){
+  categories = JSON.parse(localStorage.getItem('categories')) || [];
+  categoryPage.innerHTML = '';
+  categories.forEach((category,index) => 
+    addInToListC(category,index)
+  );
+}
+function addInToListC(category,index){
+  const categoryItem = document.createElement('div');
+    categoryItem.classList.add('categories-row');
+    categoryItem.innerHTML = `
+            <div class="categories-cell id">
+                <span class="cell-label">ID</span>${category.id}
+            </div>
+            <div class="categories-cell name-category">
+                <span class="cell-label">Loại sản phẩm</span>${category.name}
+            </div>
+            <div class="categories-cell description">
+                <span class="cell-label">Mô tả</span>${category.description}
+            </div>
+            <div class="categories-cell stock">
+                <span class="cell-label">Số lượng</span>${category.stock}
+            </div>
+            <div class="categories-cell tool">
+                <button class="tool-button" onclick="confirmDeleteC(${index});">Delete</button>
+                <button class="tool-button" onclick="editC(${index});">Edit</button>
+            </div>
+    `;
+    categoryPage.appendChild(categoryItem);
+}
+displayCategories();
+
+function deleteC(index){
+  categories=JSON.parse(localStorage.getItem('categories')) || [];
+  let categoryDelete=categories[index];
+  products = JSON.parse(localStorage.getItem('products')) || [];
+  const updatedCategories = categories.filter(category => category.id !== categoryDelete.id);
+  const updatedProducts = products.filter(product => product.category !== categoryDelete.name);
+  categories.splice(index,1);
+  localStorage.setItem('categories', JSON.stringify(updatedCategories));
+  localStorage.setItem('products', JSON.stringify(updatedProducts));
+  updateStock();
+  displayCategories();
+  displayProducts();
+}
+function confirmDeleteC(index){
+  if(confirm("Bạn có chắc muốn xoá loại sản phẩm này không?"))
+    deleteC(index);
+}
+function editC(index){
+  categories=JSON.parse(localStorage.getItem('categories')) || [];
+  editCategoryIndex=index;
+  const category=categories[index];
+  document.getElementById('categoryName').value=category.name;
+  document.getElementById('categoryDescription').value=category.description;
+  toggleAddCategoryForm();
+}
+document.getElementById('sortByNameC').addEventListener('click', () => sortCategories('nameC'));
+document.getElementById('sortByIdC').addEventListener('click', () => sortCategories('idC'));
+document.getElementById('sortByStockC').addEventListener('click', () => sortCategories('stockC'));
+let sortOrderC={name:'asc',id:'asc',stock:'asc'};
+function sortCategories(attribute) {
+  categories = JSON.parse(localStorage.getItem('categories')) || [];
+  let order=sortOrderC[attribute];
+  categories.sort((a, b) => {
+    if (attribute === 'nameC') {
+      return order === 'asc' ? (a.name.localeCompare(b.name)) : (b.name.localeCompare(a.name));
+    }
+    if (attribute === 'idC') {
+      return order === 'asc' ? (a.id.localeCompare(b.id)) : (b.id.localeCompare(a.id));
+    }
+    if (attribute === 'stockC') {
+      return order === 'asc' ? (a.stock - b.stock) : (b.stock - a.stock);
+    }
+    return 0;
+  });
+  sortOrderC[attribute]=order==='asc'?'desc':'asc';
+  localStorage.setItem('categories', JSON.stringify(categories));
+  displayCategories();
+}
+const SearchButton=document.getElementById('search-submit');
+function toggleSearchButton(){
+  const SearchInput=document.getElementById('search-category').value;
+  SearchButton.style.display=SearchInput?'inline-block':'none';
+}
+SearchButton.addEventListener('click',function(e){
+  e.preventDefault();
+  searchCategories();
+});
+function searchCategories(){
+  const SearchInput=document.getElementById('search-category').value.toLowerCase().trim();
+  if(!SearchInput){
+    displayCategories();
+    return;
+  }
+  const searchTerms=SearchInput.split(/\s+/);
+  const filterC=categories.map(category=>({
+    ...category,matchScore: MatchScore(category,searchTerms)
+  })).filter(category=>category.matchScore>0).sort((a,b)=>b.matchScore - a.matchScore);
+  if(filterC.length===0){
+    categoryPage.innerHTML='';
+    return;
+  }
+  categoryPage.innerHTML='';
+  filterC.forEach((category,index)=>addInToListC(category,index));
+}
+function MatchScore(category,searchTerms){
+  let score=0;
+  searchTerms.forEach(term=>{
+    if(category.name.toLowerCase().includes(term)){
+      score+=10;
+      score-=category.name.toLowerCase().indexOf(term);
+    }
+    if(category.id.includes(term)){
+      score+=8;
+      score-=category.id.indexOf(term);
+    }
+    if(category.description && typeof category.description === 'string' && category.description.toLowerCase().includes(term)){
+      score+=5;
+      score-=category.description.toLowerCase().indexOf(term);
+    }
+    if(category.stock.toString().includes(term)){
+      score+=2;
+    }
+  });
+  return score;
+}
+//CATEGORY
+// PRODUCT,CATEGORY
