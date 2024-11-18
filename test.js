@@ -670,17 +670,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Mảng lưu danh sách tài khoản, khởi tạo từ localStorage (nếu có)
+// Mảng lưu danh sách tài khoản
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// Hàm xử lý đăng ký tài khoản
+// xử lý đăng ký tài khoản
 function registerUser() {
     const phone = document.getElementById("signup-phone").value.trim();
     const email = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
 
-    // Kiểm tra dữ liệu hợp lệ
+    
     if (!phone || !email || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
         return;
@@ -700,9 +700,9 @@ function registerUser() {
 
     // Thêm tài khoản mới vào danh sách
     const newUser = {
-        username: email, // Tên đăng nhập là email
+        username: email,
         password: password,
-        fullName: "Người dùng mới", // Mặc định
+        fullName: "Người dùng mới",
         phone: phone,
         email: email,
         cart: []
@@ -729,8 +729,8 @@ function loginUser() {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userLogin", JSON.stringify(user)); // Lưu thông tin người dùng
         alert("Đăng nhập thành công!");
-        closeForm("loginForm"); // Đóng form đăng nhập
-        updateLoginButton(); // Cập nhật giao diện nút đăng nhập
+        closeForm("loginForm");
+        updateLoginButton();
     } else {
         alert("Thông tin đăng nhập không chính xác!");
     }
@@ -747,10 +747,10 @@ function updateLoginButton() {
         loginBtn.classList.remove("login-btn");
         loginBtn.classList.add("user-icon");
 
-        // Thêm sự kiện hiển thị tùy chọn người dùng
+        
         loginBtn.onclick = toggleUserOptions;
     } else if (loginBtn) {
-        // Nếu chưa đăng nhập, hiển thị nút "Đăng nhập"
+        
         loginBtn.innerHTML = "Đăng nhập";
         loginBtn.classList.remove("user-icon");
         loginBtn.classList.add("login-btn");
@@ -758,7 +758,7 @@ function updateLoginButton() {
     }
 }
 
-// Hàm hiển thị/ẩn form tùy chọn tài khoản khi nhấn vào icon người dùng
+
 function toggleUserOptions() {
     const userOptions = document.getElementById("userOptions");
     userOptions.style.display = userOptions.style.display === "block" ? "none" : "block";
@@ -766,32 +766,32 @@ function toggleUserOptions() {
 
 // Hàm đăng xuất tài khoản
 function logoutUser() {
-    localStorage.removeItem("isLoggedIn"); // Xóa trạng thái đăng nhập
-    localStorage.removeItem("userLogin"); // Xóa thông tin người dùng
-    updateLoginButton(); // Cập nhật lại nút thành "Đăng nhập"
-    document.getElementById("userOptions").style.display = "none"; // Ẩn tùy chọn tài khoản
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userLogin");
+    updateLoginButton();
+    document.getElementById("userOptions").style.display = "none";
     alert("Bạn đã đăng xuất thành công!");
     window.location.href = "index.html"; // Quay về trang chính
 }
 
-// Kiểm tra trạng thái đăng nhập khi tải trang
+
 document.addEventListener("DOMContentLoaded", () => {
     updateLoginButton();
 
-    // Gán sự kiện cho nút "Đăng ký"
+    // nút "Đăng ký"
     document.querySelector("#signupForm .btn").addEventListener("click", (e) => {
         e.preventDefault(); // Ngăn form tải lại trang
         registerUser();
     });
 
-    // Gán sự kiện cho nút "Đăng nhập"
+    // nút "Đăng nhập"
     document.querySelector(".form-container").addEventListener("submit", (e) => {
         e.preventDefault();
         loginUser();
     });
 });
 
-// Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
+
 document.addEventListener("click", function (e) {
     const userOptions = document.getElementById("userOptions");
     const userIcon = document.querySelector(".user-icon");
