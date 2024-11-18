@@ -1,5 +1,8 @@
 const LIST_PRODUCT = "listProduct";
-
+const LIST_USER = "listUser";
+const USER_LOGIN = "userLogin";
+const NEXT_ID = "nextOrderId";
+const LIST_ORDER = "listOrder";
 
 
 
@@ -187,4 +190,27 @@ function loadDataToLocal() {
     }
 }
 
+function loadAccountToLocal() {
+    // Danh sách tài khoản mẫu
+    const users = [
+        {
+            username: 'nguyenminhvu591@gmail.com',
+            password: '1',
+            fullName: 'Nguyen Minh Vu',
+            phone: '0123456789',
+            email: 'nguyenminhvu591@gmail.com',
+            cart: [],
+            provinceId: "01",
+            address: "294 An Dương Vương",
+            districtId: "005",
+            wardId: "00169",
+            status: "1",
+        },
+    ];
+    localStorage.setItem(LIST_USER, JSON.stringify(users));
+}
+
+
+
 window.onload = loadDataToLocal();
+window.onload = loadAccountToLocal();
