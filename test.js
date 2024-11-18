@@ -4,6 +4,7 @@ let listProductFilter = [];
 let listProvince = [];
 let listDistrict = [];
 let listWard = [];
+let appUsers = [];
 
 
 
@@ -669,36 +670,75 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Danh sách tài khoản mẫu
-const users = [
-    { username: 'nguyenminhvu591@gmail.com', password: '1', fullName: 'Nguyen Minh Vu', phone: '0123456789', email: 'nguyenminhvu591@gmail.com', cart: [] },
-    { username: '0123456789', password: '2', fullName: 'Nguyen Van B', phone: '0123456789', email: 'nguyenvanb@gmail.com', cart: [] },
-    { username: 'sgu@gmail.com', password: '3', fullName: 'Nguyen Van C', phone: '0987654321', email: 'sgu@gmail.com', cart: [] }
-];
+// Mảng lưu danh sách tài khoản, khởi tạo từ localStorage (nếu có)
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+// Hàm xử lý đăng ký tài khoản
+function registerUser() {
+    const phone = document.getElementById("signup-phone").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value.trim();
+    const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
+
+    // Kiểm tra dữ liệu hợp lệ
+    if (!phone || !email || !password || !confirmPassword) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Mật khẩu nhập lại không khớp!");
+        return;
+    }
+
+    // Kiểm tra xem tài khoản đã tồn tại chưa
+    const existingUser = users.find(user => user.phone === phone || user.email === email);
+    if (existingUser) {
+        alert("Số điện thoại hoặc email đã được sử dụng!");
+        return;
+    }
+
+    // Thêm tài khoản mới vào danh sách
+    const newUser = {
+        username: email, // Tên đăng nhập là email
+        password: password,
+        fullName: "Người dùng mới", // Mặc định
+        phone: phone,
+        email: email,
+        cart: []
+    };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users)); // Lưu vào localStorage
+
+    alert("Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.");
+    closeForm("signupForm"); // Đóng form đăng ký
+}
 
 // Hàm xử lý đăng nhập
 function loginUser() {
-    const username = document.getElementById("login-username").value;
-    const password = document.getElementById("login-password").value;
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value.trim();
 
-    // Tìm thông tin người dùng trong danh sách tài khoản
-    const user = users.find(user => user.username === username && user.password === password);
+    // Kiểm tra tài khoản trong danh sách
+    const user = users.find(
+        user => (user.phone === username || user.email === username) && user.password === password
+    );
 
     if (user) {
         // Đăng nhập thành công: lưu trạng thái và thông tin người dùng
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userLogin', JSON.stringify(user)); // Lưu thông tin người dùng
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userLogin", JSON.stringify(user)); // Lưu thông tin người dùng
         alert("Đăng nhập thành công!");
-        closeForm('loginForm'); // Đóng form đăng nhập
-        updateLoginButton(); // Cập nhật trạng thái nút đăng nhập
+        closeForm("loginForm"); // Đóng form đăng nhập
+        updateLoginButton(); // Cập nhật giao diện nút đăng nhập
     } else {
-        alert("Thông tin đăng nhập không chính xác.");
+        alert("Thông tin đăng nhập không chính xác!");
     }
 }
 
 // Nút icon
 function updateLoginButton() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     const loginBtn = document.querySelector(".login-btn") || document.querySelector(".user-icon");
 
     if (isLoggedIn && loginBtn) {
@@ -714,7 +754,7 @@ function updateLoginButton() {
         loginBtn.innerHTML = "Đăng nhập";
         loginBtn.classList.remove("user-icon");
         loginBtn.classList.add("login-btn");
-        loginBtn.onclick = () => openForm('loginForm'); // Mở form đăng nhập
+        loginBtn.onclick = () => openForm("loginForm"); // Mở form đăng nhập
     }
 }
 
@@ -726,8 +766,8 @@ function toggleUserOptions() {
 
 // Hàm đăng xuất tài khoản
 function logoutUser() {
-    localStorage.removeItem('isLoggedIn'); // Xóa trạng thái đăng nhập
-    localStorage.removeItem('userLogin'); // Xóa thông tin người dùng
+    localStorage.removeItem("isLoggedIn"); // Xóa trạng thái đăng nhập
+    localStorage.removeItem("userLogin"); // Xóa thông tin người dùng
     updateLoginButton(); // Cập nhật lại nút thành "Đăng nhập"
     document.getElementById("userOptions").style.display = "none"; // Ẩn tùy chọn tài khoản
     alert("Bạn đã đăng xuất thành công!");
@@ -735,12 +775,20 @@ function logoutUser() {
 }
 
 // Kiểm tra trạng thái đăng nhập khi tải trang
-document.addEventListener("DOMContentLoaded", updateLoginButton);
+document.addEventListener("DOMContentLoaded", () => {
+    updateLoginButton();
 
-// Sự kiện gọi hàm đăng nhập khi nhấn nút đăng nhập trong form
-document.querySelector(".form-container").addEventListener("submit", (e) => {
-    e.preventDefault();
-    loginUser();
+    // Gán sự kiện cho nút "Đăng ký"
+    document.querySelector("#signupForm .btn").addEventListener("click", (e) => {
+        e.preventDefault(); // Ngăn form tải lại trang
+        registerUser();
+    });
+
+    // Gán sự kiện cho nút "Đăng nhập"
+    document.querySelector(".form-container").addEventListener("submit", (e) => {
+        e.preventDefault();
+        loginUser();
+    });
 });
 
 // Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
@@ -757,3 +805,4 @@ document.addEventListener("click", function (e) {
 function viewProfile() {
     window.location.href = "profile.html";
 }
+
