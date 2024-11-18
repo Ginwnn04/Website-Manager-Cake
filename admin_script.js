@@ -508,7 +508,6 @@ function displayOrders() {
       row.innerHTML = `
           <td>${order.orderId}</td>
           <td>${order.user.fullName}</td>
-          <td>${order.user.phone}</td>
           <td>${order.date}</td>
           <td>${order.user.district}</td>
           <td>${order.totalPrice}</td>
