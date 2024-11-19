@@ -1392,3 +1392,4 @@ function MatchScore(category,searchTerms){
 }
 //CATEGORY
 // PRODUCT,CATEGORY
+

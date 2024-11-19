@@ -18,6 +18,14 @@
     --black:#000000;
     --purple:#838BED;
     --light_purple: #CED1E6;
+    --darkblue:#092f42;
+    --product-bg: #f9f9f9;
+    --product-content-secondary-color: #f3f6fd;
+    --product-content-main-color: #1f1c2e;
+    --action-color: #2869ff;
+    --action-color-hover: #6291fd;
+    --filter-reset: #2c394f;
+    
 }
 
 a {
@@ -32,6 +40,10 @@ body {
 }
 html {
     overflow: hidden;
+}
+button{
+    border: none;
+    cursor: pointer;
 }
 
 
