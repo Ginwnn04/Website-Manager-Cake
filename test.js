@@ -714,7 +714,27 @@ function registerUser() {
     closeForm("signupForm"); // Đóng form đăng ký
 }
 
-// Hàm xử lý đăng nhập
+// // Hàm xử lý đăng nhập
+// function loginUser() {
+//     const username = document.getElementById("login-username").value.trim();
+//     const password = document.getElementById("login-password").value.trim();
+
+//     // Kiểm tra tài khoản trong danh sách
+//     const user = users.find(
+//         user => (user.phone === username || user.email === username) && user.password === password
+//     );
+
+//     if (user) {
+//         // Đăng nhập thành công: lưu trạng thái và thông tin người dùng
+//         localStorage.setItem("isLoggedIn", "true");
+//         localStorage.setItem("userLogin", JSON.stringify(user)); // Lưu thông tin người dùng
+//         alert("Đăng nhập thành công!");
+//         closeForm("loginForm");
+//         updateLoginButton();
+//     } else {
+//         alert("Thông tin đăng nhập không chính xác!");
+//     }
+// }
 function loginUser() {
     const username = document.getElementById("login-username").value.trim();
     const password = document.getElementById("login-password").value.trim();
@@ -725,16 +745,32 @@ function loginUser() {
     );
 
     if (user) {
-        // Đăng nhập thành công: lưu trạng thái và thông tin người dùng
+        // Lấy thông tin lưu trữ từ `savedUserData`
+        const savedData = JSON.parse(localStorage.getItem("savedUserData")) || {};
+
+        // Hợp nhất dữ liệu đã lưu với thông tin đăng nhập mới
+        const updatedUser = {
+            ...user,
+            address: savedData.address || "Chưa cập nhật",
+            provinceId: savedData.provinceId || null,
+            districtId: savedData.districtId || null,
+            wardId: savedData.wardId || null,
+        };
+
+        // Lưu lại dữ liệu người dùng mới vào `localStorage`
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userLogin", JSON.stringify(user)); // Lưu thông tin người dùng
+        localStorage.setItem("userLogin", JSON.stringify(updatedUser));
+        localStorage.removeItem("savedUserData"); // Xóa dữ liệu tạm sau khi phục hồi
+
         alert("Đăng nhập thành công!");
         closeForm("loginForm");
         updateLoginButton();
+        // window.location.href = "profile.html"; // Chuyển đến trang cá nhân
     } else {
         alert("Thông tin đăng nhập không chính xác!");
     }
 }
+
 
 // Nút icon
 function updateLoginButton() {
@@ -765,14 +801,39 @@ function toggleUserOptions() {
 }
 
 // Hàm đăng xuất tài khoản
+// function logoutUser() {
+//     localStorage.removeItem("isLoggedIn");
+//     localStorage.removeItem("userLogin");
+//     updateLoginButton();
+//     document.getElementById("userOptions").style.display = "none";
+//     alert("Bạn đã đăng xuất thành công!");
+//     window.location.href = "index.html"; // Quay về trang chính
+// }
 function logoutUser() {
+    // Lấy dữ liệu hiện tại từ localStorage
+    const userData = JSON.parse(localStorage.getItem("userLogin")) || {};
+
+    // Lưu lại thông tin quan trọng vào một key khác (nếu cần)
+    const savedData = {
+        address: userData.address || "",
+        provinceId: userData.provinceId || null,
+        districtId: userData.districtId || null,
+        wardId: userData.wardId || null,
+    };
+    localStorage.setItem("savedUserData", JSON.stringify(savedData)); // Lưu thông tin cần thiết
+
+    // Xóa thông tin đăng nhập
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userLogin");
+
+    // Cập nhật nút đăng nhập/đăng xuất
     updateLoginButton();
     document.getElementById("userOptions").style.display = "none";
+
     alert("Bạn đã đăng xuất thành công!");
     window.location.href = "index.html"; // Quay về trang chính
 }
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
