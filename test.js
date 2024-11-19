@@ -364,8 +364,8 @@ const btnPayment = document.querySelector('.btnPayment');
 btnPayment.addEventListener("click", renderPayment);
 
 function renderPayment() {
-    if (userCurrent.cart.length === 0) {
-        alert("Vui lòng chọn sản phẩm trước khi thanh toán.");
+    if (userCurrent === null || userCurrent.cart.length === 0) {
+        alert("Không thể thanh toán khi giở hàng đang trống.");
         return;    
     }
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
@@ -438,7 +438,7 @@ btnCustom.forEach(btn => {
 const btnPaymentSubmit = document.querySelector(".btn-order");
 btnPaymentSubmit.addEventListener("click", () => {
     order = {
-        id: nextOrderId++,
+        id: `HD-${nextOrderId++}`,
         customer: userCurrent.phone,
         detailsOrder: userCurrent.cart,
         timeCreate: new Date().toLocaleString(),
