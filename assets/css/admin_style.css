@@ -776,13 +776,14 @@ html {
     margin-left: 10px;
     font-weight: bold;
 }
-#order_manager .table_data .user .top .icon,.group-cbx {
+#order_manager .table_data .user .top .icon {
     display: flex;
     align-items: center;
     gap: 10px; 
     flex-wrap: wrap;
     justify-content: flex-end;
     padding-top: 10px;
+    margin-right: 20px;
 }
 
 
@@ -869,6 +870,73 @@ html {
 #order_manager button:hover {
     background-color: var(--action-color-hover);
 }
+/* ------------------------filter-------------------------- */
+.bx-filter-alt {
+    font-size: 18px; /* Kích thước font */
+    color: var(--black); /* Màu sắc */
+    cursor: pointer; /* Con trỏ chuột dạng click */
+    padding: 5px;
+}
+
+.bx-filter-alt:hover {
+    color: var(--action-color-hover); /* Đổi màu khi hover */
+}
+
+.filter-order {
+    position: relative;
+}
+
+.dropdown-filter {
+    position: absolute; 
+    top: 30px; 
+    right: 0; 
+    background-color: var(--light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    display: none; 
+    z-index: 1000; 
+    padding: 5px;
+    width: 400px;
+    border-radius: 10px;
+}
+
+
+.filter-order.active .dropdown-filter {
+    display: block; 
+}
+
+
+.dropdown-filter .dateFilter {
+    display: flex; 
+    gap: 7px; 
+    margin: 5px 0;
+    padding-left: 5px;
+}
+
+
+
+.dropdown-filter .group-cbx {
+    display: flex; 
+    gap: 10px; 
+}
+
+
+/* Chỉnh sửa cho các ô chọn */
+.dropdown-filter .group-cbx select {
+    width: 100%; 
+    padding: 2px;
+    margin: 0 0 5px 5px;
+    font-size: 14px;
+}
+
+.dropdown-filter select#statusFilter {
+    width: 98%; 
+    padding: 2px 0;
+    margin: 0 0 5px 5px;
+    font-size: 14px;
+}
+
+
+
 
 /* Modal chi tiết đơn hàng */
 #orderDetailModal {
@@ -962,7 +1030,7 @@ html {
 
 
 /* Điều chỉnh trang */
-@media only screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     /* Thu gọn kích thước ô tìm kiếm */
     #order_manager .table_data .user .top .icon .search input {
         width: 150px;
@@ -970,22 +1038,52 @@ html {
     #order_manager .table_data table button{
         margin-bottom: 5px;
     }
-    
+    .dropdown-filter {
+        position: absolute; 
+        top: 30px; 
+        right: 0; 
+        background-color: var(--light);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        display: none; 
+        z-index: 1000; 
+        padding: 5px;
+        width: 210px;
+        border-radius: 10px;
+    }
+    .dropdown-filter .dateFilter {
+        display: block; 
+        margin: 5px 0;
+        padding-left: 5px;
+    }
+    .dropdown-filter .group-cbx {
+        display: block; 
+    }
+    .dropdown-filter .group-cbx select {
+        width: 95%; 
+        padding: 2px;
+        margin: 0 0 5px 5px;
+        font-size: 14px;
+    }
+    .dropdown-filter select#statusFilter {
+        width: 95%; 
+        padding: 2px 0;
+        margin: 0 0 5px 5px;
+        font-size: 14px;
+    }
 }
 
 
-@media only screen and (min-width: 769px) and (max-width: 991px) {
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
     #order_manager .table_data table button{
         margin-bottom: 5px;
     }
 }
 
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
+@media screen and (min-width: 1024px) and (max-width: 1199.98px) {
     
 }
 
 /*---------------------------------- Quản lý đơn hàng------------------------------------- */
-
 
 
 

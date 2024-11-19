@@ -508,7 +508,6 @@ function displayOrders() {
       row.innerHTML = `
           <td>${order.orderId}</td>
           <td>${order.user.fullName}</td>
-          <td>${order.user.phone}</td>
           <td>${order.date}</td>
           <td>${order.user.district}</td>
           <td>${order.totalPrice}</td>
@@ -709,6 +708,29 @@ function viewOrderDetails(orderId) {
 function closeModal(id) {
   document.getElementById(id).style.display = 'none';
 }
+
+const filterOrder = document.querySelector('.filter-order');
+const dropdownFilter = filterOrder.querySelector('.dropdown-filter');
+const filterIcon = filterOrder.querySelector('.filter-order .bx-filter-alt');
+
+// Thêm sự kiện khi click vào icon filter
+filterIcon.addEventListener('click', function (event) {
+    event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+    filterOrder.classList.toggle('active'); // Bật/tắt dropdown
+});
+
+// Sự kiện để giữ dropdown khi click bên trong dropdown
+dropdownFilter.addEventListener('click', function (event) {
+    event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+});
+
+// Ẩn dropdown khi click bên ngoài
+document.addEventListener('click', function (event) {
+    if (!filterOrder.contains(event.target)) {
+        filterOrder.classList.remove('active'); // Đóng dropdown nếu click ngoài
+    }
+});
+
 
 // Xử lý sự kiện khi người dùng gõ vào ô tìm kiếm hoặc nhấn Enter
 document.getElementById("orderSearchInput").addEventListener("input", function() {
