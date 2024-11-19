@@ -22,6 +22,26 @@ function loadAllData() {
     callBackVnPay();
 }
 
+function openTransfer(orderId, total) {
+    fetch("http://localhost:8080/vnpay", {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      
+        body: JSON.stringify({
+          directionTable: orderId,
+          amount: total
+        })
+      })
+      .then( (response) => { 
+          response.json().then((data) => {
+              window.location.href = data.paymentUrl;
+           });
+      });
+}
+
 function callBackVnPay() {
     const modalIsShow = localStorage.getItem("modalIsShow") ? true : false;
     if (modalIsShow) {
@@ -236,6 +256,29 @@ function decreaseQuantity(obj, index) {
     }
 }
 
+function inputQuantity(obj, index) {
+    const quantityInput = obj.parentNode.querySelector(".quantity").value;
+    if (parseInt(quantityInput) < 1) {
+        alert("Số lượng phải lớn hơn 1.");
+    }
+    else {        
+        if (obj.parentNode.getAttribute('value') === 'details-product') {
+            const basePrice = parsePrice(document.querySelector("#product-price").textContent);
+            updateTotalPrice(basePrice);
+        }
+        else if (obj.parentNode.getAttribute('value') === 'checkout-product') {
+            userCurrent.cart[index].quantity = quantityInput;
+            let totalPrice = 0;
+            userCurrent.cart.forEach((product) => {
+                totalPrice += product.quantity * product.price;
+            });
+            localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+            const totalPriceComponent = document.querySelector(".total-price-cart");
+            totalPriceComponent.innerHTML = formatPrice(totalPrice);
+        }
+    }
+};
+
 // Hàm thêm vào giỏ hàng
 function addToCart() {
     if (userCurrent === null) {
@@ -248,7 +291,15 @@ function addToCart() {
     // alert(document.getElementById("quantity").value);
     productCheckout.price = parsePrice(document.getElementById("product-price").textContent);
     productCheckout.image = document.getElementById("product-image").src;
-    userCurrent.cart.push(productCheckout);
+
+    findProduct = userCurrent.cart.find(product => product.name === productCheckout.name);
+    if (findProduct !== undefined) {
+        findProduct.quantity += productCheckout.quantity;
+    }
+    else {
+        userCurrent.cart.push(productCheckout);
+    }
+
     alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
     localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
     closeProductDetail();
@@ -329,7 +380,7 @@ function renderCart(cart) {
                             </div>
                             <span class="quantity-product-checkout">Số lượng</span>
                             <div class="btnCustom" value="checkout-product">
-                                <input type="text" class="txtCustom quantity" value="${product.quantity}">
+                                <input type="text" class="txtCustom quantity" value="${product.quantity}" oninput="inputQuantity(this, ${index})">
                                 <button class="btnCustomDesc" onclick="increaseQuantity(this, ${index})">
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
@@ -354,7 +405,7 @@ function renderCart(cart) {
 }
 
 function deleteProduct(index) {
-    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
     userCurrent.cart.splice(index, 1);
     localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
     renderCart(userCurrent.cart);
@@ -437,14 +488,35 @@ btnCustom.forEach(btn => {
 
 const btnPaymentSubmit = document.querySelector(".btn-order");
 btnPaymentSubmit.addEventListener("click", () => {
+    const name = document.getElementById("txtName").value;
+    const phone = document.getElementById("txtPhone").value;
+    const province = document.getElementById("province");
+    const district = document.getElementById("district");
+    const ward = document.getElementById("ward");
+    const address = [];
+    address.push(document.getElementById("txtAddress").value);
+    address.push(ward[ward.selectedIndex].textContent);
+    address.push(district[district.selectedIndex].textContent);
+    address.push(province[province.selectedIndex].textContent);
     order = {
         id: `HD-${nextOrderId++}`,
-        customer: userCurrent.phone,
+        account: userCurrent.username,
+        name: name,
+        phone: phone,
+        address: address.join(", "),
         detailsOrder: userCurrent.cart,
         timeCreate: new Date().toLocaleString(),
-        status: "Chờ xác nhận",
+        status: "Chưa xử lí",
         total: userCurrent.cart.reduce((totalPrice, product) => totalPrice + product.price * product.quantity, 0)
     }
+    const methodPayment = document.querySelector('input[name="chb-cash"]:checked').value;
+    if (methodPayment === "transfer") {
+        openTransfer(order.id, order.total);
+
+    }
+    
+
+
     localStorage.setItem(NEXT_ID, JSON.stringify(nextOrderId));
     listOrder.push(order);
     localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
@@ -453,12 +525,13 @@ btnPaymentSubmit.addEventListener("click", () => {
     
     alert("Đặt hàng thành công!");
     localStorage.removeItem("modalIsShow");
-    window.location.href = "http://127.0.0.1:5500/";
+
 });
 
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
     document.querySelector(".modal-payment").classList.remove("modal-payment--show");
+    localStorage.removeItem("modalIsShow");
 });
 
 // Đóng giỏ hàng khi click ra ngoài modal
