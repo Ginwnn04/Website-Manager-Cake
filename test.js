@@ -1,4 +1,5 @@
 let listProduct = [];
+let listUser = [];
 let listProductFilter = [];
 let listProvince = [];
 let listDistrict = [];
@@ -688,6 +689,49 @@ document.getElementById("max-price").addEventListener("input", function () {
 });
 
 
+// xử lý đăng ký tài khoản
+function registerUser() {
+    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
+    const phone = document.getElementById("signup-phone").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value.trim();
+    const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
+
+    
+    if (!phone || !email || !password || !confirmPassword) {
+        alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Mật khẩu nhập lại không khớp!");
+        return;
+    }
+
+    // Kiểm tra xem tài khoản đã tồn tại chưa
+    const existingUser = listUser.find(user => user.phone === phone || user.email === email);
+    if (existingUser) {
+        alert("Số điện thoại hoặc email đã được sử dụng!");
+        return;
+    }
+    // Thêm tài khoản mới vào danh sách
+    const newUser = {
+        username: email,
+        password: password,
+        fullName: "Người dùng mới",
+        phone: phone,
+        email: email,
+        cart: []
+    };
+    listUser.push(newUser);
+    localStorage.setItem(LIST_USER, JSON.stringify(listUser)); // Lưu vào localStorage
+    localStorage.setItem(USER_LOGIN, JSON.stringify(newUser)); // Lưu vào localStorage
+    loadDataUserCurrent();
+    updateLoginButton();
+    closeForm("signupForm"); // Đóng form đăng ký
+    alert("Đăng ký thành công! Bạn có thể mua sản phẩm ngay bây giờ.");
+}
+
 
 // Hàm xử lý đăng nhập
 function loginUser() {
@@ -695,7 +739,7 @@ function loginUser() {
     const password = document.getElementById("login-password").value;
 
     // Tìm thông tin người dùng trong danh sách tài khoản
-    const listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
+    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
     userCurrent = listUser.find(user => user.username === username && user.password === password);
     console.log(userCurrent);
     if (userCurrent) {
@@ -754,6 +798,23 @@ document.querySelector(".form-container").addEventListener("submit", (e) => {
     e.preventDefault();
     loginUser();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    updateLoginButton();
+
+    // nút "Đăng ký"
+    document.querySelector("#signupForm .btn").addEventListener("click", (e) => {
+        e.preventDefault(); // Ngăn form tải lại trang
+        registerUser();
+    });
+
+    // nút "Đăng nhập"
+    // document.querySelector(".form-container").addEventListener("submit", (e) => {
+    //     e.preventDefault();
+    //     loginUser();
+    // });
+});
+
 
 // Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
 document.addEventListener("click", function (e) {
