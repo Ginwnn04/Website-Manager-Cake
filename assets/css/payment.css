@@ -30,6 +30,18 @@ img {
     width: 100%;
 }
 
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff7f00;
+    border-radius: 5px;
+    width: calc(50% - 10px);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
 
 
 .container {
@@ -37,14 +49,86 @@ img {
     padding: 12px;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 450px;
     
 }
 
 .container .img {
-    font-size: 32px;
+    
+    font-size: 48px;
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+
+    
+    
 }
 
-h1 {
+.container #title {
+    text-align: center;
+    font-size: 18px;
+    margin: 20px 0 5px 0;
+}
+.container #amount {
+    text-align: center;
     font-size: 20px;
+    font-weight: 500px;
+    margin-bottom: 10px;
+}
+
+.container li {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+.container li span {
+    font-size: 16px;
+    width: 40%;
+    color: #5c6370;
     font-weight: 500;
+}
+
+.container li #number-order,
+.container li #time{
+    text-align: left;
+    width: 35%;
+    color: #090909;
+    font-size: 17px;
+}
+
+.container .btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.container .noti {
+    background-color: #f1f5fe;
+    border-radius: 5px;
+    padding: 12px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.container .noti .icon-noti {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font-size: 14px;
+    border: 1px solid #569bd2;
+    border-radius: 99999px;
+    text-align: center;
+    color: #569bd2;
+    margin-right: 3px;
+}
+
+.container .btn-group #back{
+    border: 1px solid #ff7f00;
+    color: #ff7f00;
+    background-color: #fff;
+
 }

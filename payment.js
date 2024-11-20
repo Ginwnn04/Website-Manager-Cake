@@ -14,10 +14,10 @@ function test() {
     });
     console.log(isSuccess);
     if (isSuccess) {
-        document.getElementById('title').innerHTML = 'Thanh toán thành công';
+        // document.getElementById('title').innerHTML = 'Thanh toán thành công';
     }
     else {
-        document.getElementById('title').innerHTML = 'Thanh toán thất bại';
+        // document.getElementById('title').innerHTML = 'Thanh toán thất bại';
 
     }
 

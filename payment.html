@@ -13,16 +13,33 @@
 <body>
     <div class="container">
         <div class="img">
-            <i class="fa-duotone fa-light fa-badge-check" style="--fa-primary-color: #ffffff; --fa-secondary-color: #36ba57; --fa-secondary-opacity: 1;"></i>
+            <i class="fa-duotone fa-light fa-badge-check"
+                style="--fa-primary-color: #ffffff; --fa-secondary-color: #36ba57; --fa-secondary-opacity: 1;"></i>
         </div>
-        <h1 id="title">Thanh toán thành công</h1>
-        <div class="hihi">
-            <span>Ngày thanh toán</span>
-            <span>20-11</span>
+        <h1 id="title">Giao dịch thành công </h1>
+        <h1 id="amount">100.000.000đ</h1>
+        <ul>
+            <li>
+                <span>Thời gian thanh toán</span>
+                <span id="time">14:40 - 29/05/2022</span>
+            </li>
+            <li>
+                <span>Mã giao dịch</span>
+                <span id="number-order">HD-1</span>
+            </li>
+        </ul>
+        <div class="noti">
+            <span>
+                <div class="icon-noti">
+                    <i class="fa-solid fa-exclamation"></i>
+                </div>
+                Đơn hàng của bạn đã thanh toán thành công và hiện đang được xử lý. Chúng tôi sẽ thông báo khi đơn hàng được giao hoặc có bất kỳ cập nhật nào.
+            </span>
+            <span>Nếu cần hỗ trợ, vui lòng liên hệ [0399999999] hoặc [shopbanhtop1vn@gmail.com].</span>
         </div>
-        <div class="haha">
-            <span>Tổng tiền</span>
-            <span>20</span>
+        <div class="btn-group">
+            <button id="home">Trang chủ</button>
+            <button id="back">Quay lại</button>
         </div>
     </div>
     <script src="./payment.js"></script>
