@@ -54,7 +54,7 @@ button {
     
 }
 
-.container .img {
+.container #img {
     
     font-size: 48px;
     position: absolute;
@@ -107,14 +107,17 @@ button {
     margin-top: 10px;
 }
 
-.container .noti {
+.container #noti {
     background-color: #f1f5fe;
     border-radius: 5px;
     padding: 12px;
     color: rgba(0, 0, 0, 0.8);
+    line-height: 18px;
+
 }
 
-.container .noti .icon-noti {
+
+.container #noti .icon-noti {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -124,6 +127,9 @@ button {
     text-align: center;
     color: #569bd2;
     margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .container .btn-group #back{

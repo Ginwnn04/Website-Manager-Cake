@@ -511,20 +511,23 @@ btnPaymentSubmit.addEventListener("click", () => {
     }
     const methodPayment = document.querySelector('input[name="chb-cash"]:checked').value;
     if (methodPayment === "transfer") {
-        openTransfer(order.id, order.total);
+        openTransfer(order.id, order.total + 50000);
+        localStorage.setItem("order", JSON.stringify(order));
 
+    }
+    else {
+        localStorage.setItem(NEXT_ID, JSON.stringify(nextOrderId));
+        listOrder.push(order);
+        localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
+        userCurrent.cart = [];
+        localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+        
+        alert("Đặt hàng thành công!");
+        localStorage.removeItem("modalIsShow");
     }
     
 
 
-    localStorage.setItem(NEXT_ID, JSON.stringify(nextOrderId));
-    listOrder.push(order);
-    localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
-    userCurrent.cart = [];
-    localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
-    
-    alert("Đặt hàng thành công!");
-    localStorage.removeItem("modalIsShow");
 
 });
 

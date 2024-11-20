@@ -12,11 +12,11 @@
 
 <body>
     <div class="container">
-        <div class="img">
-            <i class="fa-duotone fa-light fa-badge-check"
-                style="--fa-primary-color: #ffffff; --fa-secondary-color: #36ba57; --fa-secondary-opacity: 1;"></i>
+        <div id="img">
+            <i class="fa-duotone fa-regular fa-circle-check"
+                style="--fa-primary-color: #ffffff; --fa-secondary-color: #31a539; --fa-secondary-opacity: 1;"></i>
         </div>
-        <h1 id="title">Giao dịch thành công </h1>
+        <h1 id="title">Giao dịch thành công</h1>
         <h1 id="amount">100.000.000đ</h1>
         <ul>
             <li>
@@ -28,12 +28,15 @@
                 <span id="number-order">HD-1</span>
             </li>
         </ul>
-        <div class="noti">
-            <span>
+        <div id="noti">
+            <span style="display: block; margin-bottom: 10px;">
                 <div class="icon-noti">
-                    <i class="fa-solid fa-exclamation"></i>
+                    <i class="fa-solid fa-exclamation" style="font-size: 10px;"></i>
                 </div>
-                Đơn hàng của bạn đã thanh toán thành công và hiện đang được xử lý. Chúng tôi sẽ thông báo khi đơn hàng được giao hoặc có bất kỳ cập nhật nào.
+                <div id="message">
+                    Đơn hàng của bạn đã thanh toán thành công và hiện đang được xử lý. Chúng tôi sẽ thông báo khi đơn
+                    hàng được giao hoặc có bất kỳ cập nhật nào.
+                </div>
             </span>
             <span>Nếu cần hỗ trợ, vui lòng liên hệ [0399999999] hoặc [shopbanhtop1vn@gmail.com].</span>
         </div>
@@ -42,6 +45,8 @@
             <button id="back">Quay lại</button>
         </div>
     </div>
+
+    <script src="./data.js"></script>
     <script src="./payment.js"></script>
 </body>
 
