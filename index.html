@@ -131,6 +131,10 @@
                 </div>
             </div>
 
+            <ul class="pagination">
+
+            </ul>
+
             <!-- Thong diep -->
             <!-- <div class="thongDiep">
                 <div class="td_item">
@@ -162,6 +166,7 @@
                     </p>
                 </div>
             </div> -->
+
         </div>
     </div>
     <!-- Footer -->
@@ -228,260 +233,260 @@
                         <span class="total-price-cart">0 đ</span>
                     </div>
                     <button class=" btnPayment">Thanh toán</button>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!-- Modal payment -->
-        <div class="modal-payment">
-            <header class="header">
-                <div class="container">
-                    <div class="wrapper-paymen">
-                        <button class="btn-back">
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </button>
-                        <span>Thanh toán</span>
-                    </div>
-                </div>
-            </header>
+    <!-- Modal payment -->
+    <div class="modal-payment">
+        <header class="header">
             <div class="container">
-                <div class="form-infor">
-                    <div class="infor-left">
-                        <div class="infor-general">
-                            <span class="title">Thông tin chung</span>
-                            <div class="infor-opt">
-                                <button class="btn-custom">
-                                    <span>Thông tin tài khoản</span>
-                                    <i class="fa-solid fa-user"></i>
-                                </button>
-                                <button class="btn-custom">
-                                    <span>Thông tin mới</span>
-                                    <i class="fa-regular fa-plus"></i>
-                                </button>
-                            </div>
-                            <div class="infor-user">
-                                <input type="text" id="txtName" class="input-user" placeholder="Họ và tên">
-                                <div class="group-txt">
-                                    <input type="text" id="txtAddress" class="input-user" placeholder="Địa chỉ">
-                                    <input type="text" id="txtPhone" class="input-user" placeholder="Số điện thoại">
-                                </div>
-                                <div class="group-cbx">
-                                    <select name="province" id="province" class="input-user" required>
-                                    </select>
-                                    <select name="district" id="district" class="input-user">
-                                        <option value="" disabled selected>Chọn quận/huyện</option>
-                                    </select>
-                                    <select name="ward" id="ward" class="input-user">
-                                        <option value="" disabled selected>Chọn phường/xã</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <textarea name="noteOrder" id="noteOrder" placeholder="Ghi chú cho đơn hàng"></textarea>
+                <div class="wrapper-paymen">
+                    <button class="btn-back">
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+                    <span>Thanh toán</span>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="form-infor">
+                <div class="infor-left">
+                    <div class="infor-general">
+                        <span class="title">Thông tin chung</span>
+                        <div class="infor-opt">
+                            <button class="btn-custom">
+                                <span>Thông tin tài khoản</span>
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                            <button class="btn-custom">
+                                <span>Thông tin mới</span>
+                                <i class="fa-regular fa-plus"></i>
+                            </button>
                         </div>
-                        <div class="infor-cash">
-                            <span class="title">Phương thức chuyển khoản</span>
-                            <ul>
-                                <li class="method-cash">
-                                    <input type="radio" name="chb-cash" value="cash" checked>
-                                    <span>Thanh toán bằng tiền mặt</span>
-                                </li>
-                                <li class="method-cash">
-                                    <input type="radio" name="chb-cash" value="transfer">
-                                    <span>Thanh toán trực tuyến</span>
-                                </li>
-                            </ul>
+                        <div class="infor-user">
+                            <input type="text" id="txtName" class="input-user" placeholder="Họ và tên">
+                            <div class="group-txt">
+                                <input type="text" id="txtAddress" class="input-user" placeholder="Địa chỉ">
+                                <input type="text" id="txtPhone" class="input-user" placeholder="Số điện thoại">
+                            </div>
+                            <div class="group-cbx">
+                                <select name="province" id="province" class="input-user" required>
+                                </select>
+                                <select name="district" id="district" class="input-user">
+                                    <option value="" disabled selected>Chọn quận/huyện</option>
+                                </select>
+                                <select name="ward" id="ward" class="input-user">
+                                    <option value="" disabled selected>Chọn phường/xã</option>
+                                </select>
+                            </div>
+                        </div>
+                        <textarea name="noteOrder" id="noteOrder" placeholder="Ghi chú cho đơn hàng"></textarea>
+                    </div>
+                    <div class="infor-cash">
+                        <span class="title">Phương thức chuyển khoản</span>
+                        <ul>
+                            <li class="method-cash">
+                                <input type="radio" name="chb-cash" value="cash" checked>
+                                <span>Thanh toán bằng tiền mặt</span>
+                            </li>
+                            <li class="method-cash">
+                                <input type="radio" name="chb-cash" value="transfer">
+                                <span>Thanh toán trực tuyến</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="infor-right">
+                    <span class="title">Đơn hàng</span>
+                    <div class="infor-order">
+                        <div class="list-details">
+                            <div class="item">
+                                <span class="quantity-item">1x</span>
+                                <span class="name-item">Hủ tiếu xào bơ tỏi</span>
+                                <span class="price-item">150.000 đ</span>
+                            </div>
+
                         </div>
                     </div>
-                    <div class="infor-right">
-                        <span class="title">Đơn hàng</span>
-                        <div class="infor-order">
-                            <div class="list-details">
-                                <div class="item">
-                                    <span class="quantity-item">1x</span>
-                                    <span class="name-item">Hủ tiếu xào bơ tỏi</span>
-                                    <span class="price-item">150.000 đ</span>
-                                </div>
-
-                            </div>
+                    <div class="infor-payment">
+                        <div class="amount">
+                            <span>Thành tiền</span>
+                            <span class="amount-payment">200.000 đ</span>
                         </div>
-                        <div class="infor-payment">
-                            <div class="amount">
-                                <span>Thành tiền</span>
-                                <span class="amount-payment">200.000 đ</span>
-                            </div>
-                            <div class="ship-cod">
-                                <span>Phí vận chuyển</span>
-                                <span>50.000 đ</span>
-                            </div>
-                            <div class="total">
-                                <span>Tổng thanh toán</span>
-                                <span class="total-price-payment">250.000 đ</span>
-                            </div>
-                            <button class="btn-order">Đặt hàng</button>
+                        <div class="ship-cod">
+                            <span>Phí vận chuyển</span>
+                            <span>50.000 đ</span>
                         </div>
+                        <div class="total">
+                            <span>Tổng thanh toán</span>
+                            <span class="total-price-payment">250.000 đ</span>
+                        </div>
+                        <button class="btn-order">Đặt hàng</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!--Form đăng nhập-->
-        <div class="form-popup" id="loginForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
-                <h2>Đăng nhập</h2>
-                <label for="login-username">Số điện thoại hoặc Gmail:</label>
-                <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-                <label for="login-password">Mật khẩu:</label>
-                <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
-                <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
-                <button type="submit" class="btn">Đăng nhập</button>
-                <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
-            </form>
-        </div>
+    <!--Form đăng nhập-->
+    <div class="form-popup" id="loginForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
+            <h2>Đăng nhập</h2>
+            <label for="login-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <label for="login-password">Mật khẩu:</label>
+            <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
+            <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
+            <button type="submit" class="btn">Đăng nhập</button>
+            <p>Bạn chưa có tài khoản? <a href="#" onclick="openForm('signupForm')">Đăng ký</a></p>
+        </form>
+    </div>
 
-        <!-- Form đăng ký -->
-        <div class="form-popup" id="signupForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
-                <h2>Đăng ký</h2>
-                <label for="signup-phone">Số điện thoại:</label>
-                <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
-                <label for="signup-email">Gmail:</label>
-                <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
-                <label for="signup-password">Mật khẩu:</label>
-                <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
-                <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
-                <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
-                <button type="submit" class="btn">Đăng ký</button>
-                <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
-            </form>
-        </div>
-        <div class="overlay" id="overlay"></div>
+    <!-- Form đăng ký -->
+    <div class="form-popup" id="signupForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
+            <h2>Đăng ký</h2>
+            <label for="signup-phone">Số điện thoại:</label>
+            <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
+            <label for="signup-email">Gmail:</label>
+            <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
+            <label for="signup-password">Mật khẩu:</label>
+            <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
+            <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
+            <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit" class="btn">Đăng ký</button>
+            <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
+        </form>
+    </div>
+    <div class="overlay" id="overlay"></div>
 
-        <!-- Form quên mật khẩu -->
-        <div class="form-popup" id="forgotPasswordForm">
-            <form class="form-container">
-                <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
-                <h2>Quên mật khẩu</h2>
-                <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
-                <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
-                <button type="submit" class="btn">Xác thực tài khoản</button>
-            </form>
-        </div>
-        <!-- Form chi tiết sản phẩm -->
-        <div id="product-detail-modal" class="modal-detail">
-            <div class="product-detail-content">
-                <span class="close-btn" onclick="closeProductDetail()">&times;</span>
-                <div class="product-detail-left">
-                    <img id="product-image" src="" alt="Product Image">
-                </div>
-                <div class="product-detail-right">
-                    <h2 id="product-name">Tên Sản Phẩm</h2>
-                    <p class="product-price" id="product-price">Giá: 0 ₫</p>
-                    <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
-                    <label for="note">Ghi chú:</label>
-                    <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
-                    <div class="quantity-wrapper">
-                        <span>Số lượng:</span>
-                        <div class="btnCustom" value="details-product">
-                            <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
-                            <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1"
-                                min="1" oninput="inputQuantity(this)">
-                            <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
-                        </div>
+    <!-- Form quên mật khẩu -->
+    <div class="form-popup" id="forgotPasswordForm">
+        <form class="form-container">
+            <span class="close-btn" onclick="closeForm('forgotPasswordForm')">&times;</span>
+            <h2>Quên mật khẩu</h2>
+            <label for="forgot-username">Số điện thoại hoặc Gmail:</label>
+            <input type="text" id="forgot-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <button type="submit" class="btn">Xác thực tài khoản</button>
+        </form>
+    </div>
+    <!-- Form chi tiết sản phẩm -->
+    <div id="product-detail-modal" class="modal-detail">
+        <div class="product-detail-content">
+            <span class="close-btn" onclick="closeProductDetail()">&times;</span>
+            <div class="product-detail-left">
+                <img id="product-image" src="" alt="Product Image">
+            </div>
+            <div class="product-detail-right">
+                <h2 id="product-name">Tên Sản Phẩm</h2>
+                <p class="product-price" id="product-price">Giá: 0 ₫</p>
+                <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
+                <label for="note">Ghi chú:</label>
+                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                <div class="quantity-wrapper">
+                    <span>Số lượng:</span>
+                    <div class="btnCustom" value="details-product">
+                        <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
+                        <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1"
+                            oninput="inputQuantity(this)">
+                        <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
                     </div>
-                    <div class="total-price">
-                        <p>Thành tiền: <span id="total-price"></span></p>
-                    </div>
-                    <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
                 </div>
+                <div class="total-price">
+                    <p>Thành tiền: <span id="total-price"></span></p>
+                </div>
+                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
             </div>
         </div>
-        <!-- Icon người dùng -->
-        <button class="user-icon" onclick="toggleUserOptions()">
-            <i class="fa-solid fa-user"></i>
-        </button>
+    </div>
+    <!-- Icon người dùng -->
+    <button class="user-icon" onclick="toggleUserOptions()">
+        <i class="fa-solid fa-user"></i>
+    </button>
 
-        <!-- Form tùy chọn -->
-        <div class="user-options" id="userOptions">
-            <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
-            <button class="user-option-btn" onclick="logoutUser()">Đăng xuất</button>
-        </div>
-        <!-- Modal xác nhận đăng xuất -->
-        <div class="logout-modal" id="logoutModal">
-            <div class="logout-modal-content">
-                <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
-                <p>Bạn có chắc muốn đăng xuất?</p>
-                <div class="logout-modal-buttons">
-                    <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
-                    <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
-                </div>
+    <!-- Form tùy chọn -->
+    <div class="user-options" id="userOptions">
+        <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+        <button class="user-option-btn" onclick="logoutUser()">Đăng xuất</button>
+    </div>
+    <!-- Modal xác nhận đăng xuất -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-modal-content">
+            <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
+            <p>Bạn có chắc muốn đăng xuất?</p>
+            <div class="logout-modal-buttons">
+                <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
+                <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
             </div>
         </div>
-        <script>
-            // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
-            function openForm(formId) {
-                document.getElementById("overlay").classList.add("show-overlay");
-                document.getElementById("loginForm").style.display = "none";
-                document.getElementById("signupForm").style.display = "none";
-                document.getElementById("forgotPasswordForm").style.display = "none";
-                document.getElementById(formId).style.display = "block";
-            }
-            // Hàm đóng form
-            function closeForm(formId) {
-                document.getElementById(formId).style.display = "none";
-                document.getElementById("overlay").classList.remove("show-overlay");
-            }
-            // Khai báo slide show
-            let currentIndex = 0;
-            const slides = document.querySelectorAll('.banner-slide img');
-            const dots = document.querySelectorAll('.dot');
+    </div>
+    <script>
+        // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
+        function openForm(formId) {
+            document.getElementById("overlay").classList.add("show-overlay");
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("forgotPasswordForm").style.display = "none";
+            document.getElementById(formId).style.display = "block";
+        }
+        // Hàm đóng form
+        function closeForm(formId) {
+            document.getElementById(formId).style.display = "none";
+            document.getElementById("overlay").classList.remove("show-overlay");
+        }
+        // Khai báo slide show
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.banner-slide img');
+        const dots = document.querySelectorAll('.dot');
 
-            // Hàm để hiển thị slide
-            function showSlide(index) {
-                const prevIndex = currentIndex;
-                currentIndex = (index + slides.length) % slides.length;
+        // Hàm để hiển thị slide
+        function showSlide(index) {
+            const prevIndex = currentIndex;
+            currentIndex = (index + slides.length) % slides.length;
 
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('visible', 'flip-in', 'flip-out');
-                    if (i === currentIndex) {
-                        slide.classList.add('visible', 'flip-in');
-                    }
-                    if (i === prevIndex) {
-                        slide.classList.add('flip-out');
-                    }
-                });
+            slides.forEach((slide, i) => {
+                slide.classList.remove('visible', 'flip-in', 'flip-out');
+                if (i === currentIndex) {
+                    slide.classList.add('visible', 'flip-in');
+                }
+                if (i === prevIndex) {
+                    slide.classList.add('flip-out');
+                }
+            });
 
-                dots.forEach((dot, i) => {
-                    dot.classList.remove('active');
-                    if (i === currentIndex) {
-                        dot.classList.add('active');
-                    }
-                });
-            }
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === currentIndex) {
+                    dot.classList.add('active');
+                }
+            });
+        }
 
-            // Hàm để chuyển đến slide tiếp theo
-            function nextSlide() {
-                showSlide(currentIndex + 1);
-            }
+        // Hàm để chuyển đến slide tiếp theo
+        function nextSlide() {
+            showSlide(currentIndex + 1);
+        }
 
-            // Hàm để chuyển đến slide trước đó
-            function prevSlide() {
-                showSlide(currentIndex - 1);
-            }
+        // Hàm để chuyển đến slide trước đó
+        function prevSlide() {
+            showSlide(currentIndex - 1);
+        }
 
-            // Thiết lập slide show tự động
-            showSlide(currentIndex);
-            setInterval(nextSlide, 3000);
+        // Thiết lập slide show tự động
+        showSlide(currentIndex);
+        setInterval(nextSlide, 3000);
 
 
 
-        </script>
-        <script src="./data.js"></script>
-        <script src="./test.js"></script>
+    </script>
+    <script src="./data.js"></script>
+    <script src="./test.js"></script>
 
 
 </body>

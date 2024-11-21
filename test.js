@@ -7,6 +7,9 @@ let listWard = [];
 let nextOrderId = 1; 
 let userCurrent = null;
 let listOrder = [];
+let pageCurrent = 1;
+let totalPage = 1;
+const perPage = 15;
 
 
 
@@ -61,6 +64,9 @@ function loadListOrder() {
 function loadDataProduct() {
     listProduct = localStorage.getItem(LIST_PRODUCT) ? JSON.parse(localStorage.getItem(LIST_PRODUCT)) : [];
     listProductFilter = [...listProduct];
+    totalPage = Math.ceil(listProduct.length / perPage);
+    console.log(totalPage);
+    renderBtnPage();
     renderProducts(listProduct);
 }
 
@@ -156,22 +162,44 @@ function renderProducts(productsToRender) {
     const productContainer = document.getElementsByClassName("list-product")[0];
     productContainer.innerHTML = "";
     let txtHtml = "";
-    productsToRender.forEach((product, index) => {
-        txtHtml += `<div class="product-item" onclick="openProductDetail(${index})">
-            <div class="img-product">
-                <img src="${product.image}" alt="${product.name}">
-            </div>
-            <div class="info-product">
-                <h3 class="name-product">${product.name}</h3>
-                <div class="bottom-product">
-                    <h3 class="price-product">${formatPrice(product.price)}</h3>
-                    <button class="btn">
-                        <i class="fa-solid fa-cart-plus"></i> Thêm
-                    </button>
+    // productsToRender.forEach((product, index) => {
+    //     txtHtml += `<div class="product-item" onclick="openProductDetail(${index})">
+    //         <div class="img-product">
+    //             <img src="${product.image}" alt="${product.name}">
+    //         </div>
+    //         <div class="info-product">
+    //             <h3 class="name-product">${product.name}</h3>
+    //             <div class="bottom-product">
+    //                 <h3 class="price-product">${formatPrice(product.price)}</h3>
+    //                 <button class="btn">
+    //                     <i class="fa-solid fa-cart-plus"></i> Thêm
+    //                 </button>
+    //             </div>
+    //         </div>
+    //     </div>`;
+    // });
+    let start = (pageCurrent - 1) * perPage;
+    let end = (pageCurrent - 1) * perPage + perPage;
+    if (end > productsToRender.length) { 
+        end = productsToRender.length;
+    }
+    for (let i = start; i < end; i++) {
+        const product = productsToRender[i];
+        txtHtml += `<div class="product-item" onclick="openProductDetail(${i})">
+                <div class="img-product">
+                    <img src="${product.image}" alt="${product.name}">
                 </div>
-            </div>
-        </div>`;
-    });
+                <div class="info-product">
+                    <h3 class="name-product">${product.name}</h3>
+                    <div class="bottom-product">
+                        <h3 class="price-product">${formatPrice(product.price)}</h3>
+                        <button class="btn">
+                            <i class="fa-solid fa-cart-plus"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+    }
     productContainer.innerHTML = txtHtml;
 }
 
@@ -683,6 +711,35 @@ btnReset.addEventListener("click", () => {
     document.getElementById("max-price").value = "";
     renderProducts(listProduct);
 });
+
+
+// Pagin
+
+function renderBtnPage() {
+    const btnPage = document.querySelector(".pagination");
+    let txtHtml = "";
+    for (let i = 1; i <= totalPage; i++) {
+        txtHtml += `<li class="btn-page" onclick="selectedPage(this)">${i}</li>`;
+    }
+    btnPage.innerHTML = txtHtml;
+}
+ 
+function selectedPage(obj) {
+    const btnPage = document.querySelectorAll(".btn-page");
+    console.log(btnPage);
+    btnPage.forEach(btn => {
+        btn.classList.remove("btn-page--active");
+    });
+    obj.classList.add("btn-page--active");
+    pageCurrent = parseInt(obj.textContent);
+    console.log(pageCurrent);
+    renderProducts(listProductFilter);
+}
+
+
+
+
+
 
 
 // sortButton.addEventListener("click", function (event) {
