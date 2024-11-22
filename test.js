@@ -963,3 +963,31 @@ document.addEventListener("click", function (e) {
 function viewProfile() {
     window.location.href = "profile.html";
 }
+// Hiển thị modal đăng xuất cùng overlay
+function openLogoutModal() {
+    const logoutModal = document.getElementById("logoutModal");
+    const logoutOverlay = document.getElementById("logoutOverlay");
+
+    if (logoutModal && logoutOverlay) {
+        logoutModal.style.display = "block";
+        logoutOverlay.classList.add("show");
+    }
+}
+
+function closeLogoutModal() {
+    const logoutModal = document.getElementById("logoutModal");
+    const logoutOverlay = document.getElementById("logoutOverlay");
+
+    if (logoutModal && logoutOverlay) {
+        logoutModal.style.display = "none";
+        logoutOverlay.classList.remove("show");
+    }
+}
+
+function confirmLogout() {
+    // Xóa thông tin người dùng
+    localStorage.removeItem("userLogin"); // Đảm bảo key thống nhất
+    closeLogoutModal(); // Đóng modal
+    alert("Bạn đã đăng xuất thành công!");
+    window.location.href = "index.html"; // Quay về trang chính
+}
