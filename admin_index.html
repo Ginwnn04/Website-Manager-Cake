@@ -27,7 +27,7 @@
             <li class="active">
                 <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Thống kê</span>
                 </a>
             </li>
             <li>
@@ -42,24 +42,14 @@
                     <span class="text">Loại sản phẩm</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-message-dots'></i>
-                    <span class="text">Tư vấn khách hàng</span>
-                </a>
-            </li>
+         
             <li>
                 <a href="#account_manager" id="account">
                     <i class='bx bxs-user-account'></i>
                     <span class="text">Quản Lí Tài Khoản</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-group'></i>
-                    <span class="text">Nhân viên</span>
-                </a>
-            </li>
+            
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
@@ -69,7 +59,7 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#">
+                <a href="#" id="setting">
                     <i class='bx bx-cog'></i>
                     <span class="text">Cài đặt</span>
                 </a>
@@ -411,6 +401,62 @@
                 </div>
                 <div id="border_chart">
                     <div id="chart_div"></div>
+                    <div id="acc_sell">
+                        <div id="table_rank">
+                            <table id="leaderboard">
+                                <thead>
+                                  <tr>
+                                    <th>Hạng</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Số đơn hàng</th>
+                                    <th>Tổng doanh thu</th>
+                                    <th>Chi tiết</th>
+                                  </tr>
+                                </thead>
+                                <tbody></tbody>
+                              </table>
+                              
+                        </div>
+                        <div id="rank_sell">
+                            <div id="best_seller">Sản phẩm bán chạy nhất</div>
+                            <div id="worst_seller">Sản phẩm bán ế nhất</div>
+                        </div>
+                        
+                    </div>
+                    <div id="sales_statistics">
+                        <h2>Thống kê sản phẩm</h2>
+                        <div>
+                            <label >Từ:
+                                <input type="date" name="start" id="date_start" >
+                           </label>
+                           
+                           <label >Đến:
+                               <input type="date" name="start" id="date_end" >
+                          </label>
+                            <select name="" id="rank_option">
+                                <option value="0">Tùy chọn mặc định</option>
+                                <option value="1">Số lượng</option>
+                                <option value="2">Doanh Thu </option>
+                            </select>
+                            <i class='bx bx-sort-up'></i>
+                            <i class='bx bx-sort-down'></i>
+                            <i class='bx bx-search-alt-2'></i>
+
+                        </div>
+                        <div id="table_sell">
+                            <table id="product_rank">
+                                <thead>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng thu</th>
+                                    <th>Xem hóa đơn</th>
+                                </thead>
+                            </table>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
 
@@ -438,8 +484,7 @@
                             <div class="icon">
                                 <div class="search">
                                     <input type="search" placeholder="Search..." id="search_account">
-                                    <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2'
-                                            onclick="searchAccount()"></i></button>
+                                    <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2' onclick="searchAccount()"></i></button>
                                 </div>
                                 <i class='bx bx-filter'></i>
                                 <i class='bx bx-plus' onclick="showForm()"></i>
@@ -598,9 +643,13 @@
 
 
 
-
+            <!-- -----------------SETTING------------------------- -->
+             <div id="setting">
+                HELLO
+             </div>
         </main>
         <!-- MAIN -->
+
     </section>
     <!-- CONTENT -->
 
@@ -617,5 +666,6 @@
     <!-- Test thêm đơn hàng -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="admin_script.js"></script>
+    
 
 </body>

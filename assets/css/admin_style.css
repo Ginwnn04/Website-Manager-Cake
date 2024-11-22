@@ -359,17 +359,204 @@ html {
     pointer-events: unset;
 }
 
+
 #chart_div {
     min-width: 800px;
-    width: 60%;
+    width: calc(100% - 48px);
     height: 500px;
-    margin: 0 ;
+    margin: 24px;
     background: var(--light);
-    margin-left: 24px;
     border-radius: 20px;
     overflow: hidden;
   }
+#table_rank{
+    height: 500px;
+    width: calc(60% - 48px);
+    margin:0 20px;
+    border-radius: 20px;
+    background: var(--light);
+    border-collapse: collapse; 
+    overflow: hidden;
+    padding: 20px;
+}
+#leaderboard{
+    width: 100%;
+}
+#leaderboard th,
+#leaderboard td {
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--black); 
+}
+
+#leaderboard th {
+    background-color: var(--light); 
+    color: var(--black); 
+    font-weight: bold; 
+    font-size: 24px; 
+}
+
+#leaderboard th:nth-child(1),
+#leaderboard td:nth-child(1) {
+    width: 2%; 
+}
+#leaderboard  th:nth-child(2),
+#leaderboard  td:nth-child(2) {
+    width: 12%; 
+}
+#leaderboard  th:nth-child(3),
+#leaderboard  td:nth-child(3) {
+    width: 7%; 
+}
+
+#leaderboard  th:nth-child(4),
+#leaderboard  td:nth-child(4) {
+    width: 12%; 
+}
+
+#leaderboard  th:nth-child(5),
+#leaderboard  td:nth-child(5) {
+    width: 5%; 
+}
   
+#acc_sell{
+    display: flex;
+}
+
+#rank_sell{
+    width: calc(100% - 60% - 20px);
+    margin-right: 24px;
+    height: 500px;
+    background: var(--light);
+    border-radius: 20px;
+    display: block;
+}
+#best_seller{
+    margin: 10px ;
+    height: 235px;
+    width: calc(100% - 20px);
+    background: var(--light_blue);
+    border-radius: 20px;
+    font-size: 24px;
+    padding: 20px;
+}
+#worst_seller{
+    margin: 10px ;
+    height: 235px;
+    width: calc(100% - 20px);
+    background: var(--light_orange);
+    border-radius: 20px;
+    font-size: 24px;
+    padding: 20px;
+}
+
+#sales_statistics{
+    height: 700px;
+    margin: 20px;
+    width: calc(100% - 40px);
+    background: var(--light);
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 20px;
+    position: relative;
+}
+#sales_statistics label{
+    font-size: 24px;
+}
+#date_start{
+    margin-top: 20px;
+    height: 30px;
+    width: 200px;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-right: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+#date_end{
+    margin-top: 20px;
+    height: 30px;
+    width: 200px;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+
+}
+
+#product_rank{
+    width: calc(100% - 40px);
+    margin: 20px;
+}
+
+#product_rank th,
+#product_rank td{
+    padding: 10px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--black); 
+}
+
+#product_rank th {
+    background-color: var(--light); 
+    color: var(--black); 
+    font-weight: bold; 
+    font-size: 24px; 
+}
+#product_rank th:nth-child(1),
+#product_rank td:nth-child(1) {
+    width: 20%; 
+}
+#product_rank th:nth-child(2),
+#product_rank td:nth-child(2) {
+    width: 20%; 
+}
+#product_rank th:nth-child(3),
+#product_rank td:nth-child(3) {
+    width: 20%; 
+}
+#product_rank th:nth-child(4),
+#product_rank td:nth-child(4) {
+    width: 10%; 
+}
+#product_rank th:nth-child(5),
+#product_rank td:nth-child(5) {
+    width: 15%; 
+}
+#product_rank th:nth-child(6),
+#product_rank td:nth-child(6) {
+    width: 15%; 
+}
+#rank_option{
+    border-radius: 20px;
+    height: 30px;
+    width: 200px;
+    margin-left: 40px;
+    font-size: 18px;
+    text-align: center;
+
+}
+#sales_statistics div .bx{
+    font-size: 24px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+#sales_statistics div .bx .bx-search-alt-2{
+    color: var(--orange);
+}
+
+
+
+
+
+
+
+
+
+
+
+/* QUẢN LÍ TÀI KHOẢN */
 #account_manager {
     overflow: hidden;
 }
@@ -628,8 +815,8 @@ html {
 }
 
 
-.info_account table th:nth-child(7),
-.info_account table td:nth-child(7) {
+.info_account table th:nth-child(6),
+.info_account table td:nth-child(6) {
     width: 15%; /* Chiều rộng cho Setting */
 }
 

@@ -103,28 +103,72 @@ allSideMenu.forEach(item => {
     item.addEventListener('click', showProductSection);
     item.addEventListener('click', showCategorySession);
 });
-// Biểu đồ
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Tháng', 'Đơn Hàng'],
-    ['Tháng 8',  321],
-    ['Tháng 9',  823],
-    ['Tháng 10',  432],
-    ['Tháng 11',  823]
-  ]);
 
-  var options = {
-    title: 'Thống Kê Bán Hàng',
-    hAxis: {title: 'Tháng',  titleTextStyle: {color: '#333'}},
-    vAxis: {minValue: 0}
-  };
 
-  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
+
+// SETTING 
+const Menu = document.querySelectorAll('#sidebar .side-menu li a');
+const Setting = document.querySelector('#setting');
+Setting.style.display = 'none';
+
+function showSetting(event) {
+  const selectedItem = event.currentTarget.id;
+  if (selectedItem === 'setting') {
+    Setting.style.display = 'block';
+  } else {
+    Setting.style.display = 'none';
+  }
 }
+
+Menu.forEach(item => {
+  item.addEventListener('click', showSetting);
+});
+
+
+
+google.charts.load('current', { packages: ['corechart'] });
+google.charts.setOnLoadCallback(drawResponsiveChart);
+
+let chart; // Biến lưu biểu đồ
+
+function drawResponsiveChart() {
+    const container = document.getElementById('chart_div');
+    const width = container.offsetWidth; // Lấy chiều rộng thực tế của thẻ `div`
+    const height = container.offsetHeight; // Lấy chiều cao thực tế của thẻ `div`
+
+    // Dữ liệu biểu đồ
+    const data = google.visualization.arrayToDataTable([
+        ['Tháng', 'Đơn Hàng'],
+        ['Tháng 8', 321],
+        ['Tháng 9', 823],
+        ['Tháng 10', 432],
+        ['Tháng 11', 823]
+    ]);
+
+    // Tùy chọn biểu đồ
+    const options = {
+        title: 'Thống Kê Bán Hàng',
+        hAxis: { title: 'Tháng', titleTextStyle: { color: '#333' } },
+        vAxis: { minValue: 0 },
+        width: width,  // Sử dụng chiều rộng từ CSS
+        height: height // Sử dụng chiều cao từ CSS
+    };
+
+    // Vẽ biểu đồ
+    chart = new google.visualization.AreaChart(container);
+    chart.draw(data, options);
+}
+
+// Sự kiện khi kích thước trình duyệt thay đổi
+window.addEventListener('resize', drawResponsiveChart);
+
+// Theo dõi thay đổi kích thước của thẻ `div` bằng ResizeObserver
+const resizeObserver = new ResizeObserver(() => {
+    drawResponsiveChart();
+});
+resizeObserver.observe(document.getElementById('chart_div'));
+
 
 
 // Ẩn/hiện phần thêm account
@@ -383,15 +427,21 @@ function hideDetailAccount(){
 }
 
 
-function searchAccount(){
+function searchAccount() {
   let valueSearchInput = document.getElementById('search_account').value;
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-  let accountSearch = listAccount.filter(value=> {
-    return value.name.toLowerCase().includes(valueSearchInput.toLowerCase())
-  })
+
+  let accountSearch = listAccount.filter(value => {
+    return (
+      value.name.toLowerCase().includes(valueSearchInput.toLowerCase()) || 
+      value.username.toLowerCase().includes(valueSearchInput.toLowerCase())
+    );
+  });
+
   document.getElementById("accountTable").innerHTML = "";
   showAccountSearch(accountSearch);
 }
+
 function showAccountSearch(array) {
   let account = `<tr>
       <th>Tên</th>
@@ -422,31 +472,8 @@ function showAccountSearch(array) {
 
 
 
-document.getElementById('search_account_btn').addEventListener('click', () => {
-  const searchButtonIcon = document.getElementById('search_account_btn').querySelector('.bx');
-  const searchInput = document.getElementById('search_account');
-  
-  if (searchButtonIcon.classList.contains('bx-x')) {
-      // Nếu là dấu 'x', reset tìm kiếm và hiển thị lại toàn bộ danh sách
-      searchInput.value = '';
-      searchAccount();
-  } else {
-      // Nếu là kính lúp, thực hiện tìm kiếm
-      searchAccount();
-  }
-});
 
-// Lắng nghe sự kiện nhập liệu để tự động chuyển đổi biểu tượng
-document.getElementById('search_account').addEventListener('input', () => {
-  const searchButtonIcon = document.getElementById('search_account_btn').querySelector('.bx');
-  const searchInput = document.getElementById('search_account');
-  
-  if (searchInput.value.trim().length > 0) {
-      searchButtonIcon.classList.replace('bx-search-alt-2', 'bx-x');
-  } else {
-      searchButtonIcon.classList.replace('bx-x', 'bx-search-alt-2');
-  }
-});
+
 
 
 
