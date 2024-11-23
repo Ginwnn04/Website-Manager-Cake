@@ -405,27 +405,23 @@
             </div>
         </div>
     </div>
-    <!-- Icon người dùng -->
-    <button class="user-icon" onclick="toggleUserOptions()">
-        <i class="fa-solid fa-user"></i>
-    </button>
+    <!-- Menu Tùy Chọn -->
+<div class="user-options" id="userOptions">
+    <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+    <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
+</div>
 
-    <!-- Form tùy chọn -->
-    <div class="user-options" id="userOptions">
-        <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
-        <button class="user-option-btn" onclick="logoutUser()">Đăng xuất</button>
-    </div>
     <!-- Modal xác nhận đăng xuất -->
-    <div class="logout-modal" id="logoutModal">
-        <div class="logout-modal-content">
-            <span class="close-btn" onclick="closeLogoutModal()">&times;</span>
-            <p>Bạn có chắc muốn đăng xuất?</p>
-            <div class="logout-modal-buttons">
-                <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
-                <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
-            </div>
+<div class="overlay" id="logoutOverlay"></div>
+<div class="logout-modal" id="logoutModal">
+    <div class="logout-modal-content">
+        <p>Bạn có chắc muốn đăng xuất?</p>
+        <div class="logout-modal-buttons">
+            <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
+            <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
         </div>
     </div>
+</div>
     <script>
         // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
         function openForm(formId) {
