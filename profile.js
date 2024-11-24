@@ -170,6 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             button.classList.add("active");
             document.getElementById(button.dataset.tab).classList.add("active");
+
+            myListOrder();
         });
     });
 
@@ -183,3 +185,23 @@ document.addEventListener("DOMContentLoaded", () => {
     populateUserInfo();
 });
 //test
+
+
+// Danh sách don hang
+
+function myListOrder() {
+    const body = document.querySelector('tbody');
+    const listOrder = JSON.parse(localStorage.getItem('listOrder'));
+    const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+    const myOrder = listOrder.filter(order => order.account === userLogin.username);
+    let html = "";
+    myOrder.forEach(order => { 
+        html += `<tr>
+                        <td>${order.id}</td>
+                        <td>${order.total}</td>
+                        <td>${order.timeCreate}</td>
+                        <td>${order.status}</td>
+                    </tr>`
+    });
+    body.innerHTML = html;
+}

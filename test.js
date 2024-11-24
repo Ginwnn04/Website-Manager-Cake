@@ -549,9 +549,9 @@ btnPaymentSubmit.addEventListener("click", () => {
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
         userCurrent.cart = [];
         localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
-        
         alert("Đặt hàng thành công!");
         localStorage.removeItem("modalIsShow");
+        window.location.href = '/';
     }
     
 

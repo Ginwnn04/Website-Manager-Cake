@@ -1,0 +1,311 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar bên trái */
+.sidebar {
+    width: 300px;
+    background-color: #ff7f00;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-icon {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    font-size: 64px;
+    /* Kích thước icon */
+    color: #ff7f00;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu {
+    width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    /* Bo góc cho khung menu */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Bóng đổ cho khung menu */
+}
+
+.menu button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 15px;
+    text-align: left;
+    color: #ff7f00;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    /* Bo góc nút bấm */
+    transition: all 0.3s ease;
+}
+
+.menu button:hover,
+.menu button.active {
+    background-color: #e06c00;
+    color: white;
+}
+
+.return-home-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    width: 90%;
+    background-color: #e06c00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.return-home-btn:hover {
+    background-color: #ff7f00;
+}
+
+/* Nội dung bên phải */
+.content {
+    flex-grow: 1;
+    padding: 40px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Khung thông tin */
+section {
+    position: relative;
+    /* Để định vị nút "Sửa" */
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: none;
+}
+
+section.active {
+    display: block;
+}
+
+section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+/* Nút Sửa */
+.edit-btn {
+    position: absolute;
+    /* Định vị nút "Sửa" tương đối với section */
+    top: 10px;
+    /* Căn cách mép trên của khung */
+    right: 10px;
+    /* Căn cách mép phải của khung */
+    background-color: #ff7f00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #e06c00;
+}
+
+/* Dropdown */
+#address-fields select {
+    flex: 1;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+}
+
+#address-fields select:disabled {
+    background-color: #e9e9e9;
+    color: #777;
+}
+
+#address-fields {
+    display: flex;
+    gap: 10px;
+}
+
+/* Định dạng input cho các trường thông tin */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    font-weight: bold;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:disabled {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: normal;
+    border-color: #ddd;
+}
+
+input[type="text"]:enabled {
+    border: 2px solid #ff7f00;
+    box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
+}
+
+
+
+/* List order */
+
+#purchase-list {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    padding: 0 12px;
+    border-spacing: 0;
+
+
+}
+#purchase-list thead tr {
+    text-align: left;
+    background-color: #f0f0f0;
+    /* font-weight: 600; */
+
+}
+#purchase-list tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#purchase-list th,
+#purchase-list td {
+    padding: 12px 15px;
+}
+
+
+.group-btn {
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
+    gap: 10px;
+}
+
+.group-btn button {
+    padding: 6px 12px;
+    border: none;
+    font-size: 16px;
+    border: 1px solid #ff7f00;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.btn-active {
+    background-color: #ff7f00 !important;
+    color: white;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .user-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .menu {
+        flex-direction: row;
+        gap: 10px;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        width: auto;
+    }
+
+    .menu button {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+
+    .return-home-btn {
+        font-size: 14px;
+        padding: 8px 10px;
+        flex: 1;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    section h2 {
+        font-size: 20px;
+    }
+
+    .edit-btn {
+        font-size: 14px;
+        /* Thu nhỏ nút sửa */
+        padding: 8px 10px;
+        top: 5px;
+        /* Giảm khoảng cách từ mép trên */
+        right: 5px;
+        /* Giảm khoảng cách từ mép phải */
+    }
+
+    input[type="text"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #address-fields {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
