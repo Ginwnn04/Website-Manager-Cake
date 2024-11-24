@@ -11,7 +11,7 @@ allSideMenu.forEach(item => {
 
 const menuBar = document.querySelector('#content nav .bx.bx-menu');
 const sideBar = document.getElementById('sidebar');
-const avatar = document.querySelector('#sidebar .avatar');
+const avatar = document.querySelector('#sidebar #profile-pic');
 menuBar.addEventListener('click', function(){
     sideBar.classList.toggle('hide');
     avatar.style.visibility = avatar.style.visibility === 'hidden' ? 'visible' : 'hidden';
@@ -44,19 +44,25 @@ const AccountManager = document.querySelector('#account_manager');
 const OrderManager = document.querySelector('#order_manager');
 const ProductSeseion=document.querySelector('.product-container');
 const CategorySesseion=document.querySelector('.category-container');
+// Lấy các phần tử liên quan
+const settingsMenu = document.getElementById('setting'); // Menu "Cài đặt"
+const settingsContainer = document.getElementById('settings-container'); // Phần nội dung "Cài đặt"
 
 Dashboard.style.display = 'block';
 AccountManager.style.display = 'none';
 OrderManager.style.display = 'none';
 ProductSeseion.style.display = 'none';
 CategorySesseion.style.display = 'none';
+settingsContainer.style.display = 'none';
 
 function showDashboard(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'dashboard_show') {
         Dashboard.style.display = 'block';
+        settingsContainer.style.display = 'none';
     } else {
         Dashboard.style.display = 'none';
+        
     }
 }
 
@@ -64,6 +70,7 @@ function showAccountManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'account') {
         AccountManager.style.display = 'block';
+        settingsContainer.style.display = 'none';
         showAccount();
     } else {
         AccountManager.style.display = 'none';
@@ -74,6 +81,7 @@ function showOrderManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'order') {
         OrderManager.style.display = 'block';
+        settingsContainer.style.display = 'none';
     } else {
         OrderManager.style.display = 'none';
     }
@@ -82,6 +90,7 @@ function showProductSection(event) {
   const selectedItem = event.currentTarget.id;
   if (selectedItem === 'product') {
     ProductSeseion.style.display='block';
+    settingsContainer.style.display = 'none';
   } else {
     ProductSeseion.style.display='none'; 
   }
@@ -91,6 +100,7 @@ function showCategorySession(event){
   const selectedItem = event.currentTarget.id;
   if(selectedItem==='category'){
     CategorySesseion.style.display='block';
+    settingsContainer.style.display = 'none';
   }else{
     CategorySesseion.style.display='none';
   }
@@ -107,23 +117,28 @@ allSideMenu.forEach(item => {
 
 
 
-// SETTING 
-const Menu = document.querySelectorAll('#sidebar .side-menu li a');
-const Setting = document.querySelector('#setting');
-Setting.style.display = 'none';
+// Ẩn các phần khác
+const sections = [Dashboard, AccountManager, OrderManager, ProductSeseion, CategorySesseion, settingsContainer];
 
-function showSetting(event) {
-  const selectedItem = event.currentTarget.id;
-  if (selectedItem === 'setting') {
-    Setting.style.display = 'block';
-  } else {
-    Setting.style.display = 'none';
-  }
-}
+// Thêm sự kiện click vào menu "Cài đặt"
+settingsMenu.addEventListener('click', function (event) {
+    event.preventDefault(); // Ngăn hành động mặc định nếu có
+    // Ẩn tất cả các phần
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    // Hiển thị phần "Cài đặt"
+    settingsContainer.style.display = 'block';
+    allSideMenu.forEach(menu => {
+      menu.parentElement.classList.remove('active');
+    });
 
-Menu.forEach(item => {
-  item.addEventListener('click', showSetting);
 });
+
+
+
+
+
 
 
 
@@ -185,6 +200,7 @@ function hideForm() {
   clearForm();
 }
 function clearForm(){
+  document.getElementById('id').value = '';
   document.getElementById('name').value = '';
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
@@ -192,43 +208,55 @@ function clearForm(){
   document.getElementById('address').value = '';
   document.getElementById('role').value = 'all';
 }
-// phần thêm account
-// Thêm sự kiện keydown để kiểm tra các trường nhập liệu
 document.getElementById('accountForm').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Ngăn hành động mặc định của Enter
+      event.preventDefault(); // Ngăn hành động mặc định của Enter
 
-    // Lấy giá trị từ các trường nhập liệu
-    let name = document.getElementById('name').value.trim();
-    let username = document.getElementById('username').value.trim();
-    let password = document.getElementById('password').value.trim();
-    let phone = document.getElementById('phone').value.trim();
-    let address = document.getElementById('address').value.trim();
-    let role = document.getElementById('role').value.trim();
+      // Kiểm tra nếu đang ở chế độ cập nhật
+      const isUpdating = document.getElementById('update_account').style.display === 'inline-block';
 
-    // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
-    if (!name) {
-      document.getElementById('name').focus();
-    } else if (!username) {
-      document.getElementById('username').focus();
-    } else if (!password) {
-      document.getElementById('password').focus();
-    } else if (!phone) {
-      document.getElementById('phone').focus();
-    } else if (!address) {
-      document.getElementById('address').focus();
-    } else if (!role) {
-      document.getElementById('role').focus();
-    } else {
-      // Nếu tất cả các trường đều có dữ liệu, gọi hàm addNewAccount
-      addNewAccount();
-    }
+      if (isUpdating) {
+          // Gọi hàm cập nhật tài khoản
+          changeAccount();
+      } else {
+          // Gọi hàm thêm tài khoản mới
+          let id = document.getElementById('id').value.trim();
+          let name = document.getElementById('name').value.trim();
+          let username = document.getElementById('username').value.trim();
+          let password = document.getElementById('password').value.trim();
+          let phone = document.getElementById('phone').value.trim();
+          let address = document.getElementById('address').value.trim();
+          let role = document.getElementById('role').value.trim();
+
+          // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
+          if (!id) {
+            document.getElementById('id').focus();
+          } else
+          if (!name) {
+              document.getElementById('name').focus();
+          } else if (!username) {
+              document.getElementById('username').focus();
+          } else if (!password) {
+              document.getElementById('password').focus();
+          } else if (!phone) {
+              document.getElementById('phone').focus();
+          } else if (!address) {
+              document.getElementById('address').focus();
+          } else if (!role) {
+              document.getElementById('role').focus();
+          } else {
+              addNewAccount();
+          }
+      }
   }
 });
 
-// Hàm thêm tài khoản
+
+
+
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
+  let id = document.getElementById('id').value.trim();
   let name = document.getElementById('name').value.trim();
   let username = document.getElementById('username').value.trim();
   let password = document.getElementById('password').value.trim();
@@ -237,7 +265,7 @@ function addNewAccount() {
   let role = document.getElementById('role').value.trim();
 
   // Kiểm tra các trường bắt buộc
-  if (!name || !username || !password || !phone || !address || !role) {
+  if (!id || !name || !username || !password || !phone || !address || !role) {
     alert('Vui lòng điền đầy đủ thông tin.');
     return;
   }
@@ -247,49 +275,7 @@ function addNewAccount() {
 
   // Thêm tài khoản mới vào danh sách
   listAccount.push({
-    name: name,
-    username: username,
-    password: password,
-    phone: phone,
-    address: address,
-    role: role
-  });
-
-  // Lưu danh sách tài khoản cập nhật vào localStorage
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
-
-  // Đặt lại giá trị các ô nhập liệu về trống
-  clearForm();
-
-  // Ẩn form và thông báo thành công
-  hideForm();
-  alert('Tài khoản đã thêm thành công');
-
-  // Hiển thị danh sách tài khoản
-  showAccount();
-}
-
-
-function addNewAccount() {
-  // Lấy giá trị từ các trường nhập liệu
-  let name = document.getElementById('name').value.trim();
-  let username = document.getElementById('username').value.trim();
-  let password = document.getElementById('password').value.trim();
-  let phone = document.getElementById('phone').value.trim();
-  let address = document.getElementById('address').value.trim();
-  let role = document.getElementById('role').value.trim();
-
-  // Kiểm tra các trường bắt buộc
-  if (!name || !username || !password || !phone || !address || !role) {
-    alert('Vui lòng điền đầy đủ thông tin.');
-    return;
-  }
-
-  // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-
-  // Thêm tài khoản mới vào danh sách
-  listAccount.push({
+    id:id,
     name: name,
     username: username,
     password: password,
@@ -315,6 +301,7 @@ function addNewAccount() {
 function showAccount() {
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
   let account = `<tr>
+      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
@@ -325,6 +312,7 @@ function showAccount() {
 
   listAccount.map((value, index) => {
     account += `<tr>
+        <td>${value.id}</td>
         <td>${value.name}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
@@ -347,6 +335,7 @@ function showAccount() {
 
 function editAccount (index){
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  document.getElementById('id').value=listAccount[index].id;
   document.getElementById('name').value=listAccount[index].name;
   document.getElementById('username').value=listAccount[index].username;
   document.getElementById('password').value=listAccount[index].password;
@@ -358,14 +347,13 @@ function editAccount (index){
   document.getElementById('save_account').style.display='none';
   document.getElementById('reset_account').style.display='none';
   document.getElementById('update_account').style.display='inline-block';
-  
-
 }
 
 function changeAccount (){
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
   let index = document.getElementById('index').value;
   listAccount[index]={
+    id:document.getElementById('id').value,
     name:document.getElementById('name').value,
     username:document.getElementById('username').value,
     password:document.getElementById('password').value,
@@ -408,6 +396,7 @@ function showDetailAccount(index) {
     const account = listAccount[index];
 
     // Gán giá trị vào các phần tử <p>
+    document.getElementById("detail_id").innerHTML = "ID: " + account.id;
     document.getElementById("detail_name").innerHTML = "Tên: " + account.name;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.username;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
@@ -434,7 +423,8 @@ function searchAccount() {
   let accountSearch = listAccount.filter(value => {
     return (
       value.name.toLowerCase().includes(valueSearchInput.toLowerCase()) || 
-      value.username.toLowerCase().includes(valueSearchInput.toLowerCase())
+      value.username.toLowerCase().includes(valueSearchInput.toLowerCase()) ||
+      (value.id && value.id.toLowerCase().includes(valueSearchInput.toLowerCase())) // Tìm theo ID
     );
   });
 
@@ -444,6 +434,7 @@ function searchAccount() {
 
 function showAccountSearch(array) {
   let account = `<tr>
+      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
@@ -454,6 +445,7 @@ function showAccountSearch(array) {
 
   array.map((value, index) => {
     account += `<tr>
+        <td>${value.id}</td>
         <td>${value.name}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
@@ -471,6 +463,83 @@ function showAccountSearch(array) {
 }
 
 
+
+
+
+
+
+
+
+// --------------------SETTING-------------------------------------------------
+const avatarInput = document.getElementById('avatar_input');
+const profilePic = document.getElementById('profile-pic');
+const profilePic2 = document.getElementById('avatar-item');
+
+// Khi người dùng chọn file
+avatarInput.addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Lấy file từ input
+    if (file) {
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Vui lòng chọn tệp hình ảnh hợp lệ (JPEG, PNG, JPG).');
+            return;
+        }
+
+        // Đọc file bằng FileReader
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageData = e.target.result; // Chuỗi base64 của hình ảnh
+            profilePic.src = imageData; // Hiển thị ảnh
+            profilePic2.src = imageData;
+            localStorage.setItem('profilePicture', imageData); // Lưu vào localStorage
+        };
+        reader.readAsDataURL(file); // Đọc file dưới dạng URL base64
+    }
+});
+
+// Khi tải lại trang, kiểm tra hình ảnh đã lưu trong localStorage
+window.addEventListener('load', function() {
+    const savedImage = localStorage.getItem('profilePicture'); // Lấy dữ liệu từ localStorage
+    if (savedImage) {
+        profilePic.src = savedImage; // Hiển thị ảnh nếu có
+        profilePic2.src = savedImage;
+    }
+});
+
+
+
+
+const nameInput = document.getElementById('name_input'); // Ô input nhập tên
+const nameDisplay2 = document.querySelector('.name-item');  // Thẻ hiển thị tên
+const changeNameDiv = document.getElementById('change_name'); // Div thay đổi tên
+
+// Khi nhấn vào "Thay đổi tên"
+changeNameDiv.addEventListener('click', function() {
+    nameInput.focus(); // Đặt con trỏ vào ô input
+});
+
+// Khi người dùng nhập tên
+nameInput.addEventListener('change', function() {
+    const newName = nameInput.value.trim(); // Lấy tên mới từ input
+    if (newName) {
+        // Cập nhật hiển thị
+        nameDisplay2.textContent = newName;
+
+        // Lưu vào localStorage
+        localStorage.setItem('adminName', newName);
+
+        // Xóa nội dung input sau khi lưu
+        nameInput.value = '';
+    }
+});
+
+// Khi tải lại trang, kiểm tra localStorage
+window.addEventListener('load', function() {
+    const savedName = localStorage.getItem('adminName'); // Lấy tên từ localStorage
+    if (savedName) { // Hiển thị tên đã lưu
+        nameDisplay2.textContent = savedName;
+    }
+});
 
 
 

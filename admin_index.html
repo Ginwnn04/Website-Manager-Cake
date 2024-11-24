@@ -19,10 +19,10 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img class="avatar"
-                src="https://previews.123rf.com/images/yupiramos/yupiramos2001/yupiramos200132078/138940518-rosto-homem-jovem-em-quadro-circular-avatar-personagem-%C3%ADcone-ilustra%C3%A7%C3%A3o-vetorial.jpg"
-                alt="hình avatar">
+            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg" id="profile-pic">
+            
         </div>
+        
         <ul class="side-menu top">
             <li class="active">
                 <a href="#" id="dashboard_show">
@@ -87,16 +87,10 @@
                 </div>
             </form>
             <div class="item">
-                <a href="#">
-                    <i class='bx bx-list-ul'></i>
-                </a>
-                <a href="#" class="notification">
-                    <i class='bx bx-bell bx-tada'></i>
-                    <span class="num">4</span>
-                </a>
-                <a href="#">
-                    <i class='bx bxs-hdd'></i>
-                </a>
+                
+                <p class="name-item"></p>
+               
+                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg" id="avatar-item">
             </div>
         </nav>
         <!-- CONTENT -->
@@ -486,7 +480,7 @@
                                     <input type="search" placeholder="Search..." id="search_account">
                                     <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2' onclick="searchAccount()"></i></button>
                                 </div>
-                                <i class='bx bx-filter'></i>
+                                
                                 <i class='bx bx-plus' onclick="showForm()"></i>
                             </div>
                         </div>
@@ -495,8 +489,8 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
-                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
-                                        required>
+                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"required>
+                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input"required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
                                         required>
                                     <input type="text" id="password" placeholder="Mật khẩu" class="form_input" required>
@@ -522,6 +516,7 @@
                             <table id="accountTable">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Tên</th>
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
@@ -644,9 +639,35 @@
 
 
             <!-- -----------------SETTING------------------------- -->
-             <div id="setting">
-                HELLO
-             </div>
+            <div id="settings-container" >
+                <div class="head">
+                    <div class="left">
+                        <h1>Cài đặt</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#" style="pointer-events:none ;">Setting</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="content_setting">
+                    <div id="change_avatar">
+                        Thay đổi hình ảnh
+                        <label for="avatar_input">Tải hình ảnh</label>
+                        <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatar_input">
+                    </div>
+                    <div id="change_name">
+                        Thay đổi tên
+                        <label for="name_input"> Đổi tên </label>
+                        <input type="text" id="name_input">
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- MAIN -->
 
