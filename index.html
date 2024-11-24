@@ -40,15 +40,19 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="login-btn" onclick="openForm('loginForm')">
+                    <button class="login-btn icon-login" onclick="openForm('loginForm')">
                         <i class="fa-solid fa-user-large"></i>
                         <span>Đăng nhập</span>
-
                     </button>
                     <button class="btn btn-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
                     </button>
+                    <!-- Menu Tùy Chọn -->
+                    <div class="user-options" id="userOptions">
+                        <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+                        <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -405,23 +409,19 @@
             </div>
         </div>
     </div>
-    <!-- Menu Tùy Chọn -->
-<div class="user-options" id="userOptions">
-    <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
-    <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
-</div>
+
 
     <!-- Modal xác nhận đăng xuất -->
-<div class="overlay" id="logoutOverlay"></div>
-<div class="logout-modal" id="logoutModal">
-    <div class="logout-modal-content">
-        <p>Bạn có chắc muốn đăng xuất?</p>
-        <div class="logout-modal-buttons">
-            <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
-            <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
+    <div class="overlay" id="logoutOverlay"></div>
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-modal-content">
+            <p>Bạn có chắc muốn đăng xuất?</p>
+            <div class="logout-modal-buttons">
+                <button class="btn btn-yes" onclick="confirmLogout()">Có</button>
+                <button class="btn btn-no" onclick="closeLogoutModal()">Không</button>
+            </div>
         </div>
     </div>
-</div>
     <script>
         // Hàm mở form đăng nhập, đăng ký, quên mật khẩu
         function openForm(formId) {
@@ -489,3 +489,4 @@
 
 
 </html>
+

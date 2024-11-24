@@ -19,33 +19,28 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img class="avatar"
-                src="https://previews.123rf.com/images/yupiramos/yupiramos2001/yupiramos200132078/138940518-rosto-homem-jovem-em-quadro-circular-avatar-personagem-%C3%ADcone-ilustra%C3%A7%C3%A3o-vetorial.jpg"
-                alt="hình avatar">
+            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                id="profile-pic">
+
         </div>
+
         <ul class="side-menu top">
             <li class="active">
                 <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Thống kê</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="product">
-                    <i class='bx bx-cheese'></i>
+                    <i class='bx bx-package'></i>
                     <span class="text">Sản phẩm</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="category">
-                    <i class="bx bx-bell"></i>
+                    <i class="bx bx-menu"></i>
                     <span class="text">Loại sản phẩm</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-message-dots'></i>
-                    <span class="text">Tư vấn khách hàng</span>
                 </a>
             </li>
             <li>
@@ -54,12 +49,7 @@
                     <span class="text">Quản Lí Tài Khoản</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-group'></i>
-                    <span class="text">Nhân viên</span>
-                </a>
-            </li>
+
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
@@ -69,7 +59,7 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#">
+                <a href="#" id="setting">
                     <i class='bx bx-cog'></i>
                     <span class="text">Cài đặt</span>
                 </a>
@@ -97,16 +87,11 @@
                 </div>
             </form>
             <div class="item">
-                <a href="#">
-                    <i class='bx bx-list-ul'></i>
-                </a>
-                <a href="#" class="notification">
-                    <i class='bx bx-bell bx-tada'></i>
-                    <span class="num">4</span>
-                </a>
-                <a href="#">
-                    <i class='bx bxs-hdd'></i>
-                </a>
+
+                <p class="name-item"></p>
+
+                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                    id="avatar-item">
             </div>
         </nav>
         <!-- CONTENT -->
@@ -146,11 +131,10 @@
                             <div class="filter-menu">
                                 <label for="productCategory">Categories</label>
                                 <select id="productCategoryFilter" name="productCategoryFilter">
-                                    <option>All Categories</option>
                                 </select>
                                 <label for="statusOption">Status</label>
                                 <select id="statusOption">
-                                    <option>All Status</option>
+                                    <option value="All Status">All Status</option>
                                     <option value="Active">Active</option>
                                     <option value="Disabled">Disabled</option>
                                 </select>
@@ -191,7 +175,9 @@
                 <div class="products-area-wrapper tableView">
                     <div class="products-header">
                         <div class="product-cell image">
-                            Sản phẩm
+                        </div>
+                        <div class="product-cell name">
+                            Tên sản phẩm
                             <button class="sort-button" id="sortByNameP" value="nameP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -220,9 +206,6 @@
                         <div class="product-cell status-cell">
                             Trạng thái
                         </div>
-                        <div class="product-cell description">
-                            Mô tả
-                        </div>
                         <div class="product-cell stock">
                             Số lượng
                             <button class="sort-button" id="sortByStockP" value="stockP">
@@ -241,7 +224,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="product-cell tool">
+                        <div class="product-cell tools">
                             Công cụ
                         </div>
                     </div>
@@ -293,8 +276,10 @@
                 <div class="product-image">
                     <label for="productImageP">Hình ảnh sản phẩm:</label>
                     <input type="file" class="product-input" id="productImageP" name="productImage" />
+                    <label id="fileNameLabel">No file selected</label>
+                    <button type="button" id="removeImageBtn">X</button>
                 </div>
-                <div class="Preview-image" id="productPreviewImage"></div>
+                <img class="Preview-image" id="productPreviewImage" />
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" id="cancelProduct">Hủy</button>
                     <button type="submit" class="btn-save" id="saveProductInput">Lưu</button>
@@ -330,15 +315,13 @@
                         <textarea id="categoryDescription" placeholder="Nhập mô tả sản phẩm"></textarea>
                         <div class="form-buttons">
                             <button class="btn-cancel" id="cancelCategoryInput">Huỷ</button>
-                            <button class="btn-save" id="saveCategoryInput">Thêm loại sản phẩm</button>
+                            <button class="btn-save" id="saveCategoryInput">Lưu</button>
                         </div>
                     </form>
                 </div>
                 <div class="category-content-actions">
                     <input class="search-bar" id="search-category" placeholder="Search...." type="text"
                         oninput="toggleSearchButton();">
-                    <button class="search-category-button" id="search-submit" type="submit"><i
-                            class='bx bx-search-alt-2'></i></button>
                 </div>
                 <div class="categories-area-wrapper tableView">
                     <div class="categories-header">
@@ -359,9 +342,6 @@
                                         d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
-                        </div>
-                        <div class="categories-cell description">
-                            Mô tả
                         </div>
                         <div class="categories-cell stock">
                             Số lượng
@@ -411,6 +391,62 @@
                 </div>
                 <div id="border_chart">
                     <div id="chart_div"></div>
+                    <div id="acc_sell">
+                        <div id="table_rank">
+                            <table id="leaderboard">
+                                <thead>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>Tên người dùng</th>
+                                        <th>Số đơn hàng</th>
+                                        <th>Tổng doanh thu</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                        <div id="rank_sell">
+                            <div id="best_seller">Sản phẩm bán chạy nhất</div>
+                            <div id="worst_seller">Sản phẩm bán ế nhất</div>
+                        </div>
+
+                    </div>
+                    <div id="sales_statistics">
+                        <h2>Thống kê sản phẩm</h2>
+                        <div>
+                            <label>Từ:
+                                <input type="date" name="start" id="date_start">
+                            </label>
+
+                            <label>Đến:
+                                <input type="date" name="start" id="date_end">
+                            </label>
+                            <select name="" id="rank_option">
+                                <option value="0">Tùy chọn mặc định</option>
+                                <option value="1">Số lượng</option>
+                                <option value="2">Doanh Thu </option>
+                            </select>
+                            <i class='bx bx-sort-up'></i>
+                            <i class='bx bx-sort-down'></i>
+                            <i class='bx bx-search-alt-2'></i>
+
+                        </div>
+                        <div id="table_sell">
+                            <table id="product_rank">
+                                <thead>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng thu</th>
+                                    <th>Xem hóa đơn</th>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -441,7 +477,7 @@
                                     <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2'
                                             onclick="searchAccount()"></i></button>
                                 </div>
-                                <i class='bx bx-filter'></i>
+
                                 <i class='bx bx-plus' onclick="showForm()"></i>
                             </div>
                         </div>
@@ -450,6 +486,8 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
+                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"
+                                        required>
                                     <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
                                         required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
@@ -477,6 +515,7 @@
                             <table id="accountTable">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Tên</th>
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
@@ -566,7 +605,7 @@
                                             <option value="Đã giao thành công">Đã giao thành công</option>
                                             <option value="Đã hủy">Đã hủy</option>
                                         </select>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <button id="resetFilters">Reset</button>
                             </div>
@@ -577,11 +616,13 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn</th>
-                                        <th>Khách hàng</th>
-                                        <th>Ngày đặt</th>
+                                        <th>Tài khoản</th>
+                                        <th>Người nhận</th>
+                                        <th>SĐT</th>
                                         <th>Quận</th>
                                         <th>Tổng tiền</th>
-                                        <th>Tình trạng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
@@ -599,9 +640,39 @@
 
 
 
+            <!-- -----------------SETTING------------------------- -->
+            <div id="settings-container">
+                <div class="head">
+                    <div class="left">
+                        <h1>Cài đặt</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#" style="pointer-events:none ;">Setting</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div id="content_setting">
+                    <div id="change_avatar">
+                        Thay đổi hình ảnh
+                        <label for="avatar_input">Tải hình ảnh</label>
+                        <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatar_input">
+                    </div>
+                    <div id="change_name">
+                        Thay đổi tên
+                        <label for="name_input"> Đổi tên </label>
+                        <input type="text" id="name_input">
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- MAIN -->
+
     </section>
     <!-- CONTENT -->
 
@@ -618,5 +689,6 @@
     <!-- Test thêm đơn hàng -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="admin_script.js"></script>
+
 
 </body>

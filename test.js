@@ -532,9 +532,10 @@ btnPaymentSubmit.addEventListener("click", () => {
         name: name,
         phone: phone,
         address: address.join(", "),
+        district: district[district.selectedIndex].textContent,
         detailsOrder: userCurrent.cart,
-        timeCreate: new Date().toLocaleString(),
-        status: "Chưa xử lí",
+        timeCreate: new Date().toISOString().slice(0, 10),
+        status: "Chưa xử lý",
         total: userCurrent.cart.reduce((totalPrice, product) => totalPrice + product.price * product.quantity, 0)
     }
     const methodPayment = document.querySelector('input[name="chb-cash"]:checked').value;
@@ -545,7 +546,8 @@ btnPaymentSubmit.addEventListener("click", () => {
     }
     else {
         localStorage.setItem(NEXT_ID, JSON.stringify(nextOrderId));
-        listOrder.push(order);
+        listOrder = JSON.parse(localStorage.getItem('listOrder')) || [];
+        listOrder.unshift(order);
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
         userCurrent.cart = [];
         localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));

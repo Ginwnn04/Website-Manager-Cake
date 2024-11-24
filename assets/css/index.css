@@ -254,6 +254,7 @@ main {
 .header-right {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .login-btn {
@@ -886,7 +887,7 @@ main {
 .navbar-filter {
     position: fixed;
     line-height: 50px;
-    transform: translateY(12px);
+    transform: translateY(0);
     background-color: var(--white-color);
     left: 0;
     right: 0;
@@ -897,7 +898,7 @@ main {
 }
 
 .filter-bar--open {
-    transform: translateY(calc(100% + 12px));
+    transform: translateY(63px);
     box-shadow: 0 5px 5px 0 rgb(0 0 0 / 10%);
     visibility: inherit;
 }
@@ -905,6 +906,7 @@ main {
 .filter {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between; 
     column-gap: 15px;
 }
@@ -997,6 +999,7 @@ main {
 .filter-right .btn-close,
 .filter-right .btn-reset {
     background-color: #f0f0f0;
+    min-width: 37px;
     padding: 10px 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -1024,6 +1027,7 @@ main {
 #apply-filter {
     background-color: var(--primary-color);
     color: #fff;
+    min-width: 37px;
     padding: 8px 16px;
     border: none;
     border-radius: 5px;
@@ -1422,6 +1426,8 @@ input[type="number"]::-webkit-inner-spin-button {
         border-radius: 5px;
 
     }
+    
+
     .header-right .btn>span {
         display: none;
     }
@@ -1437,6 +1443,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
     .list-product .product-item {
         width: calc(100% - 10px);
+    }
+
+    .filter-right {
+        margin-bottom: 10px;
     }
 
 
@@ -1497,9 +1507,8 @@ input[type="number"]::-webkit-inner-spin-button {
     display: none;
     position: absolute;
     top: 55px;
-    left: 80%;
-    transform: translateX(-50%);
-    width: 200px;
+    left: -10px;
+    max-width: 200px;
     padding: 10px;
     background-color: white;
     border: 1px solid #ddd;
