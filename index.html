@@ -61,11 +61,11 @@
     <nav class="navbar">
         <div class="container">
             <a class="btn btn-nav-header" href="#!" value="">Trang chủ</a>
-            <a class="btn btn-nav-header" href="#!" value="Dry Cakes">Bánh Khô</a>
-            <a class="btn btn-nav-header" href="#!" value="Buns">Bánh Bao</a>
-            <a class="btn btn-nav-header" href="#!" value="Cakes">Bánh Ngọt</a>
-            <a class="btn btn-nav-header" href="#!" value="Cookies">Bánh Quy</a>
-            <a class="btn btn-nav-header" href="#!" value="Toasts">Bánh mì</a>
+            <a class="btn btn-nav-header" href="#!" value="Bánh kem">Bánh kem</a>
+            <a class="btn btn-nav-header" href="#!" value="Bánh lạnh">Bánh lạnh</a>
+            <a class="btn btn-nav-header" href="#!" value="Bánh nướng">Bánh nướng</a>
+            <a class="btn btn-nav-header" href="#!" value="Bánh quy">Bánh quy</a>
+            <a class="btn btn-nav-header" href="#!" value="Bánh mì que">Bánh mì que</a>
         </div>
     </nav>
     <!-- Thanh lọc sản phẩm -->
@@ -75,11 +75,11 @@
                 <label for="">Phân loại</label>
                 <select id="category-filter" class="filter-select">
                     <option value="">Tất cả</option>
-                    <option value="Buns">Bánh bao</option>
-                    <option value="Cookies">Bánh quy</option>
-                    <option value="Toasts">Bánh mì</option>
-                    <option value="Dry Cakes">Bánh khô</option>
-                    <option value="Cakes">Bánh ngọt</option>
+                    <option value="Bánh kem">Bánh kem</option>
+                    <option value="Bánh lạnh">Bánh lạnh</option>
+                    <option value="Bánh nướng">Bánh nướng</option>
+                    <option value="Bánh quy">Bánh quy</option>
+                    <option value="Bánh mì que">Bánh mì que</option>
                 </select>
                 <label for="min-price">Giá từ</label>
                 <input type="number" id="min-price" placeholder="Nhập giá tối thiểu">
@@ -382,32 +382,7 @@
     </div>
     <!-- Form chi tiết sản phẩm -->
     <div id="product-detail-modal" class="modal-detail">
-        <div class="product-detail-content">
-            <span class="close-btn" onclick="closeProductDetail()">&times;</span>
-            <div class="product-detail-left">
-                <img id="product-image" src="" alt="Product Image">
-            </div>
-            <div class="product-detail-right">
-                <h2 id="product-name">Tên Sản Phẩm</h2>
-                <p class="product-price" id="product-price">Giá: 0 ₫</p>
-                <p id="product-description">Mô tả ngắn về sản phẩm sẽ xuất hiện ở đây...</p>
-                <label for="note">Ghi chú:</label>
-                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
-                <div class="quantity-wrapper">
-                    <span>Số lượng:</span>
-                    <div class="btnCustom" value="details-product">
-                        <button class="btnCustomAsc" onclick="decreaseQuantity(this)">-</button>
-                        <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1"
-                            oninput="inputQuantity(this)">
-                        <button class="btnCustomDesc" onclick="increaseQuantity(this)">+</button>
-                    </div>
-                </div>
-                <div class="total-price">
-                    <p>Thành tiền: <span id="total-price"></span></p>
-                </div>
-                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
-            </div>
-        </div>
+
     </div>
 
 
@@ -489,4 +464,3 @@
 
 
 </html>
-
