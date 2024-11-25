@@ -1404,12 +1404,9 @@ html {
         padding: 8px;
     }
 
-    .category-content-header, .product-content-header {
-        align-items: flex-start;
-    }
-
     .product-content-header, .category-content-header {
-        flex-direction: row; 
+        flex-direction: row;
+        align-items: flex-start; 
         flex-wrap: wrap; 
         gap: 12px; 
         height: 100px;
@@ -1437,8 +1434,16 @@ html {
     .filter-menu {
         width: 100%; 
     }
+    .category-content-headerText{
+        overflow: hidden;
+    }
+    .category-content-headerText h1{
+        font-size: 4px;
+    }
     .category-content-headerButton{
         font-size: 3px;
+        width: auto;
+        overflow: hidden;
     }
 }
 
@@ -2246,8 +2251,6 @@ input[type="file"]{
     padding: 0 16px;
     transition: 0.2s;
     cursor: pointer;
-    position: absolute;
-    right: 4%;
 }
 .category-content-headerButton:hover{
     background-color: var(--action-color-hover);
@@ -2318,6 +2321,7 @@ input[type="file"]{
     .categories-header,.categories-row{
         flex-wrap: wrap;
     }
+
 }
 .categories-area-wrapper{
     width: 100%;
