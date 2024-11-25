@@ -22,8 +22,14 @@ function test() {
 
     console.log(isSuccess);
     if (isSuccess) {
-        document.getElementById('title').innerHTML = 'Giao dịch thành công';       
 
+        userCurrent.cart.forEach(product => {
+            const findProduct = listProduct.find(item => item.name === product.name);
+            findProduct.quantity -= product.quantity;
+        });
+        localStorage.setItem(LIST_PRODUCT, JSON.stringify(listProduct));
+
+        document.getElementById('title').innerHTML = 'Giao dịch thành công';       
         const order = JSON.parse(localStorage.getItem("order"));
         const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
         const listOrder = localStorage.getItem(LIST_ORDER) ? JSON.parse(localStorage.getItem(LIST_ORDER)) : [];

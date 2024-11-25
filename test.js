@@ -65,7 +65,6 @@ function loadDataProduct() {
     listProduct = localStorage.getItem(LIST_PRODUCT) ? JSON.parse(localStorage.getItem(LIST_PRODUCT)) : [];
     listProductFilter = [...listProduct];
     totalPage = Math.ceil(listProduct.length / perPage);
-    console.log(totalPage);
     renderBtnPage();
     renderProducts(listProduct);
 }
@@ -208,19 +207,44 @@ function renderProducts(productsToRender) {
 // Hàm mở form chi tiết sản phẩm
 function openProductDetail(index) {
     const product = listProduct[index];
-    document.getElementById("product-image").src = product.image;
-    document.getElementById("product-name").textContent = product.name;
-    document.getElementById("product-price").textContent = formatPrice(product.price);
-    document.getElementById("product-description").textContent = product.description;
-
-    document.getElementById("quantity-product-details").value = 1;
-
-    // Lưu giá gốc của sản phẩm và cập nhật tổng thanh toán ban đầu
+    if (product.quantity === 0) { 
+        alert("Sản phẩm đã hết hàng.");
+        return;
+    };
+    const txt = `
+        <div class="product-detail-content">
+            <span class="close-btn" onclick="closeProductDetail()">&times;</span>
+            <div class="product-detail-left">
+                <img id="product-image" src="${product.image}" alt="Product Image">
+            </div>
+            <div class="product-detail-right">
+                <h2 id="product-name">${product.name}</h2>
+                <p class="product-price" id="product-price">Giá: ${product.price}</p>
+                <p id="product-description">${product.description}</p>
+                <label for="note">Ghi chú:</label>
+                <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
+                <div class="quantity-wrapper">
+                    <span>Số lượng:</span>
+                    <div class="btnCustom" value="details-product">
+                        <button class="btnCustomAsc" onclick="decreaseQuantity(this, ${index})">-</button>
+                        <input type="text" class="txtCustom quantity" id="quantity-product-details" value="1" min="1"
+                            oninput="inputQuantity(this, ${index})">
+                        <button class="btnCustomDesc" onclick="increaseQuantity(this, ${index})">+</button>
+                    </div>
+                </div>
+                <div class="total-price">
+                    <p>Thành tiền: <span id="total-price"></span></p>
+                </div>
+                <button class="btn add-to-cart" onclick="addToCart()">Thêm vào giỏ hàng</button>
+            </div>
+        </div>`;
+    
+    document.getElementById("product-detail-modal").innerHTML = txt;
+    document.getElementById("product-detail-modal").style.display = "flex";
+    
     const basePrice = product.price;
     updateTotalPrice(basePrice);
 
-    // Hiển thị form chi tiết sản phẩm
-    document.getElementById("product-detail-modal").style.display = "flex";
 }
 
 // Hàm tổng thanh toán
@@ -237,12 +261,15 @@ function closeProductDetail() {
 
 // Hàm tăng số lượng
 function increaseQuantity(obj, index) {
-    const quantityInput = obj.parentNode.querySelector(".quantity");
-    newQuantity = parseInt(quantityInput.value) + 1;
-    quantityInput.value = newQuantity;
+    const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
+    newQuantity = quantityInput + 1;
     
+    if (newQuantity > listProduct[index].quantity) {
+        alert("Số lượng sản phẩm không đủ.");
+        return;
+    }
+    obj.parentNode.querySelector(".quantity").value = newQuantity;
     
-
     if (obj.parentNode.getAttribute('value') === 'details-product') {
         const basePrice = parsePrice(document.querySelector("#product-price").textContent);
         updateTotalPrice(basePrice);
@@ -261,10 +288,11 @@ function increaseQuantity(obj, index) {
 
 // Hàm giảm số lượng
 function decreaseQuantity(obj, index) {
-    const quantityInput = obj.parentNode.querySelector(".quantity");
-    if (parseInt(quantityInput.value) > 1) {
-        newQuantity = parseInt(quantityInput.value) - 1;
-        quantityInput.value = newQuantity;
+    const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
+
+    if (quantityInput > 1) {
+        newQuantity = quantityInput - 1;
+        obj.parentNode.querySelector(".quantity").value = newQuantity;
         
         if (obj.parentNode.getAttribute('value') === 'details-product') {
             const basePrice = parsePrice(document.querySelector("#product-price").textContent);
@@ -285,11 +313,16 @@ function decreaseQuantity(obj, index) {
 }
 
 function inputQuantity(obj, index) {
-    const quantityInput = obj.parentNode.querySelector(".quantity").value;
-    if (parseInt(quantityInput) < 1) {
-        alert("Số lượng phải lớn hơn 1.");
-    }
-    else {        
+    setTimeout(() => {
+        const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
+        if (quantityInput < 1) {
+            alert("Số lượng phải lớn hơn 0.");
+            obj.parentNode.querySelector(".quantity").value = 1;
+        }
+        if (quantityInput > listProduct[index].quantity) {
+            alert("Số lượng sản phẩm không đủ.");
+            obj.parentNode.querySelector(".quantity").value = 1;
+        }
         if (obj.parentNode.getAttribute('value') === 'details-product') {
             const basePrice = parsePrice(document.querySelector("#product-price").textContent);
             updateTotalPrice(basePrice);
@@ -304,7 +337,7 @@ function inputQuantity(obj, index) {
             const totalPriceComponent = document.querySelector(".total-price-cart");
             totalPriceComponent.innerHTML = formatPrice(totalPrice);
         }
-    }
+     }, 500);
 };
 
 // Hàm thêm vào giỏ hàng
@@ -321,7 +354,10 @@ function addToCart() {
     productCheckout.image = document.getElementById("product-image").src;
 
     findProduct = userCurrent.cart.find(product => product.name === productCheckout.name);
+    findProductInList = listProduct.find(product => product.name === productCheckout.name);
+    console.log(findProductInList);
     if (findProduct !== undefined) {
+
         findProduct.quantity += productCheckout.quantity;
     }
     else {
@@ -545,6 +581,11 @@ btnPaymentSubmit.addEventListener("click", () => {
 
     }
     else {
+        userCurrent.cart.forEach(product => {
+            const findProduct = listProduct.find(item => item.name === product.name);
+            findProduct.quantity -= product.quantity;
+        });
+        localStorage.setItem(LIST_PRODUCT, JSON.stringify(listProduct));
         localStorage.setItem(NEXT_ID, JSON.stringify(nextOrderId));
         listOrder = JSON.parse(localStorage.getItem('listOrder')) || [];
         listOrder.unshift(order);
@@ -623,11 +664,17 @@ btnHeader.forEach(btn => {
         const fixedPosition = window.pageYOffset + productContent.getBoundingClientRect().top - 140;
         window.scrollTo({ top: fixedPosition, behavior: "smooth" });  
         if (btn.getAttribute("value") === "") {
+            totalPage = Math.ceil(listProduct.length / perPage);
             renderProducts(listProduct);
+            renderBtnPage();
+
         }
         else {
             const listProductFilter = listProduct.filter(product => product.category === btn.getAttribute("value"));
+            totalPage = Math.ceil(listProductFilter.length / perPage);
             renderProducts(listProductFilter);
+            console.log(totalPage);
+            renderBtnPage();
         }
 
     });  
@@ -667,6 +714,10 @@ document.getElementById("apply-filter").addEventListener("click", () => {
             return product.price >= minPrice && product.price <= maxPrice;
         }
     });
+    console.log(listProductFilter.length);
+    totalPage = Math.ceil(listProductFilter.length / perPage);
+    console.log(totalPage);
+    renderBtnPage();
     renderProducts(listProductFilter);
 
 });
@@ -682,8 +733,8 @@ btnAsc.addEventListener("click", () => {
         if (btnDesc.classList.contains("btn--active")) {
             btnDesc.classList.remove("btn--active");
         }
-        const listProductFilterSort = [...listProductFilter].sort((a, b) => a.price - b.price);
-        renderProducts(listProductFilterSort);
+        listProductFilter = [...listProductFilter].sort((a, b) => a.price - b.price);
+        renderProducts(listProductFilter);
     }
 });
 btnDesc.addEventListener("click", () => {
@@ -696,8 +747,8 @@ btnDesc.addEventListener("click", () => {
         if (btnAsc.classList.contains("btn--active")) {
             btnAsc.classList.remove("btn--active");
         }
-        const listProductFilterSort = [...listProductFilter].sort((a, b) => b.price - a.price);
-        renderProducts(listProductFilterSort);
+        listProductFilter = [...listProductFilter].sort((a, b) => b.price - a.price);
+        renderProducts(listProductFilter);
     }
 });
 const btnReset = document.querySelector(".btn-reset");
@@ -721,7 +772,13 @@ function renderBtnPage() {
     const btnPage = document.querySelector(".pagination");
     let txtHtml = "";
     for (let i = 1; i <= totalPage; i++) {
-        txtHtml += `<li class="btn-page" onclick="selectedPage(this)">${i}</li>`;
+        if (i === 1) {
+            txtHtml += `<li class="btn-page btn-page--active" onclick="selectedPage(this)">${i}</li>`;
+        }
+        else {
+            txtHtml += `<li class="btn-page" onclick="selectedPage(this)">${i}</li>`;
+
+        }
     }
     btnPage.innerHTML = txtHtml;
 }
@@ -735,6 +792,7 @@ function selectedPage(obj) {
     obj.classList.add("btn-page--active");
     pageCurrent = parseInt(obj.textContent);
     console.log(pageCurrent);
+    console.log(listProductFilter);
     renderProducts(listProductFilter);
 }
 
@@ -993,3 +1051,15 @@ function confirmLogout() {
     alert("Bạn đã đăng xuất thành công!");
     window.location.href = "index.html"; // Quay về trang chính
 }
+
+var x = window.matchMedia("(max-width: 767.98px)");
+
+if (x.matches) {
+    document.querySelector(".search").addEventListener("click", () => {
+        console.log("hihi");
+        document.querySelector(".search .search-icon").style.display = "none";
+        document.querySelector(".search-txt").style.display = "unset";
+        document.querySelector(".filter-products").style.display = "unset";
+     });
+}
+
