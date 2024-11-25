@@ -117,7 +117,10 @@
                     <button class="product-content-headerButton">ADD PRODUCT</button>
                 </div>
                 <div class="product-content-actions">
-                    <input id="search-product" class="search-bar" placeholder="Search...." type="text">
+                    <div class="search">
+                        <input type="search" placeholder="Search..." id="search-product">
+                        <button type="submit" class="search_product"><i class='bx bx-search-alt-2'></i></button>
+                    </div>
                     <div class="product-content-actions-wrapper">
                         <div class="filter-button-wrapper">
                             <button class="action-button filter jsFilter">
@@ -256,9 +259,9 @@
                 </div>
                 <div class="form-status">
                     <label>Trạng thái:</label>
-                    <input type="radio" name="status" value="Active" id="activeStatus" name="Status" />
+                    <input type="radio" name="status" value="Active" id="activeStatus" />
                     <label for="status">Active</label>
-                    <input type="radio" name="status" value="Disabled" id="disableStatus" name="Status" />
+                    <input type="radio" name="status" value="Disabled" id="disableStatus" />
                     <label for="status">Disabled</label>
                 </div>
                 <div>
@@ -320,10 +323,12 @@
                     </form>
                 </div>
                 <div class="category-content-actions">
-                    <input class="search-bar" id="search-category" placeholder="Search...." type="text"
-                        oninput="toggleSearchButton();">
+                    <div class="search">
+                        <input type="search" placeholder="Search..." id="search-category">
+                        <button type="submit" class="search_category"><i class='bx bx-search-alt-2'></i></button>
+                    </div>
                 </div>
-                <div class="categories-area-wrapper tableView">
+                <div class="categories-area-wrapper">
                     <div class="categories-header">
                         <div class="categories-cell id">
                             Mã loại sản phẩm

@@ -1018,9 +1018,6 @@ window.onload = function() {
 
 
 //--------------------------Product and Category-------------------------------------------
-document.querySelector('.jsFilter').addEventListener('click', function () {
-  document.querySelector('.filter-menu').classList.toggle('active');
-});
 let currentView = 'table';
 function InitProductView(){
   const tabltViewButton=document.querySelector('.list');
@@ -1081,17 +1078,27 @@ function randomId(existingId) {
 document.querySelector('.product-content-headerButton').addEventListener('click', toggleAddProductForm);
 //PRODUCT
 function toggleAddProductForm() {
+  Array.from(formP.elements).forEach(input=>{
+      input.disabled=false;
+  });
   formP.style.display = formP.style.display === 'block' ? 'none' : 'block';
 }
 function resetFormP() {
-  document.getElementById('productName').value='';
-  document.getElementById('productCategory').value='';
-  document.getElementsByName('Status').value='';
-  document.getElementById('productDescription').value='';
-  document.getElementById('productStock').value='';
-  document.getElementById('productPrice').value='';
-  document.getElementById('productImageP').value='';
+  document.getElementById('productName').value = ''; 
+  document.getElementById('productCategory').value = "All Categories"; 
+
+  const statusRadios = document.getElementsByName('status');
+  for (let i = 0; i < statusRadios.length; i++) {
+    statusRadios[i].checked = false;
+  }
+  document.getElementById('productDescription').value = ''; 
+  document.getElementById('productStock').value = ''; 
+  document.getElementById('productPrice').value = ''; 
+  document.getElementById('productImageP').value = '';
+  // Ẩn preview hình ảnh
   preview.style.display='none';
+  document.getElementById('fileNameLabel').textContent = 'No file selected'; 
+  
 }
 function cancelProduct() {
   resetFormP();
@@ -1109,15 +1116,11 @@ const productPage = document.querySelector('.products-page');
 const categoryOption = document.getElementById('productCategory');
 const categoryOptionFilter = document.getElementById('productCategoryFilter');
 let categories = [];
-let products =  [];
+let listProduct =  [];
 let editProductIndex = null; 
 // Hiển thị danh sách category
 function updateCategoryOptions() {
     categoryOption.innerHTML = '<option value="All Categories">Chọn loại sản phẩm</option>'; 
-    if (!categories || !categories.length) {
-        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
-        return;
-    }
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -1127,10 +1130,6 @@ function updateCategoryOptions() {
 }
 function updateCategoryOptionsFilter() {
     categoryOptionFilter.innerHTML = '<option value="All Categories">Chọn loại sản phẩm</option>'; // Thêm tuỳ chọn mặc định
-    if (!categories.length || !categories) {
-        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
-        return;
-    }
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -1150,7 +1149,7 @@ ImageP.addEventListener('change', function () {
         reader.readAsDataURL(file);
         fileLabel.textContent = file.name;
     } else {
-        preview.src = default_image; 
+        preview.src = img.src; 
         preview.style.display = 'block'; 
         fileLabel.textContent = 'No file selected';
     }
@@ -1174,7 +1173,7 @@ formP.addEventListener('submit', function (event) {
   const ProductDescription = document.getElementById('productDescription').value.trim();
   const ProductStock = document.getElementById('productStock').value.trim();
   const ProductPrice = document.getElementById('productPrice').value.trim();
-  if(products.some((p,i) => p.name===ProductName && i!==editProductIndex)){
+  if(listProduct.some((p,i) => p.name===ProductName && i!==editProductIndex)){
     alert("Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
     return;
   }
@@ -1206,13 +1205,13 @@ formP.addEventListener('submit', function (event) {
 
   let productData = {
     name: ProductName,
-    id: editProductIndex !== null ? products[editProductIndex].id : randomId(products.map(prod => prod.id)),
+    id: editProductIndex !== null ? listProduct[editProductIndex].id : randomId(listProduct.map(prod => prod.id)),
     category: selectedCategory.name,
     status: ProductStatus,
     description: ProductDescription,
     stock: ProductStock,
     price: ProductPrice,
-    image: img 
+    image: img.src
   };
   // Nếu có ảnh mới, thay thế ảnh mặc định
   if (ImageP.files[0]) {
@@ -1224,9 +1223,9 @@ formP.addEventListener('submit', function (event) {
       saveProduct(productData);
     };
     reader.readAsDataURL(ImageP.files[0]);
-  }else if(editProductIndex !== null && products[editProductIndex].image){
-    productData.image = products[editProductIndex].image;
-    productData.imageName = products[editProductIndex].imageName;
+  }else if(editProductIndex !== null && listProduct[editProductIndex].image){
+    productData.image = listProduct[editProductIndex].image;
+    productData.imageName = listProduct[editProductIndex].imageName;
     saveProduct(productData);
   }else {
     saveProduct(productData); 
@@ -1238,44 +1237,39 @@ formP.addEventListener('submit', function (event) {
   displayProducts();
 });
 function updateStatus(){
-  products.forEach(product => {
+  listProduct.forEach(product => {
     if(Number(product.stock)===0 && product.status !== 'Disabled'){
       product.status='Disabled';
     }
   });
-  localStorage.setItem('products',JSON.stringify(products));
+  localStorage.setItem('listProduct',JSON.stringify(listProduct));
   displayProducts();
 }
 const removeImageBtn = document.getElementById('removeImageBtn');
 removeImageBtn.addEventListener('click',function(){
   const fileLabel = document.getElementById('fileNameLabel');
   if(editProductIndex !== null){
-    products = JSON.parse(localStorage.getItem('products')) || [];
-    products[editProductIndex].image=null;
-    products[editProductIndex].imageName=null;
-    localStorage.setItem('products',JSON.stringify(products));
+    listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
+    listProduct[editProductIndex].image=null;
+    listProduct[editProductIndex].imageName=null;
+    localStorage.setItem('listProduct',JSON.stringify(listProduct));
   }
-  preview.src = img;
+  preview.src = img.src;
   ImageP.value='';
   fileLabel.textContent= 'No file selected';
 });
 formP.addEventListener('blur',updateStock);
 // Lưu sản phẩm
 function saveProduct(productData) {
-  if (parseInt(productData.stock) > 0) {
-    productData.status = 'Active';
-  } else if (productData.stock == 0) {
-    productData.status = 'Disabled';
-  }
   if (editProductIndex !== null) {
-    products[editProductIndex] = productData;
+    listProduct[editProductIndex] = productData;
     alert("Sản phẩm đã được cập nhật!");
     editProductIndex = null;
   } else {
-    products.unshift(productData);
+    listProduct.unshift(productData);
     alert("Sản phẩm đã được thêm!");
   }
-  localStorage.setItem('products', JSON.stringify(products));
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   cancelProduct();
 }
 window.addEventListener('load', updateCategoryOptions);
@@ -1284,8 +1278,8 @@ window.addEventListener('blur',updateStock);
 window.addEventListener('load', updateCategoryOptionsFilter);
 // Các hàm xoá và chỉnh sửa sản phẩm
 function deleteP(index) {
-  products.splice(index, 1);
-  localStorage.setItem('products', JSON.stringify(products));
+  listProduct.splice(index, 1);
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   displayProducts();
 }
 
@@ -1304,7 +1298,7 @@ editButton.style.display = 'none';
 
 function editP(index) {
   editProductIndex = index;
-  const product = products[index];
+  const product = listProduct[index];
   formP.style.display = 'block';
   formTitleP.textContent = 'Xem sản phẩm'; 
   document.getElementById('productName').value = product.name;
@@ -1313,9 +1307,8 @@ function editP(index) {
   document.getElementById('productDescription').value = product.description;
   document.getElementById('productStock').value = product.stock;
   document.getElementById('productPrice').value = product.price;
-  document.getElementById('productImage').value = product.image;
   // Hiển thị ảnh nếu có
-  if (product.image && product.image !== img) {
+  if (product.image !== null && product.image !== img.src) {
     preview.src = product.image;
     preview.style.display = 'block';
     removeImageBtn.disabled=true;
@@ -1354,11 +1347,11 @@ let currentPageP = 1;
 const maxIndex = 12;
 
 function displayProducts() {
-  products = JSON.parse(localStorage.getItem('products')) || [];
+  listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   productPage.innerHTML = '';
   const startIndex = (currentPageP - 1) * maxIndex;
   const endIndex = startIndex + maxIndex;
-  const View = products.slice(startIndex, endIndex);
+  const View = listProduct.slice(startIndex, endIndex);
   
   View.forEach((product, index) => {
     addInToListP(product, index);
@@ -1370,7 +1363,7 @@ function displayProducts() {
   }
   if(currentView === 'table')
     switchToTableView();
-  updatePaginationDisplay(products.length);
+  updatePaginationDisplay(listProduct.length);
 }
 document.querySelector('.list').addEventListener('click', () => {
   switchToTableView();
@@ -1453,9 +1446,24 @@ window.addEventListener('click',e =>{
       (button.style.display = 'block'));
   }
 });
+window.addEventListener('click', e => {
+  const filterButton = document.querySelector('.jsFilter');  // Nút filter
+  const filterMenu = document.querySelector('.filter-menu'); // Menu filter
+
+  // Kiểm tra nếu click vào nút filter, mở hoặc đóng menu
+  if (e.target.closest('.jsFilter')) {
+      filterMenu.classList.toggle('active'); 
+  } else {
+      // Nếu click vào ngoài nút filter và menu, tắt menu
+      if (!e.target.closest('.filter-menu') && !e.target.closest('.jsFilter')) {
+          filterMenu.classList.remove('active');
+      }
+  }
+});
+
 function navigateToPage(action) {
-  const products = JSON.parse(localStorage.getItem('products')) || [];
-  const totalPages = Math.ceil(products.length / maxIndex);
+  const listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
+  const totalPages = Math.ceil(listProduct.length / maxIndex);
   
   if (action === 'first') currentPageP = 1;
   else if (action === 'last') currentPageP = totalPages;
@@ -1499,9 +1507,9 @@ document.getElementById('sortByCategoryP').addEventListener('click',() => sortPr
 document.getElementById('sortByPriceP').addEventListener('click',()=>sortProduct('priceP'));
 let sortOrderP={name:'asc',id:'asc',stock:'asc',category:'asc',price:'asc'}
 function sortProduct(attribute) {
-  products = JSON.parse(localStorage.getItem('products')) || [];
+  listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   let order=sortOrderP[attribute];
-  products.sort((a, b) => {
+  listProduct.sort((a, b) => {
     if (attribute === 'nameP') {
       return order === 'asc' ? (a.name.localeCompare(b.name)) : (b.name.localeCompare(a.name));
     }
@@ -1520,7 +1528,7 @@ function sortProduct(attribute) {
     return 0;
   });
   sortOrderP[attribute]=order==='asc'?'desc':'asc';
-  localStorage.setItem('products', JSON.stringify(products));
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   displayProducts();
 }
 const statusOption = document.getElementById('statusOption');
@@ -1530,11 +1538,11 @@ const SearchInputP=document.getElementById('search-product');
 function searchProducts() {
   const searchInputValue = SearchInputP.value.toLowerCase().trim();
   if (!searchInputValue) {
-    displayFilteredProducts(products); 
+    displayFilteredProducts(listProduct); 
     return;
   }
   const searchTerms = searchInputValue.split(/\s+/);
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = listProduct.filter(product => {
     let score = 0;
     score += product.name.toLowerCase().includes(searchTerms) ? 10 : 0;
     score += product.id.toLowerCase().includes(searchTerms) ? 9 :0;
@@ -1562,7 +1570,7 @@ function displayFilteredProducts(filteredProducts) {
 }
 const categoryOptionFilterChoose=document.getElementById('productCategoryFilter');
 function filterProducts() {
-  products=JSON.parse(localStorage.getItem('products')) || [];
+  listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
   categories=JSON.parse(localStorage.getItem('categories')) || [];
   const CategoryId = categoryOptionFilterChoose.value;
   let selectedCategoryId = "All Categories";  
@@ -1574,16 +1582,16 @@ function filterProducts() {
   let selectedStatus =  "all status";
   selectedStatus= statusOption.value.toLowerCase().trim();  
   if(selectedCategoryId === "All Categories" && selectedStatus === "all status"){
-    filteredProducts = products;
+    filteredProducts = listProduct;
   }
   else if(selectedCategoryId === "All Categories" && selectedStatus !== "all status"){
-    filteredProducts = products.filter(product => product.status.toLowerCase() === selectedStatus);
+    filteredProducts = listProduct.filter(product => product.status.toLowerCase() === selectedStatus);
   }
   else if(selectedCategoryId !== "All Categories" && selectedStatus === "all status"){
-    filteredProducts = products.filter(product => product.category === selectedCategoryId);
+    filteredProducts = listProduct.filter(product => product.category === selectedCategoryId);
   }
   else if(selectedCategoryId !== "All Categories" && selectedStatus !== "all status"){
-    filteredProducts = products.filter(product => {
+    filteredProducts = listProduct.filter(product => {
       const matchCategory = (product.category === selectedCategoryId);
       const matchStatus = (product.status.toLowerCase() === selectedStatus);
       return matchCategory && matchStatus;
@@ -1596,7 +1604,7 @@ applyFilterButton.addEventListener('click', filterProducts);
 resetFilterButton.addEventListener('click', () => {
   categoryOptionFilterChoose.value = "All Categories";
   statusOption.value = "All Status";
-  displayFilteredProducts(products); 
+  displayFilteredProducts(listProduct); 
 });
 function rebindMoreButtonEvents(){
   if(currentView !== 'grid') return;
@@ -1678,7 +1686,7 @@ Submit.addEventListener('click', function (event) {
 });
 function updateStock() {
   categories.forEach(category=>{
-      const count = products.filter(prod => prod.category === category.name);
+      const count = listProduct.filter(prod => prod.category === category.name);
       let sumcnt=0;
       count.forEach(cnt=>{
         sumcnt+=parseInt(cnt.stock);
@@ -1701,13 +1709,13 @@ function addInToListC(category,index){
     categoryItem.classList.add('categories-row');
     categoryItem.innerHTML = `
             <div class="categories-cell id">
-                <span class="cell-label">ID</span>${category.id}
+              ${category.id}
             </div>
             <div class="categories-cell name-category">
-                <span class="cell-label">Loại sản phẩm</span>${category.name}
+              ${category.name}
             </div>
             <div class="categories-cell stock">
-                <span class="cell-label">Số lượng</span>${category.stock}
+                ${category.stock}
             </div>
             <div class="categories-cell tool">
                 <button class="tool-button" onclick="confirmDeleteC(${index});">Delete</button>
@@ -1722,8 +1730,8 @@ function deleteC(index){
   let categoryDelete=categories[index];
   categories = categories.filter(category => category.id !== categoryDelete.id);
   localStorage.setItem('categories', JSON.stringify(categories));
-  products = products.filter(product => product.category !== categoryDelete.name);
-  localStorage.setItem('products',JSON.stringify(products));
+  listProduct = listProduct.filter(product => product.category !== categoryDelete.name);
+  localStorage.setItem('listProduct',JSON.stringify(listProduct));
   updateCategoryOptions();
   displayProducts(); 
   updateStock();
