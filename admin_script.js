@@ -11,7 +11,7 @@ allSideMenu.forEach(item => {
 
 const menuBar = document.querySelector('#content nav .bx.bx-menu');
 const sideBar = document.getElementById('sidebar');
-const avatar = document.querySelector('#sidebar .avatar');
+const avatar = document.querySelector('#sidebar #profile-pic');
 menuBar.addEventListener('click', function(){
     sideBar.classList.toggle('hide');
     avatar.style.visibility = avatar.style.visibility === 'hidden' ? 'visible' : 'hidden';
@@ -44,19 +44,25 @@ const AccountManager = document.querySelector('#account_manager');
 const OrderManager = document.querySelector('#order_manager');
 const ProductSeseion=document.querySelector('.product-container');
 const CategorySesseion=document.querySelector('.category-container');
+// Lấy các phần tử liên quan
+const settingsMenu = document.getElementById('setting'); // Menu "Cài đặt"
+const settingsContainer = document.getElementById('settings-container'); // Phần nội dung "Cài đặt"
 
 Dashboard.style.display = 'block';
 AccountManager.style.display = 'none';
 OrderManager.style.display = 'none';
 ProductSeseion.style.display = 'none';
 CategorySesseion.style.display = 'none';
+settingsContainer.style.display = 'none';
 
 function showDashboard(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'dashboard_show') {
         Dashboard.style.display = 'block';
+        settingsContainer.style.display = 'none';
     } else {
         Dashboard.style.display = 'none';
+        
     }
 }
 
@@ -64,6 +70,7 @@ function showAccountManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'account') {
         AccountManager.style.display = 'block';
+        settingsContainer.style.display = 'none';
         showAccount();
     } else {
         AccountManager.style.display = 'none';
@@ -74,6 +81,7 @@ function showOrderManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'order') {
         OrderManager.style.display = 'block';
+        settingsContainer.style.display = 'none';
     } else {
         OrderManager.style.display = 'none';
     }
@@ -82,6 +90,7 @@ function showProductSection(event) {
   const selectedItem = event.currentTarget.id;
   if (selectedItem === 'product') {
     ProductSeseion.style.display='block';
+    settingsContainer.style.display = 'none';
   } else {
     ProductSeseion.style.display='none'; 
   }
@@ -91,6 +100,7 @@ function showCategorySession(event){
   const selectedItem = event.currentTarget.id;
   if(selectedItem==='category'){
     CategorySesseion.style.display='block';
+    settingsContainer.style.display = 'none';
   }else{
     CategorySesseion.style.display='none';
   }
@@ -103,28 +113,77 @@ allSideMenu.forEach(item => {
     item.addEventListener('click', showProductSection);
     item.addEventListener('click', showCategorySession);
 });
-// Biểu đồ
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Tháng', 'Đơn Hàng'],
-    ['Tháng 8',  321],
-    ['Tháng 9',  823],
-    ['Tháng 10',  432],
-    ['Tháng 11',  823]
-  ]);
 
-  var options = {
-    title: 'Thống Kê Bán Hàng',
-    hAxis: {title: 'Tháng',  titleTextStyle: {color: '#333'}},
-    vAxis: {minValue: 0}
-  };
 
-  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
+
+// Ẩn các phần khác
+const sections = [Dashboard, AccountManager, OrderManager, ProductSeseion, CategorySesseion, settingsContainer];
+
+// Thêm sự kiện click vào menu "Cài đặt"
+settingsMenu.addEventListener('click', function (event) {
+    event.preventDefault(); // Ngăn hành động mặc định nếu có
+    // Ẩn tất cả các phần
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    // Hiển thị phần "Cài đặt"
+    settingsContainer.style.display = 'block';
+    allSideMenu.forEach(menu => {
+      menu.parentElement.classList.remove('active');
+    });
+
+});
+
+
+
+
+
+
+
+
+google.charts.load('current', { packages: ['corechart'] });
+google.charts.setOnLoadCallback(drawResponsiveChart);
+
+let chart; // Biến lưu biểu đồ
+
+function drawResponsiveChart() {
+    const container = document.getElementById('chart_div');
+    const width = container.offsetWidth; // Lấy chiều rộng thực tế của thẻ `div`
+    const height = container.offsetHeight; // Lấy chiều cao thực tế của thẻ `div`
+
+    // Dữ liệu biểu đồ
+    const data = google.visualization.arrayToDataTable([
+        ['Tháng', 'Đơn Hàng'],
+        ['Tháng 8', 321],
+        ['Tháng 9', 823],
+        ['Tháng 10', 432],
+        ['Tháng 11', 823]
+    ]);
+
+    // Tùy chọn biểu đồ
+    const options = {
+        title: 'Thống Kê Bán Hàng',
+        hAxis: { title: 'Tháng', titleTextStyle: { color: '#333' } },
+        vAxis: { minValue: 0 },
+        width: width,  // Sử dụng chiều rộng từ CSS
+        height: height // Sử dụng chiều cao từ CSS
+    };
+
+    // Vẽ biểu đồ
+    chart = new google.visualization.AreaChart(container);
+    chart.draw(data, options);
 }
+
+// Sự kiện khi kích thước trình duyệt thay đổi
+window.addEventListener('resize', drawResponsiveChart);
+
+// Theo dõi thay đổi kích thước của thẻ `div` bằng ResizeObserver
+const resizeObserver = new ResizeObserver(() => {
+    drawResponsiveChart();
+});
+resizeObserver.observe(document.getElementById('chart_div'));
+
 
 
 // Ẩn/hiện phần thêm account
@@ -141,6 +200,7 @@ function hideForm() {
   clearForm();
 }
 function clearForm(){
+  document.getElementById('id').value = '';
   document.getElementById('name').value = '';
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
@@ -148,43 +208,55 @@ function clearForm(){
   document.getElementById('address').value = '';
   document.getElementById('role').value = 'all';
 }
-// phần thêm account
-// Thêm sự kiện keydown để kiểm tra các trường nhập liệu
 document.getElementById('accountForm').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Ngăn hành động mặc định của Enter
+      event.preventDefault(); // Ngăn hành động mặc định của Enter
 
-    // Lấy giá trị từ các trường nhập liệu
-    let name = document.getElementById('name').value.trim();
-    let username = document.getElementById('username').value.trim();
-    let password = document.getElementById('password').value.trim();
-    let phone = document.getElementById('phone').value.trim();
-    let address = document.getElementById('address').value.trim();
-    let role = document.getElementById('role').value.trim();
+      // Kiểm tra nếu đang ở chế độ cập nhật
+      const isUpdating = document.getElementById('update_account').style.display === 'inline-block';
 
-    // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
-    if (!name) {
-      document.getElementById('name').focus();
-    } else if (!username) {
-      document.getElementById('username').focus();
-    } else if (!password) {
-      document.getElementById('password').focus();
-    } else if (!phone) {
-      document.getElementById('phone').focus();
-    } else if (!address) {
-      document.getElementById('address').focus();
-    } else if (!role) {
-      document.getElementById('role').focus();
-    } else {
-      // Nếu tất cả các trường đều có dữ liệu, gọi hàm addNewAccount
-      addNewAccount();
-    }
+      if (isUpdating) {
+          // Gọi hàm cập nhật tài khoản
+          changeAccount();
+      } else {
+          // Gọi hàm thêm tài khoản mới
+          let id = document.getElementById('id').value.trim();
+          let name = document.getElementById('name').value.trim();
+          let username = document.getElementById('username').value.trim();
+          let password = document.getElementById('password').value.trim();
+          let phone = document.getElementById('phone').value.trim();
+          let address = document.getElementById('address').value.trim();
+          let role = document.getElementById('role').value.trim();
+
+          // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
+          if (!id) {
+            document.getElementById('id').focus();
+          } else
+          if (!name) {
+              document.getElementById('name').focus();
+          } else if (!username) {
+              document.getElementById('username').focus();
+          } else if (!password) {
+              document.getElementById('password').focus();
+          } else if (!phone) {
+              document.getElementById('phone').focus();
+          } else if (!address) {
+              document.getElementById('address').focus();
+          } else if (!role) {
+              document.getElementById('role').focus();
+          } else {
+              addNewAccount();
+          }
+      }
   }
 });
 
-// Hàm thêm tài khoản
+
+
+
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
+  let id = document.getElementById('id').value.trim();
   let name = document.getElementById('name').value.trim();
   let username = document.getElementById('username').value.trim();
   let password = document.getElementById('password').value.trim();
@@ -193,7 +265,7 @@ function addNewAccount() {
   let role = document.getElementById('role').value.trim();
 
   // Kiểm tra các trường bắt buộc
-  if (!name || !username || !password || !phone || !address || !role) {
+  if (!id || !name || !username || !password || !phone || !address || !role) {
     alert('Vui lòng điền đầy đủ thông tin.');
     return;
   }
@@ -203,49 +275,7 @@ function addNewAccount() {
 
   // Thêm tài khoản mới vào danh sách
   listAccount.push({
-    name: name,
-    username: username,
-    password: password,
-    phone: phone,
-    address: address,
-    role: role
-  });
-
-  // Lưu danh sách tài khoản cập nhật vào localStorage
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
-
-  // Đặt lại giá trị các ô nhập liệu về trống
-  clearForm();
-
-  // Ẩn form và thông báo thành công
-  hideForm();
-  alert('Tài khoản đã thêm thành công');
-
-  // Hiển thị danh sách tài khoản
-  showAccount();
-}
-
-
-function addNewAccount() {
-  // Lấy giá trị từ các trường nhập liệu
-  let name = document.getElementById('name').value.trim();
-  let username = document.getElementById('username').value.trim();
-  let password = document.getElementById('password').value.trim();
-  let phone = document.getElementById('phone').value.trim();
-  let address = document.getElementById('address').value.trim();
-  let role = document.getElementById('role').value.trim();
-
-  // Kiểm tra các trường bắt buộc
-  if (!name || !username || !password || !phone || !address || !role) {
-    alert('Vui lòng điền đầy đủ thông tin.');
-    return;
-  }
-
-  // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-
-  // Thêm tài khoản mới vào danh sách
-  listAccount.push({
+    id:id,
     name: name,
     username: username,
     password: password,
@@ -271,6 +301,7 @@ function addNewAccount() {
 function showAccount() {
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
   let account = `<tr>
+      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
@@ -281,6 +312,7 @@ function showAccount() {
 
   listAccount.map((value, index) => {
     account += `<tr>
+        <td>${value.id}</td>
         <td>${value.name}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
@@ -303,6 +335,7 @@ function showAccount() {
 
 function editAccount (index){
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  document.getElementById('id').value=listAccount[index].id;
   document.getElementById('name').value=listAccount[index].name;
   document.getElementById('username').value=listAccount[index].username;
   document.getElementById('password').value=listAccount[index].password;
@@ -314,14 +347,13 @@ function editAccount (index){
   document.getElementById('save_account').style.display='none';
   document.getElementById('reset_account').style.display='none';
   document.getElementById('update_account').style.display='inline-block';
-  
-
 }
 
 function changeAccount (){
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
   let index = document.getElementById('index').value;
   listAccount[index]={
+    id:document.getElementById('id').value,
     name:document.getElementById('name').value,
     username:document.getElementById('username').value,
     password:document.getElementById('password').value,
@@ -364,6 +396,7 @@ function showDetailAccount(index) {
     const account = listAccount[index];
 
     // Gán giá trị vào các phần tử <p>
+    document.getElementById("detail_id").innerHTML = "ID: " + account.id;
     document.getElementById("detail_name").innerHTML = "Tên: " + account.name;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.username;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
@@ -383,17 +416,25 @@ function hideDetailAccount(){
 }
 
 
-function searchAccount(){
+function searchAccount() {
   let valueSearchInput = document.getElementById('search_account').value;
   let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-  let accountSearch = listAccount.filter(value=> {
-    return value.name.toLowerCase().includes(valueSearchInput.toLowerCase())
-  })
+
+  let accountSearch = listAccount.filter(value => {
+    return (
+      value.name.toLowerCase().includes(valueSearchInput.toLowerCase()) || 
+      value.username.toLowerCase().includes(valueSearchInput.toLowerCase()) ||
+      (value.id && value.id.toLowerCase().includes(valueSearchInput.toLowerCase())) // Tìm theo ID
+    );
+  });
+
   document.getElementById("accountTable").innerHTML = "";
   showAccountSearch(accountSearch);
 }
+
 function showAccountSearch(array) {
   let account = `<tr>
+      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
@@ -404,6 +445,7 @@ function showAccountSearch(array) {
 
   array.map((value, index) => {
     account += `<tr>
+        <td>${value.id}</td>
         <td>${value.name}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
@@ -422,73 +464,134 @@ function showAccountSearch(array) {
 
 
 
-document.getElementById('search_account_btn').addEventListener('click', () => {
-  const searchButtonIcon = document.getElementById('search_account_btn').querySelector('.bx');
-  const searchInput = document.getElementById('search_account');
-  
-  if (searchButtonIcon.classList.contains('bx-x')) {
-      // Nếu là dấu 'x', reset tìm kiếm và hiển thị lại toàn bộ danh sách
-      searchInput.value = '';
-      searchAccount();
-  } else {
-      // Nếu là kính lúp, thực hiện tìm kiếm
-      searchAccount();
-  }
+
+
+
+
+
+
+// --------------------SETTING-------------------------------------------------
+const avatarInput = document.getElementById('avatar_input');
+const profilePic = document.getElementById('profile-pic');
+const profilePic2 = document.getElementById('avatar-item');
+
+// Khi người dùng chọn file
+avatarInput.addEventListener('change', function(event) {
+    const file = event.target.files[0]; // Lấy file từ input
+    if (file) {
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            alert('Vui lòng chọn tệp hình ảnh hợp lệ (JPEG, PNG, JPG).');
+            return;
+        }
+
+        // Đọc file bằng FileReader
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imageData = e.target.result; // Chuỗi base64 của hình ảnh
+            profilePic.src = imageData; // Hiển thị ảnh
+            profilePic2.src = imageData;
+            localStorage.setItem('profilePicture', imageData); // Lưu vào localStorage
+        };
+        reader.readAsDataURL(file); // Đọc file dưới dạng URL base64
+    }
 });
 
-// Lắng nghe sự kiện nhập liệu để tự động chuyển đổi biểu tượng
-document.getElementById('search_account').addEventListener('input', () => {
-  const searchButtonIcon = document.getElementById('search_account_btn').querySelector('.bx');
-  const searchInput = document.getElementById('search_account');
-  
-  if (searchInput.value.trim().length > 0) {
-      searchButtonIcon.classList.replace('bx-search-alt-2', 'bx-x');
-  } else {
-      searchButtonIcon.classList.replace('bx-x', 'bx-search-alt-2');
-  }
+// Khi tải lại trang, kiểm tra hình ảnh đã lưu trong localStorage
+window.addEventListener('load', function() {
+    const savedImage = localStorage.getItem('profilePicture'); // Lấy dữ liệu từ localStorage
+    if (savedImage) {
+        profilePic.src = savedImage; // Hiển thị ảnh nếu có
+        profilePic2.src = savedImage;
+    }
 });
+
+
+
+
+const nameInput = document.getElementById('name_input'); // Ô input nhập tên
+const nameDisplay2 = document.querySelector('.name-item');  // Thẻ hiển thị tên
+const changeNameDiv = document.getElementById('change_name'); // Div thay đổi tên
+
+// Khi nhấn vào "Thay đổi tên"
+changeNameDiv.addEventListener('click', function() {
+    nameInput.focus(); // Đặt con trỏ vào ô input
+});
+
+// Khi người dùng nhập tên
+nameInput.addEventListener('change', function() {
+    const newName = nameInput.value.trim(); // Lấy tên mới từ input
+    if (newName) {
+        // Cập nhật hiển thị
+        nameDisplay2.textContent = newName;
+
+        // Lưu vào localStorage
+        localStorage.setItem('adminName', newName);
+
+        // Xóa nội dung input sau khi lưu
+        nameInput.value = '';
+    }
+});
+
+// Khi tải lại trang, kiểm tra localStorage
+window.addEventListener('load', function() {
+    const savedName = localStorage.getItem('adminName'); // Lấy tên từ localStorage
+    if (savedName) { // Hiển thị tên đã lưu
+        nameDisplay2.textContent = savedName;
+    }
+});
+
+
+
 
 
 
 // ---------------------- Quản lý đơn hàng và phân trang -----------------------------
 // Biến toàn cục để quản lý phân trang
 const ITEMS_PER_PAGE = 8;  // Số đơn hàng hiển thị mỗi trang
-let currentPage = 1;  // Trang hiện tại
+let currentPageOrder = 1;  // Trang hiện tại
 
 // Hiển thị danh sách đơn hàng với phân trang
 function displayOrders() {
   const orderList = document.getElementById("orderList");
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const orders = JSON.parse(localStorage.getItem("listOrder")) || [];
   const searchQuery = document.getElementById("orderSearchInput").value.toLowerCase();
   const filterStatus = document.getElementById("statusFilter").value;
-  let startDate = document.getElementById("startDate").value; // Ngày bắt đầu
-  let endDate = document.getElementById("endDate").value; // Ngày kết thúc
+  let startDate = document.getElementById("startDate").value; 
+  let endDate = document.getElementById("endDate").value; 
+  const selectedDistrict = document.getElementById("district").value;
 
   // Kiểm tra nếu endDate nhỏ hơn startDate, yêu cầu người dùng sửa
   if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-      alert("Ngày kết thúc không thể nhỏ hơn ngày bắt đầu. Vui lòng chọn lại ngày kết thúc hợp lệ.");
-      document.getElementById("endDate").value = ''; // Reset trường ngày kết thúc
-      return; // Dừng lại không lọc theo ngày nếu ngày kết thúc không hợp lệ
+    alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc. Vui lòng chọn lại!");
+    document.getElementById("startDate").value = '';
+    document.getElementById("endDate").value = ''; 
+    return; 
+  }else if( endDate && new Date(endDate) > new Date()){
+    alert("Ngày kết thúc không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
+    document.getElementById("endDate").value = ''; 
+    return; 
+  }else if( startDate && new Date(startDate) > new Date()){
+    alert("Ngày bắt đầu không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
+    document.getElementById("startDate").value = ''; 
+    return;
   }
-
-  const selectedDistrict = document.getElementById("district").value;
-
   // Lọc danh sách đơn hàng dựa trên quận, trạng thái, từ khóa tìm kiếm, và khoảng thời gian
   const filteredOrders = orders.filter(order => {
-    const matchesSearchQuery = order.orderId.toLowerCase().includes(searchQuery) ||
-                               order.user.fullName.toLowerCase().includes(searchQuery) ||
-                               order.status.toLowerCase().includes(searchQuery);
+    const matchesSearchQuery = order.id.toLowerCase().includes(searchQuery) ||
+                              order.name.toLowerCase().includes(searchQuery);
     const matchesStatus = filterStatus === "all" || order.status === filterStatus;
-    
-    // Kiểm tra khớp quận
-    const matchesDistrict = selectedDistrict === "" || order.user.district === selectedDistrict;  
 
-    const orderDate = new Date(order.date);
+    // Kiểm tra khớp quận
+    const matchesDistrict = selectedDistrict === "" || order.district === selectedDistrict;
+    
+    const orderDate = new Date(order.timeCreate);
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
     const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
+    
 
-    return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict;
+    return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict ;
   });
 
 
@@ -498,7 +601,7 @@ function displayOrders() {
   const totalPages = Math.ceil(totalOrders / ITEMS_PER_PAGE);
 
   // Lấy các đơn hàng của trang hiện tại
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const startIndex = (currentPageOrder - 1) * ITEMS_PER_PAGE;
   const currentOrders = filteredOrders.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   // Hiển thị đơn hàng
@@ -506,23 +609,17 @@ function displayOrders() {
   currentOrders.forEach(order => {
       const row = document.createElement('tr');
       row.innerHTML = `
-          <td>${order.orderId}</td>
-          <td>${order.user.fullName}</td>
-          <td>${order.user.phone}</td>
-          <td>${order.date}</td>
-          <td>${order.user.district}</td>
-          <td>${order.totalPrice}</td>
-          <td>
-              <select onchange="updateOrderStatus('${order.orderId}', this.value)">
-                  <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
-                  <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
-                  <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
-                  <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
-              </select>
-          </td>
+          <td>${order.id}</td>
+          <td>${order.account}</td>
+          <td>${order.name}</td>
+          <td>${order.phone}</td>
+          <td>${order.district}</td>
+          <td>${order.total}</td>
+          <td>${order.timeCreate}</td>
+          <td>${order.status}</td>
           <td class="actions">
-              <button onclick="deleteOrder('${order.orderId}')">Xóa</button>
-              <button onclick="viewOrderDetails('${order.orderId}')">Chi tiết</button>
+              <button onclick="deleteOrder('${order.id}')">Xóa</button>
+              <button onclick="viewOrderDetails('${order.id}')">Chi tiết</button>
           </td>
       `;
       orderList.appendChild(row);
@@ -548,16 +645,18 @@ document.getElementById("resetFilters").addEventListener("click", function() {
 
 // Lắng nghe thay đổi ngày bắt đầu hoặc ngày kết thúc
 document.getElementById("startDate").addEventListener("change", function() {
+  currentPageOrder = 1;
   displayOrders(); // Cập nhật lại danh sách khi thay đổi ngày bắt đầu
 });
 
 document.getElementById("endDate").addEventListener("change", function() {
+  currentPageOrder = 1;
   displayOrders(); // Cập nhật lại danh sách khi thay đổi ngày kết thúc
 });
 
 let listProvince = [];
 let listDistrict = [];
-let listWard = [];
+
 window.onload = getDataProvince();
 async function getDataProvince() {
   const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
@@ -620,86 +719,239 @@ cbxProvince.addEventListener("change", () => {
 
 const cbxDistrict = document.getElementById("district");
 cbxDistrict.addEventListener("change", () => {
-    
+    currentPageOrder = 1;
     displayOrders();
 });
 
-
-// Hiển thị các nút phân trang
+// Hiển thị nút phân trang
 function displayPagination(totalPages) {
   const pagination = document.getElementById("pagination");
-  pagination.innerHTML = '';  // Xóa các nút phân trang cũ
+  pagination.innerHTML = ''; 
 
-  // Tạo các nút phân trang
-  for (let i = 1; i <= totalPages; i++) {
+  if(totalPages > 1){
+    // Nút "Quay lại"
+    const prevButton = document.createElement('button');
+    prevButton.textContent = '<<';
+    prevButton.classList.add('page-btn', 'prev-btn');
+    prevButton.onclick = () => {
+      currentPageOrder = currentPageOrder > 1 ? currentPageOrder - 1 : currentPageOrder; 
+      changePageOrder(currentPageOrder);
+    };
+    pagination.appendChild(prevButton);
+  }
+
+  // Hiển thị các nút số trang với logic "..."
+  const maxButtons = 4; 
+  const halfButtons = Math.floor(maxButtons / 2);
+
+  // Tính toán phạm vi hiển thị
+  let startPage = Math.max(1, currentPageOrder - halfButtons);
+  let endPage = Math.min(totalPages, currentPageOrder + halfButtons);
+
+  // Điều chỉnh nếu phạm vi nhỏ hơn maxButtons
+  if (currentPageOrder <= halfButtons) {
+    endPage = Math.min(totalPages, maxButtons);
+  }
+  if (currentPageOrder > totalPages - halfButtons) {
+    startPage = Math.max(1, totalPages - maxButtons + 1);
+  }
+
+  
+  if (startPage > 1) {
+    const firstPageButton = document.createElement('button');
+    firstPageButton.textContent = '1';
+    firstPageButton.classList.add('page-btn');
+    firstPageButton.onclick = () => changePageOrder(1);
+    pagination.appendChild(firstPageButton);
+
+    if (startPage > 3) {
+      const dots = document.createElement('span');
+      dots.textContent = '...';
+      dots.classList.add('dots');
+      pagination.appendChild(dots);
+    }
+  }
+
+  // Thêm các nút trong phạm vi
+  for (let i = startPage; i <= endPage; i++) {
     const pageButton = document.createElement('button');
     pageButton.textContent = i;
     pageButton.classList.add('page-btn');
-    if (i === currentPage) {
+    if (i === currentPageOrder) {
       pageButton.classList.add('active');
     }
-    pageButton.onclick = () => changePage(i);
+    pageButton.onclick = () => changePageOrder(i);
     pagination.appendChild(pageButton);
+  }
+
+  // Thêm nút "..." và "totalPages"
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      const dots = document.createElement('span');
+      dots.textContent = '...';
+      dots.classList.add('dots');
+      pagination.appendChild(dots);
+    }
+
+    const lastPageButton = document.createElement('button');
+    lastPageButton.textContent = totalPages;
+    lastPageButton.classList.add('page-btn');
+    lastPageButton.onclick = () => changePageOrder(totalPages);
+    pagination.appendChild(lastPageButton);
+  }
+  if(totalPages > 1){
+    // Nút "Tiếp theo"
+    const nextButton = document.createElement('button');
+    nextButton.textContent = '>>';
+    nextButton.classList.add('page-btn', 'next-btn');
+    nextButton.onclick = () => {
+      currentPageOrder = currentPageOrder < totalPages ? currentPageOrder + 1 : currentPageOrder; 
+      changePageOrder(currentPageOrder);
+    };
+    pagination.appendChild(nextButton);
   }
 }
 
+
 // Chuyển trang
-function changePage(pageNumber) {
-  currentPage = pageNumber;
+function changePageOrder(pageNumber) {
+  currentPageOrder = pageNumber;
   displayOrders();
 }
 
 // Cập nhật tình trạng đơn hàng
-function updateOrderStatus(orderId, status) {
-  const orders = JSON.parse(localStorage.getItem('orders')) || [];
-  const order = orders.find(order => order.orderId === orderId);
+function updateOrderStatus(id, status) {
+  const listOrder = JSON.parse(localStorage.getItem('listOrder')) || [];
+  const order = listOrder.find(order => order.id === id);
   if (order) {
-      order.status = status;
-      localStorage.setItem('orders', JSON.stringify(orders));
-      displayOrders(); // Cập nhật lại danh sách khi trạng thái thay đổi
+    order.status = status; // Cập nhật trạng thái
+    localStorage.setItem('listOrder', JSON.stringify(listOrder)); // Lưu vào localStorage
+    displayOrders(); // Cập nhật danh sách hiển thị
+  }
+}
+// Chế độ bật mở xem sửa đơn hàng 
+function toggleEditMode(id, editMode) {
+  const statusSelect = document.getElementById('statusSelect');
+  const saveBtn = document.getElementById('saveBtn');
+  const editBtn = document.getElementById('editBtn');
+
+  if (editMode) {
+    // Bật chế độ chỉnh sửa
+    statusSelect.disabled = false;
+    saveBtn.disabled = false;
+    editBtn.disabled = true;
+
+    // Thêm màu 
+    saveBtn.style.backgroundColor = 'var(--orange)';
+    editBtn.style.backgroundColor = 'var(--grey)';
+  } else {
+    // Lưu thay đổi trạng thái
+    updateOrderStatus(id, statusSelect.value);
+
+    // Tắt chế độ chỉnh sửa
+    statusSelect.disabled = true;
+    saveBtn.disabled = true;
+    editBtn.disabled = false;
+
+    // Thêm màu
+    saveBtn.style.backgroundColor = 'var(--grey)';
+    editBtn.style.backgroundColor = 'var(--orange)';
   }
 }
 
-// Xóa đơn hàng
-function deleteOrder(orderId) {
-  let orders = JSON.parse(localStorage.getItem('orders')) || [];
-  orders = orders.filter(order => order.orderId !== orderId);
-  localStorage.setItem('orders', JSON.stringify(orders));
-  alert("Đơn hàng đã bị xóa!");
-  displayOrders(); // Cập nhật danh sách sau khi xóa
+
+// Xóa đơn hàng với xác nhận
+function deleteOrder(id) {
+  const confirmDelete = confirm("Bạn có chắc muốn xóa đơn hàng này không?");
+  
+  if (confirmDelete) {
+    let listOrder = JSON.parse(localStorage.getItem('listOrder')) || [];
+    listOrder = listOrder.filter(order => order.id !== id);
+    localStorage.setItem('listOrder', JSON.stringify(listOrder));
+
+    // Lấy danh sách đơn hàng hiện tại sau khi xóa để tính toán
+    const searchQuery = document.getElementById("orderSearchInput").value.toLowerCase();
+    const filterStatus = document.getElementById("statusFilter").value;
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const selectedDistrict = document.getElementById("district").value;
+
+    const filteredOrders = listOrder.filter(order => {
+      const matchesSearchQuery = order.id.toLowerCase().includes(searchQuery) ||
+                                order.name.toLowerCase().includes(searchQuery);
+      const matchesStatus = filterStatus === "all" || order.status === filterStatus;
+
+      const matchesDistrict = selectedDistrict === "" || order.district === selectedDistrict;
+
+      const orderDate = new Date(order.timeCreate);
+      const start = startDate ? new Date(startDate) : null;
+      const end = endDate ? new Date(endDate) : null;
+      const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
+
+      return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict;
+    });
+
+    const totalOrders = filteredOrders.length;
+    const totalPages = Math.ceil(totalOrders / ITEMS_PER_PAGE);
+
+    // Kiểm tra điều chỉnh về trang hợp lệ
+    if (totalOrders === 0) {
+      currentPageOrder = 1; 
+    } else if (currentPageOrder > totalPages) {
+      currentPageOrder = totalPages; 
+    }
+
+    alert("Đơn hàng đã bị xóa!");
+    displayOrders(); 
+  } else {
+    alert("Đơn hàng không bị xóa."); // Thông báo khi người dùng hủy
+  }
 }
 
+
+
 // Hiển thị chi tiết đơn hàng
-function viewOrderDetails(orderId) {
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  const order = orders.find(order => order.orderId === orderId);
-  
+function viewOrderDetails(id) {
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
+  const order = listOrder.find(order => order.id === id);
+
   if (order) {
     const orderDetailContent = document.getElementById("orderDetailContent");
-    let productDetails = order.items.map(item => `
+    let productDetails = order.detailsOrder.map(item => `
         <div class="product-item">
             <img src="${item.image}" alt="${item.name}">
         </div>
-    `).join('');  
+    `).join('');
 
+    // Hiển thị chi tiết đơn hàng
     orderDetailContent.innerHTML = `
       <button onclick="closeModal('orderDetailModal')" class="closeDetail">Đóng</button>
       <h2>Chi tiết đơn hàng</h2>
-      <p><strong>Mã đơn:</strong> ${order.orderId}</p>
-      <p><strong>Khách hàng:</strong> ${order.user.fullName}</p>
-      <p><strong>Số điện thoại:</strong> ${order.user.phone}</p>
-      <p><strong>Địa chỉ:</strong> ${order.user.address}</p>
-      <p><strong>Quận/Huyện:</strong>${order.user.district}</p>
-      <p><strong>Phường/Xã:</strong>${order.user.ward}</p>
-      <p><strong>Tỉnh/Thành:</strong>${order.user.province}</p>
+      <p><strong>Mã đơn:</strong> ${order.id}</p>
+      <p><strong>Tài khoản:</strong> ${order.account}</p>
+      <p><strong>Người nhận:</strong> ${order.name}</p>
+      <p><strong>SĐT:</strong> ${order.phone}</p>
+      <p><strong>Địa chỉ:</strong> ${order.address}</p>
+      <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
       <p><strong>Sản phẩm:</strong></p>
       <div class="product-item-detail">
         ${productDetails}
       </div>
-      <p><strong>Tổng tiền:</strong> ${order.totalPrice} VND</p>
-      <p><strong>Tình trạng:</strong> ${order.status}</p>
+      <p><strong>Tổng tiền:</strong> ${order.total} VND</p>
+      <p><strong>Tình trạng:</strong> 
+        <select id="statusSelect" disabled>
+          <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
+          <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
+          <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
+          <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
+        </select>
+      </p>
+      <div id="editOrder">
+        <button id="editBtn" onclick="toggleEditMode('${order.id}', true)">Sửa</button>
+        <button id="saveBtn" onclick="toggleEditMode('${order.id}', false)" disabled>Lưu</button>
+      </div>
     `;
-    
+
     // Mở modal
     document.getElementById("orderDetailModal").style.display = "flex";
   }
@@ -710,19 +962,45 @@ function closeModal(id) {
   document.getElementById(id).style.display = 'none';
 }
 
+const filterOrder = document.querySelector('.filter-order');
+const dropdownFilter = filterOrder.querySelector('.dropdown-filter');
+const filterIcon = filterOrder.querySelector('.filter-order .bx-filter-alt');
+
+// Thêm sự kiện khi click vào icon filter
+filterIcon.addEventListener('click', function (event) {
+    event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+    filterOrder.classList.toggle('active'); // Bật/tắt dropdown
+});
+
+// Sự kiện để giữ dropdown khi click bên trong dropdown
+dropdownFilter.addEventListener('click', function (event) {
+    event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+});
+
+// Ẩn dropdown khi click bên ngoài
+document.addEventListener('click', function (event) {
+    if (!filterOrder.contains(event.target)) {
+        filterOrder.classList.remove('active'); // Đóng dropdown nếu click ngoài
+    }
+});
+
+
 // Xử lý sự kiện khi người dùng gõ vào ô tìm kiếm hoặc nhấn Enter
 document.getElementById("orderSearchInput").addEventListener("input", function() {
+  currentPageOrder = 1;
   displayOrders();  // Cập nhật lại danh sách khi người dùng thay đổi ô tìm kiếm
 });
 
 document.getElementById("orderSearchInput").addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
+    currentPageOrder = 1;
     displayOrders();  // Cập nhật lại danh sách khi người dùng nhấn Enter
   }
 });
 
 // Xử lý sự kiện khi người dùng chọn trạng thái từ bộ lọc
 document.getElementById("statusFilter").addEventListener("change", function() {
+  currentPageOrder = 1;
   displayOrders(); // Cập nhật lại danh sách khi người dùng thay đổi trạng thái lọc
 });
 
@@ -739,15 +1017,7 @@ window.onload = function() {
 
 
 
-
-
-
-
-
 //--------------------------Product and Category-------------------------------------------
-document.querySelector('.jsFilter').addEventListener('click', function () {
-  document.querySelector('.filter-menu').classList.toggle('active');
-});
 let currentView = 'table';
 function InitProductView(){
   const tabltViewButton=document.querySelector('.list');
@@ -808,17 +1078,27 @@ function randomId(existingId) {
 document.querySelector('.product-content-headerButton').addEventListener('click', toggleAddProductForm);
 //PRODUCT
 function toggleAddProductForm() {
+  Array.from(formP.elements).forEach(input=>{
+      input.disabled=false;
+  });
   formP.style.display = formP.style.display === 'block' ? 'none' : 'block';
 }
 function resetFormP() {
-  document.getElementById('productName').value='';
-  document.getElementById('productCategory').value='';
-  document.getElementsByName('Status').value='';
-  document.getElementById('productDescription').value='';
-  document.getElementById('productStock').value='';
-  document.getElementById('productPrice').value='';
-  document.getElementById('productImage').value='';
+  document.getElementById('productName').value = ''; 
+  document.getElementById('productCategory').value = "All Categories"; 
+
+  const statusRadios = document.getElementsByName('status');
+  for (let i = 0; i < statusRadios.length; i++) {
+    statusRadios[i].checked = false;
+  }
+  document.getElementById('productDescription').value = ''; 
+  document.getElementById('productStock').value = ''; 
+  document.getElementById('productPrice').value = ''; 
+  document.getElementById('productImageP').value = '';
+  // Ẩn preview hình ảnh
   preview.style.display='none';
+  document.getElementById('fileNameLabel').textContent = 'No file selected'; 
+  
 }
 function cancelProduct() {
   resetFormP();
@@ -831,20 +1111,16 @@ const ImageP = document.getElementById('productImageP');
 const formP = document.getElementById('addProductForm');
 const preview = document.getElementById('productPreviewImage');
 var img = new Image();
-img.src = "D:\HTML\Đồ án web bán bánh\đồ án\default.png";
+img.src = "./assets/img/default.png";
 const productPage = document.querySelector('.products-page');
 const categoryOption = document.getElementById('productCategory');
 const categoryOptionFilter = document.getElementById('productCategoryFilter');
 let categories = [];
-let products =  [];
+let listProduct =  [];
 let editProductIndex = null; 
 // Hiển thị danh sách category
 function updateCategoryOptions() {
     categoryOption.innerHTML = '<option value="All Categories">Chọn loại sản phẩm</option>'; 
-    if (!categories || !categories.length) {
-        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
-        return;
-    }
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -854,10 +1130,6 @@ function updateCategoryOptions() {
 }
 function updateCategoryOptionsFilter() {
     categoryOptionFilter.innerHTML = '<option value="All Categories">Chọn loại sản phẩm</option>'; // Thêm tuỳ chọn mặc định
-    if (!categories.length || !categories) {
-        alert('Danh sách loại sản phẩm trống! Vui lòng thêm loại sản phẩm trước.');
-        return;
-    }
     categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -877,7 +1149,7 @@ ImageP.addEventListener('change', function () {
         reader.readAsDataURL(file);
         fileLabel.textContent = file.name;
     } else {
-        preview.src = default_image; 
+        preview.src = img.src; 
         preview.style.display = 'block'; 
         fileLabel.textContent = 'No file selected';
     }
@@ -901,7 +1173,7 @@ formP.addEventListener('submit', function (event) {
   const ProductDescription = document.getElementById('productDescription').value.trim();
   const ProductStock = document.getElementById('productStock').value.trim();
   const ProductPrice = document.getElementById('productPrice').value.trim();
-  if(products.some((p,i) => p.name===ProductName && i!==editProductIndex)){
+  if(listProduct.some((p,i) => p.name===ProductName && i!==editProductIndex)){
     alert("Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
     return;
   }
@@ -933,13 +1205,13 @@ formP.addEventListener('submit', function (event) {
 
   let productData = {
     name: ProductName,
-    id: editProductIndex !== null ? products[editProductIndex].id : randomId(products.map(prod => prod.id)),
+    id: editProductIndex !== null ? listProduct[editProductIndex].id : randomId(listProduct.map(prod => prod.id)),
     category: selectedCategory.name,
     status: ProductStatus,
     description: ProductDescription,
     stock: ProductStock,
     price: ProductPrice,
-    image: img 
+    image: img.src
   };
   // Nếu có ảnh mới, thay thế ảnh mặc định
   if (ImageP.files[0]) {
@@ -951,9 +1223,9 @@ formP.addEventListener('submit', function (event) {
       saveProduct(productData);
     };
     reader.readAsDataURL(ImageP.files[0]);
-  }else if(editProductIndex !== null && products[editProductIndex].image){
-    productData.image = products[editProductIndex].image;
-    productData.imageName = products[editProductIndex].imageName;
+  }else if(editProductIndex !== null && listProduct[editProductIndex].image){
+    productData.image = listProduct[editProductIndex].image;
+    productData.imageName = listProduct[editProductIndex].imageName;
     saveProduct(productData);
   }else {
     saveProduct(productData); 
@@ -965,44 +1237,39 @@ formP.addEventListener('submit', function (event) {
   displayProducts();
 });
 function updateStatus(){
-  products.forEach(product => {
+  listProduct.forEach(product => {
     if(Number(product.stock)===0 && product.status !== 'Disabled'){
       product.status='Disabled';
     }
   });
-  localStorage.setItem('products',JSON.stringify(products));
+  localStorage.setItem('listProduct',JSON.stringify(listProduct));
   displayProducts();
 }
 const removeImageBtn = document.getElementById('removeImageBtn');
 removeImageBtn.addEventListener('click',function(){
   const fileLabel = document.getElementById('fileNameLabel');
   if(editProductIndex !== null){
-    products = JSON.parse(localStorage.getItem('products')) || [];
-    products[editProductIndex].image=null;
-    products[editProductIndex].imageName=null;
-    localStorage.setItem('products',JSON.stringify(products));
+    listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
+    listProduct[editProductIndex].image=null;
+    listProduct[editProductIndex].imageName=null;
+    localStorage.setItem('listProduct',JSON.stringify(listProduct));
   }
-  preview.src = img;
+  preview.src = img.src;
   ImageP.value='';
   fileLabel.textContent= 'No file selected';
 });
 formP.addEventListener('blur',updateStock);
 // Lưu sản phẩm
 function saveProduct(productData) {
-  if (parseInt(productData.stock) > 0) {
-    productData.status = 'Active';
-  } else if (productData.stock == 0) {
-    productData.status = 'Disabled';
-  }
   if (editProductIndex !== null) {
-    products[editProductIndex] = productData;
+    listProduct[editProductIndex] = productData;
     alert("Sản phẩm đã được cập nhật!");
     editProductIndex = null;
   } else {
-    products.unshift(productData);
+    listProduct.unshift(productData);
     alert("Sản phẩm đã được thêm!");
   }
-  localStorage.setItem('products', JSON.stringify(products));
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   cancelProduct();
 }
 window.addEventListener('load', updateCategoryOptions);
@@ -1011,8 +1278,8 @@ window.addEventListener('blur',updateStock);
 window.addEventListener('load', updateCategoryOptionsFilter);
 // Các hàm xoá và chỉnh sửa sản phẩm
 function deleteP(index) {
-  products.splice(index, 1);
-  localStorage.setItem('products', JSON.stringify(products));
+  listProduct.splice(index, 1);
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   displayProducts();
 }
 
@@ -1031,7 +1298,7 @@ editButton.style.display = 'none';
 
 function editP(index) {
   editProductIndex = index;
-  const product = products[index];
+  const product = listProduct[index];
   formP.style.display = 'block';
   formTitleP.textContent = 'Xem sản phẩm'; 
   document.getElementById('productName').value = product.name;
@@ -1040,9 +1307,8 @@ function editP(index) {
   document.getElementById('productDescription').value = product.description;
   document.getElementById('productStock').value = product.stock;
   document.getElementById('productPrice').value = product.price;
-  document.getElementById('productImage').value = product.image;
   // Hiển thị ảnh nếu có
-  if (product.image && product.image !== img) {
+  if (product.image !== null && product.image !== img.src) {
     preview.src = product.image;
     preview.style.display = 'block';
     removeImageBtn.disabled=true;
@@ -1081,11 +1347,11 @@ let currentPageP = 1;
 const maxIndex = 12;
 
 function displayProducts() {
-  products = JSON.parse(localStorage.getItem('products')) || [];
+  listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   productPage.innerHTML = '';
   const startIndex = (currentPageP - 1) * maxIndex;
   const endIndex = startIndex + maxIndex;
-  const View = products.slice(startIndex, endIndex);
+  const View = listProduct.slice(startIndex, endIndex);
   
   View.forEach((product, index) => {
     addInToListP(product, index);
@@ -1097,7 +1363,7 @@ function displayProducts() {
   }
   if(currentView === 'table')
     switchToTableView();
-  updatePaginationDisplay(products.length);
+  updatePaginationDisplay(listProduct.length);
 }
 document.querySelector('.list').addEventListener('click', () => {
   switchToTableView();
@@ -1180,9 +1446,24 @@ window.addEventListener('click',e =>{
       (button.style.display = 'block'));
   }
 });
+window.addEventListener('click', e => {
+  const filterButton = document.querySelector('.jsFilter');  // Nút filter
+  const filterMenu = document.querySelector('.filter-menu'); // Menu filter
+
+  // Kiểm tra nếu click vào nút filter, mở hoặc đóng menu
+  if (e.target.closest('.jsFilter')) {
+      filterMenu.classList.toggle('active'); 
+  } else {
+      // Nếu click vào ngoài nút filter và menu, tắt menu
+      if (!e.target.closest('.filter-menu') && !e.target.closest('.jsFilter')) {
+          filterMenu.classList.remove('active');
+      }
+  }
+});
+
 function navigateToPage(action) {
-  const products = JSON.parse(localStorage.getItem('products')) || [];
-  const totalPages = Math.ceil(products.length / maxIndex);
+  const listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
+  const totalPages = Math.ceil(listProduct.length / maxIndex);
   
   if (action === 'first') currentPageP = 1;
   else if (action === 'last') currentPageP = totalPages;
@@ -1226,9 +1507,9 @@ document.getElementById('sortByCategoryP').addEventListener('click',() => sortPr
 document.getElementById('sortByPriceP').addEventListener('click',()=>sortProduct('priceP'));
 let sortOrderP={name:'asc',id:'asc',stock:'asc',category:'asc',price:'asc'}
 function sortProduct(attribute) {
-  products = JSON.parse(localStorage.getItem('products')) || [];
+  listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   let order=sortOrderP[attribute];
-  products.sort((a, b) => {
+  listProduct.sort((a, b) => {
     if (attribute === 'nameP') {
       return order === 'asc' ? (a.name.localeCompare(b.name)) : (b.name.localeCompare(a.name));
     }
@@ -1247,7 +1528,7 @@ function sortProduct(attribute) {
     return 0;
   });
   sortOrderP[attribute]=order==='asc'?'desc':'asc';
-  localStorage.setItem('products', JSON.stringify(products));
+  localStorage.setItem('listProduct', JSON.stringify(listProduct));
   displayProducts();
 }
 const statusOption = document.getElementById('statusOption');
@@ -1257,11 +1538,11 @@ const SearchInputP=document.getElementById('search-product');
 function searchProducts() {
   const searchInputValue = SearchInputP.value.toLowerCase().trim();
   if (!searchInputValue) {
-    displayFilteredProducts(products); 
+    displayFilteredProducts(listProduct); 
     return;
   }
   const searchTerms = searchInputValue.split(/\s+/);
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = listProduct.filter(product => {
     let score = 0;
     score += product.name.toLowerCase().includes(searchTerms) ? 10 : 0;
     score += product.id.toLowerCase().includes(searchTerms) ? 9 :0;
@@ -1289,7 +1570,7 @@ function displayFilteredProducts(filteredProducts) {
 }
 const categoryOptionFilterChoose=document.getElementById('productCategoryFilter');
 function filterProducts() {
-  products=JSON.parse(localStorage.getItem('products')) || [];
+  listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
   categories=JSON.parse(localStorage.getItem('categories')) || [];
   const CategoryId = categoryOptionFilterChoose.value;
   let selectedCategoryId = "All Categories";  
@@ -1301,16 +1582,16 @@ function filterProducts() {
   let selectedStatus =  "all status";
   selectedStatus= statusOption.value.toLowerCase().trim();  
   if(selectedCategoryId === "All Categories" && selectedStatus === "all status"){
-    filteredProducts = products;
+    filteredProducts = listProduct;
   }
   else if(selectedCategoryId === "All Categories" && selectedStatus !== "all status"){
-    filteredProducts = products.filter(product => product.status.toLowerCase() === selectedStatus);
+    filteredProducts = listProduct.filter(product => product.status.toLowerCase() === selectedStatus);
   }
   else if(selectedCategoryId !== "All Categories" && selectedStatus === "all status"){
-    filteredProducts = products.filter(product => product.category === selectedCategoryId);
+    filteredProducts = listProduct.filter(product => product.category === selectedCategoryId);
   }
   else if(selectedCategoryId !== "All Categories" && selectedStatus !== "all status"){
-    filteredProducts = products.filter(product => {
+    filteredProducts = listProduct.filter(product => {
       const matchCategory = (product.category === selectedCategoryId);
       const matchStatus = (product.status.toLowerCase() === selectedStatus);
       return matchCategory && matchStatus;
@@ -1323,7 +1604,7 @@ applyFilterButton.addEventListener('click', filterProducts);
 resetFilterButton.addEventListener('click', () => {
   categoryOptionFilterChoose.value = "All Categories";
   statusOption.value = "All Status";
-  displayFilteredProducts(products); 
+  displayFilteredProducts(listProduct); 
 });
 function rebindMoreButtonEvents(){
   if(currentView !== 'grid') return;
@@ -1405,7 +1686,7 @@ Submit.addEventListener('click', function (event) {
 });
 function updateStock() {
   categories.forEach(category=>{
-      const count = products.filter(prod => prod.category === category.name);
+      const count = listProduct.filter(prod => prod.category === category.name);
       let sumcnt=0;
       count.forEach(cnt=>{
         sumcnt+=parseInt(cnt.stock);
@@ -1449,8 +1730,8 @@ function deleteC(index){
   let categoryDelete=categories[index];
   categories = categories.filter(category => category.id !== categoryDelete.id);
   localStorage.setItem('categories', JSON.stringify(categories));
-  products = products.filter(product => product.category !== categoryDelete.name);
-  localStorage.setItem('products',JSON.stringify(products));
+  listProduct = listProduct.filter(product => product.category !== categoryDelete.name);
+  localStorage.setItem('listProduct',JSON.stringify(listProduct));
   updateCategoryOptions();
   displayProducts(); 
   updateStock();

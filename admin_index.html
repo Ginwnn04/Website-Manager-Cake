@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,15 +19,16 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img class="avatar"
-                src="https://previews.123rf.com/images/yupiramos/yupiramos2001/yupiramos200132078/138940518-rosto-homem-jovem-em-quadro-circular-avatar-personagem-%C3%ADcone-ilustra%C3%A7%C3%A3o-vetorial.jpg"
-                alt="hình avatar">
+            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                id="profile-pic">
+
         </div>
+
         <ul class="side-menu top">
             <li class="active">
                 <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Thống kê</span>
                 </a>
             </li>
             <li>
@@ -44,23 +44,12 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class='bx bx-message-dots'></i>
-                    <span class="text">Tư vấn khách hàng</span>
-                </a>
-            </li>
-            <li>
                 <a href="#account_manager" id="account">
                     <i class='bx bxs-user-account'></i>
                     <span class="text">Quản Lí Tài Khoản</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-group'></i>
-                    <span class="text">Nhân viên</span>
-                </a>
-            </li>
+
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
@@ -70,7 +59,7 @@
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#">
+                <a href="#" id="setting">
                     <i class='bx bx-cog'></i>
                     <span class="text">Cài đặt</span>
                 </a>
@@ -98,16 +87,11 @@
                 </div>
             </form>
             <div class="item">
-                <a href="#">
-                    <i class='bx bx-list-ul'></i>
-                </a>
-                <a href="#" class="notification">
-                    <i class='bx bx-bell bx-tada'></i>
-                    <span class="num">4</span>
-                </a>
-                <a href="#">
-                    <i class='bx bxs-hdd'></i>
-                </a>
+
+                <p class="name-item"></p>
+
+                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                    id="avatar-item">
             </div>
         </nav>
         <!-- CONTENT -->
@@ -133,13 +117,19 @@
                     <button class="product-content-headerButton">ADD PRODUCT</button>
                 </div>
                 <div class="product-content-actions">
-                    <input id="search-product" class="search-bar" placeholder="Search...." type="text">
+                    <div class="search">
+                        <input type="search" placeholder="Search..." id="search-product">
+                        <button type="submit" class="search_product"><i
+                            class='bx bx-search-alt-2'></i></button>
+                    </div>
                     <div class="product-content-actions-wrapper">
                         <div class="filter-button-wrapper">
                             <button class="action-button filter jsFilter">
                                 <span>Filter</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter">
-                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="feather feather-filter">
+                                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                                 </svg>
                             </button>
                             <div class="filter-menu">
@@ -163,21 +153,25 @@
                             </div>
                         </div>
                         <button class="action-button list active" title="List View">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
-                                <line x1="8" y1="6" x2="21" y2="6"/>
-                                <line x1="8" y1="12" x2="21" y2="12"/>
-                                <line x1="8" y1="18" x2="21" y2="18"/>
-                                <line x1="3" y1="6" x2="3.01" y2="6"/>
-                                <line x1="3" y1="12" x2="3.01" y2="12"/>
-                                <line x1="3" y1="18" x2="3.01" y2="18"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-list">
+                                <line x1="8" y1="6" x2="21" y2="6" />
+                                <line x1="8" y1="12" x2="21" y2="12" />
+                                <line x1="8" y1="18" x2="21" y2="18" />
+                                <line x1="3" y1="6" x2="3.01" y2="6" />
+                                <line x1="3" y1="12" x2="3.01" y2="12" />
+                                <line x1="3" y1="18" x2="3.01" y2="18" />
                             </svg>
                         </button>
                         <button class="action-button grid" title="Grid View">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
-                                <rect x="3" y="3" width="7" height="7"/>
-                                <rect x="14" y="3" width="7" height="7"/>
-                                <rect x="14" y="14" width="7" height="7"/>
-                                <rect x="3" y="14" width="7" height="7"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="feather feather-grid">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
                             </svg>
                         </button>
                     </div>
@@ -190,7 +184,8 @@
                             Tên sản phẩm
                             <button class="sort-button" id="sortByNameP" value="nameP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -198,7 +193,8 @@
                             Mã sản phẩm
                             <button class="sort-button" id="sortByIdP" value="idP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -206,7 +202,8 @@
                             Loại sản phẩm
                             <button class="sort-button" id="sortByCategoryP" value="categoryP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -217,7 +214,8 @@
                             Số lượng
                             <button class="sort-button" id="sortByStockP" value="stockP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -225,7 +223,8 @@
                             Giá thành
                             <button class="sort-button" id="sortByPriceP" value="priceP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
                         </div>
@@ -237,7 +236,7 @@
                     </div>
                 </div>
                 <div class="pagination">
-                    <button onclick="navigateToPage('first')"> << </button>
+                    <button onclick="navigateToPage('first')"><< </button>
                     <button onclick="navigateToPage('prev')"> < </button>
                     <div class="page-numbers">
                     </div>
@@ -249,7 +248,7 @@
                 <h2>Thêm Sản Phẩm</h2>
                 <div>
                     <label for="productName">Tên sản phẩm:</label>
-                    <input type="text" class="product-input" id="productName" name="productName"/>
+                    <input type="text" class="product-input" id="productName" name="productName" />
                 </div>
                 <div>
                     <label for="productCategory">Loại sản phẩm</label>
@@ -259,9 +258,9 @@
                 </div>
                 <div class="form-status">
                     <label>Trạng thái:</label>
-                    <input type="radio" name="status" value="Active" id="activeStatus" name="Status"/>
+                    <input type="radio" name="status" value="Active" id="activeStatus"/>
                     <label for="status">Active</label>
-                    <input type="radio" name="status" value="Disabled" id="disableStatus" name="Status"/>
+                    <input type="radio" name="status" value="Disabled" id="disableStatus"/>
                     <label for="status">Disabled</label>
                 </div>
                 <div>
@@ -269,98 +268,104 @@
                     <textarea id="productDescription" name="productDescription"></textarea>
                 </div>
                 <div>
-                    <label for="productStock" >Số lượng sản phẩm</label>
-                    <input type="text" id="productStock" name="productStock"/>
+                    <label for="productStock">Số lượng sản phẩm</label>
+                    <input type="text" id="productStock" name="productStock" />
                 </div>
                 <div>
                     <label for="productPrice">Giá sản phẩm</label>
-                    <input type="text" id="productPrice" name="productPrice"/>
+                    <input type="text" id="productPrice" name="productPrice" />
                 </div>
                 <div class="product-image">
                     <label for="productImageP">Hình ảnh sản phẩm:</label>
-                    <input type="file" class="product-input" id="productImageP" name="productImage"/>
+                    <input type="file" class="product-input" id="productImageP" name="productImage" />
                     <label id="fileNameLabel">No file selected</label>
                     <button type="button" id="removeImageBtn">X</button>
                 </div>
-                <img class="Preview-image" id="productPreviewImage"/>
+                <img class="Preview-image" id="productPreviewImage" />
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" id="cancelProduct">Hủy</button>
                     <button type="submit" class="btn-save" id="saveProductInput">Lưu</button>
                 </div>
             </form>
         </div>
-    <!-- PRODUCT -->
-    <!-- CATEGORY -->
-    <div class="category-container">
-        <div class="head">
-            <div class="left">
-                <h1>LOẠI SẢN PHẨM</h1>
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Category</a>
-                    </li>
-                    <li><i class='bx bx-chevron-right'></i></li>
-                    <li>
-                        <a class="active" href="#">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="category-content">
-            <div class="category-content-header">
-                <h1 class="category-content-headerText">CATEGORY</h1>
-                <button class="category-content-headerButton" id="openCategoryForm">ADD CATEGORY</button>
-                <form id="categoryForm" class="form-container">
-                    <h2>Thêm Loại Sản Phẩm</h2>
-                    <label for="categoryName">Tên Loại:</label>
-                    <input type="text" id="categoryName" placeholder="Nhập tên loại sản phẩm">
-                    <label for="description">Mô Tả:</label>
-                    <textarea id="categoryDescription" placeholder="Nhập mô tả sản phẩm"></textarea>
-                    <div class="form-buttons">
-                        <button class="btn-cancel" id="cancelCategoryInput">Huỷ</button>
-                        <button class="btn-save" id="saveCategoryInput">Lưu</button>
-                    </div>
-                </form>
-            </div>
-            <div class="category-content-actions">
-                <input class="search-bar" id="search-category" placeholder="Search...." type="text" oninput="toggleSearchButton();">
-            </div>
-            <div class="categories-area-wrapper tableView">
-                <div class="categories-header">
-                    <div class="categories-cell id">
-                        Mã loại sản phẩm
-                        <button class="sort-button" id="sortByIdC" value="idC">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="categories-cell name-category">
-                        Tên loại sản phẩm
-                        <button class="sort-button" id="sortByNameC" value="nameC">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="categories-cell stock">
-                        Số lượng
-                        <button class="sort-button" id="sortByStockC" value="stockC">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                <path fill="currentColor" d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="categories-cell tool">
-                        Công cụ
-                    </div>
-                </div>
-                <div class="categories-page">
+        <!-- PRODUCT -->
+        <!-- CATEGORY -->
+        <div class="category-container">
+            <div class="head">
+                <div class="left">
+                    <h1>LOẠI SẢN PHẨM</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Category</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Home</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <div class="category-content">
+                <div class="category-content-header">
+                    <h1 class="category-content-headerText">CATEGORY</h1>
+                    <button class="category-content-headerButton" id="openCategoryForm">ADD CATEGORY</button>
+                    <form id="categoryForm" class="form-container">
+                        <h2>Thêm Loại Sản Phẩm</h2>
+                        <label for="categoryName">Tên Loại:</label>
+                        <input type="text" id="categoryName" placeholder="Nhập tên loại sản phẩm">
+                        <label for="description">Mô Tả:</label>
+                        <textarea id="categoryDescription" placeholder="Nhập mô tả sản phẩm"></textarea>
+                        <div class="form-buttons">
+                            <button class="btn-cancel" id="cancelCategoryInput">Huỷ</button>
+                            <button class="btn-save" id="saveCategoryInput">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="category-content-actions">
+                    <div class="search">
+                        <input type="search" placeholder="Search..." id="search-category" oninput="toggleSearchButton();">
+                        <button type="submit" class="search_category"><i
+                            class='bx bx-search-alt-2'></i></button>
+                    </div>
+                </div>
+                <div class="categories-area-wrapper">
+                    <div class="categories-header">
+                        <div class="categories-cell id">
+                            Mã loại sản phẩm
+                            <button class="sort-button" id="sortByIdC" value="idC">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="categories-cell name-category">
+                            Tên loại sản phẩm
+                            <button class="sort-button" id="sortByNameC" value="nameC">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="categories-cell stock">
+                            Số lượng
+                            <button class="sort-button" id="sortByStockC" value="stockC">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="categories-cell tool">
+                            Công cụ
+                        </div>
+                    </div>
+                    <div class="categories-page">
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- CATEGORY -->
         <!-- MAIN -->
 
 
@@ -391,6 +396,62 @@
                 </div>
                 <div id="border_chart">
                     <div id="chart_div"></div>
+                    <div id="acc_sell">
+                        <div id="table_rank">
+                            <table id="leaderboard">
+                                <thead>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>Tên người dùng</th>
+                                        <th>Số đơn hàng</th>
+                                        <th>Tổng doanh thu</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                        <div id="rank_sell">
+                            <div id="best_seller">Sản phẩm bán chạy nhất</div>
+                            <div id="worst_seller">Sản phẩm bán ế nhất</div>
+                        </div>
+
+                    </div>
+                    <div id="sales_statistics">
+                        <h2>Thống kê sản phẩm</h2>
+                        <div>
+                            <label>Từ:
+                                <input type="date" name="start" id="date_start">
+                            </label>
+
+                            <label>Đến:
+                                <input type="date" name="start" id="date_end">
+                            </label>
+                            <select name="" id="rank_option">
+                                <option value="0">Tùy chọn mặc định</option>
+                                <option value="1">Số lượng</option>
+                                <option value="2">Doanh Thu </option>
+                            </select>
+                            <i class='bx bx-sort-up'></i>
+                            <i class='bx bx-sort-down'></i>
+                            <i class='bx bx-search-alt-2'></i>
+
+                        </div>
+                        <div id="table_sell">
+                            <table id="product_rank">
+                                <thead>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng thu</th>
+                                    <th>Xem hóa đơn</th>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -421,7 +482,7 @@
                                     <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2'
                                             onclick="searchAccount()"></i></button>
                                 </div>
-                                <i class='bx bx-filter'></i>
+
                                 <i class='bx bx-plus' onclick="showForm()"></i>
                             </div>
                         </div>
@@ -430,6 +491,8 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
+                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"
+                                        required>
                                     <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
                                         required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
@@ -457,6 +520,7 @@
                             <table id="accountTable">
                                 <thead>
                                     <tr>
+                                        <th>ID</th>
                                         <th>Tên</th>
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
@@ -522,31 +586,33 @@
                                     <button type="submit" class="search_order"><i
                                             class='bx bx-search-alt-2'></i></button>
                                 </div>
-                                <button id="resetFilters">Đặt lại</button>
-                                <select id="statusFilter">
-                                    <option value="all">Tất cả trạng thái</option>
-                                    <option value="Chưa xử lý">Chưa xử lý</option>
-                                    <option value="Đã xác nhận">Đã xác nhận</option>
-                                    <option value="Đã giao thành công">Đã giao thành công</option>
-                                    <option value="Đã hủy">Đã hủy</option>
-                                </select>
-                                <div>
-                                    <label for="startDate">Từ ngày:</label>
-                                    <input type="date" id="startDate" />
+                                <div class="filter-order">
+                                    <i class='bx bx-filter-alt'>Lọc</i>
+                                    <div class="dropdown-filter">
+                                        <div class="dateFilter">
+                                            <label for="startDate"><strong>Từ ngày:</strong></label>
+                                            <input type="date" id="startDate">
+                                            <label for="endDate"><strong>Đến ngày:</strong></label>
+                                            <input type="date" id="endDate" />
+                                        </div>
+                                        <div class="group-cbx">
+                                            <select id="province">
+                                                <option value="" disabled selected>Chọn tỉnh/thành phố</option>
+                                            </select>
+                                            <select id="district">
+                                                <option value="" disabled selected>Chọn quận/huyện</option>
+                                            </select>
+                                        </div>
+                                        <select id="statusFilter">
+                                            <option value="all">Tất cả trạng thái</option>
+                                            <option value="Chưa xử lý">Chưa xử lý</option>
+                                            <option value="Đã xác nhận">Đã xác nhận</option>
+                                            <option value="Đã giao thành công">Đã giao thành công</option>
+                                            <option value="Đã hủy">Đã hủy</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="endDate">Đến ngày:</label>
-                                    <input type="date" id="endDate" />
-                                </div>
-                            </div>
-                            <div class="group-cbx">
-                                <select name="province" id="province" class="input-user" required>
-
-                                </select>
-                                <select name="district" id="district" class="input-user">
-                                    <option value="" disabled selected>Chọn quận/huyện</option>
-                                </select>
-
+                                <button id="resetFilters">Reset</button>
                             </div>
                         </div>
 
@@ -555,12 +621,13 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn</th>
-                                        <th>Khách hàng</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Ngày đặt</th>
+                                        <th>Tài khoản</th>
+                                        <th>Người nhận</th>
+                                        <th>SĐT</th>
                                         <th>Quận</th>
                                         <th>Tổng tiền</th>
-                                        <th>Tình trạng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
@@ -578,9 +645,39 @@
 
 
 
+            <!-- -----------------SETTING------------------------- -->
+            <div id="settings-container">
+                <div class="head">
+                    <div class="left">
+                        <h1>Cài đặt</h1>
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="#" style="pointer-events:none ;">Setting</a>
+                            </li>
+                            <li><i class='bx bx-chevron-right'></i></li>
+                            <li>
+                                <a class="active" href="#">Home</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
+                <div id="content_setting">
+                    <div id="change_avatar">
+                        Thay đổi hình ảnh
+                        <label for="avatar_input">Tải hình ảnh</label>
+                        <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatar_input">
+                    </div>
+                    <div id="change_name">
+                        Thay đổi tên
+                        <label for="name_input"> Đổi tên </label>
+                        <input type="text" id="name_input">
+                    </div>
+                </div>
+            </div>
         </main>
         <!-- MAIN -->
+
     </section>
     <!-- CONTENT -->
 
@@ -598,5 +695,5 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="admin_script.js"></script>
 
+
 </body>
-</html>
