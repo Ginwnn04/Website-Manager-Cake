@@ -1709,13 +1709,13 @@ function addInToListC(category,index){
     categoryItem.classList.add('categories-row');
     categoryItem.innerHTML = `
             <div class="categories-cell id">
-                <span class="cell-label">ID</span>${category.id}
+              ${category.id}
             </div>
             <div class="categories-cell name-category">
-                <span class="cell-label">Loại sản phẩm</span>${category.name}
+              ${category.name}
             </div>
             <div class="categories-cell stock">
-                <span class="cell-label">Số lượng</span>${category.stock}
+                ${category.stock}
             </div>
             <div class="categories-cell tool">
                 <button class="tool-button" onclick="confirmDeleteC(${index});">Delete</button>
