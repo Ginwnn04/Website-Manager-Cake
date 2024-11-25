@@ -19,10 +19,11 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg" id="profile-pic">
-            
+            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                id="profile-pic">
+
         </div>
-        
+
         <ul class="side-menu top">
             <li class="active">
                 <a href="#" id="dashboard_show">
@@ -32,24 +33,23 @@
             </li>
             <li>
                 <a href="#" id="product">
-                    <i class='bx bx-cheese'></i>
+                    <i class='bx bx-package'></i>
                     <span class="text">Sản phẩm</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="category">
-                    <i class="bx bx-bell"></i>
+                    <i class="bx bx-menu"></i>
                     <span class="text">Loại sản phẩm</span>
                 </a>
             </li>
-         
             <li>
                 <a href="#account_manager" id="account">
                     <i class='bx bxs-user-account'></i>
                     <span class="text">Quản Lí Tài Khoản</span>
                 </a>
             </li>
-            
+
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
@@ -87,10 +87,11 @@
                 </div>
             </form>
             <div class="item">
-                
+
                 <p class="name-item"></p>
-               
-                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg" id="avatar-item">
+
+                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
+                    id="avatar-item">
             </div>
         </nav>
         <!-- CONTENT -->
@@ -130,11 +131,10 @@
                             <div class="filter-menu">
                                 <label for="productCategory">Categories</label>
                                 <select id="productCategoryFilter" name="productCategoryFilter">
-                                    <option>All Categories</option>
                                 </select>
                                 <label for="statusOption">Status</label>
                                 <select id="statusOption">
-                                    <option>All Status</option>
+                                    <option value="All Status">All Status</option>
                                     <option value="Active">Active</option>
                                     <option value="Disabled">Disabled</option>
                                 </select>
@@ -175,7 +175,9 @@
                 <div class="products-area-wrapper tableView">
                     <div class="products-header">
                         <div class="product-cell image">
-                            Sản phẩm
+                        </div>
+                        <div class="product-cell name">
+                            Tên sản phẩm
                             <button class="sort-button" id="sortByNameP" value="nameP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -204,9 +206,6 @@
                         <div class="product-cell status-cell">
                             Trạng thái
                         </div>
-                        <div class="product-cell description">
-                            Mô tả
-                        </div>
                         <div class="product-cell stock">
                             Số lượng
                             <button class="sort-button" id="sortByStockP" value="stockP">
@@ -225,7 +224,7 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="product-cell tool">
+                        <div class="product-cell tools">
                             Công cụ
                         </div>
                     </div>
@@ -277,8 +276,10 @@
                 <div class="product-image">
                     <label for="productImageP">Hình ảnh sản phẩm:</label>
                     <input type="file" class="product-input" id="productImageP" name="productImage" />
+                    <label id="fileNameLabel">No file selected</label>
+                    <button type="button" id="removeImageBtn">X</button>
                 </div>
-                <div class="Preview-image" id="productPreviewImage"></div>
+                <img class="Preview-image" id="productPreviewImage" />
                 <div class="form-buttons">
                     <button type="button" class="btn-cancel" id="cancelProduct">Hủy</button>
                     <button type="submit" class="btn-save" id="saveProductInput">Lưu</button>
@@ -314,15 +315,13 @@
                         <textarea id="categoryDescription" placeholder="Nhập mô tả sản phẩm"></textarea>
                         <div class="form-buttons">
                             <button class="btn-cancel" id="cancelCategoryInput">Huỷ</button>
-                            <button class="btn-save" id="saveCategoryInput">Thêm loại sản phẩm</button>
+                            <button class="btn-save" id="saveCategoryInput">Lưu</button>
                         </div>
                     </form>
                 </div>
                 <div class="category-content-actions">
                     <input class="search-bar" id="search-category" placeholder="Search...." type="text"
                         oninput="toggleSearchButton();">
-                    <button class="search-category-button" id="search-submit" type="submit"><i
-                            class='bx bx-search-alt-2'></i></button>
                 </div>
                 <div class="categories-area-wrapper tableView">
                     <div class="categories-header">
@@ -343,9 +342,6 @@
                                         d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                                 </svg>
                             </button>
-                        </div>
-                        <div class="categories-cell description">
-                            Mô tả
                         </div>
                         <div class="categories-cell stock">
                             Số lượng
@@ -399,42 +395,45 @@
                         <div id="table_rank">
                             <table id="leaderboard">
                                 <thead>
-                                  <tr>
-                                    <th>Hạng</th>
-                                    <th>Tên người dùng</th>
-                                    <th>Số đơn hàng</th>
-                                    <th>Tổng doanh thu</th>
-                                    <th>Chi tiết</th>
-                                  </tr>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>Tên người dùng</th>
+                                        <th>Số đơn hàng</th>
+                                        <th>Tổng doanh thu</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
-                              </table>
-                              
+                            </table>
+
                         </div>
                         <div id="rank_sell">
                             <div id="best_seller">Sản phẩm bán chạy nhất</div>
                             <div id="worst_seller">Sản phẩm bán ế nhất</div>
                         </div>
-                        
+
                     </div>
                     <div id="sales_statistics">
                         <h2>Thống kê sản phẩm</h2>
                         <div>
-                            <label >Từ:
-                                <input type="date" name="start" id="date_start" >
-                           </label>
-                           
-                           <label >Đến:
-                               <input type="date" name="start" id="date_end" >
-                          </label>
-                            <select name="" id="rank_option">
-                                <option value="0">Tùy chọn mặc định</option>
-                                <option value="1">Số lượng</option>
-                                <option value="2">Doanh Thu </option>
-                            </select>
-                            <i class='bx bx-sort-up'></i>
-                            <i class='bx bx-sort-down'></i>
-                            <i class='bx bx-search-alt-2'></i>
+                            <label>Từ:
+                                <input type="date" name="start" id="date_start">
+                            </label>
+
+                            <label>Đến:
+                                <input type="date" name="start" id="date_end">
+                            </label>
+                            <div id="option_seach">
+                                <select name="" id="rank_option">
+                                    <option value="0">Tùy chọn mặc định</option>
+                                    <option value="1">Số lượng</option>
+                                    <option value="2">Doanh Thu </option>
+                                </select>
+                                <i class='bx bx-sort-up'></i>
+                                <i class='bx bx-sort-down'></i>
+                                <i class='bx bx-search-alt-2'></i>
+                            </div>
+                            
 
                         </div>
                         <div id="table_sell">
@@ -449,7 +448,7 @@
                                 </thead>
                             </table>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -478,9 +477,10 @@
                             <div class="icon">
                                 <div class="search">
                                     <input type="search" placeholder="Search..." id="search_account">
-                                    <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2' onclick="searchAccount()"></i></button>
+                                    <button type="submit" id="search_account_btn"><i class='bx bx-search-alt-2'
+                                            onclick="searchAccount()"></i></button>
                                 </div>
-                                
+
                                 <i class='bx bx-plus' onclick="showForm()"></i>
                             </div>
                         </div>
@@ -489,8 +489,8 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
-                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"required>
-                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input"required>
+                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
+                                        required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
                                         required>
                                     <input type="text" id="password" placeholder="Mật khẩu" class="form_input" required>
@@ -501,7 +501,6 @@
                                     <select id="role" required>
                                         <option value="all" disabled selected>Chọn vai trò</option>
                                         <option value="admin">Admin</option>
-                                        <option value="sales">Bán hàng</option>
                                         <option value="client">Khách hàng</option>
                                     </select>
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu tài
@@ -521,7 +520,7 @@
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
                                         <th>Số điện thoại</th>
-                                        <th>Role</th>
+                                        <th>Trạng thái</th>
                                         <th>Setting</th>
                                     </tr>
                                 </thead>
@@ -539,6 +538,7 @@
                                 <h2>Chi tiết Tài Khoản</h2>
 
                                 <div class="detail_table">
+                                    <p id="detail_id"></p>
                                     <p id="detail_name"></p>
                                     <p id="detail_username"></p>
                                     <p id="detail_password"></p>
@@ -582,31 +582,33 @@
                                     <button type="submit" class="search_order"><i
                                             class='bx bx-search-alt-2'></i></button>
                                 </div>
-                                <button id="resetFilters">Đặt lại</button>
-                                <select id="statusFilter">
-                                    <option value="all">Tất cả trạng thái</option>
-                                    <option value="Chưa xử lý">Chưa xử lý</option>
-                                    <option value="Đã xác nhận">Đã xác nhận</option>
-                                    <option value="Đã giao thành công">Đã giao thành công</option>
-                                    <option value="Đã hủy">Đã hủy</option>
-                                </select>
-                                <div>
-                                    <label for="startDate">Từ ngày:</label>
-                                    <input type="date" id="startDate" />
+                                <div class="filter-order">
+                                    <i class='bx bx-filter-alt'>Lọc</i>
+                                    <div class="dropdown-filter">
+                                        <div class="dateFilter">
+                                            <label for="startDate"><strong>Từ ngày:</strong></label>
+                                            <input type="date" id="startDate">
+                                            <label for="endDate"><strong>Đến ngày:</strong></label>
+                                            <input type="date" id="endDate" />
+                                        </div>
+                                        <div class="group-cbx">
+                                            <select id="province">
+                                                <option value="" disabled selected>Chọn tỉnh/thành phố</option>
+                                            </select>
+                                            <select id="district">
+                                                <option value="" disabled selected>Chọn quận/huyện</option>
+                                            </select>
+                                        </div>
+                                        <select id="statusFilter">
+                                            <option value="all">Tất cả trạng thái</option>
+                                            <option value="Chưa xử lý">Chưa xử lý</option>
+                                            <option value="Đã xác nhận">Đã xác nhận</option>
+                                            <option value="Đã giao thành công">Đã giao thành công</option>
+                                            <option value="Đã hủy">Đã hủy</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="endDate">Đến ngày:</label>
-                                    <input type="date" id="endDate" />
-                                </div>
-                            </div>
-                            <div class="group-cbx">
-                                <select name="province" id="province" class="input-user" required>
-
-                                </select>
-                                <select name="district" id="district" class="input-user">
-                                    <option value="" disabled selected>Chọn quận/huyện</option>
-                                </select>
-
+                                <button id="resetFilters">Reset</button>
                             </div>
                         </div>
 
@@ -615,12 +617,13 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn</th>
-                                        <th>Khách hàng</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Ngày đặt</th>
+                                        <th>Tài khoản</th>
+                                        <th>Người nhận</th>
+                                        <th>SĐT</th>
                                         <th>Quận</th>
                                         <th>Tổng tiền</th>
-                                        <th>Tình trạng</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Trạng thái</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
@@ -639,7 +642,7 @@
 
 
             <!-- -----------------SETTING------------------------- -->
-            <div id="settings-container" >
+            <div id="settings-container">
                 <div class="head">
                     <div class="left">
                         <h1>Cài đặt</h1>
@@ -685,8 +688,8 @@
 
 
     <!-- Test thêm đơn hàng -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="admin_script.js"></script>
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" ></script>
+    <script type="text/javascript" src="admin_script.js" defer></script>
+
 
 </body>
