@@ -1123,7 +1123,8 @@ function loadDataToLocal() {
 
 function loadAccountToLocal() {
     // Danh sách tài khoản mẫu
-    const listUser = [
+    if(localStorage.getItem(LIST_USER)===null){
+      const listUser = [
         {
             username: 'nguyenminhvu591@gmail.com',
             password: '1',
@@ -1135,6 +1136,7 @@ function loadAccountToLocal() {
             districtId: "005",
             wardId: "00169",
             status: "1",
+            role:'user',
         },
         {
             username: 'quang123',
@@ -1147,6 +1149,7 @@ function loadAccountToLocal() {
             districtId: "777",
             wardId: "27454",
             status: "1",
+            role:'admin',
         },
         {
             username: 'hihihaha',
@@ -1159,8 +1162,10 @@ function loadAccountToLocal() {
             districtId: "747",
             wardId: "26536",
             status: "1",
+            role:'user',
         },
     ];
+    }
     localStorage.setItem(LIST_USER, JSON.stringify(listUser));
 }
 

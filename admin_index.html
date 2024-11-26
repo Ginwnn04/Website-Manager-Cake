@@ -491,8 +491,6 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
-                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"
-                                        required>
                                     <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
                                         required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
@@ -505,8 +503,7 @@
                                     <select id="role" required>
                                         <option value="all" disabled selected>Chọn vai trò</option>
                                         <option value="admin">Admin</option>
-                                        <option value="sales">Bán hàng</option>
-                                        <option value="client">Khách hàng</option>
+                                        <option value="user">Khách hàng</option>
                                     </select>
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu tài
                                         khoản</button>
@@ -520,12 +517,11 @@
                             <table id="accountTable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Tên</th>
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
                                         <th>Số điện thoại</th>
-                                        <th>Role</th>
+                                        <th>Trạng thái</th>
                                         <th>Setting</th>
                                     </tr>
                                 </thead>
@@ -556,6 +552,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 

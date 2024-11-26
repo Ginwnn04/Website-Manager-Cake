@@ -185,7 +185,6 @@ const resizeObserver = new ResizeObserver(() => {
 resizeObserver.observe(document.getElementById('chart_div'));
 
 
-
 // Ẩn/hiện phần thêm account
 function showForm() {
   const form = document.getElementById('add_account');
@@ -200,7 +199,6 @@ function hideForm() {
   clearForm();
 }
 function clearForm(){
-  document.getElementById('id').value = '';
   document.getElementById('name').value = '';
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
@@ -208,6 +206,8 @@ function clearForm(){
   document.getElementById('address').value = '';
   document.getElementById('role').value = 'all';
 }
+
+
 document.getElementById('accountForm').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
       event.preventDefault(); // Ngăn hành động mặc định của Enter
@@ -220,7 +220,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
           changeAccount();
       } else {
           // Gọi hàm thêm tài khoản mới
-          let id = document.getElementById('id').value.trim();
           let name = document.getElementById('name').value.trim();
           let username = document.getElementById('username').value.trim();
           let password = document.getElementById('password').value.trim();
@@ -229,9 +228,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
           let role = document.getElementById('role').value.trim();
 
           // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
-          if (!id) {
-            document.getElementById('id').focus();
-          } else
           if (!name) {
               document.getElementById('name').focus();
           } else if (!username) {
@@ -256,7 +252,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
 
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
-  let id = document.getElementById('id').value.trim();
   let name = document.getElementById('name').value.trim();
   let username = document.getElementById('username').value.trim();
   let password = document.getElementById('password').value.trim();
@@ -265,30 +260,34 @@ function addNewAccount() {
   let role = document.getElementById('role').value.trim();
 
   // Kiểm tra các trường bắt buộc
-  if (!id || !name || !username || !password || !phone || !address || !role) {
+  if ( !name || !username || !password || !phone || !address || !role) {
     alert('Vui lòng điền đầy đủ thông tin.');
     return;
   }
 
   // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
-  // Thêm tài khoản mới vào danh sách
+  // Thêm tài khoản mới vào danh sách với các thuộc tính mặc định
   listAccount.push({
-    id:id,
-    name: name,
+    fullName: name,
     username: username,
     password: password,
     phone: phone,
     address: address,
-    role: role
+    role: role,
+    cart: [],           // Thêm thuộc tính cart mặc định
+    districtId: "",     // Thêm districtId mặc định
+    wardId: "",         // Thêm wardId mặc định
+    provinceId: "",     // Thêm provinceId mặc định
+    status: "1"         // Trạng thái mặc định
   });
 
   // Lưu danh sách tài khoản cập nhật vào localStorage
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
+  localStorage.setItem("listUser", JSON.stringify(listAccount));
 
   // Đặt lại giá trị các ô nhập liệu về trống
-  clearForm()
+  clearForm();
 
   // Ẩn form và thông báo thành công
   hideForm();
@@ -298,45 +297,67 @@ function addNewAccount() {
   showAccount(listAccount);
 }
 
+
 function showAccount() {
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
   let account = `<tr>
-      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
       <th>Số điện thoại</th>
-      <th>Role</th>
+      <th>Trạng thái</th>
       <th>Setting</th>
     </tr>`;
 
   listAccount.map((value, index) => {
+    // Kiểm tra trạng thái và hiển thị thông báo tương ứng
+    let statusText = value.status === "1" ? "Hoạt động" : "Bị khóa";
+    
     account += `<tr>
-        <td>${value.id}</td>
-        <td>${value.name}</td>
+        <td>${value.fullName}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
         <td>${value.phone}</td>
-        <td>${value.role}</td>
+        <td>${statusText}</td>
         <td>
-          <button class="edit_account" onclick=" editAccount(${index}) " >Sửa</button>
-          <button class="block_account">Khóa</button>
-          <button class="detail_account " onclick="showDetailAccount(${index})">Chi tiết</button>
+          <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
+          <button class="block_account" onclick="toggleStatus(${index})">${value.status === "1" ? "Khóa" : "Mở khóa"}</button>
+          <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
         </td>
       </tr>`;
   });
 
   document.getElementById("accountTable").innerHTML = account;
-  
-  
+}
+
+
+function toggleStatus(index) {
+  // Lấy danh sách tài khoản từ localStorage
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+
+  // Kiểm tra tài khoản có tồn tại không
+  if (listAccount[index]) {
+    // Thay đổi trạng thái từ 0 thành 1 hoặc ngược lại
+    listAccount[index].status = listAccount[index].status === "1" ? "0" : "1";
+
+    // Lưu lại danh sách đã thay đổi vào localStorage
+    localStorage.setItem("listUser", JSON.stringify(listAccount));
+
+    // Hiển thị lại danh sách tài khoản sau khi thay đổi
+    showAccount();
+  } else {
+    alert("Không tìm thấy tài khoản.");
+  }
 }
 
 
 
+
+
 function editAccount (index){
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-  document.getElementById('id').value=listAccount[index].id;
-  document.getElementById('name').value=listAccount[index].name;
+  
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+  document.getElementById('name').value=listAccount[index].fullName;
   document.getElementById('username').value=listAccount[index].username;
   document.getElementById('password').value=listAccount[index].password;
   document.getElementById('phone').value=listAccount[index].phone;
@@ -349,22 +370,44 @@ function editAccount (index){
   document.getElementById('update_account').style.display='inline-block';
 }
 
-function changeAccount (){
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+function changeAccount() {
+  // Lấy danh sách tài khoản từ localStorage
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+
+  // Lấy chỉ số tài khoản đang chỉnh sửa
   let index = document.getElementById('index').value;
-  listAccount[index]={
-    id:document.getElementById('id').value,
-    name:document.getElementById('name').value,
-    username:document.getElementById('username').value,
-    password:document.getElementById('password').value,
-    phone:document.getElementById('phone').value,
-    address:document.getElementById('address').value,
-    role:document.getElementById('role').value
-  }
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
+
+  // Lấy thông tin hiện tại từ biểu mẫu
+  let updatedAccount = {
+    fullName: document.getElementById('name').value.trim(),
+    username: document.getElementById('username').value.trim(),
+    password: document.getElementById('password').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    role: document.getElementById('role').value.trim()
+  };
+
+  // Xóa các trường rỗng (nếu có)
+  Object.keys(updatedAccount).forEach(key => {
+    if (updatedAccount[key] === '' || updatedAccount[key] === null || updatedAccount[key] === undefined) {
+      delete updatedAccount[key];
+    }
+  });
+
+  // Kết hợp dữ liệu cũ và dữ liệu mới (giữ nguyên thuộc tính cũ nếu không bị ghi đè)
+  listAccount[index] = {
+    ...listAccount[index],  // Thuộc tính cũ
+    ...updatedAccount       // Thuộc tính mới
+  };
+
+  // Lưu lại danh sách vào localStorage
+  localStorage.setItem("listUser", JSON.stringify(listAccount));
+
+  // Ẩn form, hiển thị danh sách tài khoản
   hideForm();
   showAccount();
 }
+
 
 const formAcc = document.getElementById('add_account');
 
@@ -384,20 +427,17 @@ formAcc.addEventListener('submit', function(event) {
 
 
 
-
-
 function showDetailAccount(index) {
   // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
-  // Kiểm tra xem tài khoản có tồn tại không
-  if (listAccount[index]) {
+  // Kiểm tra xem tài khoản có tồn tại không và index hợp lệ
+  if (listAccount && listAccount.length > 0 && listAccount[index]) {
     // Lấy thông tin tài khoản
     const account = listAccount[index];
 
     // Gán giá trị vào các phần tử <p>
-    document.getElementById("detail_id").innerHTML = "ID: " + account.id;
-    document.getElementById("detail_name").innerHTML = "Tên: " + account.name;
+    document.getElementById("detail_name").innerHTML = "Tên: " + account.fullName;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.username;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
     document.getElementById("detail_phone").innerHTML = "Số điện thoại: " + account.phone;
@@ -411,56 +451,71 @@ function showDetailAccount(index) {
   }
 }
 
-function hideDetailAccount(){
+function hideDetailAccount() {
+  // Ẩn phần chi tiết tài khoản
   document.getElementById("detail_account").style.display = "none";
 }
 
 
 function searchAccount() {
-  let valueSearchInput = document.getElementById('search_account').value;
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let valueSearchInput = document.getElementById('search_account').value.trim(); // Loại bỏ khoảng trắng thừa
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
+  // Chuyển giá trị tìm kiếm về chữ thường
+  let searchValueLower = valueSearchInput.toLowerCase();
+
+  // Lọc danh sách tài khoản
   let accountSearch = listAccount.filter(value => {
+    // Đảm bảo các trường cần kiểm tra không phải là null/undefined
+    let fullName = value.fullName ? value.fullName.toLowerCase() : "";
+    let username = value.username ? value.username.toLowerCase() : "";
+
     return (
-      value.name.toLowerCase().includes(valueSearchInput.toLowerCase()) || 
-      value.username.toLowerCase().includes(valueSearchInput.toLowerCase()) ||
-      (value.id && value.id.toLowerCase().includes(valueSearchInput.toLowerCase())) // Tìm theo ID
+      fullName.includes(searchValueLower) ||
+      username.includes(searchValueLower) 
     );
   });
 
+  // Hiển thị kết quả tìm kiếm
   document.getElementById("accountTable").innerHTML = "";
   showAccountSearch(accountSearch);
 }
 
+
 function showAccountSearch(array) {
   let account = `<tr>
-      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
       <th>Số điện thoại</th>
-      <th>Role</th>
+      <th>Trạng thái</th>
       <th>Setting</th>
     </tr>`;
 
   array.map((value, index) => {
+    // Kiểm tra status và hiển thị thông báo tương ứng
+    let statusText = value.status === "1" ? "Hoạt động" : "Đã Khóa";
+    
     account += `<tr>
-        <td>${value.id}</td>
-        <td>${value.name}</td>
+        <td>${value.fullName}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
         <td>${value.phone}</td>
-        <td>${value.role}</td>
+        <td>${statusText}</td> <!-- Hiển thị trạng thái -->
         <td>
-          <button class="edit_account" onclick=" editAccount(${index}) " >Sửa</button>
-          <button class="block_account">Khóa</button>
-          <button class="detail_account " onclick="showDetailAccount(${index})">Chi tiết</button>
+          <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
+          <button class="block_account" onclick="toggleStatus(${index})">${value.status === "1" ? "Khóa" : "Mở khóa"}</button>
+          <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
         </td>
       </tr>`;
   });
 
   document.getElementById("accountTable").innerHTML = account;
 }
+
+
+
+
 
 
 
@@ -538,8 +593,15 @@ window.addEventListener('load', function() {
     const savedName = localStorage.getItem('adminName'); // Lấy tên từ localStorage
     if (savedName) { // Hiển thị tên đã lưu
         nameDisplay2.textContent = savedName;
+        nameInput.value = savedName;
     }
 });
+
+
+
+
+
+
 
 
 
