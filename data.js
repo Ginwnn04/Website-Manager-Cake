@@ -1125,6 +1125,7 @@ function loadAccountToLocal() {
     // Danh sách tài khoản mẫu
     if(localStorage.getItem(LIST_USER)===null){
       const listUser = [
+
         {
             username: 'nguyenminhvu591@gmail.com',
             password: '1',
@@ -1163,11 +1164,11 @@ function loadAccountToLocal() {
             wardId: "26536",
             status: "1",
             role:'user',
-        },
-    ];
+        }
+      ];
+      localStorage.setItem(LIST_USER, JSON.stringify(listUser));
     }
-    localStorage.setItem(LIST_USER, JSON.stringify(listUser));
-}
+ }
 
 
 
