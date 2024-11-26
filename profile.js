@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Lấy thông tin người dùng từ localStorage
-    let userData = JSON.parse(localStorage.getItem("userLogin"));
-    let totalPage = 1;
-    let myOrder = [];
+    let userData = JSON.parse(localStorage.getItem("userCurrent"));
+
     // Kiểm tra nếu chưa đăng nhập
     if (!userData) {
         alert("Bạn chưa đăng nhập!");
@@ -99,14 +98,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const province = document.getElementById("province").options[document.getElementById("province").selectedIndex]?.text || "";
         const district = document.getElementById("district").options[document.getElementById("district").selectedIndex]?.text || "";
         const ward = document.getElementById("ward").options[document.getElementById("ward").selectedIndex]?.text || "";
-
+    
         const addressSummary = `${province}, ${district}, ${ward}, ${street}`.replace(/, ,/g, ',').trim();
         document.getElementById("address-summary").value = addressSummary || "Chưa cập nhật";
-
-        // Lưu lại vào localStorage
+    
+        // Lưu địa chỉ và các mã liên quan vào userCurrent
         userData.address = addressSummary;
-        localStorage.setItem("userLogin", JSON.stringify(userData));
+        userData.provinceId = document.getElementById("province").value;
+        userData.districtId = document.getElementById("district").value;
+        userData.wardId = document.getElementById("ward").value;
+    
+        localStorage.setItem("userCurrent", JSON.stringify(userData));
     }
+    
 
     // Xử lý sự kiện thay đổi tỉnh
     document.getElementById("province").addEventListener("change", async (event) => {
@@ -136,29 +140,54 @@ document.addEventListener("DOMContentLoaded", () => {
         const editButton = document.getElementById("edit-btn");
         const isEditing = editButton.textContent === "Sửa";
         editButton.textContent = isEditing ? "Lưu" : "Sửa";
-
+    
         const inputs = document.querySelectorAll("#info-form input, #info-form select");
         const addressFields = document.getElementById("address-fields");
         const addressSummary = document.getElementById("address-summary");
-
+    
         addressFields.style.display = isEditing ? "flex" : "none";
         addressSummary.style.display = isEditing ? "none" : "block";
-
+    
         inputs.forEach((input) => (input.disabled = !isEditing));
-
+    
         if (!isEditing) {
+            // Cập nhật thông tin cá nhân
             userData.fullName = document.getElementById("user-name").value.trim();
             userData.phone = document.getElementById("user-phone").value.trim();
             userData.email = document.getElementById("user-email").value.trim();
             userData.provinceId = document.getElementById("province").value;
             userData.districtId = document.getElementById("district").value;
             userData.wardId = document.getElementById("ward").value;
-
+    
             updateAddressSummary();
-            localStorage.setItem("userLogin", JSON.stringify(userData));
+    
+            // Đồng bộ với danh sách người dùng đã đăng ký
+            const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+            const userIndex = registeredUsers.findIndex(user => user.username === userData.username);
+            if (userIndex !== -1) {
+                registeredUsers[userIndex] = { ...userData };
+                localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+            }
+    
+            // Lưu thông tin cập nhật vào localStorage
+            localStorage.setItem("userCurrent", JSON.stringify(userData));
             alert("Thông tin đã được cập nhật!");
         }
     });
+    
+    function loadDataUserCurrent() {
+        userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
+    
+        if (!userCurrent) {
+            const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+            userCurrent = registeredUsers.find(user => user.username === (userCurrent?.username || ""));
+        }
+    
+        if (userCurrent) {
+            localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
+        }
+    }
+    
 
     // Xử lý sự kiện chuyển tab
     const menuButtons = document.querySelectorAll(".menu-btn");
@@ -185,8 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeProvinces();
     populateUserInfo();
 });
-//test
-
 
 // Danh sách don hang
 

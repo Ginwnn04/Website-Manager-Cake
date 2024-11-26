@@ -53,7 +53,7 @@ function callBackVnPay() {
 }
 
 function loadDataUserCurrent() {
-    userCurrent = localStorage.getItem(USER_LOGIN) ? JSON.parse(localStorage.getItem(USER_LOGIN)) : null;
+    userCurrent = localStorage.getItem("userCurrent") ? JSON.parse(localStorage.getItem("userCurrent")) : null;
 }
 
 
@@ -264,7 +264,7 @@ function increaseQuantity(obj, index) {
         userCurrent.cart.forEach((product) => {
             totalPrice += product.quantity * product.price;
         });
-        localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+        localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
         const totalPriceComponent = document.querySelector(".total-price-cart");
         totalPriceComponent.innerHTML = formatPrice(totalPrice);
     }
@@ -288,7 +288,7 @@ function decreaseQuantity(obj, index) {
             userCurrent.cart.forEach((product) => {
                 totalPrice += product.quantity * product.price;
             });
-            localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+            localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
             const totalPriceComponent = document.querySelector(".total-price-cart");
             totalPriceComponent.innerHTML = formatPrice(totalPrice);
         }
@@ -317,7 +317,7 @@ function inputQuantity(obj, index) {
             userCurrent.cart.forEach((product) => {
                 totalPrice += product.quantity * product.price;
             });
-            localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+            localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
             const totalPriceComponent = document.querySelector(".total-price-cart");
             totalPriceComponent.innerHTML = formatPrice(totalPrice);
         }
@@ -349,7 +349,7 @@ function addToCart() {
     }
 
     alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
-    localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+    localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
     closeProductDetail();
 }
 
@@ -370,7 +370,7 @@ btnCart.addEventListener("click", () => {
     const modal = document.getElementsByClassName("modal")[0];
     const cart = document.getElementsByClassName("cart")[0];
 
-    const userCurrent = localStorage.getItem(USER_LOGIN) ? JSON.parse(localStorage.getItem(USER_LOGIN)) : null;
+    const userCurrent = localStorage.getItem("userCurrent") ? JSON.parse(localStorage.getItem("userCurrent")) : null;
     const listItemComponent = document.querySelector(".list-cart-item");
     if (userCurrent === null || userCurrent.cart.length === 0) {
         const cartEmpty = `
@@ -453,9 +453,9 @@ function renderCart(cart) {
 }
 
 function deleteProduct(index) {
-    userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    userCurrent = JSON.parse(localStorage.getItem("userCurrent")); // Đúng key
     userCurrent.cart.splice(index, 1);
-    localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+    localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
     renderCart(userCurrent.cart);
 }
 
@@ -471,12 +471,12 @@ function renderPayment() {
     localStorage.setItem("modalIsShow", "true");
     renderProvince();
     renderInforUser();
-    renderItemCheckout(JSON.parse(localStorage.getItem(USER_LOGIN)).cart);
+    renderItemCheckout(userCurrent.cart);
 }
 
 
 function renderInforUser() {
-    const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
+    const userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
     document.getElementById("txtName").value = userCurrent.fullName;
     document.getElementById("txtPhone").value = userCurrent.phone;
     document.getElementById("txtAddress").value = userCurrent.address;
@@ -575,7 +575,7 @@ btnPaymentSubmit.addEventListener("click", () => {
         listOrder.unshift(order);
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
         userCurrent.cart = [];
-        localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent));
+        localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
         alert("Đặt hàng thành công!");
         localStorage.removeItem("modalIsShow");
         window.location.href = '/';
@@ -868,13 +868,14 @@ document.getElementById("max-price").addEventListener("input", function () {
 
 // xử lý đăng ký tài khoản
 function registerUser() {
-    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
+    listUser = JSON.parse(localStorage.getItem("listUser")) || [];
+    registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
     const phone = document.getElementById("signup-phone").value.trim();
     const email = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
 
-    
     if (!phone || !email || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
         return;
@@ -885,50 +886,60 @@ function registerUser() {
         return;
     }
 
-    // Kiểm tra xem tài khoản đã tồn tại chưa
-    const existingUser = listUser.find(user => user.phone === phone || user.email === email);
+    // Kiểm tra nếu số điện thoại hoặc email đã tồn tại
+    const existingUser = registeredUsers.find(user => user.phone === phone || user.email === email);
     if (existingUser) {
         alert("Số điện thoại hoặc email đã được sử dụng!");
         return;
     }
-    // Thêm tài khoản mới vào danh sách
+
     const newUser = {
-        username: email,
+        username: email, // Dùng email làm tên đăng nhập
         password: password,
         fullName: "Người dùng mới",
         phone: phone,
         email: email,
         cart: []
     };
+
     listUser.push(newUser);
-    localStorage.setItem(LIST_USER, JSON.stringify(listUser)); // Lưu vào localStorage
-    localStorage.setItem(USER_LOGIN, JSON.stringify(newUser)); // Lưu vào localStorage
+    registeredUsers.push(newUser);
+
+    localStorage.setItem("listUser", JSON.stringify(listUser));
+    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+    localStorage.setItem("userCurrent", JSON.stringify(newUser));
+
     loadDataUserCurrent();
     updateLoginButton();
-    closeForm("signupForm"); // Đóng form đăng ký
-    alert("Đăng ký thành công! Bạn có thể mua sản phẩm ngay bây giờ.");
+    closeForm("signupForm");
+    alert("Đăng ký thành công! Bạn có thể mua sắm ngay bây giờ.");
 }
 
 
 // Hàm xử lý đăng nhập
 function loginUser() {
-    const username = document.getElementById("login-username").value;
-    const password = document.getElementById("login-password").value;
+    const username = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value.trim();
 
-    // Tìm thông tin người dùng trong danh sách tài khoản
-    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
-    userCurrent = listUser.find(user => ((user.username === username) || (username.email = username)) && user.password === password);
-    console.log(userCurrent);
+    // Lấy danh sách người dùng đã đăng ký
+    let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    // Tìm người dùng khớp với email hoặc số điện thoại và mật khẩu
+    userCurrent = registeredUsers.find(user => 
+        (user.username === username || user.phone === username) && user.password === password
+    );
+
     if (userCurrent) {
-        // Đăng nhập thành công: lưu trạng thái và thông tin người dùng
-        localStorage.setItem(USER_LOGIN, JSON.stringify(userCurrent)); // Lưu thông tin người dùng
+        // Đăng nhập thành công: lưu thông tin người dùng hiện tại
+        localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
         alert("Đăng nhập thành công!");
         closeForm('loginForm'); // Đóng form đăng nhập
-        updateLoginButton(); // Cập nhật trạng thái nút đăng nhập
+        updateLoginButton(); // Cập nhật giao diện nút đăng nhập
     } else {
         alert("Thông tin đăng nhập không chính xác.");
     }
 }
+
 
 // Nút icon
 function updateLoginButton() {
@@ -958,13 +969,11 @@ function toggleUserOptions() {
 }
 
 // Hàm đăng xuất tài khoản
-function logoutUser() {
-    localStorage.removeItem('userLogin'); // Xóa thông tin người dùng
-    loadDataUserCurrent();
-    updateLoginButton(); // Cập nhật lại nút thành "Đăng nhập"
-    document.getElementById("userOptions").style.display = "none"; // Ẩn tùy chọn tài khoản
+function logoutUser(isModal = false) {
+    localStorage.removeItem("userCurrent"); // Xóa thông tin tài khoản hiện tại
+    if (isModal) closeLogoutModal(); // Đóng modal nếu cần
     alert("Bạn đã đăng xuất thành công!");
-    window.location.href = "index.html"; // Quay về trang chính
+    window.location.href = "index.html"; // Chuyển hướng về trang chính
 }
 
 // Kiểm tra trạng thái đăng nhập khi tải trang
@@ -976,20 +985,13 @@ document.querySelector(".form-container").addEventListener("submit", (e) => {
     loginUser();
 });
 
+// Xử lý sự kiện nút đăng ký
 document.addEventListener("DOMContentLoaded", () => {
     updateLoginButton();
-
-    // nút "Đăng ký"
     document.querySelector("#signupForm .btn").addEventListener("click", (e) => {
         e.preventDefault(); // Ngăn form tải lại trang
         registerUser();
     });
-
-    // nút "Đăng nhập"
-    // document.querySelector(".form-container").addEventListener("submit", (e) => {
-    //     e.preventDefault();
-    //     loginUser();
-    // });
 });
 
 
@@ -1028,12 +1030,36 @@ function closeLogoutModal() {
     }
 }
 
+
+// Gọi đăng xuất từ modal
 function confirmLogout() {
-    // Xóa thông tin người dùng
-    localStorage.removeItem("userLogin"); // Đảm bảo key thống nhất
-    closeLogoutModal(); // Đóng modal
-    alert("Bạn đã đăng xuất thành công!");
-    window.location.href = "index.html"; // Quay về trang chính
+    logoutUser(true); // Đăng xuất với việc đóng modal
+}
+function updateUserInfo() {
+    const name = document.getElementById("user-name").value.trim();
+    const phone = document.getElementById("user-phone").value.trim();
+    const email = document.getElementById("user-email").value.trim();
+    const address = document.getElementById("address-summary").value.trim();
+
+    if (userCurrent) {
+        userCurrent.fullName = name;
+        userCurrent.phone = phone;
+        userCurrent.email = email;
+        userCurrent.address = address;
+
+        // Đồng bộ với registeredUsers
+        let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+        const userIndex = registeredUsers.findIndex(user => user.username === userCurrent.username);
+        if (userIndex !== -1) {
+            registeredUsers[userIndex] = { ...userCurrent };
+            localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+        }
+
+        localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
+        alert("Thông tin cá nhân đã được cập nhật!");
+    } else {
+        alert("Không tìm thấy thông tin người dùng.");
+    }
 }
 
 var x = window.matchMedia("(max-width: 767.98px)");
