@@ -161,22 +161,6 @@ function renderProducts(productsToRender) {
     const productContainer = document.getElementsByClassName("list-product")[0];
     productContainer.innerHTML = "";
     let txtHtml = "";
-    // productsToRender.forEach((product, index) => {
-    //     txtHtml += `<div class="product-item" onclick="openProductDetail(${index})">
-    //         <div class="img-product">
-    //             <img src="${product.image}" alt="${product.name}">
-    //         </div>
-    //         <div class="info-product">
-    //             <h3 class="name-product">${product.name}</h3>
-    //             <div class="bottom-product">
-    //                 <h3 class="price-product">${formatPrice(product.price)}</h3>
-    //                 <button class="btn">
-    //                     <i class="fa-solid fa-cart-plus"></i> Thêm
-    //                 </button>
-    //             </div>
-    //         </div>
-    //     </div>`;
-    // });
     let start = (pageCurrent - 1) * perPage;
     let end = (pageCurrent - 1) * perPage + perPage;
     if (end > productsToRender.length) { 
@@ -933,7 +917,7 @@ function loginUser() {
 
     // Tìm thông tin người dùng trong danh sách tài khoản
     listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
-    userCurrent = listUser.find(user => user.username === username && user.password === password);
+    userCurrent = listUser.find(user => ((user.username === username) || (username.email = username)) && user.password === password);
     console.log(userCurrent);
     if (userCurrent) {
         // Đăng nhập thành công: lưu trạng thái và thông tin người dùng

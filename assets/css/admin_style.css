@@ -1399,12 +1399,83 @@ html {
     .dropdown-filter input,select{
         border-radius: 5px;
     }
+    /*Product and category*/
+    .category-container, .product-container {
+        padding: 8px;
+    }
+
+    .product-content-header, .category-content-header {
+        flex-direction: row;
+        align-items: flex-start; 
+        flex-wrap: wrap; 
+        gap: 12px; 
+        height: 100px;
+        position: relative;
+    }
+
+    .category-content-actions, .product-content-actions {
+        flex-direction: row;
+        flex-wrap: wrap; 
+        gap: 12px;
+    }
+    .product-content-actions-wrapper,.categories-area-wrapper{
+        flex-wrap: wrap;
+        flex-direction: row;
+        position:unset;
+    }
+    .product-content-actions-wrapper button{
+        width: 32px;
+    }
+
+    .categories-cell, .tableView .products-cell {
+        font-size: 12px;
+        min-width: 80px; 
+    }
+
+    .filter-menu {
+        width: 100%; 
+    }
+    .category-content-headerText{
+        overflow: hidden;
+    }
+    .category-content-headerText h1{
+        font-size: 4px;
+    }
+    .category-content-headerButton{
+        font-size: 3px;
+        width: auto;
+        overflow: hidden;
+    }
 }
 
 
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
     #order_manager .table_data table button{
         margin-bottom: 5px;
+    }
+    /*Product and category*/
+    .category-container, .product-container {
+        padding: 16px;
+    }
+
+    .category-content-header, .product-content-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .category-content-actions, .product-content-actions {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .categories-cell, .tableView .products-cell {
+        font-size: 14px;
+        min-width: 100px; /* Tăng kích thước tối thiểu */
+    }
+
+    .filter-menu {
+        width: 80%; 
     }
 }
 
@@ -1465,6 +1536,10 @@ html {
     max-height: none;
     display: flex;
     overflow: hidden;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    z-index: 100;
 }
 .product-content{
     padding: 8px;
@@ -1479,6 +1554,8 @@ html {
     min-height: 600px !important;
     margin: 12px;
     border-radius: 30px;
+    z-index: 100;
+    position: relative;
 }
 .product-content-header{
     display: flex;
@@ -1527,7 +1604,7 @@ html {
     border-radius: 20px; 
     max-width: 300px;
     width: 100%;
-    margin: 8px 0;
+    /* margin-left: 40%; */
 }
 
 .product-content-actions .search input {
@@ -1539,7 +1616,6 @@ html {
     font-size: 14px; 
     background: var(--grey);
     outline: none;
-    
 }
 .product-content-actions .search button {
     width: 40px; 
@@ -1560,10 +1636,10 @@ html {
     display: flex;
     align-items: left;
     margin: auto;
-    position: absolute;
     flex-wrap: wrap;
     flex-direction: row;
-    right: 3%;
+    position: absolute;
+    right: 5%;
 }
 @media screen and (max-width:520px){
     .product-content-actions{
@@ -1611,11 +1687,10 @@ html {
     height: 32px;
     width: 50px;
     background-color: var(--orange);
-    border: 1px solid var(--black);
+    border: none;
     align-items: center;
     color:  var(--light);
-    font-size: 14px;
-    margin-left: 8px;
+    font-size: 16px;
     cursor: pointer;
     justify-content: center;
 }
@@ -1660,7 +1735,7 @@ html {
     left:50%;
     transform: translatex(-50%);
   }
-  .filter-menu.active {
+ .filter-menu.active {
     visibility: visible;
     opacity: 1;
     top: calc(100% + 8px);
@@ -1734,6 +1809,7 @@ html {
     max-height: 100%;
     overflow: auto;
     padding: 0 4px;
+    z-index: 100;
 }
 .tableView .products-header{
     display: flex;
@@ -1742,6 +1818,7 @@ html {
     background-color: var(--product-content-secondary-color);
     position: sticky;
     top: 0;
+    height: 40px;
 }
 .tableView .products-row{
     display: flex;
@@ -1761,7 +1838,7 @@ html {
     flex: 1 1 auto;
     padding: 2px 4px; 
     color: var(--product-content-main-color);
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -1838,7 +1915,7 @@ html {
 }
 .tableView .sort-button{
     padding: 0;
-    background-color: var(--orange);
+    background-color: var(--dark_grey);
     border: none;
     cursor: pointer;
     color:  var(--light);
@@ -1859,7 +1936,7 @@ html {
 .product-cell.status-cell{
     border-radius: 4px;
     display: flex;
-    font-size: 12px;
+    font-size: 16px;
 }
 .product-cell.status-cell::before{
     width: 4px;
@@ -1959,7 +2036,6 @@ html {
 .gridView .product-cell.tools{
     display: none;
     position: absolute;
-    background-color: var(--light);
     top: 10px;
     right: 5px;
 }
@@ -2114,6 +2190,14 @@ input[type="file"]{
     border-radius: 3px;
     cursor: pointer;
 }
+.pagination button:hover{
+    background-color: var(--blue);
+    color: #fff;
+}
+.pagination button:active{
+    background-color: var(--orange);
+    color: #fff;
+}
 .pagination button[disabled]{
     background-color: #ccc;
     cursor: default;
@@ -2121,9 +2205,15 @@ input[type="file"]{
 .pagination .page-numbers button{
     padding: 5px;
     border-radius: 3px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+.pagination .page-numbers button:hover{
+    background-color: var(--blue);
+    color: #fff;
 }
 .pagination .page-numbers .active{
-    background-color: #fd7238;
+    background-color: var(--orange);
     font-weight: bold;
 }
 .gridView .pagination{
@@ -2146,6 +2236,9 @@ input[type="file"]{
     overflow: hidden;
     max-width: 2000px;
     margin: 12px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
 }
 .category-content{
     padding: 8px;
@@ -2240,7 +2333,6 @@ input[type="file"]{
         flex-direction: column;
         align-items: stretch;
         padding-bottom: 16px;
-        order: 1;
     }
     .category-content-actions .search{
         max-width: 100%;
@@ -2269,6 +2361,7 @@ input[type="file"]{
     background-color: var(--product-content-secondary-color);
     position: sticky;
     top: 0;
+    height: 40px;
 }
 .categories-row{
     display: flex;
@@ -2280,7 +2373,7 @@ input[type="file"]{
 }
 .sort-button{
     padding: 0;
-    background-color: var(--orange);
+    background-color: var(--dark_grey);
     border: none;
     cursor: pointer;
     color:  var(--light);

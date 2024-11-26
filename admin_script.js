@@ -1163,11 +1163,13 @@ formP.addEventListener('submit', function (event) {
   const selectedCategory = categories.find(category => category.id === ProductCategory);
   if (!selectedCategory) {
     alert("Loại sản phẩm không hợp lệ!");
+    document.getElementById('productCategory').focus();
     return;
   }
   const ProductStatus = document.querySelector('input[name="status"]:checked')?.value;
   if (!ProductStatus) {
     alert("Vui lòng chọn trạng thái!");
+    document.querySelector('input[name="status"]').focus();
     return;
   }
   const ProductDescription = document.getElementById('productDescription').value.trim();
@@ -1175,6 +1177,7 @@ formP.addEventListener('submit', function (event) {
   const ProductPrice = document.getElementById('productPrice').value.trim();
   if(listProduct.some((p,i) => p.name===ProductName && i!==editProductIndex)){
     alert("Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
+    document.getElementById('productName').focus();
     return;
   }
   if (!ProductName) {

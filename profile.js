@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Lấy thông tin người dùng từ localStorage
     let userData = JSON.parse(localStorage.getItem("userLogin"));
-
+    let totalPage = 1;
+    let myOrder = [];
     // Kiểm tra nếu chưa đăng nhập
     if (!userData) {
         alert("Bạn chưa đăng nhập!");
@@ -193,15 +194,43 @@ function myListOrder() {
     const body = document.querySelector('tbody');
     const listOrder = JSON.parse(localStorage.getItem('listOrder'));
     const userLogin = JSON.parse(localStorage.getItem('userLogin'));
-    const myOrder = listOrder.filter(order => order.account === userLogin.username);
-    let html = "";
-    myOrder.forEach(order => { 
-        html += `<tr>
-                        <td>${order.id}</td>
-                        <td>${order.total}</td>
-                        <td>${order.timeCreate}</td>
-                        <td>${order.status}</td>
-                    </tr>`
-    });
-    body.innerHTML = html;
+    myOrder = listOrder.filter(order => order.account === userLogin.username);
+    renderData(1);
+    renderButtonPage(myOrder);
+}
+
+
+function renderButtonPage(myOrder) {
+    totalPage = Math.ceil(myOrder.length / 10);
+    console.log(myOrder.length, totalPage);
+    for (let i = 1; i <= totalPage; i++) {
+        if (i === 1) {
+            document.querySelector('.group-btn').innerHTML += `<button class="btn-active" onclick="loadPage(this)">${i}</button>`;
+        }
+        else {
+            document.querySelector('.group-btn').innerHTML += `<button onclick="loadPage(this)">${i}</button>`;
+        }
+    }
+}
+
+function loadPage(obj) {
+    const currentPage = parseInt(obj.textContent);
+    renderData(currentPage);
+}
+
+function renderData(currentPage) {
+    let start = (currentPage - 1) * 10;
+    let end = currentPage * 10;
+    if (end > myOrder.length) { 
+        end = myOrder.length;
+    }
+    document.querySelector('tbody').innerHTML = '';
+    for (let i = start; i < end; i++) {
+        document.querySelector('tbody').innerHTML += `<tr>
+                        <td>${myOrder[i].id}</td>
+                        <td>${myOrder[i].total}</td>
+                        <td>${myOrder[i].timeCreate}</td>
+                        <td>${myOrder[i].status}</td>
+                    </tr>`;
+    }
 }
