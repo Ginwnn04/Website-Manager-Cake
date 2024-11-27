@@ -375,7 +375,7 @@ btnCart.addEventListener("click", () => {
     if (userCurrent === null || userCurrent.cart.length === 0) {
         const cartEmpty = `
                     <div class="empty-cart"
-                        style="height: 100%;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
+                        style="height: 400px;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
                         <img src="./rb_5858.png" alt="" style="height: 300px; width: 300px; display: block;">
                         <h1 style="font-size: 20px;font-weight: 500;">Rất tiếc, ban chưa chọn món!</h1>
                     </div>
