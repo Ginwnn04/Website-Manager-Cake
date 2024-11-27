@@ -944,7 +944,10 @@ function updateLoginButton() {
         loginBtn.onclick = toggleUserOptions;
     } else if (loginBtn) {
         // Nếu chưa đăng nhập, hiển thị nút "Đăng nhập"
-        loginBtn.innerHTML = "Đăng nhập";
+        loginBtn.innerHTML = `
+                                <i class="fa-regular fa-user"></i>
+                                <span>Đăng nhập</span>
+                                `;
         loginBtn.classList.remove("user-icon");
         loginBtn.classList.add("login-btn");
         loginBtn.onclick = () => openForm('loginForm'); // Mở form đăng nhập
@@ -986,7 +989,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // nút "Đăng nhập"
-    // document.querySelector(".form-container").addEventListener("submit", (e) => {
+    // document.querySelector(".form-container").addEventLFstener("submit", (e) => {
     //     e.preventDefault();
     //     loginUser();
     // });
@@ -994,14 +997,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
-document.addEventListener("click", function (e) {
-    const userOptions = document.getElementById("userOptions");
-    const userIcon = document.querySelector(".user-icon");
+// document.addEventListener("click", function (e) {
+//     const userOptions = document.getElementById("userOptions");
+//     const userIcon = document.querySelector(".user-icon");
 
-    if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
-        userOptions.style.display = "none";
-    }
-});
+//     if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
+//         userOptions.style.display = "none";
+//     }
+// });
 
 // Chuyển đến trang thông tin cá nhân
 function viewProfile() {
@@ -1016,6 +1019,7 @@ function openLogoutModal() {
         logoutModal.style.display = "block";
         logoutOverlay.classList.add("show");
     }
+
 }
 
 function closeLogoutModal() {
@@ -1029,21 +1033,56 @@ function closeLogoutModal() {
 }
 
 function confirmLogout() {
+    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
+    for (let i = 0; i < listUser.length; i++) {
+        if (listUser[i].username === userCurrent.username) {
+            listUser[i] = userCurrent;
+        }
+    }
+    localStorage.setItem(LIST_USER, JSON.stringify(listUser));
+    
+    
     // Xóa thông tin người dùng
     localStorage.removeItem("userLogin"); // Đảm bảo key thống nhất
     closeLogoutModal(); // Đóng modal
     alert("Bạn đã đăng xuất thành công!");
     window.location.href = "index.html"; // Quay về trang chính
+
+
 }
 
 var x = window.matchMedia("(max-width: 767.98px)");
 
 if (x.matches) {
-    document.querySelector(".search").addEventListener("click", () => {
-        console.log("hihi");
-        document.querySelector(".search .search-icon").style.display = "none";
-        document.querySelector(".search-txt").style.display = "unset";
-        document.querySelector(".filter-products").style.display = "unset";
-     });
+    document.querySelector(".search-icon").addEventListener("click", () => {
+        openSearchBar();
+        document.querySelector(".login-btn").style.display = "none";
+        document.querySelector(".btn-cart").style.display = "none";
+        document.querySelector(".search-close").removeAttribute("style");
+    });
+    document.querySelector(".search-close").addEventListener("click", () => { 
+        hiddenSearchBar();
+        openButton();
+    });
 }
 
+function openButton() {
+    document.querySelector(".login-btn").removeAttribute("style");
+    document.querySelector(".btn-cart").removeAttribute("style");
+    document.querySelector(".search-close").style.display = "none";
+    
+}
+
+function openSearchBar() {
+    document.querySelector(".search .search-icon").style.display = "none";
+    document.querySelector(".search-txt").style.display = "unset";
+    document.querySelector(".filter-products").style.display = "unset";
+}
+
+
+
+function hiddenSearchBar() {
+    document.querySelector(".search .search-icon").removeAttribute("style");
+    document.querySelector(".search-txt").removeAttribute("style");
+    document.querySelector(".filter-products").removeAttribute("style");
+}

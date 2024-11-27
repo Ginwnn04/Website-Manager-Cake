@@ -73,7 +73,7 @@ main {
 /* Dùng chung */
 
 .btn {
-    padding: 10px 20px;
+    padding: 8px 16px;
     background-color: var(--primary-color);
     max-height: 37px;
     min-width: 103px;
@@ -261,11 +261,6 @@ main {
 .login-btn {
     background-color: #f2f2f2;
     color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
 }
 
 .login-btn:hover {
@@ -781,8 +776,8 @@ main {
 }
 
 .content-cart .list-cart-item {
-    /* height: calc(83%);
-    overflow-y: auto; */
+    max-height: 670px;
+    overflow-y: auto;
 }
 
 .list-cart-item .cart-item {
@@ -835,7 +830,7 @@ main {
     border: none;
     width: 50px;
     height: 50px;
-    background-color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
     position: absolute;
     right: 0;
     top: calc((100% - 50px) / 2);
@@ -1398,6 +1393,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
+
+
+
 @media screen and (max-width: 767.98px) {
     .header-left {
         flex-grow: 4;
@@ -1420,7 +1418,7 @@ input[type="number"]::-webkit-inner-spin-button {
     .header-center .search .search-icon {
         position: unset;
         width: 40px;
-        height: 37px;
+        height: 34px;
         text-align: center;
         margin-right: 10px;
         background-color: #f0f0f0;
@@ -1431,6 +1429,19 @@ input[type="number"]::-webkit-inner-spin-button {
 
     .header-right .btn>span {
         display: none;
+    }
+
+
+    .header-right .search-close {
+        width: 34px;
+        height: 34px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        font-size: 20px;
+        cursor:pointer;
     }
 
     .navbar {

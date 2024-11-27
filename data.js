@@ -1123,9 +1123,8 @@ function loadDataToLocal() {
 
 function loadAccountToLocal() {
     // Danh sách tài khoản mẫu
-    if(localStorage.getItem(LIST_USER)===null){
+    if(localStorage.getItem(LIST_USER) === null){
       const listUser = [
-
         {
             username: 'nguyenminhvu591@gmail.com',
             password: '1',

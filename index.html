@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="login-btn icon-login" onclick="openForm('loginForm')">
-                        <i class="fa-solid fa-user-large"></i>
+                    <button class="btn login-btn icon-login" onclick="openForm('loginForm')">
+                        <i class="fa-regular fa-user"></i>
                         <span>Đăng nhập</span>
                     </button>
                     <button class="btn btn-cart">
@@ -52,6 +52,9 @@
                     <div class="user-options" id="userOptions">
                         <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
                         <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
+                    </div>
+                    <div onclick="hiddenSearch()" class="search-close" style="display: none;">
+                        <i class="fa-solid fa-xmark"></i>
                     </div>
                 </div>
             </div>
@@ -262,7 +265,7 @@
                     <div class="infor-general">
                         <span class="title">Thông tin chung</span>
                         <div class="infor-opt">
-                            <button class="btn-custom">
+                            <button class="btn-custom btn-custom--active">
                                 <span>Thông tin tài khoản</span>
                                 <i class="fa-solid fa-user"></i>
                             </button>
