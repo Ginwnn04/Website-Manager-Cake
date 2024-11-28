@@ -282,37 +282,7 @@ html {
 
 
 
-@media screen and (max-width: 760px ) {
-    #content{
-        width: calc(100% - 60px);   
-    }   
-}
 
-@media screen and (max-width: 600px) {
-
-    #content nav form .form-input input{
-        display: none;
-    }
-    #content nav form .form-input button{
-        width:auto ;
-        height: auto;
-        background: transparent;
-        border-radius: none;
-        color: var(--black);
-    }
-    #content nav form.show .form-input input{
-        display: block;
-        width: 200px;
-    }
-    #content nav form.show .form-input button{
-        width: 40px;
-        height: 100%;
-        border-radius: 0 30px 30px 0;
-        color: var(--light);
-        background:var(--red);
-        
-    }
-}
 
 /* MAIN */
 
@@ -853,9 +823,10 @@ html {
 }
 
 
+
 .info_account table th:nth-child(1),
 .info_account table td:nth-child(1) {
-    width: 5%; /* Chiều rộng cho Tên Khách Hàng */
+    width: 15%;  /* Chiều rộng cho Tên Khách Hàng */
 }
 .info_account table th:nth-child(2),
 .info_account table td:nth-child(2) {
@@ -870,19 +841,15 @@ html {
 .info_account table td:nth-child(4) {
     width: 15%; /* Chiều rộng cho Số điện thoại */
 }
+
+
 .info_account table th:nth-child(5),
 .info_account table td:nth-child(5) {
-    width: 15%; /* Chiều rộng cho Vai Trò */
-}
-
-
-.info_account table th:nth-child(6),
-.info_account table td:nth-child(6) {
     width: 10%; /* Chiều rộng cho Setting */
 }
-.info_account table th:nth-child(7),
-.info_account table td:nth-child(7) {
-    width: 15%; /* Chiều rộng cho Tên Khách Hàng */
+.info_account table th:nth-child(6),
+.info_account table td:nth-child(6) {
+    width: 20%; /* Chiều rộng cho Tên Khách Hàng */
 }
 
 .info_account table {
@@ -2468,3 +2435,78 @@ input[type="file"]{
     margin-top: 20px;
 }
 /* CATEGORY */
+
+
+
+
+
+@media screen and (max-width: 767.98px) {
+    #table_rank {
+        width: calc(100%  - 40px);
+        overflow-x: scroll; /* Hiển thị cuộn nếu nội dung vượt quá khung */
+    }
+    #rank_sell{
+        display: none;
+    }
+    #dashboard {
+        overflow-x: scroll;
+    }
+    #content nav form .form-input input{
+        display: none;
+    }
+    #content nav form .form-input button{
+        width:auto ;
+        height: auto;
+        background: transparent;
+        border-radius: none;
+        color: var(--black);
+    }
+    #content nav form.show .form-input input{
+        display: block;
+        width: 200px;
+    }
+    #content nav form.show .form-input button{
+        width: 40px;
+        height: 100%;
+        border-radius: 0 30px 30px 0;
+        color: var(--light);
+        background:var(--red);
+        
+    }
+    #content{
+        width: calc(100% - 60px);   
+    }
+
+    #settings-container #content_setting #change_name label{
+        position: absolute;
+        left: 30px;
+        top: 220px;
+        
+    }
+    #settings-container #content_setting #change_avatar label{
+        position: absolute;
+        left: 30px;
+        top: 50px;
+       
+    }
+    #settings-container #content_setting #change_name #name_input{
+        position: absolute;
+        position: absolute;
+        left: 10px;
+        top: 200px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+    #table_rank {
+       width: calc(100%  - 40px);
+        overflow-x: auto; /* Hiển thị cuộn nếu nội dung vượt quá khung */
+    }
+    #rank_sell{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+  
+}

@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("user-name").value = userData.fullName || "Chưa cập nhật";
         document.getElementById("user-phone").value = userData.phone || "Chưa cập nhật";
         document.getElementById("user-email").value = userData.email || "Chưa cập nhật";
+        document.getElementById("user-password").value = userData.password || "";
         document.getElementById("address-summary").value = userData.address || "Chưa cập nhật";
 
         if (userData.provinceId) {
@@ -21,7 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
             loadDistricts(userData.provinceId, userData.districtId, userData.wardId);
         }
     };
-
+    document.getElementById('toggle-password').addEventListener('click', function() {
+        var passwordField = document.getElementById('user-password');
+        var passwordFieldType = passwordField.type;
+    
+        // Chuyển đổi giữa password và text
+        if (passwordFieldType === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    });
+    
+    
     // Hàm fetch API với log chi tiết
     async function fetchAPI(url) {
         try {
@@ -84,8 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load danh sách phường/xã
     async function loadWards(districtCode, selectedWardCode) {
-        const wards = await fetchAPI(`https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=${districtCode}`);
-        populateSelect(document.getElementById("ward"), wards, "name", "idWard");
+        listWard = await fetchAPI(`https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=${districtCode}`);
+        populateSelect(document.getElementById("ward"), listWard, "name", "idCommune");
 
         if (selectedWardCode) {
             document.getElementById("ward").value = selectedWardCode;
@@ -135,45 +148,59 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Xử lý sự kiện chỉnh sửa thông tin
-    document.getElementById("edit-btn").addEventListener("click", () => {
-        const editButton = document.getElementById("edit-btn");
-        const isEditing = editButton.textContent === "Sửa";
-        editButton.textContent = isEditing ? "Lưu" : "Sửa";
+    /// Xử lý sự kiện chỉnh sửa thông tin
+document.getElementById("edit-btn").addEventListener("click", () => {
+    const editButton = document.getElementById("edit-btn");
+    const isEditing = editButton.textContent === "Sửa";
+    editButton.textContent = isEditing ? "Lưu" : "Sửa";
+
+    const inputs = document.querySelectorAll("#info-form input, #info-form select");
+    const addressFields = document.getElementById("address-fields");
+    const addressSummary = document.getElementById("address-summary");
+
     
-        const inputs = document.querySelectorAll("#info-form input, #info-form select");
-        const addressFields = document.getElementById("address-fields");
-        const addressSummary = document.getElementById("address-summary");
-    
-        addressFields.style.display = isEditing ? "flex" : "none";
-        addressSummary.style.display = isEditing ? "none" : "block";
-    
-        inputs.forEach((input) => (input.disabled = !isEditing));
-    
-        if (!isEditing) {
-            // Cập nhật thông tin cá nhân
-            userData.fullName = document.getElementById("user-name").value.trim();
-            userData.phone = document.getElementById("user-phone").value.trim();
-            userData.email = document.getElementById("user-email").value.trim();
-            userData.provinceId = document.getElementById("province").value;
-            userData.districtId = document.getElementById("district").value;
-            userData.wardId = document.getElementById("ward").value;
-    
-            updateAddressSummary();
-    
-            // Đồng bộ với danh sách người dùng đã đăng ký
-            const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-            const userIndex = registeredUsers.findIndex(user => user.username === userData.username);
-            if (userIndex !== -1) {
-                registeredUsers[userIndex] = { ...userData };
-                localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-            }
-    
-            // Lưu thông tin cập nhật vào localStorage
-            localStorage.setItem("userCurrent", JSON.stringify(userData));
-            alert("Thông tin đã được cập nhật!");
+    document.getElementById("user-email").disabled = true; // Email luôn luôn không thể chỉnh sửa
+
+    addressFields.style.display = isEditing ? "flex" : "none";
+    addressSummary.style.display = isEditing ? "none" : "block";
+
+    // Chỉ bật/tắt các trường nhập liệu khác ngoài email
+    inputs.forEach((input) => {
+        if (input.id !== "user-email") { // Đảm bảo email không bị thay đổi
+            input.disabled = !isEditing;
         }
     });
+
+    if (!isEditing) {
+        // Cập nhật thông tin cá nhân
+        userData.fullName = document.getElementById("user-name").value.trim();
+        userData.phone = document.getElementById("user-phone").value.trim();
+        userData.provinceId = document.getElementById("province").value;
+        userData.districtId = document.getElementById("district").value;
+        userData.wardId = document.getElementById("ward").value;
+
+        // Lưu mật khẩu mới nếu có thay đổi
+        const newPassword = document.getElementById("user-password").value.trim();
+        if (newPassword) {
+            userData.password = newPassword;  // Lưu mật khẩu vào userData
+        }
+
+        updateAddressSummary();
+
+        // Đồng bộ với danh sách người dùng đã đăng ký
+        const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+        const userIndex = registeredUsers.findIndex(user => user.username === userData.username);
+        if (userIndex !== -1) {
+            registeredUsers[userIndex] = { ...userData };
+            localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+        }
+
+        // Lưu thông tin cập nhật vào localStorage
+        localStorage.setItem("userCurrent", JSON.stringify(userData));
+        alert("Thông tin đã được cập nhật!");
+    }
+});
+
     
     function loadDataUserCurrent() {
         userCurrent = JSON.parse(localStorage.getItem("userCurrent"));

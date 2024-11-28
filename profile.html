@@ -8,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/profile.css">
-
 </head>
 
 <body>
@@ -28,15 +27,21 @@
             <h2>Thông Tin Cá Nhân</h2>
             <button class="edit-btn" id="edit-btn">Sửa</button>
             <form id="info-form">
-                <label><strong>Họ và tên:</strong></label>
-                <input type="text" id="user-name" value="Nguyen Van A" disabled>
-
-                <label><strong>Số điện thoại:</strong></label>
-                <input type="text" id="user-phone" value="0123456789" disabled>
-
-                <label><strong>Email:</strong></label>
+                <label><strong>Tên tài khoản:</strong></label>
                 <input type="text" id="user-email" value="nguyenvana@gmail.com" disabled>
 
+                <label><strong>Họ và tên:</strong></label>
+                <input type="text" id="user-name" value="Nguyen Van A" disabled>
+            
+                <label><strong>Số điện thoại:</strong></label>
+                <input type="text" id="user-phone" value="0123456789" disabled>
+            
+                <label><strong>Mật khẩu:</strong></label>
+                <div class="password-container">
+                    <input type="password" id="user-password" value="" disabled placeholder="Nhập mật khẩu mới">
+                    <i class="fa-solid fa-eye" id="toggle-password"></i> <!-- Icon con mắt -->
+                </div>
+            
                 <label><strong>Địa chỉ:</strong></label>
                 <input type="text" id="address-summary" value="" disabled style="margin-bottom: 10px;" />
                 <div id="address-fields" style="display: none; gap: 10px;">
@@ -51,7 +56,7 @@
                     </select>
                     <input type="text" id="street" placeholder="Tên đường/Số nhà" disabled style="flex: 1;" />
                 </div>
-            </form>
+            </form>            
         </section>
 
         <!-- Lịch Sử Mua Hàng -->

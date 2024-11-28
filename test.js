@@ -375,7 +375,7 @@ btnCart.addEventListener("click", () => {
     if (userCurrent === null || userCurrent.cart.length === 0) {
         const cartEmpty = `
                     <div class="empty-cart"
-                        style="height: 100%;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
+                        style="height: 400px;display: flex;align-items: center;justify-content: center;/* flex-wrap: wrap; */flex-direction: column;">
                         <img src="./rb_5858.png" alt="" style="height: 300px; width: 300px; display: block;">
                         <h1 style="font-size: 20px;font-weight: 500;">Rất tiếc, ban chưa chọn món!</h1>
                     </div>
@@ -871,12 +871,13 @@ function registerUser() {
     listUser = JSON.parse(localStorage.getItem("listUser")) || [];
     registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
+    const fullName = document.getElementById("signup-fullname").value.trim();
     const phone = document.getElementById("signup-phone").value.trim();
     const email = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
 
-    if (!phone || !email || !password || !confirmPassword) {
+    if (!fullName || !phone || !email || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
         return;
     }
@@ -896,7 +897,7 @@ function registerUser() {
     const newUser = {
         username: email, // Dùng email làm tên đăng nhập
         password: password,
-        fullName: "Người dùng mới",
+        fullName: fullName,
         phone: phone,
         email: email,
         cart: []
@@ -925,8 +926,8 @@ function loginUser() {
     let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
 
     // Tìm người dùng khớp với email hoặc số điện thoại và mật khẩu
-    userCurrent = registeredUsers.find(user => 
-        (user.username === username || user.phone === username) && user.password === password
+    userCurrent = registeredUsers.find(user =>
+        (user.username === username) && user.password === password
     );
 
     if (userCurrent) {
@@ -955,7 +956,10 @@ function updateLoginButton() {
         loginBtn.onclick = toggleUserOptions;
     } else if (loginBtn) {
         // Nếu chưa đăng nhập, hiển thị nút "Đăng nhập"
-        loginBtn.innerHTML = "Đăng nhập";
+        loginBtn.innerHTML = `
+                                <i class="fa-regular fa-user"></i>
+                                <span>Đăng nhập</span>
+                                `;
         loginBtn.classList.remove("user-icon");
         loginBtn.classList.add("login-btn");
         loginBtn.onclick = () => openForm('loginForm'); // Mở form đăng nhập
@@ -996,14 +1000,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
-document.addEventListener("click", function (e) {
-    const userOptions = document.getElementById("userOptions");
-    const userIcon = document.querySelector(".user-icon");
+// document.addEventListener("click", function (e) {
+//     const userOptions = document.getElementById("userOptions");
+//     const userIcon = document.querySelector(".user-icon");
 
-    if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
-        userOptions.style.display = "none";
-    }
-});
+//     if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
+//         userOptions.style.display = "none";
+//     }
+// });
 
 // Chuyển đến trang thông tin cá nhân
 function viewProfile() {
@@ -1018,6 +1022,7 @@ function openLogoutModal() {
         logoutModal.style.display = "block";
         logoutOverlay.classList.add("show");
     }
+
 }
 
 function closeLogoutModal() {
@@ -1065,11 +1070,35 @@ function updateUserInfo() {
 var x = window.matchMedia("(max-width: 767.98px)");
 
 if (x.matches) {
-    document.querySelector(".search").addEventListener("click", () => {
-        console.log("hihi");
-        document.querySelector(".search .search-icon").style.display = "none";
-        document.querySelector(".search-txt").style.display = "unset";
-        document.querySelector(".filter-products").style.display = "unset";
-     });
+    document.querySelector(".search-icon").addEventListener("click", () => {
+        openSearchBar();
+        document.querySelector(".login-btn").style.display = "none";
+        document.querySelector(".btn-cart").style.display = "none";
+        document.querySelector(".search-close").removeAttribute("style");
+    });
+    document.querySelector(".search-close").addEventListener("click", () => { 
+        hiddenSearchBar();
+        openButton();
+    });
 }
 
+function openButton() {
+    document.querySelector(".login-btn").removeAttribute("style");
+    document.querySelector(".btn-cart").removeAttribute("style");
+    document.querySelector(".search-close").style.display = "none";
+    
+}
+
+function openSearchBar() {
+    document.querySelector(".search .search-icon").style.display = "none";
+    document.querySelector(".search-txt").style.display = "unset";
+    document.querySelector(".filter-products").style.display = "unset";
+}
+
+
+
+function hiddenSearchBar() {
+    document.querySelector(".search .search-icon").removeAttribute("style");
+    document.querySelector(".search-txt").removeAttribute("style");
+    document.querySelector(".filter-products").removeAttribute("style");
+}
