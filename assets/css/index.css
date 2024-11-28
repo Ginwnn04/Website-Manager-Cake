@@ -428,7 +428,9 @@ main {
 .form-container a {
     color: #ff7f00;
     text-decoration: none;
+    margin-bottom: 10px;
 }
+
 
 .form-container a:hover {
     text-decoration: underline;

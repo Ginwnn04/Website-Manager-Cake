@@ -344,8 +344,8 @@
         <form class="form-container">
             <span class="close-btn" onclick="closeForm('loginForm')">&times;</span>
             <h2>Đăng nhập</h2>
-            <label for="login-username">Số điện thoại hoặc Gmail:</label>
-            <input type="text" id="login-username" placeholder="Nhập số điện thoại hoặc Gmail" required>
+            <label for="login-username">Tên tài khoản:</label>
+            <input type="text" id="login-username" placeholder="Nhập Gmail" required>
             <label for="login-password">Mật khẩu:</label>
             <input type="password" id="login-password" placeholder="Nhập mật khẩu" required>
             <a href="#" onclick="openForm('forgotPasswordForm')">Quên mật khẩu?</a>
@@ -355,23 +355,35 @@
     </div>
 
     <!-- Form đăng ký -->
-    <div class="form-popup" id="signupForm">
-        <form class="form-container">
-            <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
-            <h2>Đăng ký</h2>
-            <label for="signup-phone">Số điện thoại:</label>
-            <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
-            <label for="signup-email">Gmail:</label>
-            <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
-            <label for="signup-password">Mật khẩu:</label>
-            <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
-            <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
-            <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
-            <button type="submit" class="btn">Đăng ký</button>
-            <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
-        </form>
-    </div>
-    <div class="overlay" id="overlay"></div>
+<div class="form-popup" id="signupForm">
+    <form class="form-container">
+        <span class="close-btn" onclick="closeForm('signupForm')">&times;</span>
+        <h2>Đăng ký</h2>
+        
+        <!-- Thêm ô Họ và tên -->
+        <label for="signup-fullname">Họ và tên:</label>
+        <input type="text" id="signup-fullname" placeholder="Nhập họ và tên" required>
+        
+        <!-- Các trường khác -->
+        <label for="signup-phone">Số điện thoại:</label>
+        <input type="text" id="signup-phone" placeholder="Nhập số điện thoại" required>
+        
+        <label for="signup-email">Gmail:</label>
+        <input type="email" id="signup-email" placeholder="Nhập Gmail" required>
+        
+        <label for="signup-password">Mật khẩu:</label>
+        <input type="password" id="signup-password" placeholder="Nhập mật khẩu" required>
+        
+        <label for="signup-confirm-password">Nhập lại mật khẩu:</label>
+        <input type="password" id="signup-confirm-password" placeholder="Nhập lại mật khẩu" required>
+        
+        <button type="submit" class="btn">Đăng ký</button>
+        
+        <p>Đã có tài khoản? <a href="#" onclick="openForm('loginForm')">Đăng nhập</a></p>
+    </form>
+</div>
+<div class="overlay" id="overlay"></div>
+
 
     <!-- Form quên mật khẩu -->
     <div class="form-popup" id="forgotPasswordForm">
