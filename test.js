@@ -330,6 +330,10 @@ function addToCart() {
         alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
         return;
     }
+    else if (userCurrent.status === 0) { 
+        alert("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
+        return;
+    }
     const productCheckout = {};
     productCheckout.name = document.getElementById("product-name").textContent;
     productCheckout.quantity = parseInt(document.getElementById("quantity-product-details").value);
@@ -523,16 +527,29 @@ cbxDistrict.addEventListener("change", () => {
 });
     
 const btnCustom = document.querySelectorAll(".btn-custom");
-btnCustom.forEach(btn => { 
-    btn.addEventListener("click", () => {
+for (let i = 0; i < btnCustom.length; i++) {
+    btnCustom[i].addEventListener("click", () => {
         btnCustom.forEach(btn => {
             btn.classList.remove("btn-custom--active");    
         });
-        btn.classList.add("btn-custom--active");
-
+        btnCustom[i].classList.add("btn-custom--active");
+        if (i === 0) {
+            renderInforUser();
+        }
+        else if (i === 1) {
+            document.getElementById("txtName").value = "";
+            document.getElementById("txtPhone").value = "";
+            document.getElementById("txtAddress").value = "";
+            renderProvince();
+            listDistrict = [];
+            listWard = [];
+            renderDistrict();
+            renderWard();
+            
+        }
     });
-
-});
+    
+}
 
 const btnPaymentSubmit = document.querySelector(".btn-order");
 btnPaymentSubmit.addEventListener("click", () => {
