@@ -888,12 +888,12 @@ function registerUser() {
 
     const fullName = document.getElementById("signup-fullname").value.trim();
     const phone = document.getElementById("signup-phone").value.trim();
-    const email = document.getElementById("signup-email").value.trim();
+    const gmail = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
     const address = "";
 
-    if (!fullName || !phone || !email || !password || !confirmPassword) {
+    if (!fullName || !phone || !gmail || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
         return;
     }
@@ -911,7 +911,7 @@ function registerUser() {
 
     // Kiểm tra định dạng email (@gmail)
     const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    if (!emailPattern.test(email)) {
+    if (!emailPattern.test(gmail)) {
         alert("Email không đúng định dạng");
         return;
     }
@@ -924,19 +924,21 @@ function registerUser() {
     }
 
     // Kiểm tra nếu số điện thoại hoặc email đã tồn tại
-    const existingUser = listUser.find(user => user.phone === phone || user.email === email);
+    const existingUser = listUser.find(user => user.gmail === gmail);
     if (existingUser) {
-        alert("Số điện thoại hoặc email đã được sử dụng!");
+        alert("Gmail đã được sử dụng!");
         return;
     }
 
     const newUser = {
-        email: email,
+        gmail: gmail,
         password: password,
         fullName: fullName,
         phone: phone,
         cart: [],
-        address: address
+        address: address,
+        status: 1,
+        role: "User"
     };
 
     listUser.push(newUser);
@@ -952,15 +954,14 @@ function registerUser() {
 
 // Hàm xử lý đăng nhập
 function loginUser() {
-    const username = document.getElementById("login-username").value.trim();
+    const gmail = document.getElementById("login-username").value.trim();
     const password = document.getElementById("login-password").value.trim();
 
     // Lấy danh sách người dùng đã đăng ký
-    let registeredUsers = JSON.parse(localStorage.getItem("listUser")) || [];
-
+    listUser = JSON.parse(localStorage.getItem("listUser")) || [];
     // Tìm người dùng khớp với email hoặc số điện thoại và mật khẩu
-    userCurrent = registeredUsers.find(user =>
-        (user.email === username) && user.password === password
+    userCurrent = listUser.find(user =>
+        (user.gmail === gmail) && user.password === password
     );
 
     if (userCurrent) {
@@ -1060,7 +1061,17 @@ function closeLogoutModal() {
 
 // Gọi đăng xuất từ modal
 function confirmLogout() {
+    listUser = JSON.parse(localStorage.getItem(LIST_USER)) || [];
+    for (let i = 0; i < listUser.length; i++) {
+        if (listUser[i].gmail === userCurrent.gmail) {
+            listUser[i] = userCurrent;
+        }
+    }
+    localStorage.setItem(LIST_USER, JSON.stringify(listUser));
+    
     logoutUser(true); // Đăng xuất với việc đóng modal
+    
+
 }
 function updateUserInfo() {
     const name = document.getElementById("user-name").value.trim();
@@ -1122,9 +1133,10 @@ var x = window.matchMedia("(max-width: 767.98px)");
 if (x.matches) {
     document.querySelector(".search-icon").addEventListener("click", () => {
         openSearchBar();
-        document.querySelector(".login-btn").style.display = "none";
-        document.querySelector(".btn-cart").style.display = "none";
+        // document.querySelector(".login-btn").style.display = "none";
+        // document.querySelector(".btn-cart").style.display = "none";
         document.querySelector(".search-close").removeAttribute("style");
+        document.querySelector(".header-right").style.display = "none";
     });
     document.querySelector(".search-close").addEventListener("click", () => { 
         hiddenSearchBar();
@@ -1133,9 +1145,10 @@ if (x.matches) {
 }
 
 function openButton() {
-    document.querySelector(".login-btn").removeAttribute("style");
-    document.querySelector(".btn-cart").removeAttribute("style");
+    // document.querySelector(".login-btn").removeAttribute("style");
+    // document.querySelector(".btn-cart").removeAttribute("style");
     document.querySelector(".search-close").style.display = "none";
+    document.querySelector(".header-right").removeAttribute("style");
     
 }
 
