@@ -10,7 +10,7 @@ body {
 
 /* Sidebar bên trái */
 .sidebar {
-    width: 300px;
+    max-width: 300px;
     background-color: #ff7f00;
     color: white;
     display: flex;
@@ -119,14 +119,16 @@ section h2 {
     padding-bottom: 10px;
 }
 
+/* Container chứa cả hai nút (Đổi mật khẩu và Sửa) */
+.buttons-container {
+    position: relative;
+}
+
 /* Nút Sửa */
 .edit-btn {
     position: absolute;
-    /* Định vị nút "Sửa" tương đối với section */
     top: 10px;
-    /* Căn cách mép trên của khung */
     right: 10px;
-    /* Căn cách mép phải của khung */
     background-color: #ff7f00;
     color: white;
     border: none;
@@ -140,6 +142,97 @@ section h2 {
 .edit-btn:hover {
     background-color: #e06c00;
 }
+
+/* Nút Đổi Mật Khẩu */
+.change-password-btn {
+    position: absolute;
+    top: 10px;
+    right: 80px; /* Điều chỉnh để cách xa nút Sửa */
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.change-password-btn:hover {
+    background-color: #ec971f;
+}
+
+/* Media Queries để hỗ trợ responsive */
+@media (max-width: 768px) {
+    /* Khi màn hình nhỏ, chuyển từ layout ngang sang dọc */
+    .edit-btn, .change-password-btn {
+        position: static;
+        display: block;
+        margin: 10px auto;
+        width: 80%;
+        text-align: center;
+    }
+
+    .change-password-btn {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Form đổi mật khẩu */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Form đổi mật khẩu */
+.change-password-form {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    /* Vị trí cố định ở giữa màn hình */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Đảm bảo form xuất hiện trên lớp nền */
+}
+
+.change-password-form input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px -10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.change-password-form button {
+    background-color: #ff7f00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.change-password-form button:hover {
+    background-color: #e06c00;
+}
+
+
 
 /* Dropdown */
 #address-fields select {
@@ -161,12 +254,14 @@ section h2 {
     display: flex;
     gap: 10px;
 }
-
+#address-fields select:hover {
+    border-color: #ff7f00;
+}
 /* Định dạng input cho các trường thông tin */
-input[type="text"], input[type="password"] {
+input[type="text"] {
     width: 100%;
     padding: 10px;
-    margin: 5px 0;
+    margin: 5px -10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
@@ -176,50 +271,18 @@ input[type="text"], input[type="password"] {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input[type="text"]:disabled, input[type="password"]:disabled {
+input[type="text"]:disabled {
     background-color: #f9f9f9;
     color: #333;
     font-weight: normal;
     border-color: #ddd;
 }
 
-input[type="text"]:enabled, input[type="password"]:enabled {
+input[type="text"]:enabled {
     border: 2px solid #ff7f00;
     box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
 }
-/* Container để đặt ô mật khẩu và biểu tượng con mắt */
-.password-container {
-    position: relative;
-    width: 100%;
-}
 
-.password-container input[type="password"] {
-    width: calc(100% - 30px);  /* Dễ dàng cho việc hiển thị biểu tượng */
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    color: #333;
-    background-color: #fff;
-    font-weight: bold;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Icon mắt */
-.password-container i {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    cursor: pointer;
-    color: #000000;
-}
-
-.password-container i:hover {
-    color: #bee000;
-}
 
 
 /* List order */
@@ -273,7 +336,8 @@ input[type="text"]:enabled, input[type="password"]:enabled {
 @media screen and (max-width: 768px) {
     body {
         flex-direction: column;
-        height: auto;
+        height: auto; /* Cho phép chiều cao linh hoạt */
+        overflow-y: auto; /* Thêm thanh cuộn cho toàn bộ trang */
     }
 
     .sidebar {
@@ -313,6 +377,7 @@ input[type="text"]:enabled, input[type="password"]:enabled {
 
     .content {
         padding: 20px;
+        flex: 1;
     }
 
     section h2 {
@@ -321,7 +386,6 @@ input[type="text"]:enabled, input[type="password"]:enabled {
 
     .edit-btn {
         font-size: 14px;
-        /* Thu nhỏ nút sửa */
         padding: 8px 10px;
         top: 5px;
         right: 5px;
