@@ -220,34 +220,7 @@ html {
     max-width: 600px;
     width: 100%;
 }
-#content nav form .form-input{
-    align-items: center;
-    display: flex;
-    height: 36px;
-}
-#content nav form .form-input input{
-    padding: 0 16px;
-    height: 100%;
-    width: 70%;
-    border: none;
-    border-radius: 30px 0 0 30px;
-    font-size: 100%;
-    background: var(--grey);
-    outline: none;
-}
-#content nav form .form-input button{
-    min-width: 40px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    font-size: 24px;
-    align-items: center;
-    color: var(--light);
-    background: var(--blue);
-    border-radius: 0 30px 30px 0;
-    border: none;
-    cursor: pointer;
-}
+
 #content nav .item{
     position: absolute;
     right: 10px;
@@ -313,33 +286,12 @@ html {
     display: block;
 
 }
-#dashboard .head .left .breadcrumb,
-#settings-container .head .left .breadcrumb,
-#account_manager .head .left .breadcrumb{
-    display:flex;
-    align-items: center;
-    grid-gap: 16px;
-}
-#dashboard .head .left .breadcrumb li a,
-#settings-container .head .left .breadcrumb li a,
-#account_manager .head .left .breadcrumb li a {
-    color: var(--dark_grey);
-    pointer-events: none;
-}
-
-#dashboard .head .left .breadcrumb li a.active,
-#settings-container .head .left .breadcrumb li a.active,
-#account_manager .head .left .breadcrumb li a.active{
-    color: var(--blue);
-    pointer-events: unset;
-}
-
 
 #chart_div {
     min-width: 700px;
     width: calc(100% - 48px);
     height: 500px;
-    margin: 24px;
+    margin: 20px;
     background: var(--light);
     border-radius: 20px;
     overflow: hidden;
@@ -474,7 +426,8 @@ html {
 #product_rank td{
     padding: 10px; 
     text-align: left; 
-    border-bottom: 1px solid var(--black); 
+    border-bottom: 1px solid var(--dark_grey); 
+    font-size: 20px;
 }
 
 #product_rank th {
@@ -483,6 +436,7 @@ html {
     font-weight: bold; 
     font-size: 24px; 
 }
+
 #product_rank th:nth-child(1),
 #product_rank td:nth-child(1) {
     width: 20%; 
@@ -493,20 +447,18 @@ html {
 }
 #product_rank th:nth-child(3),
 #product_rank td:nth-child(3) {
-    width: 20%; 
+    width: 10%; 
 }
 #product_rank th:nth-child(4),
 #product_rank td:nth-child(4) {
-    width: 10%; 
+    width: 20%; 
 }
 #product_rank th:nth-child(5),
 #product_rank td:nth-child(5) {
     width: 15%; 
 }
-#product_rank th:nth-child(6),
-#product_rank td:nth-child(6) {
-    width: 15%; 
-}
+
+
 #option_seach{
     margin-top: 20px;
 }
@@ -639,20 +591,24 @@ html {
     color: var(--blue);
     pointer-events: unset;
 }
-#account_manager .table_data{
+#account_manager .table_data {
     display: flex;
-	flex-wrap: wrap;
-	grid-gap: 24px;
-	margin-top: 24px;
-    margin-left: 12px;
-	width: 100%;
-	color: var(--black);
+    flex-wrap: wrap;
+    grid-gap: 24px;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: calc(100% - 20px);
+    color: var(--black);
     overflow-x: auto;
+    min-height: 500px; /* Thêm min-height */
+    height: 600px;
 }
+
 #account_manager .table_data > div{
     border-radius: 20px;
     background: var(--light);
     padding: 40px;
+    
 }
 #account_manager .table_data .user{
     flex-basis: calc(100% - 24px);
@@ -817,7 +773,7 @@ html {
     background-color: var(--light); 
     color: var(--black); 
     font-weight: bold; 
-    font-size: 20px; 
+    font-size: 18px; 
 }
 
 .info_account table tr {
@@ -875,10 +831,10 @@ html {
     background-color: var(--light); 
     color: var(--black); 
     font-weight: bold; 
-    font-size: 24px; 
+    font-size: 18px; 
 }
 .info_account table td  {
-    font-size: 20px;
+    font-size: 14px;
 }
 
 .info_account table tr {
@@ -892,7 +848,9 @@ html {
     padding: 5px ;
     background-color: var(--orange);
     color: var(--light);
-    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 .edit_account:hover, .block_account:hover, .detail_account:hover{
     background-color: var(--blue);
@@ -1396,37 +1354,6 @@ html {
 
 
 
-@media screen and (max-width: 760px ) {
-    #content{
-        width: calc(100% - 60px);   
-    }   
-}
-
-@media screen and (max-width: 600px) {
-
-    #content nav form .form-input input{
-        display: none;
-    }
-    #content nav form .form-input button{
-        width:auto ;
-        height: auto;
-        background: transparent;
-        border-radius: none;
-        color: var(--black);
-    }
-    #content nav form.show .form-input input{
-        display: block;
-        width: 200px;
-    }
-    #content nav form.show .form-input button{
-        width: 40px;
-        height: 100%;
-        border-radius: 0 30px 30px 0;
-        color: var(--light);
-        background:var(--red);
-        
-    }
-}
 /* CONTENT */
 /* PRODUCT */
 .product-container{
@@ -2264,28 +2191,7 @@ input[type="file"]{
     #dashboard {
         overflow-x: scroll;
     }
-    #content nav form .form-input input{
-        display: none;
-    }
-    #content nav form .form-input button{
-        width:auto ;
-        height: auto;
-        background: transparent;
-        border-radius: none;
-        color: var(--black);
-    }
-    #content nav form.show .form-input input{
-        display: block;
-        width: 200px;
-    }
-    #content nav form.show .form-input button{
-        width: 40px;
-        height: 100%;
-        border-radius: 0 30px 30px 0;
-        color: var(--light);
-        background:var(--red);
-        
-    }
+
     #content{
         width: calc(100% - 60px);   
     }

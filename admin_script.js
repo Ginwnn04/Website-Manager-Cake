@@ -28,16 +28,7 @@ window.addEventListener('resize', function () {
     }
 });
 
-const searchButton = document.querySelector('#content nav form .form-input button');
-const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
-const searchForm = document.querySelector('#content nav form');
-searchButton.addEventListener('click', function (e) {
-    if (window.innerWidth < 600) {
-        e.preventDefault();
-        searchForm.classList.toggle('show');
-        searchButtonIcon.classList.replace(searchForm.classList.contains('show') ? 'bx-search-alt' : 'bx-x-circle', searchForm.classList.contains('show') ? 'bx-x-circle' : 'bx-search-alt');
-    }
-});
+
 
 const Dashboard = document.querySelector('#dashboard');
 const AccountManager = document.querySelector('#account_manager');
@@ -617,6 +608,168 @@ window.addEventListener('load', function() {
 
 
 // ------------------------------------------THỐNG KÊ -------------------------------
+
+// Hàm hiển thị bảng sản phẩm
+function showProductSummary(array) {
+  let productTable = `<tr>
+    <th>Tên sản phẩm</th>
+    <th>Giá</th>
+    <th>Số lượng</th>
+    <th>Tổng thu</th>
+    <th>Xem hóa đơn</th>
+  </tr>`;
+
+  let totalRevenue = 0; // Tổng tiền tất cả sản phẩm trong danh sách
+
+  array.forEach((product, index) => {
+    // Tính tổng thu của sản phẩm
+    const productRevenue = product.quantity * product.price;
+    totalRevenue += productRevenue;
+
+    productTable += `<tr>
+        <td>${product.name}</td>
+        <td>${product.price.toLocaleString("vi-VN")} VND</td>
+        <td>${product.quantity}</td>
+        <td>${productRevenue.toLocaleString("vi-VN")} VND</td>
+        <td>
+          <button class="view_invoice" onclick="viewInvoice(${index})">Xem hóa đơn</button>
+        </td>
+      </tr>`;
+  });
+
+  // Thêm dòng hiển thị tổng tiền
+  productTable += `<tr>
+    <td colspan="3"><strong>Tổng cộng</strong></td>
+    <td colspan="2"><strong>${totalRevenue.toLocaleString("vi-VN")} VND</strong></td>
+  </tr>`;
+
+  document.getElementById("product_rank").innerHTML = productTable;
+}
+
+
+
+
+// Lấy danh sách từ localStorage
+let listOrder = localStorage.getItem("listOrder") ? JSON.parse(localStorage.getItem("listOrder")) : [];
+let productSummary = []; // Danh sách sản phẩm mặc định
+let currentProductSummary = []; // Danh sách sản phẩm hiện tại sau khi tìm kiếm (nếu có)
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Lọc các đơn hàng có trạng thái "Đã giao thành công"
+  const filteredOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  // Xử lý dữ liệu sản phẩm
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      const existingProduct = productSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+      } else {
+        productSummary.push({
+          name: product.name,
+          quantity: product.quantity,
+          price: product.price
+        });
+      }
+    });
+  });
+
+  // Sắp xếp giảm dần theo số lượng
+  productSummary.sort((a, b) => b.quantity - a.quantity);
+
+  // Hiển thị bảng ban đầu
+  showProductSummary(productSummary);
+});
+
+// Hàm xếp tăng dần
+function rankUp() {
+  const rankOption = document.getElementById("rank_option").value;
+  const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
+
+  if (sourceData.length === 0) {
+    alert("Không có dữ liệu để xếp hạng.");
+    return;
+  }
+
+  if (rankOption === "1") {
+    sourceData.sort((a, b) => a.quantity - b.quantity);
+  } else if (rankOption === "2") {
+    sourceData.sort((a, b) => (a.quantity * a.price) - (b.quantity * b.price));
+  }
+
+  showProductSummary(sourceData);
+}
+
+// Hàm xếp giảm dần
+function rankDown() {
+  const rankOption = document.getElementById("rank_option").value;
+  const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
+
+  if (sourceData.length === 0) {
+    alert("Không có dữ liệu để xếp hạng.");
+    return;
+  }
+
+  if (rankOption === "1") {
+    sourceData.sort((a, b) => b.quantity - a.quantity);
+  } else if (rankOption === "2") {
+    sourceData.sort((a, b) => (b.quantity * b.price) - (a.quantity * a.price));
+  }
+
+  showProductSummary(sourceData);
+}
+
+// Sự kiện cho nút "Tìm kiếm"
+document.getElementById("search_button_rank").addEventListener("click", function () {
+  const startDateValue = document.getElementById("date_start").value;
+  const endDateValue = document.getElementById("date_end").value;
+
+  if (!startDateValue || !endDateValue) {
+    alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.");
+    return;
+  }
+
+  const startDate = new Date(startDateValue);
+  const endDate = new Date(endDateValue);
+
+  if (startDate > endDate) {
+    alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
+    return;
+  }
+
+  // Lọc đơn hàng theo trạng thái và thời gian
+  const filteredOrders = listOrder.filter(order => {
+    const orderDate = new Date(order.timeCreate);
+    return order.status === "Đã giao thành công" && orderDate >= startDate && orderDate <= endDate;
+  });
+
+  // Làm mới danh sách hiện tại
+  currentProductSummary = [];
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      const existingProduct = currentProductSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+      } else {
+        currentProductSummary.push({
+          name: product.name,
+          quantity: product.quantity,
+          price: product.price
+        });
+      }
+    });
+  });
+
+  if (currentProductSummary.length > 0) {
+    showProductSummary(currentProductSummary);
+  } else {
+    alert("Không có sản phẩm nào trong khoảng thời gian đã chọn.");
+    document.getElementById("product_rank").innerHTML = `
+      <tr>
+        <td colspan="5">Không có dữ liệu</td>
+      </tr>`;
+  }
+});
 
 
 

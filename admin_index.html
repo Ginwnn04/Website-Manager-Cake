@@ -80,12 +80,7 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link"></a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="seach" placeholder="Seach...">
-                    <button type="submit" class="seach-btm"><i class='bx bx-search-alt'></i></button>
-                </div>
-            </form>
+            
             <div class="item">
 
                 <p class="name-item"></p>
@@ -378,15 +373,7 @@
                 <div class="head">
                     <div class="left">
                         <h1>Dashboard</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Dashboard</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+                        
                     </div>
                 </div>
                 <div id="border_chart">
@@ -425,13 +412,12 @@
                             </label>
                             <div id="option_seach">
                                 <select name="" id="rank_option">
-                                    <option value="0">Tùy chọn mặc định</option>
                                     <option value="1">Số lượng</option>
                                     <option value="2">Doanh Thu </option>
                                 </select>
-                                <i class='bx bx-sort-up'></i>
-                                <i class='bx bx-sort-down'></i>
-                                <i class='bx bx-search-alt-2'></i>
+                                <i class='bx bx-sort-up' onclick="rankUp()"></i>
+                                <i class='bx bx-sort-down' onclick="rankDown()"></i>
+                                <i class='bx bx-search-alt-2' id="search_button_rank"></i>
                             </div>
                             
 
@@ -439,7 +425,6 @@
                         <div id="table_sell">
                             <table id="product_rank">
                                 <thead>
-                                    <th>Mã sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
@@ -447,6 +432,9 @@
                                     <th>Xem hóa đơn</th>
                                 </thead>
                             </table>
+                            <tbody>
+                                
+                            </tbody>
                         </div>
 
                     </div>
@@ -457,17 +445,6 @@
                 <div class="head">
                     <div class="left">
                         <h1>Quản Lí Tài Khoản</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Account Manager</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-chevron-right'></i>
-                            </li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="table_data">
@@ -645,15 +622,7 @@
                 <div class="head">
                     <div class="left">
                         <h1>Cài đặt</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#" style="pointer-events:none ;">Setting</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+                        
                     </div>
                 </div>
 
