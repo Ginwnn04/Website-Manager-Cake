@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Lấy thông tin người dùng từ localStorage
     let userData = JSON.parse(localStorage.getItem("userCurrent"));
+    let listUser=JSON.parse(localStorage.getItem("listUser"))
 
     // Kiểm tra nếu chưa đăng nhập
     if (!userData) {
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("user-name").value = userData.fullName || "Chưa cập nhật";
         document.getElementById("user-phone").value = userData.phone || "Chưa cập nhật";
         document.getElementById("user-email").value = userData.email || "Chưa cập nhật";
-        document.getElementById("user-password").value = userData.password || "";
         document.getElementById("address-summary").value = userData.address || "Chưa cập nhật";
 
         if (userData.provinceId) {
@@ -22,23 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
             loadDistricts(userData.provinceId, userData.districtId, userData.wardId);
         }
     };
-    document.getElementById('toggle-password').addEventListener('click', function() {
-        var passwordField = document.getElementById('user-password');
-        var passwordFieldType = passwordField.type;
-    
-        // Chuyển đổi giữa password và text
-        if (passwordFieldType === "password") {
-            passwordField.type = "text";
-        } else {
-            passwordField.type = "password";
-        }
-    });
     
     
     // Hàm fetch API với log chi tiết
     async function fetchAPI(url) {
         try {
-            console.log("Fetching data from:", url);
+            // console.log("Fetching data from:", url);
             const response = await fetch(url);
     
             if (!response.ok) {
@@ -47,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
     
             const result = await response.json();
-            console.log("Raw API response:", result);
+            // console.log("Raw API response:", result);
     
             // Trả về mảng trực tiếp nếu API không có thuộc tính `data`
             return Array.isArray(result) ? result : result.data || [];
@@ -59,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
     function populateSelect(element, data, textKey, valueKey) {
-        console.log("Populating dropdown:", element.id, "with data:", data);
+        // console.log("Populating dropdown:", element.id, "with data:", data);
         if (data.length === 0) {
             console.warn(`No data available for dropdown: ${element.id}`);
         }
@@ -128,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Xử lý sự kiện thay đổi tỉnh
     document.getElementById("province").addEventListener("change", async (event) => {
         const provinceCode = event.target.value;
-        console.log("Province selected:", provinceCode);
+        // console.log("Province selected:", provinceCode);
         document.getElementById("district").innerHTML = '<option value="">Chọn Quận/Huyện</option>';
         document.getElementById("ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
 
@@ -140,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Xử lý sự kiện thay đổi quận/huyện
     document.getElementById("district").addEventListener("change", async (event) => {
         const districtCode = event.target.value;
-        console.log("District selected:", districtCode);
+        // console.log("District selected:", districtCode);
         document.getElementById("ward").innerHTML = '<option value="">Chọn Phường/Xã</option>';
 
         if (districtCode) {
@@ -148,19 +137,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    /// Xử lý sự kiện chỉnh sửa thông tin
+ // Xử lý sự kiện chỉnh sửa thông tin
 document.getElementById("edit-btn").addEventListener("click", () => {
     const editButton = document.getElementById("edit-btn");
     const isEditing = editButton.textContent === "Sửa";
-    editButton.textContent = isEditing ? "Lưu" : "Sửa";
+    editButton.textContent = isEditing ? "Lưu" : "Sửa";  // Chuyển đổi giữa Sửa và Lưu
 
     const inputs = document.querySelectorAll("#info-form input, #info-form select");
     const addressFields = document.getElementById("address-fields");
     const addressSummary = document.getElementById("address-summary");
 
-    
-    document.getElementById("user-email").disabled = true; // Email luôn luôn không thể chỉnh sửa
+    // Email luôn luôn không thể chỉnh sửa
+    document.getElementById("user-email").disabled = true;
 
+    // Chỉ bật/tắt các trường nhập liệu khác ngoài email
     addressFields.style.display = isEditing ? "flex" : "none";
     addressSummary.style.display = isEditing ? "none" : "block";
 
@@ -172,34 +162,61 @@ document.getElementById("edit-btn").addEventListener("click", () => {
     });
 
     if (!isEditing) {
-        // Cập nhật thông tin cá nhân
-        userData.fullName = document.getElementById("user-name").value.trim();
-        userData.phone = document.getElementById("user-phone").value.trim();
-        userData.provinceId = document.getElementById("province").value;
-        userData.districtId = document.getElementById("district").value;
-        userData.wardId = document.getElementById("ward").value;
+        // Lấy giá trị từ form
+        const name = document.getElementById("user-name").value.trim();
+        const phone = document.getElementById("user-phone").value.trim();
+        const provinceId = document.getElementById("province").value;
+        const districtId = document.getElementById("district").value;
+        const wardId = document.getElementById("ward").value;
 
         // Lưu mật khẩu mới nếu có thay đổi
-        const newPassword = document.getElementById("user-password").value.trim();
-        if (newPassword) {
-            userData.password = newPassword;  // Lưu mật khẩu vào userData
-        }
+        // const newPassword = document.getElementById("user-password").value.trim();
+        // if (newPassword) {
+        //     if (newPassword.length < 6) { // Kiểm tra độ dài mật khẩu
+        //         alert("Mật khẩu phải có ít nhất 6 ký tự!");
+        //         return;
+        //     }
+        //     userData.password = newPassword;  // Lưu mật khẩu vào userData
+        // }
 
+        // Cập nhật thông tin người dùng
+        userData.fullName = name;
+        userData.phone = phone;
+        userData.provinceId = provinceId;
+        userData.districtId = districtId;
+        userData.wardId = wardId;
+
+        // Cập nhật địa chỉ tóm tắt
         updateAddressSummary();
 
-        // Đồng bộ với danh sách người dùng đã đăng ký
-        const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-        const userIndex = registeredUsers.findIndex(user => user.username === userData.username);
-        if (userIndex !== -1) {
-            registeredUsers[userIndex] = { ...userData };
-            localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-        }
+        // Đồng bộ với danh sách người dùng trong listUser
+        let listUser = JSON.parse(localStorage.getItem("listUser")) || [];
+
+        // Sử dụng map để cập nhật người dùng trong listUser
+        listUser = listUser.map(user => {
+            if (user.email === userData.email) {
+                return { ...userData };  // Cập nhật thông tin người dùng trong danh sách
+            }
+            return user;  // Giữ nguyên các người dùng khác
+        });
+
+        // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+        localStorage.setItem("listUser", JSON.stringify(listUser));
 
         // Lưu thông tin cập nhật vào localStorage
         localStorage.setItem("userCurrent", JSON.stringify(userData));
+
+        // Console log để kiểm tra
+        console.log("Updated userData: ", userData);  // Kiểm tra thông tin người dùng sau khi cập nhật
+        console.log("Updated listUser: ", listUser);  // Kiểm tra danh sách người dùng sau khi cập nhật
+
         alert("Thông tin đã được cập nhật!");
     }
 });
+
+
+console.log("Updated userData: ", userData);  // Kiểm tra thông tin người dùng sau khi cập nhật
+console.log("Updated registeredUsers: ", listUser);  // Kiểm tra danh sách người dùng sau khi cập nhật
 
     
     function loadDataUserCurrent() {
@@ -215,6 +232,96 @@ document.getElementById("edit-btn").addEventListener("click", () => {
         }
     }
     
+// Kiểm tra và gán sự kiện nếu phần tử tồn tại
+const changePasswordBtn = document.getElementById("change-password-btn");
+const cancelChangePasswordBtn = document.getElementById("cancel-change-password-btn");
+const savePasswordBtn = document.getElementById("save-password-btn");
+const changePasswordForm = document.getElementById("change-password-form");
+const overlay = document.getElementById("overlay");
+
+if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePasswordForm && overlay) {
+    // Lắng nghe sự kiện khi người dùng nhấn vào nút "Đổi mật khẩu"
+    changePasswordBtn.addEventListener("click", () => {
+        changePasswordForm.style.display = "block";
+        overlay.style.display = "block";
+    });
+
+    // Lắng nghe sự kiện khi người dùng nhấn vào nút "Hủy"
+    cancelChangePasswordBtn.addEventListener("click", () => {
+        changePasswordForm.style.display = "none";
+        overlay.style.display = "none";
+    });
+
+    // Lắng nghe sự kiện khi người dùng nhấn vào lớp nền mờ
+    overlay.addEventListener("click", () => {
+        changePasswordForm.style.display = "none";
+        overlay.style.display = "none";
+    });
+
+    // Lắng nghe sự kiện khi người dùng nhấn vào nút "Lưu"
+    savePasswordBtn.addEventListener("click", () => {
+        const currentPassword = document.getElementById("current-password").value.trim();
+        const newPassword = document.getElementById("new-password").value.trim();
+        const confirmPassword = document.getElementById("confirm-password").value.trim();
+
+        // Lấy dữ liệu từ localStorage
+        const userData = JSON.parse(localStorage.getItem("userCurrent") || "{}");
+        const listUser = JSON.parse(localStorage.getItem("listUser") || "[]");
+
+        // Kiểm tra dữ liệu userCurrent
+        if (!userData || !userData.password) {
+            alert("Không tìm thấy thông tin người dùng hiện tại!");
+            return;
+        }
+
+        // Kiểm tra mật khẩu hiện tại
+        if (currentPassword !== userData.password) {
+            alert("Mật khẩu hiện tại không chính xác!");
+            return;
+        }
+
+        // Kiểm tra mật khẩu mới không được trùng với mật khẩu cũ
+        if (newPassword === currentPassword) {
+            alert("Mật khẩu mới không được trùng với mật khẩu cũ!");
+            return;
+        }
+
+        // Kiểm tra độ dài mật khẩu mới
+        if (newPassword.length < 6) {
+            alert("Mật khẩu mới phải có ít nhất 6 ký tự!");
+            return;
+        }
+
+        // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+        if (newPassword !== confirmPassword) {
+            alert("Mật khẩu mới và xác nhận mật khẩu không khớp!");
+            return;
+        }
+
+        // Cập nhật mật khẩu mới
+        userData.password = newPassword;
+
+        const userIndex = listUser.findIndex(user => user.email === userData.email);
+        if (userIndex !== -1) {
+            listUser[userIndex].password = newPassword;
+        } else {
+            alert("Không tìm thấy người dùng trong danh sách!");
+            return;
+        }
+
+        // Lưu dữ liệu mới vào localStorage
+        localStorage.setItem("userCurrent", JSON.stringify(userData));
+        localStorage.setItem("listUser", JSON.stringify(listUser));
+
+        // Ẩn form đổi mật khẩu và thông báo
+        changePasswordForm.style.display = "none";
+        overlay.style.display = "none";
+        alert("Mật khẩu đã được thay đổi thành công!");
+    });
+} else {
+    console.error("Một hoặc nhiều phần tử không tồn tại trong DOM!");
+}
+
 
     // Xử lý sự kiện chuyển tab
     const menuButtons = document.querySelectorAll(".menu-btn");

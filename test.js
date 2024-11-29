@@ -883,19 +883,24 @@ document.getElementById("max-price").addEventListener("input", function () {
 });
 
 
-// xử lý đăng ký tài khoản
 function registerUser() {
-    listUser = JSON.parse(localStorage.getItem("listUser")) || [];
-    registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    let listUser = JSON.parse(localStorage.getItem("listUser")) || [];
 
     const fullName = document.getElementById("signup-fullname").value.trim();
     const phone = document.getElementById("signup-phone").value.trim();
     const email = document.getElementById("signup-email").value.trim();
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
+    const address = "";
 
     if (!fullName || !phone || !email || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
+        return;
+    }
+
+    // Kiểm tra độ dài mật khẩu
+    if (password.length < 6) {
+        alert("Mật khẩu phải có ít nhất 6 ký tự!");
         return;
     }
 
@@ -904,27 +909,39 @@ function registerUser() {
         return;
     }
 
+    // Kiểm tra định dạng email (@gmail)
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailPattern.test(email)) {
+        alert("Email không đúng định dạng");
+        return;
+    }
+
+    // Kiểm tra số điện thoại có đúng 10 chữ số không
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(phone)) {
+        alert("Số điện thoại phải có 10 chữ số!");
+        return;
+    }
+
     // Kiểm tra nếu số điện thoại hoặc email đã tồn tại
-    const existingUser = registeredUsers.find(user => user.phone === phone || user.email === email);
+    const existingUser = listUser.find(user => user.phone === phone || user.email === email);
     if (existingUser) {
         alert("Số điện thoại hoặc email đã được sử dụng!");
         return;
     }
 
     const newUser = {
-        username: email, // Dùng email làm tên đăng nhập
+        email: email,
         password: password,
         fullName: fullName,
         phone: phone,
-        email: email,
-        cart: []
+        cart: [],
+        address: address
     };
 
     listUser.push(newUser);
-    registeredUsers.push(newUser);
 
     localStorage.setItem("listUser", JSON.stringify(listUser));
-    localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
     localStorage.setItem("userCurrent", JSON.stringify(newUser));
 
     loadDataUserCurrent();
@@ -933,18 +950,17 @@ function registerUser() {
     alert("Đăng ký thành công! Bạn có thể mua sắm ngay bây giờ.");
 }
 
-
 // Hàm xử lý đăng nhập
 function loginUser() {
     const username = document.getElementById("login-username").value.trim();
     const password = document.getElementById("login-password").value.trim();
 
     // Lấy danh sách người dùng đã đăng ký
-    let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    let registeredUsers = JSON.parse(localStorage.getItem("listUser")) || [];
 
     // Tìm người dùng khớp với email hoặc số điện thoại và mật khẩu
     userCurrent = registeredUsers.find(user =>
-        (user.username === username) && user.password === password
+        (user.email === username) && user.password === password
     );
 
     if (userCurrent) {
@@ -1015,17 +1031,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-// Đăng ký sự kiện click ngoài form để ẩn form tùy chọn khi nhấn ra ngoài
-// document.addEventListener("click", function (e) {
-//     const userOptions = document.getElementById("userOptions");
-//     const userIcon = document.querySelector(".user-icon");
-
-//     if (userOptions && !userOptions.contains(e.target) && !userIcon.contains(e.target)) {
-//         userOptions.style.display = "none";
-//     }
-// });
-
 // Chuyển đến trang thông tin cá nhân
 function viewProfile() {
     window.location.href = "profile.html";
@@ -1063,26 +1068,54 @@ function updateUserInfo() {
     const email = document.getElementById("user-email").value.trim();
     const address = document.getElementById("address-summary").value.trim();
 
-    if (userCurrent) {
-        userCurrent.fullName = name;
-        userCurrent.phone = phone;
-        userCurrent.email = email;
-        userCurrent.address = address;
-
-        // Đồng bộ với registeredUsers
-        let registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-        const userIndex = registeredUsers.findIndex(user => user.username === userCurrent.username);
-        if (userIndex !== -1) {
-            registeredUsers[userIndex] = { ...userCurrent };
-            localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
-        }
-
-        localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
-        alert("Thông tin cá nhân đã được cập nhật!");
-    } else {
-        alert("Không tìm thấy thông tin người dùng.");
+    // Kiểm tra định dạng email
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Sửa regex để linh hoạt hơn
+    if (!emailRegex.test(email)) {
+        alert("Email không hợp lệ!");
+        return;
     }
+
+    // Kiểm tra số điện thoại (đơn giản chỉ kiểm tra số)
+    const phoneRegex = /^[0-9]{10}$/; // Kiểm tra số điện thoại có đúng 10 chữ số không
+    if (phone && !phoneRegex.test(phone)) {
+        alert("Số điện thoại phải chỉ chứa 10 chữ số!");
+        return;
+    }
+
+    // Kiểm tra xem người dùng có tồn tại không
+    if (!userCurrent) {
+        alert("Không tìm thấy thông tin người dùng.");
+        return;
+    }
+
+    // Cập nhật thông tin người dùng
+    userCurrent.fullName = name;
+    userCurrent.phone = phone;
+    userCurrent.email = email;
+    userCurrent.address = address; // Cập nhật địa chỉ
+
+    // Lấy danh sách người dùng từ localStorage
+    let listUser = JSON.parse(localStorage.getItem("ListUser")) || [];
+
+    // Tìm và cập nhật người dùng trong danh sách
+    const index = listUser.findIndex(user => user.email === userCurrent.email); // Tìm theo email
+    if (index !== -1) {
+        listUser[index] = { ...userCurrent }; // Cập nhật thông tin người dùng trong danh sách
+    }
+
+    // Lưu lại danh sách người dùng đã cập nhật vào localStorage
+    localStorage.setItem("ListUser", JSON.stringify(listUser));
+
+    // Lưu lại thông tin người dùng hiện tại vào localStorage
+    localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
+
+    // Console log để kiểm tra
+    console.log("Updated listUser: ", listUser);  // Kiểm tra lại danh sách người dùng
+    console.log("Updated userCurrent: ", userCurrent);  // Kiểm tra thông tin người dùng hiện tại
+
+    alert("Thông tin cá nhân đã được cập nhật!");
 }
+
 
 var x = window.matchMedia("(max-width: 767.98px)");
 
