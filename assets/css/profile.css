@@ -343,9 +343,11 @@ input[type="text"]:enabled {
     .sidebar {
         width: 100%;
         height: auto;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         padding: 10px;
+        min-width: 450px;
+        max-width: 750px;
     }
 
     .user-icon {
