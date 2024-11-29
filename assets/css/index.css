@@ -32,7 +32,9 @@ body {
 img {
     width: 100%;
 }
-
+a {
+    text-decoration: none;
+}
 
 main {
     margin: 0 auto;
@@ -647,13 +649,13 @@ main {
 #footer {
     background-color: var(--background-color);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     font-family: Arial, sans-serif;
 }
 
 .footer_item {
-    width: calc(25% - 40px);
+    width: calc(25% - 20px);
     margin-top: 20px;
     font-size: 12pt;
     line-height: 1.4;
@@ -680,12 +682,14 @@ main {
     text-align: justify;
     margin-left: 10px;
 }
-.list_menu li:hover{
+.footer_item a{
+    color: var(--black-color);
+}
+.list_menu a:hover{
     color: var(--primary-color);
 }
 .footer_item img {
-    max-width: 80%;
-    height: auto;
+    max-width: 50%;
     margin: auto;
     display: block;
     object-fit: contain;
@@ -1550,6 +1554,7 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
     color: #333;
     font-weight: bold; /* Thêm dòng này để chữ in đậm */
+    font-size: 14px;
 }
 
 .user-option-btn:hover {

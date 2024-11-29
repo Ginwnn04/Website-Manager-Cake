@@ -65,7 +65,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="index.html" onclick="logOut()">
                     <i class='bx bx-log-out'></i>
                     <span class="text1">Đăng xuất</span>
                 </a>
@@ -80,12 +80,6 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link"></a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="seach" placeholder="Seach...">
-                    <button type="submit" class="seach-btm"><i class='bx bx-search-alt'></i></button>
-                </div>
-            </form>
             <div class="item">
 
                 <p class="name-item"></p>
@@ -113,7 +107,7 @@
             </div>
             <div class="product-content">
                 <div class="product-content-header">
-                    <h1 class="product-content-headerText">PRODUCT</h1>
+                    <h1 class="product-content-headerText">SẢN PHẨM</h1>
                     <button class="product-content-headerButton">ADD PRODUCT</button>
                 </div>
                 <div class="product-content-actions">
@@ -131,22 +125,24 @@
                                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                                 </svg>
                             </button>
-                            <div class="filter-menu">
-                                <label for="productCategory">Categories</label>
-                                <select id="productCategoryFilter" name="productCategoryFilter">
-                                </select>
-                                <label for="statusOption">Status</label>
-                                <select id="statusOption">
-                                    <option value="All Status">All Status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Disabled">Disabled</option>
-                                </select>
-                                <div class="filter-menu-buttons-position">
-                                    <div class="filter-menu-buttons">
-                                        <button id="resetFilter" class="filter-button reset">Reset</button>
-                                    </div>
-                                    <div class="filter-menu-buttons">
-                                        <button id="applyFilter" class="filter-button apply">Apply</button>
+                            <div class="filter-wrapper">
+                                <div class="filter-menu">
+                                    <label for="productCategory">Categories</label>
+                                    <select id="productCategoryFilter" name="productCategoryFilter">
+                                    </select>
+                                    <label for="statusOption">Status</label>
+                                    <select id="statusOption">
+                                        <option value="All Status">All Status</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Disabled">Disabled</option>
+                                    </select>
+                                    <div class="filter-menu-buttons-position">
+                                        <div class="filter-menu-buttons">
+                                            <button id="resetFilter" class="filter-button reset">Reset</button>
+                                        </div>
+                                        <div class="filter-menu-buttons">
+                                            <button id="applyFilter" class="filter-button apply">Apply</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -177,19 +173,8 @@
                 </div>
                 <div class="products-area-wrapper tableView">
                     <div class="products-header">
-                        <div class="product-cell image">
-                        </div>
-                        <div class="product-cell name">
-                            Tên sản phẩm
-                            <button class="sort-button" id="sortByNameP" value="nameP">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
-                        </div>
                         <div class="product-cell id">
-                            Mã sản phẩm
+                            <b>Mã sản phẩm</b>
                             <button class="sort-button" id="sortByIdP" value="idP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -197,8 +182,17 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="product-cell name">
+                            <b>Tên sản phẩm</b>
+                            <button class="sort-button" id="sortByNameP" value="nameP">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
+                                </svg>
+                            </button>
+                        </div>
                         <div class="product-cell category">
-                            Loại sản phẩm
+                            <b>Loại sản phẩm</b>
                             <button class="sort-button" id="sortByCategoryP" value="categoryP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -207,19 +201,10 @@
                             </button>
                         </div>
                         <div class="product-cell status-cell">
-                            Trạng thái
-                        </div>
-                        <div class="product-cell stock">
-                            Số lượng
-                            <button class="sort-button" id="sortByStockP" value="stockP">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
+                            <b>Trạng thái</b>
                         </div>
                         <div class="product-cell price">
-                            Giá thành
+                            <b>Giá thành</b>
                             <button class="sort-button" id="sortByPriceP" value="priceP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -228,10 +213,12 @@
                             </button>
                         </div>
                         <div class="product-cell tools">
-                            Công cụ
+                            <b>Công cụ</b>
                         </div>
                     </div>
-                    <div class="products-page">
+                    <div class="products-wrapper">
+                        <div class="products-page">
+                        </div>
                     </div>
                 </div>
                 <div class="pagination">
@@ -267,10 +254,6 @@
                 <div>
                     <label for="productDescription">Mô tả</label>
                     <textarea id="productDescription" name="productDescription"></textarea>
-                </div>
-                <div>
-                    <label for="productStock">Số lượng sản phẩm</label>
-                    <input type="text" id="productStock" name="productStock" />
                 </div>
                 <div>
                     <label for="productPrice">Giá sản phẩm</label>
@@ -331,7 +314,7 @@
                 <div class="categories-area-wrapper">
                     <div class="categories-header">
                         <div class="categories-cell id">
-                            Mã loại sản phẩm
+                            <b>Mã loại sản phẩm</b>
                             <button class="sort-button" id="sortByIdC" value="idC">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -340,7 +323,7 @@
                             </button>
                         </div>
                         <div class="categories-cell name-category">
-                            Tên loại sản phẩm
+                            <b>Tên loại sản phẩm</b>
                             <button class="sort-button" id="sortByNameC" value="nameC">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -348,17 +331,8 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="categories-cell stock">
-                            Số lượng
-                            <button class="sort-button" id="sortByStockC" value="stockC">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
-                        </div>
                         <div class="categories-cell tool">
-                            Công cụ
+                            <b>Công cụ</b>
                         </div>
                     </div>
                     <div class="categories-page">
@@ -383,29 +357,22 @@
                 <div class="head">
                     <div class="left">
                         <h1>Dashboard</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Dashboard</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
                 <div id="border_chart">
-                    <div id="chart_div"></div>
+
                     <div id="acc_sell">
                         <div id="table_rank">
+                            <h2>Xếp hạng người dùng</h2>
                             <table id="leaderboard">
                                 <thead>
                                     <tr>
                                         <th>Hạng</th>
                                         <th>Tên người dùng</th>
-                                        <th>Số đơn hàng</th>
+                                        <th>Đơn hàng</th>
                                         <th>Tổng doanh thu</th>
-                                        <th>Chi tiết</th>
+                                        <th>Hóa đơn</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -413,9 +380,14 @@
 
                         </div>
                         <div id="rank_sell">
-                            <div id="best_seller">Sản phẩm bán chạy nhất</div>
-                            <div id="worst_seller">Sản phẩm bán ế nhất</div>
+                            <div id="best_seller">
+
+                            </div>
+                            <div id="worst_seller">
+
+                            </div>
                         </div>
+
 
                     </div>
                     <div id="sales_statistics">
@@ -428,20 +400,21 @@
                             <label>Đến:
                                 <input type="date" name="start" id="date_end">
                             </label>
-                            <select name="" id="rank_option">
-                                <option value="0">Tùy chọn mặc định</option>
-                                <option value="1">Số lượng</option>
-                                <option value="2">Doanh Thu </option>
-                            </select>
-                            <i class='bx bx-sort-up'></i>
-                            <i class='bx bx-sort-down'></i>
-                            <i class='bx bx-search-alt-2'></i>
+                            <div id="option_seach">
+                                <select name="" id="rank_option">
+                                    <option value="1">Số lượng</option>
+                                    <option value="2">Doanh Thu </option>
+                                </select>
+                                <i class='bx bx-sort-up' onclick="rankUp()"></i>
+                                <i class='bx bx-sort-down' onclick="rankDown()"></i>
+                                <i class='bx bx-search-alt-2' id="search_button_rank"></i>
+                            </div>
+
 
                         </div>
                         <div id="table_sell">
                             <table id="product_rank">
                                 <thead>
-                                    <th>Mã sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
@@ -449,6 +422,17 @@
                                     <th>Xem hóa đơn</th>
                                 </thead>
                             </table>
+                            <tbody>
+
+                            </tbody>
+                            <div id="invoiceModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal2()">&times;</span>
+                                    <h3>Danh sách hóa đơn</h3>
+                                    <h4 id="name_product"></h4>
+                                    <div id="invoiceList"></div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -459,17 +443,6 @@
                 <div class="head">
                     <div class="left">
                         <h1>Quản Lí Tài Khoản</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Account Manager</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-chevron-right'></i>
-                            </li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="table_data">
@@ -539,6 +512,7 @@
                                 <h2>Chi tiết Tài Khoản</h2>
 
                                 <div class="detail_table">
+                                    <p id="detail_id"></p>
                                     <p id="detail_name"></p>
                                     <p id="detail_username"></p>
                                     <p id="detail_password"></p>
@@ -561,16 +535,7 @@
             <div id="order_manager">
                 <div class="head">
                     <div class="left">
-                        <h1>Quản lý đơn hàng</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Order Manager</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+                        <h1>Quản Lý Đơn Hàng</h1>
                     </div>
                 </div>
                 <div class="table_data">
@@ -618,7 +583,6 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn</th>
-                                        <th>Tài khoản</th>
                                         <th>Người nhận</th>
                                         <th>SĐT</th>
                                         <th>Quận</th>
@@ -632,7 +596,7 @@
                             </table>
                         </div>
                         <!-- Phần hiển thị nút phân trang -->
-                        <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
+                        <div id="pagination"></div>
 
                     </div>
                 </div>

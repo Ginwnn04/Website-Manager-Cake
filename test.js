@@ -1004,6 +1004,9 @@ function updateLoginButton() {
 function toggleUserOptions() {
     const userOptions = document.getElementById("userOptions");
     userOptions.style.display = userOptions.style.display === "block" ? "none" : "block";
+    if (userCurrent.role === "Admin") {
+        document.getElementById('admin').style.display = 'block';
+    }
 }
 
 // Hàm đăng xuất tài khoản
