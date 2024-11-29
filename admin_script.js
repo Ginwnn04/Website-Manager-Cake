@@ -1086,7 +1086,7 @@ img.src = "./assets/img/default.png";
 const productPage = document.querySelector('.products-page');
 const categoryOption = document.getElementById('productCategory');
 const categoryOptionFilter = document.getElementById('productCategoryFilter');
-let categories = [];
+let categories= [];
 let listProduct =  [];
 let editProductIndex = null; 
 const fileLabel = document.getElementById('fileNameLabel');
@@ -1106,7 +1106,6 @@ function resetFormP() {
     statusRadios[i].checked = false;
   }
   document.getElementById('productDescription').value = ''; 
-  document.getElementById('productStock').value = ''; 
   document.getElementById('productPrice').value = ''; 
   document.getElementById('productImageP').value = '';
   // Ẩn preview hình ảnh
@@ -1180,7 +1179,6 @@ formP.addEventListener('submit', function (event) {
   }
 
   const ProductDescription = document.getElementById('productDescription').value.trim();
-  let ProductStock = document.getElementById('productStock').value.trim();
   let ProductPrice = document.getElementById('productPrice').value.trim();
   if(listProduct.some((p,i) => p.name===ProductName && i!==editProductIndex)){
     alert("Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
@@ -1192,25 +1190,10 @@ formP.addEventListener('submit', function (event) {
     document.getElementById('productName').focus();
     return;
   }
-  if (!ProductStock || isNaN(ProductStock)) {
-    alert("Số lượng sản phẩm không hợp lệ!");
-    document.getElementById('productStock').focus();
-    return;
-  }
-  // Xóa số 0 ở đầu của số lượng sản phẩm
-  if (ProductStock.startsWith("0") && ProductStock.length > 1) {
-    ProductStock = String(ProductStock).replace(/^0+/, "");
-    document.getElementById('productStock').value = ProductStock; // Cập nhật lại giá trị trong input
-  }
   // Xóa số 0 ở đầu của giá thành
   if (ProductPrice.startsWith("0") && ProductPrice.length > 1) {
     ProductPrice = String(ProductPrice).replace(/^0+/, "");
     document.getElementById('productPrice').value = ProductPrice; // Cập nhật lại giá trị trong input
-  }
-  if(Number(ProductStock) < 0) {
-    alert("Số lượng sản phẩm không được âm!");
-    document.getElementById('productStock').focus();
-    return;
   }
   if (!ProductPrice || isNaN(ProductPrice)) {
     alert("Giá sản phẩm không hợp lệ!");
@@ -1229,7 +1212,6 @@ formP.addEventListener('submit', function (event) {
     category: selectedCategory.name,
     status: ProductStatus,
     description: ProductDescription,
-    stock: ProductStock,
     price: ProductPrice,
     image: img.src
   };
@@ -1258,15 +1240,6 @@ formP.addEventListener('submit', function (event) {
 formP.addEventListener('blur',function(){
   formTitleP='Thêm sản phẩm';
 });
-function updateStatus(){
-  listProduct.forEach(product => {
-    if(Number(product.stock)===0 && product.status !== 'Disabled'){
-      product.status='Disabled';
-    }
-  });
-  localStorage.setItem('listProduct',JSON.stringify(listProduct));
-  displayProducts();
-}
 const removeImageBtn = document.getElementById('removeImageBtn');
 removeImageBtn.addEventListener('click',function(){
   const fileLabel = document.getElementById('fileNameLabel');
@@ -1280,7 +1253,6 @@ removeImageBtn.addEventListener('click',function(){
   ImageP.value='';
   fileLabel.textContent= 'No file selected';
 });
-formP.addEventListener('blur',updateStock);
 // Lưu sản phẩm
 function saveProduct(productData) {
   if (editProductIndex !== null) {
@@ -1294,8 +1266,6 @@ function saveProduct(productData) {
   localStorage.setItem('listProduct', JSON.stringify(listProduct));
   cancelProduct();
 }
-window.addEventListener('blur', updateStatus);
-window.addEventListener('blur',updateStock);
 window.addEventListener('load',updateCategoryOptions);
 window.addEventListener('load',updateCategoryOptionsFilter);
 // Các hàm xoá và chỉnh sửa sản phẩm
@@ -1326,7 +1296,6 @@ function editP(index) {
   document.getElementById('productCategory').value = categories.find(cat => cat.name === product.category)?.id || '';
   document.querySelector(`input[name="status"][value="${product.status}"]`).checked = true;
   document.getElementById('productDescription').value = product.description;
-  document.getElementById('productStock').value = product.stock;
   document.getElementById('productPrice').value = product.price;
   // Hiển thị ảnh nếu có
   if (product.image !== null && product.image !== img.src) {
@@ -1403,11 +1372,11 @@ function addInToListP(product, index) {
     <div class="product-cell image">
       <img src="${product.image}">
     </div>
-    <div class="product-cell name">
-      <span>${product.name}</span>
-    </div>
     <div class="product-cell id">
       <span class="cell-label">Id</span>${product.id}
+    </div>
+    <div class="product-cell name">
+      <span>${product.name}</span>
     </div>
     <div class="product-cell category">
       <span class="cell-label"> Categories:</span>${product.category}
@@ -1415,9 +1384,6 @@ function addInToListP(product, index) {
     <div class="product-cell status-cell">
       <span class="cell-label">Status:</span>
       <span class="${statusClass}">${product.status}</span>
-    </div>
-    <div class="product-cell stock">
-      <span class="cell-label">Stock:</span>${product.stock}
     </div>
     <div class="product-cell price">
       <span class="cell-label">Price:</span>${product.price}
@@ -1468,20 +1434,21 @@ window.addEventListener('click',e =>{
       (button.style.display = 'block'));
   }
 });
-window.addEventListener('click', e => {
-  const filterButton = document.querySelector('.jsFilter');  // Nút filter
-  const filterMenu = document.querySelector('.filter-menu'); // Menu filter
-
-  // Kiểm tra nếu click vào nút filter, mở hoặc đóng menu
-  if (e.target.closest('.jsFilter')) {
-      filterMenu.classList.toggle('active'); 
-  } else {
-      // Nếu click vào ngoài nút filter và menu, tắt menu
-      if (!e.target.closest('.filter-menu') && !e.target.closest('.jsFilter')) {
-          filterMenu.classList.remove('active');
-      }
-  }
-});
+const filterButton = document.querySelector('.jsFilter');
+const filterWrapper = document.querySelector('.filter-menu');
+if (!filterButton || !filterWrapper) {
+    console.error('Không tìm thấy phần tử .jsFilter hoặc .filter-wrapper');
+} else {
+    filterButton.addEventListener('click', () => {
+        filterWrapper.classList.toggle('active'); 
+    });
+    // Đóng menu khi click bên ngoài
+    document.addEventListener('click', (e) => {
+        if (!filterButton.contains(e.target) && !filterWrapper.contains(e.target)) {
+            filterWrapper.classList.remove('active');
+        }
+    });
+}
 
 function navigateToPage(action) {
   const listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
@@ -1524,10 +1491,9 @@ function createButton(PageNumber, container) {
 updatePaginationDisplay();
 document.getElementById('sortByNameP').addEventListener('click', () => sortProduct('nameP'));
 document.getElementById('sortByIdP').addEventListener('click', () => sortProduct('idP'));
-document.getElementById('sortByStockP').addEventListener('click', () => sortProduct('stockP'));
 document.getElementById('sortByCategoryP').addEventListener('click',() => sortProduct('categoryP'));
 document.getElementById('sortByPriceP').addEventListener('click',()=>sortProduct('priceP'));
-let sortOrderP={name:'asc',id:'asc',stock:'asc',category:'asc',price:'asc'}
+let sortOrderP={name:'asc',id:'asc',category:'asc',price:'asc'}
 function sortProduct(attribute) {
   listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   let order=sortOrderP[attribute];
@@ -1540,9 +1506,6 @@ function sortProduct(attribute) {
     }
     if (attribute === 'categoryP') {
       return order === 'asc' ? (a.category.localeCompare(b.category)) : (b.category.localeCompare(a.category));
-    }
-    if (attribute === 'stockP') {
-      return order === 'asc' ? (a.stock - b.stock) : (b.stock - a.stock);
     }
     if (attribute === 'priceP') {
       return order === 'asc' ? (a.price - b.price) : (b.price - a.price);
@@ -1570,7 +1533,6 @@ function searchProducts() {
     score += product.id.toLowerCase().includes(searchTerms) ? 9 :0;
     score += product.category.toLowerCase().includes(searchTerms) ? 8 : 0;
     score += product.description && product.description.toLowerCase().includes(searchTerms) ? 5 : 0;
-    score += product.stock.toString().includes(searchTerms) ? 2 : 0;
     score += product.price.toString().includes(searchTerms) ? 2 : 0;
     return score > 0;
   });
@@ -1658,6 +1620,20 @@ function toggleProductButtons(event){
   }
 }
 displayProducts();
+function loadCategory() {
+  if (localStorage.getItem("categories") === null) {
+      const categories = [
+          { id: "A4TC27112422", name: "Bánh kem", description: "" },
+          { id: "BVSW27112422", name: "Bánh lạnh", description: "" },
+          { id: "6I9O27112422", name: "Bánh nướng", description: "" },
+          { id: "NMWR27112422", name: "Bánh quy", description: "" },
+          { id: "L2BA27112422", name: "Bánh mì que", description: "" }
+      ];
+      localStorage.setItem("categories", JSON.stringify(categories));
+    }
+  displayCategories();
+}
+window.onload = loadCategory;
 //PRODUCT
 //CATEGORY
 const formC = document.getElementById('categoryForm');
@@ -1701,8 +1677,7 @@ Submit.addEventListener('click', function (event) {
     const category = {
       id: randomId(categories.map(cat => cat.id)),
       name: Categoryname,
-      description: Categorydescription,
-      stock: 0
+      description: Categorydescription
     }
     categories.unshift(category);
     alert("Đã thêm thành công!");
@@ -1713,18 +1688,6 @@ Submit.addEventListener('click', function (event) {
   editCategoryIndex=null;
   displayCategories();
 });
-function updateStock() {
-  categories.forEach(category=>{
-      const count = listProduct.filter(prod => prod.category === category.name);
-      let sumcnt=0;
-      count.forEach(cnt=>{
-        sumcnt+=parseInt(cnt.stock);
-      })
-      category.stock = sumcnt.toString();
-  });
-  localStorage.setItem('categories',JSON.stringify(categories));
-  displayCategories();
-}
 const categoryPage=document.querySelector('.categories-page');
 function displayCategories(){
   categories = JSON.parse(localStorage.getItem('categories')) || [];
@@ -1743,13 +1706,9 @@ function addInToListC(category,index){
             <div class="categories-cell name-category">
               ${category.name}
             </div>
-            <div class="categories-cell stock">
-                ${category.stock}
-            </div>
             <div class="categories-cell tool">
                 <button class="tool-button" onclick="confirmDeleteC(${index});">Delete</button>
                 <button class="tool-button" onclick="editC(${index});">Detail</button>
-            </div>
     `;
     categoryPage.appendChild(categoryItem);
 }
@@ -1763,7 +1722,6 @@ function deleteC(index){
   localStorage.setItem('listProduct',JSON.stringify(listProduct));
   updateCategoryOptions();
   displayProducts(); 
-  updateStock();
   displayCategories();
 }
 Submit.addEventListener('blur',updateCategoryOptions);
@@ -1807,8 +1765,7 @@ editButtonC.addEventListener('click',()=>{
 });
 document.getElementById('sortByNameC').addEventListener('click', () => sortCategories('nameC'));
 document.getElementById('sortByIdC').addEventListener('click', () => sortCategories('idC'));
-document.getElementById('sortByStockC').addEventListener('click', () => sortCategories('stockC'));
-let sortOrderC={name:'asc',id:'asc',stock:'asc'};
+let sortOrderC={name:'asc',id:'asc'};
 function sortCategories(attribute) {
   categories = JSON.parse(localStorage.getItem('categories')) || [];
   let order=sortOrderC[attribute];
@@ -1818,9 +1775,6 @@ function sortCategories(attribute) {
     }
     if (attribute === 'idC') {
       return order === 'asc' ? (a.id.localeCompare(b.id)) : (b.id.localeCompare(a.id));
-    }
-    if (attribute === 'stockC') {
-      return order === 'asc' ? (a.stock - b.stock) : (b.stock - a.stock);
     }
     return 0;
   });
@@ -1840,7 +1794,6 @@ function searchCategories(){
     let score = 0;
     score += searchTerms.some(term => category.name.toLowerCase().includes(term)) ? 10 : 0;
     score += searchTerms.some(term => category.id.toString().toLowerCase().includes(term)) ? 8 : 0;
-    score += searchTerms.some(term => category.stock.toString().toLowerCase().includes(term)) ? 6 : 0;
     score += category.description && searchTerms.some(term => category.description.toLowerCase().includes(term)) ? 2 : 0;
     return score > 0;
   });
@@ -1853,5 +1806,6 @@ function displayFilteredCategories(filteredCategories){
   );
 }
 SearchInputC.addEventListener('input',searchCategories);
+
 //CATEGORY
 // PRODUCT,CATEGORY

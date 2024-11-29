@@ -113,7 +113,7 @@
             </div>
             <div class="product-content">
                 <div class="product-content-header">
-                    <h1 class="product-content-headerText">PRODUCT</h1>
+                    <h1 class="product-content-headerText">SẢN PHẨM</h1>
                     <button class="product-content-headerButton">ADD PRODUCT</button>
                 </div>
                 <div class="product-content-actions">
@@ -179,19 +179,8 @@
                 </div>
                 <div class="products-area-wrapper tableView">
                     <div class="products-header">
-                        <div class="product-cell image">
-                        </div>
-                        <div class="product-cell name">
-                            Tên sản phẩm
-                            <button class="sort-button" id="sortByNameP" value="nameP">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
-                        </div>
                         <div class="product-cell id">
-                            Mã sản phẩm
+                            <b>Mã sản phẩm</b>
                             <button class="sort-button" id="sortByIdP" value="idP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -199,8 +188,17 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="product-cell name">
+                            <b>Tên sản phẩm</b>
+                            <button class="sort-button" id="sortByNameP" value="nameP">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
+                                </svg>
+                            </button>
+                        </div>
                         <div class="product-cell category">
-                            Loại sản phẩm
+                            <b>Loại sản phẩm</b>
                             <button class="sort-button" id="sortByCategoryP" value="categoryP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -209,19 +207,10 @@
                             </button>
                         </div>
                         <div class="product-cell status-cell">
-                            Trạng thái
-                        </div>
-                        <div class="product-cell stock">
-                            Số lượng
-                            <button class="sort-button" id="sortByStockP" value="stockP">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
+                            <b>Trạng thái</b>
                         </div>
                         <div class="product-cell price">
-                            Giá thành
+                            <b>Giá thành</b>
                             <button class="sort-button" id="sortByPriceP" value="priceP">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -230,7 +219,7 @@
                             </button>
                         </div>
                         <div class="product-cell tools">
-                            Công cụ
+                            <b>Công cụ</b>
                         </div>
                     </div>
                     <div class="products-wrapper">
@@ -271,10 +260,6 @@
                 <div>
                     <label for="productDescription">Mô tả</label>
                     <textarea id="productDescription" name="productDescription"></textarea>
-                </div>
-                <div>
-                    <label for="productStock">Số lượng sản phẩm</label>
-                    <input type="text" id="productStock" name="productStock" />
                 </div>
                 <div>
                     <label for="productPrice">Giá sản phẩm</label>
@@ -335,7 +320,7 @@
                 <div class="categories-area-wrapper">
                     <div class="categories-header">
                         <div class="categories-cell id">
-                            Mã loại sản phẩm
+                            <b>Mã loại sản phẩm</b>
                             <button class="sort-button" id="sortByIdC" value="idC">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -344,7 +329,7 @@
                             </button>
                         </div>
                         <div class="categories-cell name-category">
-                            Tên loại sản phẩm
+                            <b>Tên loại sản phẩm</b>
                             <button class="sort-button" id="sortByNameC" value="nameC">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                                     <path fill="currentColor"
@@ -352,17 +337,8 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="categories-cell stock">
-                            Số lượng
-                            <button class="sort-button" id="sortByStockC" value="stockC">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                                    <path fill="currentColor"
-                                        d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
-                                </svg>
-                            </button>
-                        </div>
                         <div class="categories-cell tool">
-                            Công cụ
+                            <b>Công cụ</b>
                         </div>
                     </div>
                     <div class="categories-page">
@@ -697,7 +673,7 @@
 
     <!-- Test thêm đơn hàng -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="admin_script.js"></script>
+    <script type="text/javascript" src="./admin_script.js"></script>
 
 
 </body>
