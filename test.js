@@ -483,7 +483,7 @@ function renderInforUser() {
     const userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
     document.getElementById("txtName").value = userCurrent.fullName;
     document.getElementById("txtPhone").value = userCurrent.phone;
-    document.getElementById("txtAddress").value = userCurrent.address;
+    document.getElementById("txtAddress").value = userCurrent.street;
     listProvince.forEach((province, index) => {
         if (province.idProvince === userCurrent.provinceId) {
             document.getElementById("province").selectedIndex = index + 1;
@@ -892,6 +892,7 @@ function registerUser() {
     const password = document.getElementById("signup-password").value.trim();
     const confirmPassword = document.getElementById("signup-confirm-password").value.trim();
     const address = "";
+    const street = "";
 
     if (!fullName || !phone || !gmail || !password || !confirmPassword) {
         alert("Vui lòng điền đầy đủ thông tin!");
@@ -937,8 +938,10 @@ function registerUser() {
         phone: phone,
         cart: [],
         address: address,
+        street: street,
         status: 1,
         role: "User"
+
     };
 
     listUser.push(newUser);

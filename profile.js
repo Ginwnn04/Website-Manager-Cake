@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         userData.provinceId = document.getElementById("province").value;
         userData.districtId = document.getElementById("district").value;
         userData.wardId = document.getElementById("ward").value;
+        userData.street = document.getElementById("street").value;
     
         localStorage.setItem("userCurrent", JSON.stringify(userData));
     }
