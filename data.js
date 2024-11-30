@@ -1135,7 +1135,7 @@ function loadAccountToLocal() {
             address: "294 An Dương Vương",
             districtId: "005",
             wardId: "00169",
-            status: 0,
+            status: "0",
             role: 'User',
         },
         {
@@ -1148,7 +1148,7 @@ function loadAccountToLocal() {
             address: "294 An Dương Vương",
             districtId: "777",
             wardId: "27454",
-            status: 1,
+            status: "1",
             role: 'Admin',
         },
         {
@@ -1161,7 +1161,7 @@ function loadAccountToLocal() {
             address: "432 Võ Thị Sáu",
             districtId: "747",
             wardId: "26536",
-            status: 1,
+            status: "1",
             role: 'User',
         }
       ];

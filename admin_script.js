@@ -36,21 +36,17 @@ const OrderManager = document.querySelector('#order_manager');
 const ProductSeseion=document.querySelector('.product-container');
 const CategorySesseion=document.querySelector('.category-container');
 // Lấy các phần tử liên quan
-const settingsMenu = document.getElementById('setting'); // Menu "Cài đặt"
-const settingsContainer = document.getElementById('settings-container'); // Phần nội dung "Cài đặt"
 
 Dashboard.style.display = 'block';
 AccountManager.style.display = 'none';
 OrderManager.style.display = 'none';
 ProductSeseion.style.display = 'none';
 CategorySesseion.style.display = 'none';
-settingsContainer.style.display = 'none';
 
 function showDashboard(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'dashboard_show') {
         Dashboard.style.display = 'block';
-        settingsContainer.style.display = 'none';
     } else {
         Dashboard.style.display = 'none';
         
@@ -61,7 +57,6 @@ function showAccountManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'account') {
         AccountManager.style.display = 'block';
-        settingsContainer.style.display = 'none';
         showAccount();
     } else {
         AccountManager.style.display = 'none';
@@ -72,7 +67,6 @@ function showOrderManager(event) {
     const selectedItem = event.currentTarget.id;
     if (selectedItem === 'order') {
         OrderManager.style.display = 'block';
-        settingsContainer.style.display = 'none';
     } else {
         OrderManager.style.display = 'none';
     }
@@ -81,7 +75,6 @@ function showProductSection(event) {
   const selectedItem = event.currentTarget.id;
   if (selectedItem === 'product') {
     ProductSeseion.style.display='block';
-    settingsContainer.style.display = 'none';
   } else {
     ProductSeseion.style.display='none'; 
   }
@@ -91,7 +84,6 @@ function showCategorySession(event){
   const selectedItem = event.currentTarget.id;
   if(selectedItem==='category'){
     CategorySesseion.style.display='block';
-    settingsContainer.style.display = 'none';
   }else{
     CategorySesseion.style.display='none';
   }
@@ -107,24 +99,6 @@ allSideMenu.forEach(item => {
 
 
 
-
-// Ẩn các phần khác
-const sections = [Dashboard, AccountManager, OrderManager, ProductSeseion, CategorySesseion, settingsContainer];
-
-// Thêm sự kiện click vào menu "Cài đặt"
-settingsMenu.addEventListener('click', function (event) {
-    event.preventDefault(); // Ngăn hành động mặc định nếu có
-    // Ẩn tất cả các phần
-    sections.forEach(section => {
-        section.style.display = 'none';
-    });
-    // Hiển thị phần "Cài đặt"
-    settingsContainer.style.display = 'block';
-    allSideMenu.forEach(menu => {
-      menu.parentElement.classList.remove('active');
-    });
-
-});
 
 
 
@@ -197,7 +171,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
 
 
 
-
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
   let name = document.getElementById('name').value.trim();
@@ -208,18 +181,39 @@ function addNewAccount() {
   let role = document.getElementById('role').value.trim();
 
   // Kiểm tra các trường bắt buộc
-  if ( !name || !username || !password || !phone || !address || !role) {
+  if (!name || !username || !password || !phone || !address || !role) {
     alert('Vui lòng điền đầy đủ thông tin.');
+    return;
+  }
+
+  // Kiểm tra định dạng email
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Biểu thức regex kiểm tra email
+  if (!emailRegex.test(username)) {
+    alert('Tài khoản phải là địa chỉ email hợp lệ.');
+    return;
+  }
+
+  // Kiểm tra số điện thoại: phải đủ 10 chữ số và bắt đầu bằng 0
+  let phoneRegex = /^0\d{9}$/; // Biểu thức regex kiểm tra số điện thoại
+  if (!phoneRegex.test(phone)) {
+    alert('Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.');
     return;
   }
 
   // Lấy danh sách tài khoản từ localStorage
   let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
+  // Kiểm tra xem email đã tồn tại chưa
+  let emailExists = listAccount.some(account => account.gmail === username);
+  if (emailExists) {
+    alert('Email này đã được sử dụng. Vui lòng chọn email khác.');
+    return;
+  }
+
   // Thêm tài khoản mới vào danh sách với các thuộc tính mặc định
   listAccount.push({
     fullName: name,
-    username: username,
+    gmail: username,
     password: password,
     phone: phone,
     address: address,
@@ -246,8 +240,55 @@ function addNewAccount() {
 }
 
 
+
+let currentPage = 1;
+let perPage = 7;
+let totalPage = 0;
+let listAccount = []; // Mảng người dùng
+let perUser = [];
+
 function showAccount() {
-  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+  // Lấy danh sách người dùng từ localStorage
+  listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+
+  async function getUser() {
+    try {
+      // Phân trang dữ liệu người dùng
+      perUser = listAccount.slice(
+        (currentPage - 1) * perPage,
+        (currentPage - 1) * perPage + perPage
+      );
+      renderUser();
+      renderPageNumber();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  getUser();  // Gọi hàm để tải dữ liệu người dùng
+
+  // Gọi hàm render để hiển thị thông tin người dùng
+}
+
+function renderPageNumber() {
+  // Tính tổng số trang
+  totalPage = Math.ceil(listAccount.length / perPage);
+  let paginationHTML = '';
+  for (let i = 1; i <= totalPage; i++) {
+    // Thêm lớp "active" nếu trang hiện tại được chọn
+    const activeClass = i === currentPage ? 'active' : '';
+    paginationHTML += `<li class="${activeClass}" onclick="changePage(${i})">${i}</li>`;
+  }
+  document.getElementById("pagination1").innerHTML = paginationHTML;
+}
+
+function changePage(page) {
+  currentPage = page;
+  showAccount(); // Cập nhật lại dữ liệu người dùng khi chuyển trang
+}
+
+
+function renderUser() {
   let account = `<tr>
       <th>Tên</th>
       <th>Tài Khoản</th>
@@ -257,13 +298,13 @@ function showAccount() {
       <th>Setting</th>
     </tr>`;
 
-    listAccount.map((value, index) => {
-      let statusText = value.status === "1" ? "Hoạt động" : "Bị khóa";
-      let toggleId = `toggle_${index}`; // Tạo id duy nhất cho mỗi nút bật/tắt
-    
-      account += `<tr>
+  perUser.map((value, index) => {
+    let statusText = value.status === "1" ? "Hoạt động" : "Bị khóa";
+    let toggleId = `toggle_${index}`; // Tạo id duy nhất cho mỗi nút bật/tắt
+
+    account += `<tr>
       <td>${value.fullName}</td>
-      <td>${value.username}</td>
+      <td>${value.gmail}</td>
       <td>${value.password}</td>
       <td>${value.phone}</td>
       <td>
@@ -278,12 +319,19 @@ function showAccount() {
         <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
       </td>
     </tr>`;
-  
-    });
-    
+  });
 
   document.getElementById("accountTable").innerHTML = account;
 }
+
+// Hàm để thay đổi trạng thái tài khoản (bật/tắt)
+function toggleStatus(index) {
+  listAccount[index].status = listAccount[index].status === "1" ? "0" : "1";
+  localStorage.setItem("listUser", JSON.stringify(listAccount)); // Lưu lại thay đổi
+  showAccount(); // Cập nhật lại giao diện
+}
+
+
 function toggleStatus(index) {
   let listAccount = JSON.parse(localStorage.getItem("listUser")) || [];
   listAccount[index].status = listAccount[index].status === "1" ? "0" : "1";
@@ -319,7 +367,7 @@ function editAccount (index){
   
   let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
   document.getElementById('name').value=listAccount[index].fullName;
-  document.getElementById('username').value=listAccount[index].username;
+  document.getElementById('username').value=listAccount[index].gmail;
   document.getElementById('password').value=listAccount[index].password;
   document.getElementById('phone').value=listAccount[index].phone;
   document.getElementById('address').value=listAccount[index].address;
@@ -341,7 +389,7 @@ function changeAccount() {
   // Lấy thông tin hiện tại từ biểu mẫu
   let updatedAccount = {
     fullName: document.getElementById('name').value.trim(),
-    username: document.getElementById('username').value.trim(),
+    gmail: document.getElementById('username').value.trim(),
     password: document.getElementById('password').value.trim(),
     phone: document.getElementById('phone').value.trim(),
     address: document.getElementById('address').value.trim(),
@@ -384,10 +432,6 @@ formAcc.addEventListener('submit', function(event) {
   }
 });
 
-
-
-
-
 function showDetailAccount(index) {
   // Lấy danh sách tài khoản từ localStorage
   let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
@@ -398,11 +442,11 @@ function showDetailAccount(index) {
     const account = listAccount[index];
 
     // Kiểm tra vai trò và hiển thị giá trị phù hợp
-    let roleText = account.role === "admin" ? "Người quản trị" : "Khách hàng";
+    let roleText = account.role === "Admin" ? "Người quản trị" : "Khách hàng";
 
     // Gán giá trị vào các phần tử <p>
     document.getElementById("detail_name").innerHTML = "Tên: " + account.fullName;
-    document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.username;
+    document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.gmail;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
     document.getElementById("detail_phone").innerHTML = "Số điện thoại: " + account.phone;
     document.getElementById("detail_address").innerHTML = "Địa chỉ: " + account.address;
@@ -422,30 +466,72 @@ function hideDetailAccount() {
 }
 
 
+
+
+
 function searchAccount() {
-  let valueSearchInput = document.getElementById('search_account').value.trim(); // Loại bỏ khoảng trắng thừa
-  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+  let valueSearchInput = document.getElementById('search_account').value.trim().toLowerCase();
 
-  // Chuyển giá trị tìm kiếm về chữ thường
-  let searchValueLower = valueSearchInput.toLowerCase();
+  let listAccount = localStorage.getItem("listUser") 
+      ? JSON.parse(localStorage.getItem("listUser")) 
+      : [];
 
-  // Lọc danh sách tài khoản
+  // Lọc tài khoản dựa trên fullName và gmail
   let accountSearch = listAccount.filter(value => {
-    // Đảm bảo các trường cần kiểm tra không phải là null/undefined
     let fullName = value.fullName ? value.fullName.toLowerCase() : "";
-    let username = value.username ? value.username.toLowerCase() : "";
-
-    return (
-      fullName.includes(searchValueLower) ||
-      username.includes(searchValueLower) 
-    );
+    let email = value.gmail ? value.gmail.toLowerCase() : "";
+    return fullName.includes(valueSearchInput) || email.includes(valueSearchInput);
   });
 
+  // Reset trang tìm kiếm về 1
+  currentSearchPage = 1;
+
   // Hiển thị kết quả tìm kiếm
-  document.getElementById("accountTable").innerHTML = "";
-  showAccountSearch(accountSearch);
+  renderSearchResults(accountSearch);
 }
 
+function renderSearchResults(array) {
+  // Phân trang
+  const totalPage = Math.ceil(array.length / perPage);
+  const start = (currentSearchPage - 1) * perPage;
+  const end = start + perPage;
+
+  // Lấy dữ liệu của trang hiện tại
+  const paginatedResults = array.slice(start, end);
+
+  // Hiển thị tài khoản tìm kiếm
+  showAccountSearch(paginatedResults);
+
+  // Hiển thị số trang
+  renderSearchPageNumber(totalPage);
+}
+
+function renderSearchPageNumber(totalPage) {
+  let paginationHTML = '';
+  for (let i = 1; i <= totalPage; i++) {
+    const activeClass = i === currentSearchPage ? 'active' : '';
+    paginationHTML += `<li class="${activeClass}" onclick="changeSearchPage(${i})">${i}</li>`;
+  }
+  document.getElementById("pagination1").innerHTML = paginationHTML;
+}
+
+function changeSearchPage(page) {
+  currentSearchPage = page;
+
+  // Gọi lại `searchAccount` để hiển thị trang mới
+  const valueSearchInput = document.getElementById('search_account').value.trim().toLowerCase();
+  let listAccount = localStorage.getItem("listUser") 
+      ? JSON.parse(localStorage.getItem("listUser")) 
+      : [];
+
+  let accountSearch = listAccount.filter(value => {
+    let fullName = value.fullName ? value.fullName.toLowerCase() : "";
+    let email = value.gmail ? value.gmail.toLowerCase() : "";
+    return fullName.includes(valueSearchInput) || email.includes(valueSearchInput);
+  });
+
+  renderSearchResults(accountSearch);
+}
 
 function showAccountSearch(array) {
   let account = `<tr>
@@ -458,21 +544,26 @@ function showAccountSearch(array) {
     </tr>`;
 
   array.map((value, index) => {
-    // Kiểm tra status và hiển thị thông báo tương ứng
-    let statusText = value.status === "1" ? "Hoạt động" : "Đã Khóa";
-    
+    let statusText = value.status === "1" ? "Hoạt động" : "Bị khóa";
+    let toggleId = `toggle_${index}`; // Tạo id duy nhất cho mỗi nút bật/tắt
+
     account += `<tr>
-        <td>${value.fullName}</td>
-        <td>${value.username}</td>
-        <td>${value.password}</td>
-        <td>${value.phone}</td>
-        <td>${statusText}</td> <!-- Hiển thị trạng thái -->
-        <td>
-          <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
-          <button class="block_account" onclick="toggleStatus(${index})">${value.status === "1" ? "Khóa" : "Mở khóa"}</button>
-          <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
-        </td>
-      </tr>`;
+      <td>${value.fullName}</td>
+      <td>${value.gmail}</td>
+      <td>${value.password}</td>
+      <td>${value.phone}</td>
+      <td>
+        <div class="toggle-switch">
+          <input type="checkbox" id="${toggleId}" ${value.status === "1" ? "checked" : ""} 
+            onclick="toggleStatus(${index})"/>
+          <label for="${toggleId}" class="switch"></label>
+        </div>
+      </td>
+      <td>
+        <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
+        <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
+      </td>
+    </tr>`;
   });
 
   document.getElementById("accountTable").innerHTML = account;
@@ -487,80 +578,7 @@ function showAccountSearch(array) {
 
 
 
-
-
-
 // --------------------SETTING-------------------------------------------------
-const avatarInput = document.getElementById('avatar_input');
-const profilePic = document.getElementById('profile-pic');
-const profilePic2 = document.getElementById('avatar-item');
-
-// Khi người dùng chọn file
-avatarInput.addEventListener('change', function(event) {
-    const file = event.target.files[0]; // Lấy file từ input
-    if (file) {
-        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-        if (!validTypes.includes(file.type)) {
-            alert('Vui lòng chọn tệp hình ảnh hợp lệ (JPEG, PNG, JPG).');
-            return;
-        }
-
-        // Đọc file bằng FileReader
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const imageData = e.target.result; // Chuỗi base64 của hình ảnh
-            profilePic.src = imageData; // Hiển thị ảnh
-            profilePic2.src = imageData;
-            localStorage.setItem('profilePicture', imageData); // Lưu vào localStorage
-        };
-        reader.readAsDataURL(file); // Đọc file dưới dạng URL base64
-    }
-});
-
-// Khi tải lại trang, kiểm tra hình ảnh đã lưu trong localStorage
-window.addEventListener('load', function() {
-    const savedImage = localStorage.getItem('profilePicture'); // Lấy dữ liệu từ localStorage
-    if (savedImage) {
-        profilePic.src = savedImage; // Hiển thị ảnh nếu có
-        profilePic2.src = savedImage;
-    }
-});
-
-
-
-
-const nameInput = document.getElementById('name_input'); // Ô input nhập tên
-const nameDisplay2 = document.querySelector('.name-item');  // Thẻ hiển thị tên
-const changeNameDiv = document.getElementById('change_name'); // Div thay đổi tên
-
-// Khi nhấn vào "Thay đổi tên"
-changeNameDiv.addEventListener('click', function() {
-    nameInput.focus(); // Đặt con trỏ vào ô input
-});
-
-// Khi người dùng nhập tên
-nameInput.addEventListener('change', function() {
-    const newName = nameInput.value.trim(); // Lấy tên mới từ input
-    if (newName) {
-        // Cập nhật hiển thị
-        nameDisplay2.textContent = newName;
-
-        // Lưu vào localStorage
-        localStorage.setItem('adminName', newName);
-
-        // Xóa nội dung input sau khi lưu
-        nameInput.value = '';
-    }
-});
-
-// Khi tải lại trang, kiểm tra localStorage
-window.addEventListener('load', function() {
-    const savedName = localStorage.getItem('adminName'); // Lấy tên từ localStorage
-    if (savedName) { // Hiển thị tên đã lưu
-        nameDisplay2.textContent = savedName;
-        nameInput.value = savedName;
-    }
-});
 
 
 // ------------------------------------- Thống Kê ------------------------------------
@@ -584,9 +602,9 @@ function showProductSummary(array) {
 
     productTable += `<tr>
         <td>${product.name}</td>
-        <td>${product.price.toLocaleString("vi-VN")} VND</td>
+       <td>${formatMoney(product.price)}</td>
         <td>${product.quantity}</td>
-        <td>${productRevenue.toLocaleString("vi-VN")} VND</td>
+        <td>${formatMoney(productRevenue)}</td>
         <td>
           <button class="view_invoice" onclick="viewInvoice(${index})"><i class='bx bx-detail'></i></button>
         </td>
@@ -596,7 +614,7 @@ function showProductSummary(array) {
   // Thêm dòng hiển thị tổng tiền
   productTable += `<tr>
     <td colspan="3"><strong>Tổng cộng</strong></td>
-    <td colspan="2"><strong>${totalRevenue.toLocaleString("vi-VN")} VND</strong></td>
+    <td colspan="2"><strong>${formatMoney(totalRevenue)}</strong></td>
   </tr>`;
 
   document.getElementById("product_rank").innerHTML = productTable;
@@ -605,7 +623,7 @@ function showProductSummary(array) {
 // Hàm hiển thị modal với danh sách hóa đơn
 function viewInvoice(index) {
   const productName = currentProductSummary.length > 0 ? currentProductSummary[index].name : productSummary[index].name;
-  
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
 
   // Lọc danh sách hóa đơn liên quan đến sản phẩm
   const relatedOrders = listOrder.filter(order =>
@@ -645,12 +663,12 @@ function closeModal2() {
 
 
 // Lấy danh sách từ localStorage
-let listOrder = localStorage.getItem("listOrder") ? JSON.parse(localStorage.getItem("listOrder")) : [];
 let productSummary = []; // Danh sách sản phẩm mặc định
 let currentProductSummary = []; // Danh sách sản phẩm hiện tại sau khi tìm kiếm (nếu có)
 
 document.addEventListener("DOMContentLoaded", function () {
   // Lọc các đơn hàng có trạng thái "Đã giao thành công"
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
   const filteredOrders = listOrder.filter(order => order.status === "Đã giao thành công");
 
   // Xử lý dữ liệu sản phẩm
@@ -718,6 +736,7 @@ function rankDown() {
 document.getElementById("search_button_rank").addEventListener("click", function () {
   const startDateValue = document.getElementById("date_start").value;
   const endDateValue = document.getElementById("date_end").value;
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
 
   if (!startDateValue || !endDateValue) {
     alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.");
@@ -767,27 +786,25 @@ document.getElementById("search_button_rank").addEventListener("click", function
 });
 
 
-
-
-// Hàm xử lý dữ liệu khách hàng và hiển thị bảng
 document.addEventListener("DOMContentLoaded", function () {
   // 1. Lọc các đơn hàng có trạng thái "Đã giao thành công"
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
   const successfulOrders = listOrder.filter(order => order.status === "Đã giao thành công");
 
-  // 2. Tính tổng doanh thu cho từng khách hàng
+  // 2. Tính tổng doanh thu cho từng gmail
   const customerRevenue = {};
 
   successfulOrders.forEach(order => {
-    const account = order.account; // Lấy tài khoản khách hàng
+    const gmail = order.account; // Lấy gmail khách hàng
     const total = order.total; // Tổng doanh thu từ đơn hàng
 
-    // Gộp doanh thu vào tài khoản khách hàng
-    if (customerRevenue[account]) {
-      customerRevenue[account].revenue += total;
-      customerRevenue[account].orders += 1; // Tăng số lượng đơn hàng
+    // Gộp doanh thu vào gmail khách hàng
+    if (customerRevenue[gmail]) {
+      customerRevenue[gmail].revenue += total;
+      customerRevenue[gmail].orders += 1; // Tăng số lượng đơn hàng
     } else {
-      customerRevenue[account] = {
-        name: order.name,
+      customerRevenue[gmail] = {
+        name: order.name, // Tên khách hàng
         revenue: total,
         orders: 1
       };
@@ -796,8 +813,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 3. Chuyển đổi dữ liệu từ object thành array và sắp xếp theo doanh thu giảm dần
   const sortedCustomers = Object.entries(customerRevenue)
-    .map(([account, data]) => ({ account, ...data }))
-    .sort((a, b) => b.revenue - a.revenue)
+    .map(([gmail, data]) => ({ gmail, ...data })) // Chuyển đổi thành đối tượng
+    .sort((a, b) => b.revenue - a.revenue) // Sắp xếp theo doanh thu giảm dần
     .slice(0, 5); // Lấy 5 khách hàng có doanh thu cao nhất
 
   // 4. Hiển thị dữ liệu vào bảng
@@ -810,17 +827,18 @@ document.addEventListener("DOMContentLoaded", function () {
         <td>${index + 1}</td> <!-- Hạng -->
         <td>${customer.name}</td> <!-- Tên người dùng -->
         <td>${customer.orders}</td> <!-- Số đơn hàng -->
-        <td>${customer.revenue.toLocaleString("vi-VN")} VND</td> <!-- Tổng doanh thu -->
-        <td><button class="view_invoice2" onclick="viewCustomerDetails('${customer.account}')"><i class='bx bx-detail'></i></button></td>
+        <td>${formatMoney(customer.revenue)}</td> <!-- Tổng doanh thu -->
+        <td><button class="view_invoice2" onclick="viewCustomerDetails('${customer.gmail}')"><i class='bx bx-detail'></i></button></td>
       </tr>
     `;
     tbody.innerHTML += row;
   });
 });
 
-function viewCustomerDetails(account) {
-  // Lọc danh sách hóa đơn theo tài khoản khách hàng
-  const customerOrders = listOrder.filter(order => order.account === account);
+function viewCustomerDetails(gmail) {
+  // Lọc danh sách hóa đơn theo gmail khách hàng
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
+  const customerOrders = listOrder.filter(order => order.account === gmail);
 
   if (customerOrders.length === 0) {
     alert("Không tìm thấy hóa đơn nào cho khách hàng này.");
@@ -847,7 +865,6 @@ function viewCustomerDetails(account) {
   document.getElementById("invoiceList").innerHTML = invoiceHTML;
   modal.style.display = "block";
 }
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -914,7 +931,7 @@ function displayTopAndBottomSellers(productSummary) {
       <img  id="best_img" src="${bestSeller.image}" alt="${bestSeller.name}" />
       <p><strong>${bestSeller.name}</strong></p>
       <p>Đã bán: ${bestSeller.quantity}</p>
-      <p>Doanh thu: ${bestSeller.revenue.toLocaleString("vi-VN")} VND</p>
+      <p>Doanh thu: ${formatMoney(bestSeller.revenue)}</p>
     </div>
   `;
 
@@ -926,7 +943,7 @@ function displayTopAndBottomSellers(productSummary) {
       <img id="worst_img" src="${worstSeller.image}" alt="${worstSeller.name}" />
       <p><strong>${worstSeller.name}</strong></p>
       <p>Đã bán: ${worstSeller.quantity}</p>
-      <p>Doanh thu: ${worstSeller.revenue.toLocaleString("vi-VN")} VND</p>
+      <p>Doanh thu: ${formatMoney(worstSeller.revenue)} VND</p>
     </div>
   `;
 }
@@ -949,7 +966,7 @@ let currentPageOrder = 1;  // Trang hiện tại
 // Hiển thị danh sách đơn hàng với phân trang
 function displayOrders() {
   const orderList = document.getElementById("orderList");
-  const orders = JSON.parse(localStorage.getItem("listOrder")) || [];
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
   const searchQuery = document.getElementById("orderSearchInput").value.toLowerCase();
   const filterStatus = document.getElementById("statusFilter").value;
   let startDate = document.getElementById("startDate").value; 
@@ -971,8 +988,9 @@ function displayOrders() {
     document.getElementById("startDate").value = ''; 
     return;
   }
+
   // Lọc danh sách đơn hàng dựa trên quận, trạng thái, từ khóa tìm kiếm, và khoảng thời gian
-  const filteredOrders = orders.filter(order => {
+  const filteredOrders = listOrder.filter(order => {
     const matchesSearchQuery = order.id.toLowerCase().includes(searchQuery) ||
                               order.name.toLowerCase().includes(searchQuery);
     const matchesStatus = filterStatus === "all" || order.status === filterStatus;
@@ -984,13 +1002,9 @@ function displayOrders() {
     const start = startDate ? new Date(startDate) : null;
     const end = endDate ? new Date(endDate) : null;
     const matchesDateRange = (!start || orderDate >= start) && (!end || orderDate <= end);
-    
 
-    return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict ;
+    return matchesSearchQuery && matchesStatus && matchesDateRange && matchesDistrict;
   });
-
-
-
 
   const totalOrders = filteredOrders.length;
   const totalPages = Math.ceil(totalOrders / ITEMS_PER_PAGE);
@@ -1005,10 +1019,10 @@ function displayOrders() {
       const row = document.createElement('tr');
       row.innerHTML = `
           <td>${order.id}</td>
-          <td>${order.fullName}</td>
+          <td>${order.name}</td>
           <td>${order.phone}</td>
           <td>${order.district}</td>
-          <td>${order.total}</td>
+          <td>${formatMoney(order.total)}</td>
           <td>${order.timeCreate}</td>
           <td>${order.status}</td>
           <td class="actions">
@@ -1023,6 +1037,7 @@ function displayOrders() {
   displayPagination(totalPages);
 }
 
+
 document.getElementById("resetFilters").addEventListener("click", function() {
   // Đặt lại giá trị của các bộ lọc về mặc định
   document.getElementById("province").value = "";
@@ -1033,6 +1048,7 @@ document.getElementById("resetFilters").addEventListener("click", function() {
   document.getElementById("endDate").value = "";
 
   // Hiển thị lại toàn bộ danh sách đơn hàng
+  currentPageOrder = 1;
   displayOrders();
 });
 
@@ -1051,7 +1067,6 @@ document.getElementById("endDate").addEventListener("change", function() {
 let listProvince = [];
 let listDistrict = [];
 
-window.onload = getDataProvince();
 async function getDataProvince() {
   const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
   try {
@@ -1317,7 +1332,7 @@ function viewOrderDetails(id) {
         <tr>
             <td>${item.name}</td>
             <td>x${item.quantity}</td>
-            <td>${item.price}</td>
+            <td>${formatMoney(item.price)}</td>
         </tr>
     `).join('');
 
@@ -1330,10 +1345,10 @@ function viewOrderDetails(id) {
             <p><strong>Mã đơn:</strong> ${order.id}</p>
         </div>
         <div class="boxDetailContent1">
-            <p><strong>Tài khoản:</strong> ${order.email}</p>
+            <p><strong>Tài khoản:</strong> ${order.account}</p>
         </div>
         <div class="boxDetailContent2">
-            <p><strong>Người nhận:</strong> ${order.fullName}</p>
+            <p><strong>Người nhận:</strong> ${order.name}</p>
         </div>
         <div class="boxDetailContent2">
             <p><strong>SĐT:</strong> ${order.phone}</p>
@@ -1342,7 +1357,7 @@ function viewOrderDetails(id) {
             <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
         </div>
         <div class="boxDetailContent3">
-            <p><strong>Tổng đơn:</strong> ${order.total} Đ</p>
+            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)} Đ</p>
         </div>
       </div>
       <p><strong>Địa chỉ:</strong> ${order.address}</p>
@@ -1426,9 +1441,10 @@ document.getElementById("statusFilter").addEventListener("change", function() {
 });
 
 // Khi trang tải lần đầu
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
+  getDataProvince();
   displayOrders();  // Hiển thị danh sách đơn hàng ngay khi tải trang
-};
+});
 
 function logOut() {
   localStorage.removeItem('userCurrent'); // Xóa thông tin người dùng
@@ -1438,7 +1454,6 @@ function logOut() {
 
 
 // --------------------------Quản lý đơn hàng ---------------------------------------------
-
 
 
 
@@ -1491,7 +1506,7 @@ if (gridViewButton) {
 
 function randomId(existingId) {
   const now=new Date();
-  const time=`${String(now.getDate()).padStart(2,'0')}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getFullYear()).slice(-2)}${String(now.getHours()).padStart(2,'0')}`;
+  const time=`${String(now.getDate()).padStart(2,'0')}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getFullYear()).slice(-2)}${String(now.getMilliseconds()).padStart(3, '0')}`;
   let id;
   let fullid;
   do {
@@ -1521,6 +1536,7 @@ function toggleAddProductForm() {
       input.disabled=false;
   });
   formP.style.display = formP.style.display === 'block' ? 'none' : 'block';
+  resetFormP();
 }
 function resetFormP() {
   document.getElementById('productName').value = ''; 
@@ -1629,7 +1645,7 @@ formP.addEventListener('submit', function (event) {
     alert("Giá thành sản phẩm không được âm!");
     document.getElementById('productPrice').focus();
     return;
-}
+  }
 
   let productData = {
     name: ProductName,
@@ -1801,7 +1817,7 @@ function addInToListP(product, index) {
       <span class="cell-label">Id</span>${product.id}
     </div>
     <div class="product-cell name">
-      <span>${product.name}</span>
+      <span class="cell-lab">Name</span>${product.name}
     </div>
     <div class="product-cell category">
       <span class="cell-label"> Categories:</span>${product.category}
@@ -1814,8 +1830,8 @@ function addInToListP(product, index) {
       <span class="cell-label">Price:</span>${product.price}
     </div>    
     <div class="product-cell tools" id="tool-${index}">
-      <button class="tool-button" onclick="confirmDelete(${index});">Delete</button>
-      <button class="tool-button" onclick="editP(${index});">Detail</button>
+      <button class="tool-button" onclick="confirmDelete(${index});">Xóa</button>
+      <button class="tool-button" onclick="editP(${index});">Chi tiết</button>
     </div>
   `;
   productPage.appendChild(productItem);
@@ -1946,22 +1962,25 @@ const resetFilterButton = document.getElementById('resetFilter');
 const applyFilterButton = document.getElementById('applyFilter');
 const SearchInputP=document.getElementById('search-product');
 function searchProducts() {
-  const searchInputValue = SearchInputP.value.toLowerCase().trim();
+  const searchInputValue = SearchInputP.value.toLowerCase().trim(); 
   if (!searchInputValue) {
-    displayFilteredProducts(listProduct); 
-    return;
+      displayFilteredProducts(listProduct); 
+      return;
   }
-  const searchTerms = searchInputValue.split(/\s+/);
+
+  const searchTerms = searchInputValue.split(/\s+/); // Tách chuỗi tìm kiếm thành các từ khóa
+
   const filteredProducts = listProduct.filter(product => {
-    let score = 0;
-    score += product.name.toLowerCase().includes(searchTerms) ? 10 : 0;
-    score += product.id.toLowerCase().includes(searchTerms) ? 9 :0;
-    score += product.category.toLowerCase().includes(searchTerms) ? 8 : 0;
-    score += product.description && product.description.toLowerCase().includes(searchTerms) ? 5 : 0;
-    score += product.price.toString().includes(searchTerms) ? 2 : 0;
-    return score > 0;
+      // Kiểm tra nếu tất cả các từ khóa đều phù hợp với ít nhất một thuộc tính
+      return searchTerms.every(term => {
+          return (
+              product.name.toLowerCase().includes(term) ||
+              product.id.toLowerCase().includes(term) 
+          );
+      });
   });
-  displayFilteredProducts(filteredProducts);
+
+  displayFilteredProducts(filteredProducts); // Hiển thị sản phẩm đã lọc
 }
 function displayFilteredProducts(filteredProducts) {
   productPage.innerHTML = '';
@@ -1979,6 +1998,43 @@ function displayFilteredProducts(filteredProducts) {
 }
 const categoryOptionFilterChoose=document.getElementById('productCategoryFilter');
 function filterProducts() {
+  let minPriceInput = document.getElementById('minPrice').value.trim();
+    let maxPriceInput = document.getElementById('maxPrice').value.trim();
+
+    // Loại bỏ các số 0 ở đầu nếu là chuỗi hợp lệ
+    minPriceInput = minPriceInput.replace(/^0+/, "") || "0";
+    maxPriceInput = maxPriceInput.replace(/^0+/, "") || "Infinity";
+
+    // Chuyển đổi giá trị sang số
+    const minPrice = parseFloat(minPriceInput);
+    const maxPrice = parseFloat(maxPriceInput);
+
+    // Kiểm tra giá trị hợp lệ của minPrice và maxPrice
+    if (isNaN(minPrice)) {
+        alert("Giá nhỏ nhất không hợp lệ!");
+        document.getElementById('minPrice').focus();
+        return;
+    }
+    if (minPrice < 0) {
+        alert("Giá nhỏ nhất không được âm!");
+        document.getElementById('minPrice').focus();
+        return;
+    }
+    if (isNaN(maxPrice)) {
+        alert("Giá lớn nhất không hợp lệ!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
+    if (maxPrice < 0) {
+        alert("Giá lớn nhất không được âm!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
+    if (minPrice > maxPrice) {
+        alert("Giá lớn nhất không được nhỏ hơn giá nhỏ nhất!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
   listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
   categories=JSON.parse(localStorage.getItem('categories')) || [];
   const CategoryId = categoryOptionFilterChoose.value;
@@ -2006,6 +2062,8 @@ function filterProducts() {
       return matchCategory && matchStatus;
     });
   }
+  //Lọc theo giá
+  filteredProducts = filteredProducts.filter(product => parseFloat(product.price) >= minPrice && parseFloat(product.price) <= maxPrice);
   displayFilteredProducts(filteredProducts); 
 }
 SearchInputP.addEventListener('input', searchProducts);
@@ -2013,6 +2071,8 @@ applyFilterButton.addEventListener('click', filterProducts);
 resetFilterButton.addEventListener('click', () => {
   categoryOptionFilterChoose.value = "All Categories";
   statusOption.value = "All Status";
+  document.getElementById('minPrice').value='';
+  document.getElementById('maxPrice').value='';
   displayFilteredProducts(listProduct); 
 });
 function rebindMoreButtonEvents(){
@@ -2045,20 +2105,6 @@ function toggleProductButtons(event){
   }
 }
 displayProducts();
-function loadCategory() {
-  if (localStorage.getItem("categories") === null) {
-      const categories = [
-          { id: "A4TC27112422", name: "Bánh kem", description: "" },
-          { id: "BVSW27112422", name: "Bánh lạnh", description: "" },
-          { id: "6I9O27112422", name: "Bánh nướng", description: "" },
-          { id: "NMWR27112422", name: "Bánh quy", description: "" },
-          { id: "L2BA27112422", name: "Bánh mì que", description: "" }
-      ];
-      localStorage.setItem("categories", JSON.stringify(categories));
-    }
-  displayCategories();
-}
-window.onload = loadCategory;
 //PRODUCT
 //CATEGORY
 const formC = document.getElementById('categoryForm');
@@ -2077,6 +2123,8 @@ function cancelCategory() {
 }
 function toggleAddCategoryForm() {
   formC.style.display = formC.style.display === 'block' ? 'none' : 'block';
+  formTitleC.textContent = "Thêm loại sản phẩm";
+  resetForm();
 }
 document.getElementById('openCategoryForm').addEventListener('click',toggleAddCategoryForm);
 document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
@@ -2132,13 +2180,27 @@ function addInToListC(category,index){
               ${category.name}
             </div>
             <div class="categories-cell tool">
-                <button class="tool-button" onclick="confirmDeleteC(${index});">Delete</button>
-                <button class="tool-button" onclick="editC(${index});">Detail</button>
+                <button class="tool-button" onclick="confirmDeleteC(${index});">Xóa</button>
+                <button class="tool-button" onclick="editC(${index});">Chi tiết</button>
     `;
     categoryPage.appendChild(categoryItem);
 }
 displayCategories();
-
+function loadCategory(){
+    if (localStorage.getItem("categories") === null) {
+      categories = [
+          { "id" : "A4TC271124346", "name" : "Bánh kem", "description" : "" },
+          { "id" : "BVSW271124272", "name" : "Bánh lạnh", "description": "" },
+          { "id" : "6I9O271124822", "name" : "Bánh nướng", "description" : "" },
+          { "id" : "NMWR271124205", "name" : "Bánh quy", "description" : "" },
+          { "id" : "L2BA271124222", "name" : "Bánh mì que", "description" : "" }
+      ];
+      localStorage.setItem("categories", JSON.stringify(categories));
+    }
+    categories = JSON.parse(localStorage.getItem('categories'));
+    displayCategories();
+}
+window.onload = loadCategory();
 function deleteC(index){
   let categoryDelete=categories[index];
   categories = categories.filter(category => category.id !== categoryDelete.id);
@@ -2216,11 +2278,13 @@ function searchCategories(){
   }
   const searchTerms = searchInputValue.split(/\s+/);
   const filteredCategories = categories.filter(category => {
-    let score = 0;
-    score += searchTerms.some(term => category.name.toLowerCase().includes(term)) ? 10 : 0;
-    score += searchTerms.some(term => category.id.toString().toLowerCase().includes(term)) ? 8 : 0;
-    score += category.description && searchTerms.some(term => category.description.toLowerCase().includes(term)) ? 2 : 0;
-    return score > 0;
+    // Kiểm tra nếu tất cả các từ khóa đều phù hợp với ít nhất một thuộc tính
+    return searchTerms.every(term => {
+      return (
+        category.name.toLowerCase().includes(term) ||
+        category.id.toLowerCase().includes(term) 
+      );
+    });
   });
   displayFilteredCategories(filteredCategories);
 }

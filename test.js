@@ -330,7 +330,7 @@ function addToCart() {
         alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
         return;
     }
-    else if (userCurrent.status === 0) { 
+    else if (userCurrent.status === "0") { 
         alert("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
         return;
     }
