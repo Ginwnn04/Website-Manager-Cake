@@ -1126,7 +1126,7 @@ function loadAccountToLocal() {
     if(localStorage.getItem(LIST_USER) === null){
       const listUser = [
         {
-            username: 'nguyenminhvu591@gmail.com',
+            gmail: 'nguyenminhvu591@gmail.com',
             password: '1',
             fullName: 'Nguyen Minh Vu',
             phone: '0123456789',
@@ -1135,11 +1135,11 @@ function loadAccountToLocal() {
             address: "294 An Dương Vương",
             districtId: "005",
             wardId: "00169",
-            status: "1",
-            role:'user',
+            status: 0,
+            role: 'User',
         },
         {
-            username: 'quang123',
+            gmail: 'quang123@gmail.com',
             password: '2',
             fullName: 'Nguyen Nhat Quang',
             phone: '0123456789',
@@ -1148,11 +1148,11 @@ function loadAccountToLocal() {
             address: "294 An Dương Vương",
             districtId: "777",
             wardId: "27454",
-            status: "1",
-            role:'admin',
+            status: 1,
+            role: 'Admin',
         },
         {
-            username: 'hihihaha',
+            gmail: 'hihihaha@gmail.com',
             password: '3',
             fullName: 'Nguyen Van Teo',
             phone: '0123456789',
@@ -1161,8 +1161,8 @@ function loadAccountToLocal() {
             address: "432 Võ Thị Sáu",
             districtId: "747",
             wardId: "26536",
-            status: "1",
-            role:'user',
+            status: 1,
+            role: 'User',
         }
       ];
       localStorage.setItem(LIST_USER, JSON.stringify(listUser));

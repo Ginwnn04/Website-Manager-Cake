@@ -32,7 +32,9 @@ body {
 img {
     width: 100%;
 }
-
+a {
+    text-decoration: none;
+}
 
 main {
     margin: 0 auto;
@@ -169,13 +171,16 @@ main {
 .header-center .search {
     position: relative;
     cursor: pointer;
+    width: 400px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .header-center .search .search-txt {
     border-radius: 30px;
     line-height: 37px;
     padding: 0 48px;
-    width: 350px;
+    width: 100%;
     border: none;
     background-color: #f0f0f0; 
     cursor: text;
@@ -644,13 +649,13 @@ main {
 #footer {
     background-color: var(--background-color);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     font-family: Arial, sans-serif;
 }
 
 .footer_item {
-    width: calc(25% - 40px);
+    width: calc(25% - 20px);
     margin-top: 20px;
     font-size: 12pt;
     line-height: 1.4;
@@ -677,12 +682,14 @@ main {
     text-align: justify;
     margin-left: 10px;
 }
-.list_menu li:hover{
+.footer_item a{
+    color: var(--black-color);
+}
+.list_menu a:hover{
     color: var(--primary-color);
 }
 .footer_item img {
-    max-width: 80%;
-    height: auto;
+    max-width: 50%;
     margin: auto;
     display: block;
     object-fit: contain;
@@ -1438,7 +1445,18 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
 
-    .header-right .search-close {
+    
+
+    .navbar {
+        line-height: normal;
+    }
+    .navbar>.container {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 10px;
+    } 
+
+    .nav-top .search-close {
         width: 34px;
         height: 34px;
         background-color: #f0f0f0;
@@ -1449,15 +1467,6 @@ input[type="number"]::-webkit-inner-spin-button {
         font-size: 20px;
         cursor:pointer;
     }
-
-    .navbar {
-        line-height: normal;
-    }
-    .navbar>.container {
-        display: flex;
-        flex-wrap: wrap;
-        row-gap: 10px;
-    } 
 
     .list-product .product-item {
         width: calc(100% - 10px);
@@ -1545,6 +1554,7 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
     color: #333;
     font-weight: bold; /* Thêm dòng này để chữ in đậm */
+    font-size: 14px;
 }
 
 .user-option-btn:hover {
