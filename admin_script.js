@@ -28,16 +28,7 @@ window.addEventListener('resize', function () {
     }
 });
 
-const searchButton = document.querySelector('#content nav form .form-input button');
-const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
-const searchForm = document.querySelector('#content nav form');
-searchButton.addEventListener('click', function (e) {
-    if (window.innerWidth < 600) {
-        e.preventDefault();
-        searchForm.classList.toggle('show');
-        searchButtonIcon.classList.replace(searchForm.classList.contains('show') ? 'bx-search-alt' : 'bx-x-circle', searchForm.classList.contains('show') ? 'bx-x-circle' : 'bx-search-alt');
-    }
-});
+
 
 const Dashboard = document.querySelector('#dashboard');
 const AccountManager = document.querySelector('#account_manager');
@@ -142,50 +133,6 @@ settingsMenu.addEventListener('click', function (event) {
 
 
 
-google.charts.load('current', { packages: ['corechart'] });
-google.charts.setOnLoadCallback(drawResponsiveChart);
-
-let chart; // Biến lưu biểu đồ
-
-function drawResponsiveChart() {
-    const container = document.getElementById('chart_div');
-    const width = container.offsetWidth; // Lấy chiều rộng thực tế của thẻ `div`
-    const height = container.offsetHeight; // Lấy chiều cao thực tế của thẻ `div`
-
-    // Dữ liệu biểu đồ
-    const data = google.visualization.arrayToDataTable([
-        ['Tháng', 'Đơn Hàng'],
-        ['Tháng 8', 321],
-        ['Tháng 9', 823],
-        ['Tháng 10', 432],
-        ['Tháng 11', 823]
-    ]);
-
-    // Tùy chọn biểu đồ
-    const options = {
-        title: 'Thống Kê Bán Hàng',
-        hAxis: { title: 'Tháng', titleTextStyle: { color: '#333' } },
-        vAxis: { minValue: 0 },
-        width: width,  // Sử dụng chiều rộng từ CSS
-        height: height // Sử dụng chiều cao từ CSS
-    };
-
-    // Vẽ biểu đồ
-    chart = new google.visualization.AreaChart(container);
-    chart.draw(data, options);
-}
-
-// Sự kiện khi kích thước trình duyệt thay đổi
-window.addEventListener('resize', drawResponsiveChart);
-
-// Theo dõi thay đổi kích thước của thẻ `div` bằng ResizeObserver
-const resizeObserver = new ResizeObserver(() => {
-    drawResponsiveChart();
-});
-resizeObserver.observe(document.getElementById('chart_div'));
-
-
-
 // Ẩn/hiện phần thêm account
 function showForm() {
   const form = document.getElementById('add_account');
@@ -200,7 +147,6 @@ function hideForm() {
   clearForm();
 }
 function clearForm(){
-  document.getElementById('id').value = '';
   document.getElementById('name').value = '';
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
@@ -208,6 +154,8 @@ function clearForm(){
   document.getElementById('address').value = '';
   document.getElementById('role').value = 'all';
 }
+
+
 document.getElementById('accountForm').addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
       event.preventDefault(); // Ngăn hành động mặc định của Enter
@@ -220,7 +168,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
           changeAccount();
       } else {
           // Gọi hàm thêm tài khoản mới
-          let id = document.getElementById('id').value.trim();
           let name = document.getElementById('name').value.trim();
           let username = document.getElementById('username').value.trim();
           let password = document.getElementById('password').value.trim();
@@ -229,9 +176,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
           let role = document.getElementById('role').value.trim();
 
           // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
-          if (!id) {
-            document.getElementById('id').focus();
-          } else
           if (!name) {
               document.getElementById('name').focus();
           } else if (!username) {
@@ -256,7 +200,6 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
 
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
-  let id = document.getElementById('id').value.trim();
   let name = document.getElementById('name').value.trim();
   let username = document.getElementById('username').value.trim();
   let password = document.getElementById('password').value.trim();
@@ -265,30 +208,34 @@ function addNewAccount() {
   let role = document.getElementById('role').value.trim();
 
   // Kiểm tra các trường bắt buộc
-  if (!id || !name || !username || !password || !phone || !address || !role) {
+  if ( !name || !username || !password || !phone || !address || !role) {
     alert('Vui lòng điền đầy đủ thông tin.');
     return;
   }
 
   // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
-  // Thêm tài khoản mới vào danh sách
+  // Thêm tài khoản mới vào danh sách với các thuộc tính mặc định
   listAccount.push({
-    id:id,
-    name: name,
+    fullName: name,
     username: username,
     password: password,
     phone: phone,
     address: address,
-    role: role
+    role: role,
+    cart: [],           // Thêm thuộc tính cart mặc định
+    districtId: "",     // Thêm districtId mặc định
+    wardId: "",         // Thêm wardId mặc định
+    provinceId: "",     // Thêm provinceId mặc định
+    status: "1"         // Trạng thái mặc định
   });
 
   // Lưu danh sách tài khoản cập nhật vào localStorage
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
+  localStorage.setItem("listUser", JSON.stringify(listAccount));
 
   // Đặt lại giá trị các ô nhập liệu về trống
-  clearForm()
+  clearForm();
 
   // Ẩn form và thông báo thành công
   hideForm();
@@ -298,45 +245,80 @@ function addNewAccount() {
   showAccount(listAccount);
 }
 
+
 function showAccount() {
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
   let account = `<tr>
-      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
       <th>Số điện thoại</th>
-      <th>Role</th>
+      <th>Trạng thái</th>
       <th>Setting</th>
     </tr>`;
 
-  listAccount.map((value, index) => {
-    account += `<tr>
-        <td>${value.id}</td>
-        <td>${value.name}</td>
-        <td>${value.username}</td>
-        <td>${value.password}</td>
-        <td>${value.phone}</td>
-        <td>${value.role}</td>
-        <td>
-          <button class="edit_account" onclick=" editAccount(${index}) " >Sửa</button>
-          <button class="block_account">Khóa</button>
-          <button class="detail_account " onclick="showDetailAccount(${index})">Chi tiết</button>
-        </td>
-      </tr>`;
-  });
+    listAccount.map((value, index) => {
+      let statusText = value.status === "1" ? "Hoạt động" : "Bị khóa";
+      let toggleId = `toggle_${index}`; // Tạo id duy nhất cho mỗi nút bật/tắt
+    
+      account += `<tr>
+      <td>${value.fullName}</td>
+      <td>${value.username}</td>
+      <td>${value.password}</td>
+      <td>${value.phone}</td>
+      <td>
+        <div class="toggle-switch">
+          <input type="checkbox" id="${toggleId}" ${value.status === "1" ? "checked" : ""} 
+            onclick="toggleStatus(${index})"/>
+          <label for="${toggleId}" class="switch"></label>
+        </div>
+      </td>
+      <td>
+        <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
+        <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
+      </td>
+    </tr>`;
+  
+    });
+    
 
   document.getElementById("accountTable").innerHTML = account;
-  
-  
+}
+function toggleStatus(index) {
+  let listAccount = JSON.parse(localStorage.getItem("listUser")) || [];
+  listAccount[index].status = listAccount[index].status === "1" ? "0" : "1";
+  localStorage.setItem("listUser", JSON.stringify(listAccount));
+  showAccount(); // Cập nhật giao diện
+}
+
+
+function toggleStatus(index) {
+  // Lấy danh sách tài khoản từ localStorage
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+
+  // Kiểm tra tài khoản có tồn tại không
+  if (listAccount[index]) {
+    // Thay đổi trạng thái từ 0 thành 1 hoặc ngược lại
+    listAccount[index].status = listAccount[index].status === "1" ? "0" : "1";
+
+    // Lưu lại danh sách đã thay đổi vào localStorage
+    localStorage.setItem("listUser", JSON.stringify(listAccount));
+
+    // Hiển thị lại danh sách tài khoản sau khi thay đổi
+    showAccount();
+  } else {
+    alert("Không tìm thấy tài khoản.");
+  }
 }
 
 
 
+
+
 function editAccount (index){
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
-  document.getElementById('id').value=listAccount[index].id;
-  document.getElementById('name').value=listAccount[index].name;
+  
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+  document.getElementById('name').value=listAccount[index].fullName;
   document.getElementById('username').value=listAccount[index].username;
   document.getElementById('password').value=listAccount[index].password;
   document.getElementById('phone').value=listAccount[index].phone;
@@ -349,22 +331,44 @@ function editAccount (index){
   document.getElementById('update_account').style.display='inline-block';
 }
 
-function changeAccount (){
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+function changeAccount() {
+  // Lấy danh sách tài khoản từ localStorage
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
+
+  // Lấy chỉ số tài khoản đang chỉnh sửa
   let index = document.getElementById('index').value;
-  listAccount[index]={
-    id:document.getElementById('id').value,
-    name:document.getElementById('name').value,
-    username:document.getElementById('username').value,
-    password:document.getElementById('password').value,
-    phone:document.getElementById('phone').value,
-    address:document.getElementById('address').value,
-    role:document.getElementById('role').value
-  }
-  localStorage.setItem("list_account", JSON.stringify(listAccount));
+
+  // Lấy thông tin hiện tại từ biểu mẫu
+  let updatedAccount = {
+    fullName: document.getElementById('name').value.trim(),
+    username: document.getElementById('username').value.trim(),
+    password: document.getElementById('password').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    role: document.getElementById('role').value.trim()
+  };
+
+  // Xóa các trường rỗng (nếu có)
+  Object.keys(updatedAccount).forEach(key => {
+    if (updatedAccount[key] === '' || updatedAccount[key] === null || updatedAccount[key] === undefined) {
+      delete updatedAccount[key];
+    }
+  });
+
+  // Kết hợp dữ liệu cũ và dữ liệu mới (giữ nguyên thuộc tính cũ nếu không bị ghi đè)
+  listAccount[index] = {
+    ...listAccount[index],  // Thuộc tính cũ
+    ...updatedAccount       // Thuộc tính mới
+  };
+
+  // Lưu lại danh sách vào localStorage
+  localStorage.setItem("listUser", JSON.stringify(listAccount));
+
+  // Ẩn form, hiển thị danh sách tài khoản
   hideForm();
   showAccount();
 }
+
 
 const formAcc = document.getElementById('add_account');
 
@@ -384,25 +388,25 @@ formAcc.addEventListener('submit', function(event) {
 
 
 
-
-
 function showDetailAccount(index) {
   // Lấy danh sách tài khoản từ localStorage
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
-  // Kiểm tra xem tài khoản có tồn tại không
-  if (listAccount[index]) {
+  // Kiểm tra xem tài khoản có tồn tại không và index hợp lệ
+  if (listAccount && listAccount.length > 0 && listAccount[index]) {
     // Lấy thông tin tài khoản
     const account = listAccount[index];
 
+    // Kiểm tra vai trò và hiển thị giá trị phù hợp
+    let roleText = account.role === "admin" ? "Người quản trị" : "Khách hàng";
+
     // Gán giá trị vào các phần tử <p>
-    document.getElementById("detail_id").innerHTML = "ID: " + account.id;
-    document.getElementById("detail_name").innerHTML = "Tên: " + account.name;
+    document.getElementById("detail_name").innerHTML = "Tên: " + account.fullName;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.username;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
     document.getElementById("detail_phone").innerHTML = "Số điện thoại: " + account.phone;
     document.getElementById("detail_address").innerHTML = "Địa chỉ: " + account.address;
-    document.getElementById("detail_role").innerHTML = "Role: " + account.role;
+    document.getElementById("detail_role").innerHTML = "Role: " + roleText;
 
     // Hiển thị phần chi tiết tài khoản
     document.getElementById("detail_account").style.display = "flex";
@@ -411,56 +415,72 @@ function showDetailAccount(index) {
   }
 }
 
-function hideDetailAccount(){
+
+function hideDetailAccount() {
+  // Ẩn phần chi tiết tài khoản
   document.getElementById("detail_account").style.display = "none";
 }
 
 
 function searchAccount() {
-  let valueSearchInput = document.getElementById('search_account').value;
-  let listAccount = localStorage.getItem("list_account") ? JSON.parse(localStorage.getItem("list_account")) : [];
+  let valueSearchInput = document.getElementById('search_account').value.trim(); // Loại bỏ khoảng trắng thừa
+  let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
 
+  // Chuyển giá trị tìm kiếm về chữ thường
+  let searchValueLower = valueSearchInput.toLowerCase();
+
+  // Lọc danh sách tài khoản
   let accountSearch = listAccount.filter(value => {
+    // Đảm bảo các trường cần kiểm tra không phải là null/undefined
+    let fullName = value.fullName ? value.fullName.toLowerCase() : "";
+    let username = value.username ? value.username.toLowerCase() : "";
+
     return (
-      value.name.toLowerCase().includes(valueSearchInput.toLowerCase()) || 
-      value.username.toLowerCase().includes(valueSearchInput.toLowerCase()) ||
-      (value.id && value.id.toLowerCase().includes(valueSearchInput.toLowerCase())) // Tìm theo ID
+      fullName.includes(searchValueLower) ||
+      username.includes(searchValueLower) 
     );
   });
 
+  // Hiển thị kết quả tìm kiếm
   document.getElementById("accountTable").innerHTML = "";
   showAccountSearch(accountSearch);
 }
 
+
 function showAccountSearch(array) {
   let account = `<tr>
-      <th>ID</th>
       <th>Tên</th>
       <th>Tài Khoản</th>
       <th>Mật khẩu</th>
       <th>Số điện thoại</th>
-      <th>Role</th>
+      <th>Trạng thái</th>
       <th>Setting</th>
     </tr>`;
 
   array.map((value, index) => {
+    // Kiểm tra status và hiển thị thông báo tương ứng
+    let statusText = value.status === "1" ? "Hoạt động" : "Đã Khóa";
+    
     account += `<tr>
-        <td>${value.id}</td>
-        <td>${value.name}</td>
+        <td>${value.fullName}</td>
         <td>${value.username}</td>
         <td>${value.password}</td>
         <td>${value.phone}</td>
-        <td>${value.role}</td>
+        <td>${statusText}</td> <!-- Hiển thị trạng thái -->
         <td>
-          <button class="edit_account" onclick=" editAccount(${index}) " >Sửa</button>
-          <button class="block_account">Khóa</button>
-          <button class="detail_account " onclick="showDetailAccount(${index})">Chi tiết</button>
+          <button class="edit_account" onclick="editAccount(${index})">Sửa</button>
+          <button class="block_account" onclick="toggleStatus(${index})">${value.status === "1" ? "Khóa" : "Mở khóa"}</button>
+          <button class="detail_account" onclick="showDetailAccount(${index})">Chi tiết</button>
         </td>
       </tr>`;
   });
 
   document.getElementById("accountTable").innerHTML = account;
 }
+
+
+
+
 
 
 
@@ -538,8 +558,383 @@ window.addEventListener('load', function() {
     const savedName = localStorage.getItem('adminName'); // Lấy tên từ localStorage
     if (savedName) { // Hiển thị tên đã lưu
         nameDisplay2.textContent = savedName;
+        nameInput.value = savedName;
     }
 });
+
+
+// ------------------------------------- Thống Kê ------------------------------------
+
+// Hàm hiển thị bảng sản phẩm
+function showProductSummary(array) {
+  let productTable = `<tr>
+    <th>Tên sản phẩm</th>
+    <th>Giá</th>
+    <th>Số lượng</th>
+    <th>Tổng thu</th>
+    <th>Xem hóa đơn</th>
+  </tr>`;
+
+  let totalRevenue = 0; // Tổng tiền tất cả sản phẩm trong danh sách
+
+  array.forEach((product, index) => {
+    // Tính tổng thu của sản phẩm
+    const productRevenue = product.quantity * product.price;
+    totalRevenue += productRevenue;
+
+    productTable += `<tr>
+        <td>${product.name}</td>
+        <td>${product.price.toLocaleString("vi-VN")} VND</td>
+        <td>${product.quantity}</td>
+        <td>${productRevenue.toLocaleString("vi-VN")} VND</td>
+        <td>
+          <button class="view_invoice" onclick="viewInvoice(${index})"><i class='bx bx-detail'></i></button>
+        </td>
+      </tr>`;
+  });
+
+  // Thêm dòng hiển thị tổng tiền
+  productTable += `<tr>
+    <td colspan="3"><strong>Tổng cộng</strong></td>
+    <td colspan="2"><strong>${totalRevenue.toLocaleString("vi-VN")} VND</strong></td>
+  </tr>`;
+
+  document.getElementById("product_rank").innerHTML = productTable;
+}
+
+// Hàm hiển thị modal với danh sách hóa đơn
+function viewInvoice(index) {
+  const productName = currentProductSummary.length > 0 ? currentProductSummary[index].name : productSummary[index].name;
+  
+
+  // Lọc danh sách hóa đơn liên quan đến sản phẩm
+  const relatedOrders = listOrder.filter(order =>
+    order.detailsOrder.some(product => product.name === productName)
+  );
+
+  if (relatedOrders.length === 0) {
+    alert("Không tìm thấy hóa đơn liên quan đến sản phẩm này.");
+    return;
+  }
+  document.getElementById("name_product").textContent = `Tên sản phẩm: ${productName}`;
+
+  // Tạo danh sách hóa đơn
+  let invoiceHTML = "<ul>";
+  relatedOrders.forEach(order => {
+    invoiceHTML += `
+      <li>
+        Mã hóa đơn: <strong>${order.id}</strong>
+        <button id="viewOrderDetails" onclick="viewOrderDetails('${order.id}')">Chi tiết</button>
+      </li>`;
+  });
+  invoiceHTML += "</ul>";
+
+  // Hiển thị danh sách hóa đơn trong modal
+  document.getElementById("invoiceList").innerHTML = invoiceHTML;
+  document.getElementById("invoiceModal").style.display = "block";
+}
+
+
+// Hàm đóng modal
+function closeModal2() {
+  document.getElementById("invoiceModal").style.display = "none";
+
+}
+
+
+
+
+// Lấy danh sách từ localStorage
+let listOrder = localStorage.getItem("listOrder") ? JSON.parse(localStorage.getItem("listOrder")) : [];
+let productSummary = []; // Danh sách sản phẩm mặc định
+let currentProductSummary = []; // Danh sách sản phẩm hiện tại sau khi tìm kiếm (nếu có)
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Lọc các đơn hàng có trạng thái "Đã giao thành công"
+  const filteredOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  // Xử lý dữ liệu sản phẩm
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      const existingProduct = productSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+      } else {
+        productSummary.push({
+          name: product.name,
+          quantity: product.quantity,
+          price: product.price
+        });
+      }
+    });
+  });
+
+  // Sắp xếp giảm dần theo số lượng
+  productSummary.sort((a, b) => b.quantity - a.quantity);
+
+  // Hiển thị bảng ban đầu
+  showProductSummary(productSummary);
+});
+
+// Hàm xếp tăng dần
+function rankUp() {
+  const rankOption = document.getElementById("rank_option").value;
+  const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
+
+  if (sourceData.length === 0) {
+    alert("Không có dữ liệu để xếp hạng.");
+    return;
+  }
+
+  if (rankOption === "1") {
+    sourceData.sort((a, b) => a.quantity - b.quantity);
+  } else if (rankOption === "2") {
+    sourceData.sort((a, b) => (a.quantity * a.price) - (b.quantity * b.price));
+  }
+
+  showProductSummary(sourceData);
+}
+
+// Hàm xếp giảm dần
+function rankDown() {
+  const rankOption = document.getElementById("rank_option").value;
+  const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
+
+  if (sourceData.length === 0) {
+    alert("Không có dữ liệu để xếp hạng.");
+    return;
+  }
+
+  if (rankOption === "1") {
+    sourceData.sort((a, b) => b.quantity - a.quantity);
+  } else if (rankOption === "2") {
+    sourceData.sort((a, b) => (b.quantity * b.price) - (a.quantity * a.price));
+  }
+
+  showProductSummary(sourceData);
+}
+
+// Sự kiện cho nút "Tìm kiếm"
+document.getElementById("search_button_rank").addEventListener("click", function () {
+  const startDateValue = document.getElementById("date_start").value;
+  const endDateValue = document.getElementById("date_end").value;
+
+  if (!startDateValue || !endDateValue) {
+    alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.");
+    return;
+  }
+
+  const startDate = new Date(startDateValue);
+  const endDate = new Date(endDateValue);
+
+  if (startDate > endDate) {
+    alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
+    return;
+  }
+
+  // Lọc đơn hàng theo trạng thái và thời gian
+  const filteredOrders = listOrder.filter(order => {
+    const orderDate = new Date(order.timeCreate);
+    return order.status === "Đã giao thành công" && orderDate >= startDate && orderDate <= endDate;
+  });
+
+  // Làm mới danh sách hiện tại
+  currentProductSummary = [];
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      const existingProduct = currentProductSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+      } else {
+        currentProductSummary.push({
+          name: product.name,
+          quantity: product.quantity,
+          price: product.price
+        });
+      }
+    });
+  });
+
+  if (currentProductSummary.length > 0) {
+    showProductSummary(currentProductSummary);
+  } else {
+    alert("Không có sản phẩm nào trong khoảng thời gian đã chọn.");
+    document.getElementById("product_rank").innerHTML = `
+      <tr>
+        <td colspan="5">Không có dữ liệu</td>
+      </tr>`;
+  }
+});
+
+
+
+
+// Hàm xử lý dữ liệu khách hàng và hiển thị bảng
+document.addEventListener("DOMContentLoaded", function () {
+  // 1. Lọc các đơn hàng có trạng thái "Đã giao thành công"
+  const successfulOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  // 2. Tính tổng doanh thu cho từng khách hàng
+  const customerRevenue = {};
+
+  successfulOrders.forEach(order => {
+    const account = order.account; // Lấy tài khoản khách hàng
+    const total = order.total; // Tổng doanh thu từ đơn hàng
+
+    // Gộp doanh thu vào tài khoản khách hàng
+    if (customerRevenue[account]) {
+      customerRevenue[account].revenue += total;
+      customerRevenue[account].orders += 1; // Tăng số lượng đơn hàng
+    } else {
+      customerRevenue[account] = {
+        name: order.name,
+        revenue: total,
+        orders: 1
+      };
+    }
+  });
+
+  // 3. Chuyển đổi dữ liệu từ object thành array và sắp xếp theo doanh thu giảm dần
+  const sortedCustomers = Object.entries(customerRevenue)
+    .map(([account, data]) => ({ account, ...data }))
+    .sort((a, b) => b.revenue - a.revenue)
+    .slice(0, 5); // Lấy 5 khách hàng có doanh thu cao nhất
+
+  // 4. Hiển thị dữ liệu vào bảng
+  const tbody = document.querySelector("#leaderboard tbody");
+  tbody.innerHTML = ""; // Xóa nội dung cũ
+
+  sortedCustomers.forEach((customer, index) => {
+    const row = `
+      <tr>
+        <td>${index + 1}</td> <!-- Hạng -->
+        <td>${customer.name}</td> <!-- Tên người dùng -->
+        <td>${customer.orders}</td> <!-- Số đơn hàng -->
+        <td>${customer.revenue.toLocaleString("vi-VN")} VND</td> <!-- Tổng doanh thu -->
+        <td><button class="view_invoice2" onclick="viewCustomerDetails('${customer.account}')"><i class='bx bx-detail'></i></button></td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+});
+
+function viewCustomerDetails(account) {
+  // Lọc danh sách hóa đơn theo tài khoản khách hàng
+  const customerOrders = listOrder.filter(order => order.account === account);
+
+  if (customerOrders.length === 0) {
+    alert("Không tìm thấy hóa đơn nào cho khách hàng này.");
+    return;
+  }
+
+  // Cập nhật tiêu đề modal thành "Tên người dùng: [Tên khách hàng]"
+  const customerName = customerOrders[0].name;  // Lấy tên khách hàng từ đơn hàng đầu tiên
+  document.getElementById("name_product").textContent = `Tên người dùng: ${customerName}`;
+
+  // Tạo danh sách hóa đơn
+  let invoiceHTML = "<ul>";
+  customerOrders.forEach(order => {
+    invoiceHTML += `
+      <li>
+        Mã hóa đơn: <strong>${order.id}</strong>
+        <button id="viewOrderDetails" onclick="viewOrderDetails('${order.id}')">Chi tiết</button>
+      </li>`;
+  });
+  invoiceHTML += "</ul>";
+
+  // Hiển thị danh sách hóa đơn trong modal
+  const modal = document.getElementById("invoiceModal");
+  document.getElementById("invoiceList").innerHTML = invoiceHTML;
+  modal.style.display = "block";
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Khai báo listOrder và productSummary
+  const listOrder = JSON.parse(localStorage.getItem('listOrder')) || [];
+  const productSummary = [];
+
+  // Lọc các đơn hàng "Đã giao thành công"
+  const filteredOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  // Xử lý dữ liệu sản phẩm
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      // Kiểm tra sản phẩm
+      const existingProduct = productSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity || 0;
+        existingProduct.revenue += (product.quantity || 0) * (product.price || 0);
+      } else {
+        productSummary.push({
+          name: product.name,
+          quantity: product.quantity || 0,
+          price: product.price || 0,
+          revenue: (product.quantity || 0) * (product.price || 0),
+          image: product.image
+        });
+      }
+    });
+  });
+
+  // Sắp xếp sản phẩm
+  productSummary.sort((a, b) => {
+    if (b.quantity === a.quantity) {
+      return b.revenue - a.revenue;
+    }
+    return b.quantity - a.quantity;
+  });
+
+  // Hiển thị kết quả
+  displayTopAndBottomSellers(productSummary);
+});
+
+function displayTopAndBottomSellers(productSummary) {
+  // Kiểm tra danh sách rỗng
+  if (!productSummary.length) {
+    console.error("Không có sản phẩm nào để hiển thị.");
+    return;
+  }
+
+  // Phần tử HTML
+  const bestSellerElement = document.getElementById("best_seller");
+  const worstSellerElement = document.getElementById("worst_seller");
+
+  if (!bestSellerElement || !worstSellerElement) {
+    console.error("Phần tử HTML không tồn tại");
+    return;
+  }
+
+  // Bán chạy nhất
+  const bestSeller = productSummary[0];
+  bestSellerElement.innerHTML = `
+    <h3>Sản phẩm bán chạy nhất</h3>
+    <div class="product">
+      <img  id="best_img" src="${bestSeller.image}" alt="${bestSeller.name}" />
+      <p><strong>${bestSeller.name}</strong></p>
+      <p>Đã bán: ${bestSeller.quantity}</p>
+      <p>Doanh thu: ${bestSeller.revenue.toLocaleString("vi-VN")} VND</p>
+    </div>
+  `;
+
+  // Bán ế nhất
+  const worstSeller = productSummary[productSummary.length - 1];
+  worstSellerElement.innerHTML = `
+    <h3>Sản phẩm bán ế nhất</h3>
+    <div class="product">
+      <img id="worst_img" src="${worstSeller.image}" alt="${worstSeller.name}" />
+      <p><strong>${worstSeller.name}</strong></p>
+      <p>Đã bán: ${worstSeller.quantity}</p>
+      <p>Doanh thu: ${worstSeller.revenue.toLocaleString("vi-VN")} VND</p>
+    </div>
+  `;
+}
+
+
+
+
+
 
 
 
@@ -548,7 +943,7 @@ window.addEventListener('load', function() {
 
 // ---------------------- Quản lý đơn hàng và phân trang -----------------------------
 // Biến toàn cục để quản lý phân trang
-const ITEMS_PER_PAGE = 8;  // Số đơn hàng hiển thị mỗi trang
+const ITEMS_PER_PAGE = 7;  // Số đơn hàng hiển thị mỗi trang
 let currentPageOrder = 1;  // Trang hiện tại
 
 // Hiển thị danh sách đơn hàng với phân trang
@@ -610,8 +1005,7 @@ function displayOrders() {
       const row = document.createElement('tr');
       row.innerHTML = `
           <td>${order.id}</td>
-          <td>${order.account}</td>
-          <td>${order.name}</td>
+          <td>${order.fullName}</td>
           <td>${order.phone}</td>
           <td>${order.district}</td>
           <td>${order.total}</td>
@@ -917,38 +1311,64 @@ function viewOrderDetails(id) {
 
   if (order) {
     const orderDetailContent = document.getElementById("orderDetailContent");
-    let productDetails = order.detailsOrder.map(item => `
-        <div class="product-item">
-            <img src="${item.image}" alt="${item.name}">
-        </div>
+
+    // Lặp qua từng sản phẩm để tạo hàng bảng
+    let productRows = order.detailsOrder.map(item => `
+        <tr>
+            <td>${item.name}</td>
+            <td>x${item.quantity}</td>
+            <td>${item.price}</td>
+        </tr>
     `).join('');
 
     // Hiển thị chi tiết đơn hàng
     orderDetailContent.innerHTML = `
       <button onclick="closeModal('orderDetailModal')" class="closeDetail">Đóng</button>
       <h2>Chi tiết đơn hàng</h2>
-      <p><strong>Mã đơn:</strong> ${order.id}</p>
-      <p><strong>Tài khoản:</strong> ${order.account}</p>
-      <p><strong>Người nhận:</strong> ${order.name}</p>
-      <p><strong>SĐT:</strong> ${order.phone}</p>
-      <p><strong>Địa chỉ:</strong> ${order.address}</p>
-      <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
-      <p><strong>Sản phẩm:</strong></p>
-      <div class="product-item-detail">
-        ${productDetails}
+      <div class="boxDetail">
+        <div class="boxDetailContent1">
+            <p><strong>Mã đơn:</strong> ${order.id}</p>
+        </div>
+        <div class="boxDetailContent1">
+            <p><strong>Tài khoản:</strong> ${order.email}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>Người nhận:</strong> ${order.fullName}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>SĐT:</strong> ${order.phone}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Tổng đơn:</strong> ${order.total} Đ</p>
+        </div>
       </div>
-      <p><strong>Tổng tiền:</strong> ${order.total} VND</p>
+      <p><strong>Địa chỉ:</strong> ${order.address}</p>
       <p><strong>Tình trạng:</strong> 
-        <select id="statusSelect" disabled>
-          <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
-          <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
-          <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
-          <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
-        </select>
+          <select id="statusSelect" disabled>
+            <option value="Chưa xử lý" ${order.status === "Chưa xử lý" ? 'selected' : ''}>Chưa xử lý</option>
+            <option value="Đã xác nhận" ${order.status === "Đã xác nhận" ? 'selected' : ''}>Đã xác nhận</option>
+            <option value="Đã giao thành công" ${order.status === "Đã giao thành công" ? 'selected' : ''}>Đã giao thành công</option>
+            <option value="Đã hủy" ${order.status === "Đã hủy" ? 'selected' : ''}>Đã hủy</option>
+          </select>
+          <button id="editBtn" onclick="toggleEditMode('${order.id}', true)">Sửa</button>
+          <button id="saveBtn" onclick="toggleEditMode('${order.id}', false)" disabled>Lưu</button>
       </p>
-      <div id="editOrder">
-        <button id="editBtn" onclick="toggleEditMode('${order.id}', true)">Sửa</button>
-        <button id="saveBtn" onclick="toggleEditMode('${order.id}', false)" disabled>Lưu</button>
+      <div class="tableOrder">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Tên SP</th>
+                      <th>SL</th>
+                      <th>Giá tiền</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${productRows}
+              </tbody>
+          </table>
       </div>
     `;
 
@@ -956,6 +1376,7 @@ function viewOrderDetails(id) {
     document.getElementById("orderDetailModal").style.display = "flex";
   }
 }
+
 
 // Đóng modal xem chi tiết
 function closeModal(id) {
@@ -1008,6 +1429,10 @@ document.getElementById("statusFilter").addEventListener("change", function() {
 window.onload = function() {
   displayOrders();  // Hiển thị danh sách đơn hàng ngay khi tải trang
 };
+
+function logOut() {
+  localStorage.removeItem('userCurrent'); // Xóa thông tin người dùng
+}
 
 
 
@@ -1066,7 +1491,7 @@ if (gridViewButton) {
 
 function randomId(existingId) {
   const now=new Date();
-  const time=`${String(now.getDate()).padStart(2,'0')}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getFullYear()).slice(-2)}${String(now.getHours()).padStart(2,'0')}`;
+  const time=`${String(now.getDate()).padStart(2,'0')}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getFullYear()).slice(-2)}${String(now.getMilliseconds()).padStart(3, '0')}`;
   let id;
   let fullid;
   do {
@@ -1096,6 +1521,7 @@ function toggleAddProductForm() {
       input.disabled=false;
   });
   formP.style.display = formP.style.display === 'block' ? 'none' : 'block';
+  resetFormP();
 }
 function resetFormP() {
   document.getElementById('productName').value = ''; 
@@ -1204,7 +1630,7 @@ formP.addEventListener('submit', function (event) {
     alert("Giá thành sản phẩm không được âm!");
     document.getElementById('productPrice').focus();
     return;
-}
+  }
 
   let productData = {
     name: ProductName,
@@ -1376,7 +1802,7 @@ function addInToListP(product, index) {
       <span class="cell-label">Id</span>${product.id}
     </div>
     <div class="product-cell name">
-      <span>${product.name}</span>
+      <span class="cell-lab">Name</span>${product.name}
     </div>
     <div class="product-cell category">
       <span class="cell-label"> Categories:</span>${product.category}
@@ -1521,22 +1947,25 @@ const resetFilterButton = document.getElementById('resetFilter');
 const applyFilterButton = document.getElementById('applyFilter');
 const SearchInputP=document.getElementById('search-product');
 function searchProducts() {
-  const searchInputValue = SearchInputP.value.toLowerCase().trim();
+  const searchInputValue = SearchInputP.value.toLowerCase().trim(); 
   if (!searchInputValue) {
-    displayFilteredProducts(listProduct); 
-    return;
+      displayFilteredProducts(listProduct); 
+      return;
   }
-  const searchTerms = searchInputValue.split(/\s+/);
+
+  const searchTerms = searchInputValue.split(/\s+/); // Tách chuỗi tìm kiếm thành các từ khóa
+
   const filteredProducts = listProduct.filter(product => {
-    let score = 0;
-    score += product.name.toLowerCase().includes(searchTerms) ? 10 : 0;
-    score += product.id.toLowerCase().includes(searchTerms) ? 9 :0;
-    score += product.category.toLowerCase().includes(searchTerms) ? 8 : 0;
-    score += product.description && product.description.toLowerCase().includes(searchTerms) ? 5 : 0;
-    score += product.price.toString().includes(searchTerms) ? 2 : 0;
-    return score > 0;
+      // Kiểm tra nếu tất cả các từ khóa đều phù hợp với ít nhất một thuộc tính
+      return searchTerms.every(term => {
+          return (
+              product.name.toLowerCase().includes(term) ||
+              product.id.toLowerCase().includes(term) 
+          );
+      });
   });
-  displayFilteredProducts(filteredProducts);
+
+  displayFilteredProducts(filteredProducts); // Hiển thị sản phẩm đã lọc
 }
 function displayFilteredProducts(filteredProducts) {
   productPage.innerHTML = '';
@@ -1554,6 +1983,43 @@ function displayFilteredProducts(filteredProducts) {
 }
 const categoryOptionFilterChoose=document.getElementById('productCategoryFilter');
 function filterProducts() {
+  let minPriceInput = document.getElementById('minPrice').value.trim();
+    let maxPriceInput = document.getElementById('maxPrice').value.trim();
+
+    // Loại bỏ các số 0 ở đầu nếu là chuỗi hợp lệ
+    minPriceInput = minPriceInput.replace(/^0+/, "") || "0";
+    maxPriceInput = maxPriceInput.replace(/^0+/, "") || "Infinity";
+
+    // Chuyển đổi giá trị sang số
+    const minPrice = parseFloat(minPriceInput);
+    const maxPrice = parseFloat(maxPriceInput);
+
+    // Kiểm tra giá trị hợp lệ của minPrice và maxPrice
+    if (isNaN(minPrice)) {
+        alert("Giá nhỏ nhất không hợp lệ!");
+        document.getElementById('minPrice').focus();
+        return;
+    }
+    if (minPrice < 0) {
+        alert("Giá nhỏ nhất không được âm!");
+        document.getElementById('minPrice').focus();
+        return;
+    }
+    if (isNaN(maxPrice)) {
+        alert("Giá lớn nhất không hợp lệ!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
+    if (maxPrice < 0) {
+        alert("Giá lớn nhất không được âm!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
+    if (minPrice > maxPrice) {
+        alert("Giá lớn nhất không được nhỏ hơn giá nhỏ nhất!");
+        document.getElementById('maxPrice').focus();
+        return;
+    }
   listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
   categories=JSON.parse(localStorage.getItem('categories')) || [];
   const CategoryId = categoryOptionFilterChoose.value;
@@ -1581,6 +2047,8 @@ function filterProducts() {
       return matchCategory && matchStatus;
     });
   }
+  //Lọc theo giá
+  filteredProducts = filteredProducts.filter(product => parseFloat(product.price) >= minPrice && parseFloat(product.price) <= maxPrice);
   displayFilteredProducts(filteredProducts); 
 }
 SearchInputP.addEventListener('input', searchProducts);
@@ -1588,6 +2056,8 @@ applyFilterButton.addEventListener('click', filterProducts);
 resetFilterButton.addEventListener('click', () => {
   categoryOptionFilterChoose.value = "All Categories";
   statusOption.value = "All Status";
+  document.getElementById('minPrice').value='';
+  document.getElementById('maxPrice').value='';
   displayFilteredProducts(listProduct); 
 });
 function rebindMoreButtonEvents(){
@@ -1620,20 +2090,6 @@ function toggleProductButtons(event){
   }
 }
 displayProducts();
-function loadCategory() {
-  if (localStorage.getItem("categories") === null) {
-      const categories = [
-          { id: "A4TC27112422", name: "Bánh kem", description: "" },
-          { id: "BVSW27112422", name: "Bánh lạnh", description: "" },
-          { id: "6I9O27112422", name: "Bánh nướng", description: "" },
-          { id: "NMWR27112422", name: "Bánh quy", description: "" },
-          { id: "L2BA27112422", name: "Bánh mì que", description: "" }
-      ];
-      localStorage.setItem("categories", JSON.stringify(categories));
-    }
-  displayCategories();
-}
-window.onload = loadCategory;
 //PRODUCT
 //CATEGORY
 const formC = document.getElementById('categoryForm');
@@ -1652,6 +2108,8 @@ function cancelCategory() {
 }
 function toggleAddCategoryForm() {
   formC.style.display = formC.style.display === 'block' ? 'none' : 'block';
+  formTitleC.textContent = "Thêm loại sản phẩm";
+  resetForm();
 }
 document.getElementById('openCategoryForm').addEventListener('click',toggleAddCategoryForm);
 document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
@@ -1713,7 +2171,21 @@ function addInToListC(category,index){
     categoryPage.appendChild(categoryItem);
 }
 displayCategories();
-
+function loadCategory(){
+    if (localStorage.getItem("categories") === null) {
+      categories = [
+          { "id" : "A4TC271124346", "name" : "Bánh kem", "description" : "" },
+          { "id" : "BVSW271124272", "name" : "Bánh lạnh", "description": "" },
+          { "id" : "6I9O271124822", "name" : "Bánh nướng", "description" : "" },
+          { "id" : "NMWR271124205", "name" : "Bánh quy", "description" : "" },
+          { "id" : "L2BA271124222", "name" : "Bánh mì que", "description" : "" }
+      ];
+      localStorage.setItem("categories", JSON.stringify(categories));
+    }
+    categories = JSON.parse(localStorage.getItem('categories'));
+    displayCategories();
+}
+window.onload = loadCategory();
 function deleteC(index){
   let categoryDelete=categories[index];
   categories = categories.filter(category => category.id !== categoryDelete.id);
@@ -1791,11 +2263,13 @@ function searchCategories(){
   }
   const searchTerms = searchInputValue.split(/\s+/);
   const filteredCategories = categories.filter(category => {
-    let score = 0;
-    score += searchTerms.some(term => category.name.toLowerCase().includes(term)) ? 10 : 0;
-    score += searchTerms.some(term => category.id.toString().toLowerCase().includes(term)) ? 8 : 0;
-    score += category.description && searchTerms.some(term => category.description.toLowerCase().includes(term)) ? 2 : 0;
-    return score > 0;
+    // Kiểm tra nếu tất cả các từ khóa đều phù hợp với ít nhất một thuộc tính
+    return searchTerms.every(term => {
+      return (
+        category.name.toLowerCase().includes(term) ||
+        category.id.toLowerCase().includes(term) 
+      );
+    });
   });
   displayFilteredCategories(filteredCategories);
 }

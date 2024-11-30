@@ -34,13 +34,13 @@
             <li>
                 <a href="#" id="product">
                     <i class='bx bx-package'></i>
-                    <span class="text">Sản phẩm</span>
+                    <span class="text">Quản Lí Sản Phẩm</span>
                 </a>
             </li>
             <li>
                 <a href="#" id="category">
                     <i class="bx bx-menu"></i>
-                    <span class="text">Loại sản phẩm</span>
+                    <span class="text">Quản Lí Loại Sản Phẩm</span>
                 </a>
             </li>
             <li>
@@ -65,7 +65,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="index.html" onclick="logOut()">
                     <i class='bx bx-log-out'></i>
                     <span class="text1">Đăng xuất</span>
                 </a>
@@ -80,12 +80,6 @@
         <nav>
             <i class='bx bx-menu'></i>
             <a href="#" class="nav-link"></a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="seach" placeholder="Seach...">
-                    <button type="submit" class="seach-btm"><i class='bx bx-search-alt'></i></button>
-                </div>
-            </form>
             <div class="item">
 
                 <p class="name-item"></p>
@@ -99,21 +93,12 @@
         <div class="product-container">
             <div class="head">
                 <div class="left">
-                    <h1>SẢN PHẨM</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="#">Product</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Home</a>
-                        </li>
-                    </ul>
+                    <h1>Quản Lí Sản Phẩm</h1>
                 </div>
             </div>
             <div class="product-content">
                 <div class="product-content-header">
-                    <h1 class="product-content-headerText">SẢN PHẨM</h1>
+                    <h1 class="product-content-headerText">Sản phẩm</h1>
                     <button class="product-content-headerButton">ADD PRODUCT</button>
                 </div>
                 <div class="product-content-actions">
@@ -132,25 +117,33 @@
                                 </svg>
                             </button>
                             <div class="filter-wrapper">
-                            <div class="filter-menu">
-                                <label for="productCategory">Categories</label>
-                                <select id="productCategoryFilter" name="productCategoryFilter">
-                                </select>
-                                <label for="statusOption">Status</label>
-                                <select id="statusOption">
-                                    <option value="All Status">All Status</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Disabled">Disabled</option>
-                                </select>
-                                <div class="filter-menu-buttons-position">
-                                    <div class="filter-menu-buttons">
-                                        <button id="resetFilter" class="filter-button reset">Reset</button>
+                                <div class="filter-menu">
+                                    <div class="filter-left">
+                                        <label for="minPrice">Giá từ</label>
+                                        <input type="text" id="minPrice" name="minPrice" placeholder="Nhập giá tối thiểu"/>
+                                        <label for="maxPrice">đến</label>
+                                        <input type="text" id="maxPrice" name="maxPrice" placeholder="Nhập giá tối đa"/>
                                     </div>
-                                    <div class="filter-menu-buttons">
-                                        <button id="applyFilter" class="filter-button apply">Apply</button>
+                                    <div class="filter-right">
+                                        <label for="productCategory">Categories</label>
+                                        <select id="productCategoryFilter" name="productCategoryFilter">
+                                        </select>
+                                        <label for="statusOption">Status</label>
+                                        <select id="statusOption">
+                                            <option value="All Status">All Status</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Disabled">Disabled</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-menu-buttons-position">
+                                        <div class="filter-menu-buttons">
+                                            <button id="resetFilter" class="filter-button reset">Reset</button>
+                                        </div>
+                                        <div class="filter-menu-buttons">
+                                            <button id="applyFilter" class="filter-button apply">Apply</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         <button class="action-button list active" title="List View">
@@ -283,21 +276,12 @@
         <div class="category-container">
             <div class="head">
                 <div class="left">
-                    <h1>LOẠI SẢN PHẨM</h1>
-                    <ul class="breadcrumb">
-                        <li>
-                            <a href="#">Category</a>
-                        </li>
-                        <li><i class='bx bx-chevron-right'></i></li>
-                        <li>
-                            <a class="active" href="#">Home</a>
-                        </li>
-                    </ul>
+                    <h1>Quản Lí Loại Sản Phẩm</h1>
                 </div>
             </div>
             <div class="category-content">
                 <div class="category-content-header">
-                    <h1 class="category-content-headerText">CATEGORY</h1>
+                    <h1 class="category-content-headerText">Loại sản phẩm</h1>
                     <button class="category-content-headerButton" id="openCategoryForm">ADD CATEGORY</button>
                     <form id="categoryForm" class="form-container">
                         <h2>Thêm Loại Sản Phẩm</h2>
@@ -363,29 +347,22 @@
                 <div class="head">
                     <div class="left">
                         <h1>Dashboard</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Dashboard</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+
                     </div>
                 </div>
                 <div id="border_chart">
-                    <div id="chart_div"></div>
+
                     <div id="acc_sell">
                         <div id="table_rank">
+                            <h2>Xếp hạng người dùng</h2>
                             <table id="leaderboard">
                                 <thead>
                                     <tr>
                                         <th>Hạng</th>
                                         <th>Tên người dùng</th>
-                                        <th>Số đơn hàng</th>
+                                        <th>Đơn hàng</th>
                                         <th>Tổng doanh thu</th>
-                                        <th>Chi tiết</th>
+                                        <th>Hóa đơn</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -393,9 +370,14 @@
 
                         </div>
                         <div id="rank_sell">
-                            <div id="best_seller">Sản phẩm bán chạy nhất</div>
-                            <div id="worst_seller">Sản phẩm bán ế nhất</div>
+                            <div id="best_seller">
+
+                            </div>
+                            <div id="worst_seller">
+
+                            </div>
                         </div>
+
 
                     </div>
                     <div id="sales_statistics">
@@ -408,20 +390,21 @@
                             <label>Đến:
                                 <input type="date" name="start" id="date_end">
                             </label>
-                            <select name="" id="rank_option">
-                                <option value="0">Tùy chọn mặc định</option>
-                                <option value="1">Số lượng</option>
-                                <option value="2">Doanh Thu </option>
-                            </select>
-                            <i class='bx bx-sort-up'></i>
-                            <i class='bx bx-sort-down'></i>
-                            <i class='bx bx-search-alt-2'></i>
+                            <div id="option_seach">
+                                <select name="" id="rank_option">
+                                    <option value="1">Số lượng</option>
+                                    <option value="2">Doanh Thu </option>
+                                </select>
+                                <i class='bx bx-sort-up' onclick="rankUp()"></i>
+                                <i class='bx bx-sort-down' onclick="rankDown()"></i>
+                                <i class='bx bx-search-alt-2' id="search_button_rank"></i>
+                            </div>
+
 
                         </div>
                         <div id="table_sell">
                             <table id="product_rank">
                                 <thead>
-                                    <th>Mã sản phẩm</th>
                                     <th>Tên sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
@@ -429,6 +412,17 @@
                                     <th>Xem hóa đơn</th>
                                 </thead>
                             </table>
+                            <tbody>
+
+                            </tbody>
+                            <div id="invoiceModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal2()">&times;</span>
+                                    <h3>Danh sách hóa đơn</h3>
+                                    <h4 id="name_product"></h4>
+                                    <div id="invoiceList"></div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -439,17 +433,6 @@
                 <div class="head">
                     <div class="left">
                         <h1>Quản Lí Tài Khoản</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Account Manager</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-chevron-right'></i>
-                            </li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
                 <div class="table_data">
@@ -471,8 +454,6 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
-                                    <input type="number" id="id" placeholder="ID người dùng" class="form_input"
-                                        required>
                                     <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
                                         required>
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input"
@@ -485,8 +466,7 @@
                                     <select id="role" required>
                                         <option value="all" disabled selected>Chọn vai trò</option>
                                         <option value="admin">Admin</option>
-                                        <option value="sales">Bán hàng</option>
-                                        <option value="client">Khách hàng</option>
+                                        <option value="user">Khách hàng</option>
                                     </select>
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu tài
                                         khoản</button>
@@ -500,12 +480,11 @@
                             <table id="accountTable">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Tên</th>
                                         <th>Tài Khoản</th>
                                         <th>Mật khẩu</th>
                                         <th>Số điện thoại</th>
-                                        <th>Role</th>
+                                        <th>Trạng thái</th>
                                         <th>Setting</th>
                                     </tr>
                                 </thead>
@@ -523,6 +502,7 @@
                                 <h2>Chi tiết Tài Khoản</h2>
 
                                 <div class="detail_table">
+                                    <p id="detail_id"></p>
                                     <p id="detail_name"></p>
                                     <p id="detail_username"></p>
                                     <p id="detail_password"></p>
@@ -540,20 +520,12 @@
 
 
 
+
             <!--------------------------------------- Order Manager ----------------------------------->
             <div id="order_manager">
                 <div class="head">
                     <div class="left">
-                        <h1>Quản lý đơn hàng</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#">Order Manager</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
+                        <h1>Quản Lý Đơn Hàng</h1>
                     </div>
                 </div>
                 <div class="table_data">
@@ -601,7 +573,6 @@
                                 <thead>
                                     <tr>
                                         <th>Mã đơn</th>
-                                        <th>Tài khoản</th>
                                         <th>Người nhận</th>
                                         <th>SĐT</th>
                                         <th>Quận</th>
@@ -615,7 +586,7 @@
                             </table>
                         </div>
                         <!-- Phần hiển thị nút phân trang -->
-                        <div id="pagination" style="text-align: center; margin-top: 20px;"></div>
+                        <div id="pagination"></div>
 
                     </div>
                 </div>
@@ -673,7 +644,7 @@
 
     <!-- Test thêm đơn hàng -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="./admin_script.js"></script>
+    <script type="text/javascript" src="admin_script.js"></script>
 
 
 </body>
