@@ -17,6 +17,7 @@ body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     overflow-y: auto;
+    min-width: 360px;
 }
 
 /* select {
@@ -28,6 +29,7 @@ body {
     position: absolute;
     bottom: 0;
 }  */
+
 
 img {
     width: 100%;
@@ -78,13 +80,14 @@ main {
     padding: 8px 16px;
     background-color: var(--primary-color);
     max-height: 37px;
-    min-width: 103px;
+    /* min-width: 103px; */
     font-size: 16px;
     color: var(--white-color);
     border-radius: 5px;
     text-decoration: none;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .btnCustom {
@@ -139,6 +142,7 @@ main {
 .header-left {
     display: flex;
     align-items: center;
+    width: calc((100% - 20px) / 3);
 }
 
 .header-left .logo {
@@ -162,10 +166,9 @@ main {
 }
 
 .header-center {
-    flex-grow: 1;
     display: flex;
     justify-content: center;
-    gap: 60px;
+    width: calc((100% - 20px) / 3);
 }
 
 .header-center .search {
@@ -211,10 +214,10 @@ main {
 
 .nav-top {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
-    
+    height: 64px;
 }
 
 .navbar {
@@ -258,9 +261,16 @@ main {
 
 .header-right {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     gap: 10px;
     position: relative;
+    width: calc((100% - 20px) / 3);
+    /* min-width: 250px; */
+}
+
+.header-right button {
+    padding: 8px 12px;
 }
 
 .login-btn {
@@ -270,6 +280,9 @@ main {
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    max-height: 37px;
+    /* min-width: 103px; */
+    white-space: nowrap;
 }
 
 .login-btn:hover {
@@ -1411,7 +1424,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 @media screen and (max-width: 767.98px) {
     .header-left {
-        flex-grow: 4;
 
     }
     
@@ -1421,13 +1433,18 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 
     .header-center {
-        flex-grow: unset;
     }
 
     .header-center .search-txt,
     .header-center .filter-products {
         display: none;
     }
+
+    .header-center .search {
+        margin-right: 5px;
+    }
+
+
     .header-center .search .search-icon {
         position: unset;
         width: 40px;
@@ -1439,8 +1456,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
     }
     
+    .header-right {
+        min-width: 100px;
+    }
 
-    .header-right .btn>span {
+    .header-right button {
+        padding: 8px 16px;
+    }
+
+    .header-right span {
         display: none;
     }
 
@@ -1488,9 +1512,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
-    .header-right .btn>span {
-        display: none;
-    }
+
     .navbar-filter {
         transform: translateY(-37px);
         height: 100px;

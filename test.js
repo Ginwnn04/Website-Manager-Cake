@@ -917,10 +917,10 @@ function registerUser() {
         return;
     }
 
-    // Kiểm tra số điện thoại có đúng 10 chữ số không
-    const phonePattern = /^[0-9]{10}$/;
+    // Kiểm tra số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số
+    const phonePattern = /^0[0-9]{9}$/;
     if (!phonePattern.test(phone)) {
-        alert("Số điện thoại phải có 10 chữ số!");
+        alert("Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số!");
         return;
     }
 
@@ -995,7 +995,7 @@ function updateLoginButton() {
         // Nếu chưa đăng nhập, hiển thị nút "Đăng nhập"
         loginBtn.innerHTML = `
                                 <i class="fa-regular fa-user"></i>
-                                <span>Đăng nhập</span>
+                                <span>Tài khoản</span>
                                 `;
         loginBtn.classList.remove("user-icon");
         loginBtn.classList.add("login-btn");
@@ -1143,6 +1143,9 @@ if (x.matches) {
         // document.querySelector(".btn-cart").style.display = "none";
         document.querySelector(".search-close").removeAttribute("style");
         document.querySelector(".header-right").style.display = "none";
+        document.querySelector(".header-left").style.display = "none";
+        document.querySelector(".header-center").style.width = "80%";
+        
     });
     document.querySelector(".search-close").addEventListener("click", () => { 
         hiddenSearchBar();
@@ -1155,6 +1158,9 @@ function openButton() {
     // document.querySelector(".btn-cart").removeAttribute("style");
     document.querySelector(".search-close").style.display = "none";
     document.querySelector(".header-right").removeAttribute("style");
+    document.querySelector(".header-left").removeAttribute("style");
+    document.querySelector(".header-center").removeAttribute("style");
+
     
 }
 
