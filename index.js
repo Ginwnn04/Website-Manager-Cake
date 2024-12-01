@@ -585,7 +585,7 @@ btnPaymentSubmit.addEventListener("click", () => {
     address.push(province[province.selectedIndex].textContent);
     order = {
         id: `HD-${nextOrderId++}`,
-        account: userCurrent.username,
+        gmail: userCurrent.gmail,
         name: name,
         phone: phone,
         address: address.join(", "),
