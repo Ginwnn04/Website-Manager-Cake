@@ -48,7 +48,14 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
                     </button>
-                     
+                    <!-- Menu Tùy Chọn -->
+                    <div class="user-options" id="userOptions">
+                        <a href="admin_index.html" class="user-option-btn" id="admin" style="display: none;">Sang
+                            Admin</a>
+                        <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+                        <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
+                    </div>
+
                 </div>
                 <div onclick="hiddenSearch()" class="search-close" style="display: none;">
                     <i class="fa-solid fa-xmark"></i>
