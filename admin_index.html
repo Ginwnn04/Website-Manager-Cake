@@ -19,8 +19,7 @@
             <span class="text">Adminify</span>
         </a>
         <div>
-            <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
-                id="profile-pic">
+            <img src="assets/img/admin_avatar.png" id="profile-pic">
 
         </div>
 
@@ -28,7 +27,7 @@
             <li class="active">
                 <a href="#" id="dashboard_show">
                     <i class='bx bxs-dashboard'></i>
-                    <span class="text">Thống kê</span>
+                    <span class="text">Thống Kê</span>
                 </a>
             </li>
             <li>
@@ -53,21 +52,21 @@
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
-                    <span class="text">Quản lý đơn hàng</span>
+                    <span class="text">Quản Lý Đơn Hàng</span>
                 </a>
             </li>
         </ul>
         <ul class="side-menu">
             <li>
-                <a href="#" id="setting">
-                    <i class='bx bx-cog'></i>
-                    <span class="text">Cài đặt</span>
+                <a href="index.html" id="setting">
+                    <i class='bx bx-log-out-circle'></i>
+                    <span class="text">Trở Về</span>
                 </a>
             </li>
             <li>
                 <a href="index.html" onclick="logOut()">
                     <i class='bx bx-log-out'></i>
-                    <span class="text1">Đăng xuất</span>
+                    <span class="text1">Đăng Xuất</span>
                 </a>
             </li>
 
@@ -84,8 +83,7 @@
 
                 <p class="name-item"></p>
 
-                <img src="https://banner2.cleanpng.com/20180402/ojw/kisspng-united-states-avatar-organization-information-user-avatar-5ac20804a62b58.8673620215226654766806.jpg"
-                    id="avatar-item">
+                <img src="assets/img/admin_avatar.png" id="avatar-item">
             </div>
         </nav>
         <!-- CONTENT -->
@@ -99,7 +97,7 @@
             <div class="product-content">
                 <div class="product-content-header">
                     <h1 class="product-content-headerText">Sản phẩm</h1>
-                    <button class="product-content-headerButton">ADD PRODUCT</button>
+                    <button class="product-content-headerButton">Thêm</button>
                 </div>
                 <div class="product-content-actions">
                     <div class="search">
@@ -119,12 +117,6 @@
                             <div class="filter-wrapper">
                                 <div class="filter-menu">
                                     <div class="filter-left">
-                                        <label for="minPrice">Giá từ</label>
-                                        <input type="text" id="minPrice" name="minPrice" placeholder="Nhập giá tối thiểu"/>
-                                        <label for="maxPrice">đến</label>
-                                        <input type="text" id="maxPrice" name="maxPrice" placeholder="Nhập giá tối đa"/>
-                                    </div>
-                                    <div class="filter-right">
                                         <label for="productCategory">Categories</label>
                                         <select id="productCategoryFilter" name="productCategoryFilter">
                                         </select>
@@ -134,6 +126,14 @@
                                             <option value="Active">Active</option>
                                             <option value="Disabled">Disabled</option>
                                         </select>
+                                    </div>
+                                    <div class="filter-right">
+                                        <label for="minPrice">Giá từ</label>
+                                        <input type="text" id="minPrice" name="minPrice"
+                                            placeholder="Nhập giá tối thiểu" />
+                                        <label for="maxPrice">đến</label>
+                                        <input type="text" id="maxPrice" name="maxPrice"
+                                            placeholder="Nhập giá tối đa" />
                                     </div>
                                     <div class="filter-menu-buttons-position">
                                         <div class="filter-menu-buttons">
@@ -282,7 +282,7 @@
             <div class="category-content">
                 <div class="category-content-header">
                     <h1 class="category-content-headerText">Loại sản phẩm</h1>
-                    <button class="category-content-headerButton" id="openCategoryForm">ADD CATEGORY</button>
+                    <button class="category-content-headerButton" id="openCategoryForm">Thêm</button>
                     <form id="categoryForm" class="form-container">
                         <h2>Thêm Loại Sản Phẩm</h2>
                         <label for="categoryName">Tên Loại:</label>
@@ -346,7 +346,7 @@
             <div id="dashboard">
                 <div class="head">
                     <div class="left">
-                        <h1>Dashboard</h1>
+                        <h1>Thống Kê</h1>
 
                     </div>
                 </div>
@@ -465,8 +465,8 @@
                                     <input type="hidden" id="index">
                                     <select id="role" required>
                                         <option value="all" disabled selected>Chọn vai trò</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="user">Khách hàng</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">Khách hàng</option>
                                     </select>
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu tài
                                         khoản</button>
@@ -492,9 +492,7 @@
                                     <!-- Dữ liệu tài khoản -->
                                 </tbody>
                             </table>
-                            <div class="pagination">
-                                <!-- Nút phân trang -->
-                            </div>
+                            <ul id="pagination1"></ul>
                         </div>
                         <div id="detail_account">
                             <div class="detail_acc_content">
@@ -595,37 +593,6 @@
 
 
 
-
-            <!-- -----------------SETTING------------------------- -->
-            <div id="settings-container">
-                <div class="head">
-                    <div class="left">
-                        <h1>Cài đặt</h1>
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="#" style="pointer-events:none ;">Setting</a>
-                            </li>
-                            <li><i class='bx bx-chevron-right'></i></li>
-                            <li>
-                                <a class="active" href="#">Home</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="content_setting">
-                    <div id="change_avatar">
-                        Thay đổi hình ảnh
-                        <label for="avatar_input">Tải hình ảnh</label>
-                        <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatar_input">
-                    </div>
-                    <div id="change_name">
-                        Thay đổi tên
-                        <label for="name_input"> Đổi tên </label>
-                        <input type="text" id="name_input">
-                    </div>
-                </div>
-            </div>
         </main>
         <!-- MAIN -->
 
@@ -645,6 +612,6 @@
     <!-- Test thêm đơn hàng -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="admin_script.js"></script>
-
+    <script src="./util.js"></script>
 
 </body>

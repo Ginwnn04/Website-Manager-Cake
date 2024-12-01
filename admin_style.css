@@ -266,7 +266,6 @@ button{
     overflow: hidden;
 }
 #dashboard .head,
-#settings-container .head,
 #account_manager .head{
     width: 100%;
     padding: 10px;
@@ -274,7 +273,6 @@ button{
 } 
 
 #dashboard .head .left,
-#settings-container .head .left,
 #account_manager .head .left{
     /* background: var(--light); */
     align-items: center;
@@ -283,7 +281,6 @@ button{
     flex-wrap: wrap;
 }
 #dashboard .head .left h1,
-#settings-container .head .left h1,
 #account_manager .head .left h1{
     font-size: 36px;
     font-weight: 600px;
@@ -420,12 +417,13 @@ button{
 }
 
 #rank_sell{
-    width: calc(100% - 70% - 20px);
-    margin-right: 24px;
+    width: calc(100% - 70% - 10px);
+    margin-right: 20px;
     height: 500px;
     background: var(--light);
     border-radius: 20px;
     display: block;
+    min-width: 320px;
 }
 #best_seller{
     margin: 10px ;
@@ -436,6 +434,7 @@ button{
     font-size: 18px;
     padding: 20px;
     position: relative;
+    min-width: 300px;
 }
 #best_seller h3{
     margin-bottom: 10px;
@@ -455,6 +454,7 @@ button{
     font-size: 18px;
     padding: 20px;
     position: relative;
+    min-width: 300px;
 }
 #worst_img h3{
     margin-bottom: 10px;
@@ -509,6 +509,7 @@ button{
 #product_rank{
     width: calc(100% - 40px);
     margin: 20px;
+    border-collapse: collapse; /* Gộp các đường viền */
 }
 
 #product_rank th,
@@ -524,6 +525,7 @@ button{
     color: var(--black); 
     font-weight: bold; 
     font-size: 24px; 
+    background: var(--light_purple);
 }
 
 #product_rank th:nth-child(1),
@@ -652,8 +654,20 @@ button{
 
 
 #account_manager {
-    overflow: hidden;
+
 }
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
 
 .product-container .head,
 .category-container .head,
@@ -724,23 +738,57 @@ button{
     display: flex;
     flex-wrap: wrap;
     grid-gap: 24px;
-    margin-top: 10px;
     margin-left: 20px;
     width: calc(100% - 20px);
     color: var(--black);
-    overflow-x: auto;
     min-height: 500px; /* Thêm min-height */
-    height: 600px;
+    margin-top: 10px;
+    min-width: 800px;
+    
 }
+#pagination1 {
+    margin: 20px auto;
+    display: flex;
+    cursor: pointer;
+}
+
+#pagination1 li {
+    margin: 0 5px;
+    height: 30px;
+    width: 30px;
+    background-color: var(--orange); /* Màu cam mặc định */
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid none var(--orange);
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng chuyển màu */
+    color: var(--light);
+}
+
+/* Khi li đang được chọn */
+#pagination1 li.active {
+    background: var(--blue); /* Màu xanh khi đang chọn */
+}
+
+/* Khi hover vào li */
+#pagination1 li:hover {
+    background: var(--blue); /* Màu sáng hơn khi hover */
+}
+
+
 
 #account_manager .table_data > div{
     border-radius: 20px;
     background: var(--light);
     padding: 40px;
-    
+    height:auto;
+
 }
 #account_manager .table_data .user{
-    flex-basis: calc(100% - 24px);
+    flex-basis: calc(100% - 20px);
+   
 }
 #account_manager .table_data .user .top {
     font-size: 24px;
@@ -781,10 +829,7 @@ button{
     cursor: pointer;
 
 }
-#account_manager .table_data .user .top .icon .bx.bx-filter{
-    cursor: pointer;
-    margin-left: 20px;
-}
+
 #account_manager .table_data .user .top .icon .bx.bx-plus{
     cursor: pointer;
     margin-left: 20px;
@@ -884,9 +929,16 @@ button{
 
 
 /* Hiển thị phần tài khoản */
+.info_account {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa theo chiều ngang */
+    height: 100%; /* Đảm bảo chiều cao của div chứa */
+}
 .info_account table {
     width: 100%;
     border-collapse: collapse; 
+    overflow-x: scroll;
 }
 
 .info_account table th,
@@ -915,11 +967,11 @@ button{
 
 .info_account table th:nth-child(1),
 .info_account table td:nth-child(1) {
-    width: 15%;  /* Chiều rộng cho Tên Khách Hàng */
+    width: 20%;  /* Chiều rộng cho Tên Khách Hàng */
 }
 .info_account table th:nth-child(2),
 .info_account table td:nth-child(2) {
-    width: 15%; /* Chiều rộng cho Tài Khoản */
+    width: 25%; /* Chiều rộng cho Tài Khoản */
 }
 .info_account table th:nth-child(3),
 .info_account table td:nth-child(3) {
@@ -938,7 +990,7 @@ button{
 }
 .info_account table th:nth-child(6),
 .info_account table td:nth-child(6) {
-    width: 20%; /* Chiều rộng cho Tên Khách Hàng */
+    width: 15%; /* Chiều rộng cho Tên Khách Hàng */
 }
 
 .info_account table {
@@ -949,7 +1001,7 @@ button{
 
 .info_account table th,
 .info_account table td {
-    padding: 10px; 
+    padding: 5px; 
     text-align: left; 
     border-bottom: 1px solid var(--dark_grey); 
 }
@@ -1604,6 +1656,7 @@ button{
 }
 
 
+
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
     /*Product and category*/
     .category-content-header, .product-content-header {
@@ -1631,11 +1684,49 @@ button{
     
 }
 
+
 /*---------------------------------- Quản lý đơn hàng------------------------------------- */
 
 
 
 
+
+
+/* CONTENT */
+
+
+
+@media screen and (max-width: 760px ) {
+    #content{
+        width: calc(100% - 60px);   
+    }   
+}
+
+@media screen and (max-width: 600px) {
+
+    #content nav form .form-input input{
+        display: none;
+    }
+    #content nav form .form-input button{
+        width:auto ;
+        height: auto;
+        background: transparent;
+        border-radius: none;
+        color: var(--black);
+    }
+    #content nav form.show .form-input input{
+        display: block;
+        width: 200px;
+    }
+    #content nav form.show .form-input button{
+        width: 40px;
+        height: 100%;
+        border-radius: 0 30px 30px 0;
+        color: var(--light);
+        background:var(--red);
+        
+    }
+}
 
 
 /* CONTENT */
@@ -1770,19 +1861,6 @@ button{
     flex-direction: row;
     margin-right: 5%;
 }
-@media screen and (max-width:520px){
-    .product-content-actions{
-        flex-direction: column;
-    }
-    .product-content-actions .search{
-        max-width: 100%;
-        order: 2;
-    }
-    .product-content-actions .product-content-actions-wrapper{
-        padding-bottom: 16px;
-        order: 1;
-    }
-}
 
 .action-button{
     border-radius: 4px;
@@ -1814,7 +1892,7 @@ button{
 .tool-button{
     border-radius: 4px;
     height: 32px;
-    width: 50px;
+    width: 55px;
     background-color: var(--orange);
     border: none;
     align-items: center;
@@ -1862,7 +1940,7 @@ button{
     border-right: 5px solid transparent;
     border-bottom: 5px solid var(--product-content-main-color);
     bottom: 100%;
-    left:68%;
+    left:67%;
     transform: translatex(-50%);
   }
   .filter-left{
@@ -1983,6 +2061,9 @@ button{
     top: 0;
     height: 40px;
 }
+.tableView .products-header .product-cell.tools{
+    margin-right: 15px;
+}
 .product-cell.tools .tool-button{
     margin: 1px;
 }
@@ -1991,6 +2072,7 @@ button{
     align-items: center;
     text-align: center;
     border-radius: 4px;
+    justify-content: center;
 }
 .tableView .products-row:hover{
     box-shadow: var(--filter-shadow);
@@ -2009,14 +2091,16 @@ button{
     overflow: hidden;
 }
 .tableView .product-cell.tools{
-    flex: 0 0 17%;
+    flex: 1;
+    flex-grow: 2;
     max-width: 17%;
-    justify-content: center;
+    justify-content: right;
     text-align: center;
 }
 .tableView .product-cell.name{
   justify-content: center; 
-  flex: 0 2 24%; 
+  flex: 1;
+  flex-grow: 3; 
 }
 .tableView .product-cell.name span{
     display: none;
@@ -2025,16 +2109,18 @@ button{
 .tableView .product-cell.category,
 .tableView .product-cell.status-cell{
   justify-content: center; 
-  flex: 0 2 16%; 
+  flex: 1;
+  flex-grow: 2; 
 }
 .tableView .product-cell.stock,
 .tableView .product-cell.price{
   justify-content: center;
-  flex: 0 2 10% 
+  flex: 1;
+  flex-grow: 2; 
 }
 @media screen and (max-width: 1199px) {
     .tableView .product-cell{
-        font-size: 10px;
+        font-size: 14px;
     }
     .tableView .product-cell.id{
         display: none;
@@ -2233,7 +2319,7 @@ button{
 }
 .product-form {
     position:absolute;
-    top: 45%;
+    top: 50%;
     left: 45%;
     margin-bottom: 10px;
     transform: translate(-50%, -50%);
@@ -2342,6 +2428,7 @@ input[type="file"]{
 .pagination{
     justify-content: center;
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
     margin-top: 20px;
 }
@@ -2597,5 +2684,50 @@ input[type="file"]{
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+@media screen and (max-width:520px){
+    .product-content-actions{
+        flex-direction: column;
+    }
+    .product-content-actions .search{
+        max-width: 100%;
+        order: 2;
+    }
+    .product-content-actions .product-content-actions-wrapper{
+        padding-bottom: 16px;
+        order: 1;
+    }
+    .filter-menu {
+        width: 100%; 
+    }
+    .category-content-headerText{
+        overflow: hidden;
+    }
+    .category-content-headerText h1{
+        font-size: 14px;
+    }
+    .category-content-headerButton{
+        font-size: 14px;
+        width: auto;
+        overflow: hidden;
+    }
+    .filter-menu{
+        width: 220px;
+        height: auto;
+    }
+    .filter-menu:before{
+        left:30%;
+    }
+    .product-form{
+        width: 200px;
+        height: auto;
+        top: 65%;
+    }
+    .form-container{
+        width: 220px;
+        height: auto;
+        top: 65%;
+        left: 58%;
+    }
 }
 /* CATEGORY */
