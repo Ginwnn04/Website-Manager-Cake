@@ -40,10 +40,10 @@
                     </div>
                 </div>
                 <div class="header-right">
-                    <button class="login-btn icon-login" onclick="openForm('loginForm')">
+                    <div class="login-btn icon-login" onclick="openForm('loginForm')">
                         <i class="fa-regular fa-user"></i>
                         <span>Tài khoản</span>
-                    </button>
+                    </div>
                     <button class="btn btn-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Giỏ hàng</span>
@@ -52,10 +52,11 @@
                     <div class="user-options" id="userOptions">
                         <a href="admin_index.html" class="user-option-btn" id="admin" style="display: none;">Sang
                             Admin</a>
-                        <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
-                        <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button>
+                        <!-- <button class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</button>
+                        <button class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</button> -->
+                        <div class="user-option-btn" onclick="viewProfile()">Xem thông tin cá nhân</div>
+                        <div class="user-option-btn" onclick="openLogoutModal()">Đăng xuất</div>
                     </div>
-
                 </div>
                 <div onclick="hiddenSearch()" class="search-close" style="display: none;">
                     <i class="fa-solid fa-xmark"></i>
