@@ -578,9 +578,6 @@ function showAccountSearch(array) {
 
 
 
-// --------------------SETTING-------------------------------------------------
-
-
 // ------------------------------------- Thống Kê ------------------------------------
 
 // Hàm hiển thị bảng sản phẩm
@@ -795,7 +792,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const customerRevenue = {};
 
   successfulOrders.forEach(order => {
-    const gmail = order.account; // Lấy gmail khách hàng
+    const gmail = order.gmail; // Lấy gmail khách hàng
     const total = order.total; // Tổng doanh thu từ đơn hàng
 
     // Gộp doanh thu vào gmail khách hàng
@@ -838,7 +835,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function viewCustomerDetails(gmail) {
   // Lọc danh sách hóa đơn theo gmail khách hàng
   const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
-  const customerOrders = listOrder.filter(order => order.account === gmail);
+  const customerOrders = listOrder.filter(order => order.gmail === gmail);
 
   if (customerOrders.length === 0) {
     alert("Không tìm thấy hóa đơn nào cho khách hàng này.");
@@ -1345,7 +1342,7 @@ function viewOrderDetails(id) {
             <p><strong>Mã đơn:</strong> ${order.id}</p>
         </div>
         <div class="boxDetailContent1">
-            <p><strong>Tài khoản:</strong> ${order.account}</p>
+            <p><strong>Tài khoản:</strong> ${order.gmail}</p>
         </div>
         <div class="boxDetailContent2">
             <p><strong>Người nhận:</strong> ${order.name}</p>

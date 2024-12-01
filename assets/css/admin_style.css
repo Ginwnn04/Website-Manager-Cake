@@ -1678,6 +1678,9 @@ button{
     .filter-menu {
         width: 80%; 
     }
+    .boxDetailContent1, .boxDetailContent2, .boxDetailContent3{
+        width: calc(100% - 0px);
+    }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1199.98px) {
