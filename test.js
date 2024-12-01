@@ -578,7 +578,6 @@ btnPaymentSubmit.addEventListener("click", () => {
         alert("Vui lòng chọn phường/xã.");
         return;
     }
-    return;
     const address = [];
     address.push(document.getElementById("txtAddress").value);
     address.push(ward[ward.selectedIndex].textContent);
