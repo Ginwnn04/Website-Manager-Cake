@@ -425,7 +425,7 @@ main {
 }
 
 .form-container input[type="text"],
-.form-container input[type="email"],
+.form-container input[type="gmail"],
 .form-container input[type="password"] {
     padding: 10px;
     margin-bottom: 10px;
