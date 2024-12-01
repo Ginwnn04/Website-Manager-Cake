@@ -248,10 +248,6 @@ function increaseQuantity(obj, index) {
     const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
     newQuantity = quantityInput + 1;
     
-    if (newQuantity > listProduct[index].quantity) {
-        alert("Số lượng sản phẩm không đủ.");
-        return;
-    }
     obj.parentNode.querySelector(".quantity").value = newQuantity;
     
     if (obj.parentNode.getAttribute('value') === 'details-product') {
@@ -301,10 +297,6 @@ function inputQuantity(obj, index) {
         const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
         if (quantityInput < 1) {
             alert("Số lượng phải lớn hơn 0.");
-            obj.parentNode.querySelector(".quantity").value = 1;
-        }
-        if (quantityInput > listProduct[index].quantity) {
-            alert("Số lượng sản phẩm không đủ.");
             obj.parentNode.querySelector(".quantity").value = 1;
         }
         if (obj.parentNode.getAttribute('value') === 'details-product') {
@@ -557,7 +549,36 @@ btnPaymentSubmit.addEventListener("click", () => {
     const phone = document.getElementById("txtPhone").value;
     const province = document.getElementById("province");
     const district = document.getElementById("district");
+    const street = document.getElementById("txtAddress").value;
     const ward = document.getElementById("ward");
+    if (name === "") {
+        alert("Vui lòng nhập tên.");
+        document.getElementById("txtName").focus();
+        return;
+    }
+    else if (phone === "") {
+        alert("Vui lòng nhập số điện thoại.");
+        document.getElementById("txtPhone").focus();
+        return;
+    }
+    else if (street === "") {
+        alert("Vui lòng nhập địa chỉ.");
+        document.getElementById("txtAddress").focus();
+        return;    
+    }
+    else if (province.selectedIndex === 0) {
+        alert("Vui lòng chọn tỉnh/thành phố.");
+        return;
+    }
+    else if (district.selectedIndex === 0) {
+        alert("Vui lòng chọn quận/huyện.");
+        return;
+    }
+    else if (ward.selectedIndex === 0) {
+        alert("Vui lòng chọn phường/xã.");
+        return;
+    }
+    return;
     const address = [];
     address.push(document.getElementById("txtAddress").value);
     address.push(ward[ward.selectedIndex].textContent);

@@ -15,7 +15,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20nhan%20dau/Banh-Kem-Dau-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Lớp bánh mềm mịn kết hợp nhân dâu ngọt dịu, mang đến vị tươi mới khó quên."
         },
         {
@@ -24,7 +23,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20bap/Banh-Kem-Bap-1-2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -33,7 +31,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20bap/Banh-Kem-Bap-Kieu-2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -42,7 +39,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20bap/Banh-Kem-Bap-Kieu-3.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -51,7 +47,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20bap/Banh-Kem-Bap-Kieu-4.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -60,7 +55,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20bap/Banh-Kem-Bap-Kieu-5.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -69,7 +63,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cam-sua-chua-mat-ong/04.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương cam chua ngọt kết hợp cùng mật ong và sữa chua, mang lại cảm giác thanh mát tuyệt vời."
         },
         {
@@ -78,7 +71,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cam-sua-chua-mat-ong/3.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương cam chua ngọt kết hợp cùng mật ong và sữa chua, mang lại cảm giác thanh mát tuyệt vời."
         },
         {
@@ -87,7 +79,6 @@ function loadDataToLocal() {
           "price" : 305000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-nhan-thom/Banh-Kem-Thom-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -96,7 +87,6 @@ function loadDataToLocal() {
           "price" : 360000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20nhan%20dau/Banh-Kem-Dau-Vuong.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Lớp bánh mềm mịn kết hợp nhân dâu ngọt dịu, mang đến vị tươi mới khó quên."
         },
         {
@@ -105,7 +95,6 @@ function loadDataToLocal() {
           "price" : 305000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-nhan-thom/Banh-Kem-Thom-10-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -114,7 +103,6 @@ function loadDataToLocal() {
           "price" : 285000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-nhan-thom/Banh-Kem-Thom-8.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -123,7 +111,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-Tiramisu/Banh-Kem-Tira-Kieu-3.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương vị Ý truyền thống, kết hợp giữa cà phê đậm đà và kem mịn màng."
         },
         {
@@ -132,7 +119,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-Tiramisu/Banh-Kem-Tira-Kieu-2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương vị Ý truyền thống, kết hợp giữa cà phê đậm đà và kem mịn màng."
         },
         {
@@ -141,7 +127,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-Tiramisu/Banh-Kem-Tira-2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương vị Ý truyền thống, kết hợp giữa cà phê đậm đà và kem mịn màng."
         },
         {
@@ -150,7 +135,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-khoai-mon/Banh-Kem-Khoaimon-Version1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem khoai môn bùi béo, được chế biến từ khoai môn tươi, phù hợp cho mọi khẩu vị."
         },
         {
@@ -159,7 +143,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-kiosi/Banh-Kem-Kiosi.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh độc đáo với sự pha trộn của các hương vị ngọt ngào và mềm mịn, dành riêng cho thực khách."
         },
         {
@@ -168,7 +151,6 @@ function loadDataToLocal() {
           "price" : 360000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-tra-xanh-dau-do/Banh-Kem-Tra-Xanh-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Matcha nguyên chất kết hợp với kem tươi, tạo nên hương vị Nhật Bản đầy thanh tao."
         },
         {
@@ -177,7 +159,6 @@ function loadDataToLocal() {
           "price" : 360000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-tra-xanh-dau-do/Banh-Kem-Tra-Xanh-2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Matcha nguyên chất kết hợp với kem tươi, tạo nên hương vị Nhật Bản đầy thanh tao."
         },
         {
@@ -186,7 +167,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cheese-cake/Cheese-Tira-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh mousse mềm mịn với lớp cheese đậm đà, mang đậm phong cách châu Âu."
         },
         {
@@ -195,7 +175,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cheese-cake/Cheese-Passon1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương chanh dây chua ngọt, kết hợp với lớp cheese, tạo nên sự cân bằng hoàn hảo."
         },
         {
@@ -204,7 +183,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cheese-cake/Cheese-Redvelvet.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Lớp bánh đỏ quyến rũ, hòa quyện cùng mousse và cheese thơm ngon."
         },
         {
@@ -213,7 +191,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cheese-cake/Cheese-Choco.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Socola đậm vị hòa quyện với mousse và lớp cheese, dành cho người yêu thích sự ngọt ngào."
         },
         {
@@ -222,7 +199,6 @@ function loadDataToLocal() {
           "price" : 59000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Cheese-cake/370-Fw-Tiramisu-Mousse-Cheesecake.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Phiên bản nhỏ gọn, dễ dàng thưởng thức, giữ nguyên hương vị Tiramisu đặc trưng."
         },
         {
@@ -231,7 +207,6 @@ function loadDataToLocal() {
           "price" : 59000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Cheese-cake/370-Fw-Passion-Mousse-Cheesecake.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương vị chanh dây chua ngọt trong từng miếng bánh nhỏ gọn, tiện lợi."
         },
         {
@@ -240,7 +215,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Cheese-cake/370-Fw-Red-Velvet-Mousse-Cheesecake.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh nhỏ xinh, quyến rũ với sắc đỏ của Red Velvet và lớp mousse mềm mại."
         },
         {
@@ -249,7 +223,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Cheese-cake/370-Fw-Chocolate-Mousse-Cheesecake.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Phiên bản mini của cheesecake socola, đậm đà và hấp dẫn."
         },
         {
@@ -258,7 +231,6 @@ function loadDataToLocal() {
           "price" : 360000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-socola-hat-dieu/02.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hạt điều thơm bùi hòa quyện với lớp kem mịn, tạo nên món bánh độc đáo."
         },
         {
@@ -267,7 +239,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-khoai-mon/Banh-Kem-Khoaimon-044.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem khoai môn bùi béo, được chế biến từ khoai môn tươi, phù hợp cho mọi khẩu vị."
         },
         {
@@ -276,7 +247,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-kem-kiosi/Banh-Kem-Kiosi027.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh độc đáo với sự pha trộn của các hương vị ngọt ngào và mềm mịn, dành riêng cho thực khách."
         },
         {
@@ -285,7 +255,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-khoai-mon/Banh-Kem-Khoaimon-0550.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem khoai môn bùi béo, được chế biến từ khoai môn tươi, phù hợp cho mọi khẩu vị."
         },
         {
@@ -294,7 +263,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-khoai-mon/Banh-Kem-Khoaimon-035.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem khoai môn bùi béo, được chế biến từ khoai môn tươi, phù hợp cho mọi khẩu vị."
         },
         {
@@ -303,7 +271,6 @@ function loadDataToLocal() {
           "price" : 285000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-Kem-Cam-20-1.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -312,7 +279,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh%20kem%20nhan%20dau/8-3.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Lớp bánh mềm mịn kết hợp nhân dâu ngọt dịu, mang đến vị tươi mới khó quên."
         },
         {
@@ -321,7 +287,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Cam-sua-chua-mat-ong/image-4496.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương cam chua ngọt kết hợp cùng mật ong và sữa chua, mang lại cảm giác thanh mát tuyệt vời."
         },
         {
@@ -330,7 +295,6 @@ function loadDataToLocal() {
           "price" : 375000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Banh-Muoi-Hong-1-Banh.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Mousse cà phê kết hợp muối hồng Himalaya độc đáo, đem lại trải nghiệm mới lạ."
         },
         {
@@ -339,7 +303,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Z5835353455468-Fd66E9Bed645Bbf569D1C79Bc87A86F6.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Socola đậm vị hòa quyện với mousse và lớp cheese, dành cho người yêu thích sự ngọt ngào."
         },
         {
@@ -348,7 +311,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Z5840247797995-2B57Fb574F0Ff3635278Fd1E951917A2.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương chanh dây chua ngọt, kết hợp với lớp cheese, tạo nên sự cân bằng hoàn hảo."
         },
         {
@@ -357,7 +319,6 @@ function loadDataToLocal() {
           "price" : 395000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Z5840247797492-6A09E743787Da37017E0588C939515Ae.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh mousse mềm mịn với lớp cheese đậm đà, mang đậm phong cách châu Âu."
         },
         {
@@ -366,7 +327,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/463397834-966096138881647-3148949566473031690-N.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Hương cam chua ngọt kết hợp cùng mật ong và sữa chua, mang lại cảm giác thanh mát tuyệt vời."
         },
         {
@@ -375,7 +335,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/463414314-966096128881648-3368742391105447895-N.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -384,7 +343,6 @@ function loadDataToLocal() {
           "price" : 285000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/463365896-966096172214977-5041333375071558854-N.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -393,7 +351,6 @@ function loadDataToLocal() {
           "price" : 315000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/463485128-966096125548315-9141321505537297164-N.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem khoai môn bùi béo, được chế biến từ khoai môn tươi, phù hợp cho mọi khẩu vị."
         },
         {
@@ -402,7 +359,6 @@ function loadDataToLocal() {
           "price" : 335000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/429772979-812850054206257-84342229220100885-N.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Bánh kem thơm bùi, được làm từ bắp tươi, tạo nên hương vị đặc trưng và độc đáo."
         },
         {
@@ -411,7 +367,6 @@ function loadDataToLocal() {
           "price" : 285000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Nhaan-Thom-Edit-0111.jpg",
           "category" : "Bánh kem",
-          "quantity" : 20,
           "description" : "Nhân thơm ngọt nhẹ hòa quyện với lớp kem béo ngậy, hoàn hảo cho mọi bữa tiệc."
         },
         {
@@ -420,7 +375,6 @@ function loadDataToLocal() {
           "price" : 12000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Banh-Flan-2.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Lớp flan mịn màng, béo thơm vị caramel, tan chảy ngay trong miệng."
         },
         {
@@ -429,7 +383,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Banh-Bong-Lan-Cuon-Nho-1.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mềm mịn, cuộn nhân kem ngọt nhẹ, thích hợp cho các bữa ăn nhẹ."
         },
         {
@@ -438,7 +391,6 @@ function loadDataToLocal() {
           "price" : 33000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/436234970-841978384626757-6998579166814659493-N.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Vỏ bánh giòn xốp kết hợp nhân kem mịn, đem lại cảm giác ngọt ngào khi thưởng thức."
         },
         {
@@ -447,7 +399,6 @@ function loadDataToLocal() {
           "price" : 24000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/436236178-840731064751489-1746733262501694799-N.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh su thơm béo với lớp nhân socola đặc trưng, hấp dẫn khó cưỡng."
         },
         {
@@ -456,7 +407,6 @@ function loadDataToLocal() {
           "price" : 13000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/Oc-Kem.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Hình ốc xinh xắn, nhân kem ngọt mát, làm say lòng bất kỳ thực khách nào."
         },
         {
@@ -465,7 +415,6 @@ function loadDataToLocal() {
           "price" : 60000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-lanh/429757913-811061727718423-3643360537386017546-N.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Gói món ăn nhẹ đa dạng, gồm bánh và nước uống, lý tưởng cho các buổi họp mặt hoặc tiệc trà."
         },
         {
@@ -474,7 +423,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Tiramisu.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh nhỏ hương vị Tiramisu, kết hợp hài hòa giữa cà phê và lớp kem mềm mịn."
         },
         {
@@ -483,7 +431,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Opera.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh opera nhỏ nhiều lớp, pha trộn tinh tế giữa sô cô la và cà phê."
         },
         {
@@ -492,7 +439,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Trio-Chocolate.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh nhỏ ba tầng, mỗi tầng mang một vị sô cô la độc đáo."
         },
         {
@@ -501,7 +447,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Passion-Cheese.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh nhỏ vị chanh dây, hòa quyện cùng lớp phô mai béo ngậy."
         },
         {
@@ -510,7 +455,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Cashew-Chocolate.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh nhỏ hương sô cô la thơm ngon, kết hợp cùng hạt điều bùi bùi."
         },
         {
@@ -519,7 +463,6 @@ function loadDataToLocal() {
           "price" : 40000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Small-cake/Smallcake-Strawberry-Mousse.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Mousse dâu tây mềm mịn, ngọt nhẹ, với hương vị tươi mới."
         },
         {
@@ -528,7 +471,6 @@ function loadDataToLocal() {
           "price" : 23000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Minbong-2.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh tròn nhỏ, mềm mại với lớp nhân thơm ngọt độc đáo."
         },
         {
@@ -537,7 +479,6 @@ function loadDataToLocal() {
           "price" : 25000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Quy-Bo-Dau-Phong-2.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh quy giòn rụm, thơm ngậy vị bơ đậu phộng, thích hợp làm món ăn nhẹ."
         },
         {
@@ -546,7 +487,6 @@ function loadDataToLocal() {
           "price" : 16000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Sau-Kem.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mềm hình sâu đáng yêu, nhân kem Custard béo ngậy tan chảy."
         },
         {
@@ -555,7 +495,6 @@ function loadDataToLocal() {
           "price" : 20000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Sung-Trau-1.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Croissant giòn tan với nhân trứng muối chảy hấp dẫn, béo ngậy."
         },
         {
@@ -564,7 +503,6 @@ function loadDataToLocal() {
           "price" : 35000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Cam-02.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mini vị cam, thơm mát, mềm mịn, thích hợp để nhâm nhi cùng trà."
         },
         {
@@ -573,7 +511,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Cam-Hat-Chia-02.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh bông lan vị cam tươi, thêm hạt chia giúp bổ sung dinh dưỡng."
         },
         {
@@ -582,7 +519,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Sua-2.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh bông lan kiểu Nhật mềm mịn, thơm nhẹ hương sữa tươi."
         },
         {
@@ -591,7 +527,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/370-Fw-Bong-Lan-Socola.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mềm mại, hương vị sô cô la đậm đà, tan chảy trong miệng."
         },
         {
@@ -600,7 +535,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Dua-Luoi.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh thơm vị dừa, lớp vỏ giòn nhẹ, nhân bên trong ngọt dịu."
         },
         {
@@ -609,7 +543,6 @@ function loadDataToLocal() {
           "price" : 14000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mexico-Sua-Dua.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh Mexico mềm, với nhân sữa dừa béo ngậy, hương vị đặc trưng."
         },
         {
@@ -618,7 +551,6 @@ function loadDataToLocal() {
           "price" : 17000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Donnut.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh vòng truyền thống, giòn bên ngoài, mềm xốp bên trong, có nhiều lớp phủ độc đáo."
         },
         {
@@ -627,7 +559,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bun-Lat.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mì kẹp xúc xích mềm mịn, thích hợp để ăn nhẹ mọi lúc."
         },
         {
@@ -636,7 +567,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bun-Lat-Tron.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mì tròn không gia vị, dễ dàng kết hợp với nhiều loại nhân."
         },
         {
@@ -645,7 +575,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Ga.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mặn với lớp phủ chà bông gà thơm ngon, đậm đà."
         },
         {
@@ -654,7 +583,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Heo.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mặn với chà bông heo truyền thống, phù hợp khẩu vị mọi người."
         },
         {
@@ -663,7 +591,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Heo-Cay.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh chà bông heo với vị cay nồng, kích thích vị giác."
         },
         {
@@ -672,7 +599,6 @@ function loadDataToLocal() {
           "price" : 13000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Bo.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh hình cua thơm, nhân bơ tan chảy, mềm mịn."
         },
         {
@@ -681,7 +607,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Mini.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh cua nhỏ gọn, dễ ăn, lớp vỏ vàng giòn, nhân thơm béo."
         },
         {
@@ -690,7 +615,6 @@ function loadDataToLocal() {
           "price" : 12000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Pho-Mai.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh cua với nhân phô mai béo ngậy, tan chảy ngay khi thưởng thức."
         },
         {
@@ -699,7 +623,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Xuc-Xich-Standard-Sausage.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Xúc xích cơ bản, hương vị nguyên bản thơm ngon, lý tưởng để nướng hoặc chiên."
         },
         {
@@ -708,7 +631,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Xuc-Xich-Pho-Mai-Cheese-Sausage.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Xúc xích phô mai, kết hợp giữa vị thịt và phô mai tan chảy hấp dẫn."
         },
         {
@@ -717,7 +639,6 @@ function loadDataToLocal() {
           "price" : 15000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Quy-Nho.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh quy nhỏ giòn, nhiều hương vị, lý tưởng để dùng kèm trà."
         },
         {
@@ -726,7 +647,6 @@ function loadDataToLocal() {
           "price" : 35000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Bo-Toi.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh mì nướng với lớp bơ tỏi thơm phức, giòn tan bên ngoài."
         },
         {
@@ -735,7 +655,6 @@ function loadDataToLocal() {
           "price" : 16000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Chuoi.jpg",
           "category" : "Bánh lạnh",
-          "quantity" : 20,
           "description" : "Bánh bông lan mềm mịn, hương vị chuối tự nhiên, thích hợp cho mọi lứa tuổi."
         },
         {
@@ -744,7 +663,6 @@ function loadDataToLocal() {
           "price" : 23000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Minbong-2.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh nhỏ mềm mịn, có hương vị ngọt nhẹ, phù hợp làm món ăn nhẹ."
         },
         {
@@ -753,7 +671,6 @@ function loadDataToLocal() {
           "price" : 25000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Quy-Bo-Dau-Phong-2.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy giòn tan, ngậy vị bơ đậu phộng, là món ăn vặt hoàn hảo."
         },
         {
@@ -762,7 +679,6 @@ function loadDataToLocal() {
           "price" : 16000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Sau-Kem.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh hình sâu đáng yêu, nhân kem custard mềm mịn, béo ngậy."
         },
         {
@@ -771,7 +687,6 @@ function loadDataToLocal() {
           "price" : 20000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Sung-Trau-1.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Croissant giòn xốp với nhân trứng muối tan chảy, hương vị độc đáo."
         },
         {
@@ -780,7 +695,6 @@ function loadDataToLocal() {
           "price" : 35000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Cam-02.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh nhỏ vị cam tươi, thơm ngon và giàu năng lượng."
         },
         {
@@ -789,7 +703,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Cam-Hat-Chia-02.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh bông lan cam mềm mịn, thêm hạt chia giúp cân bằng dinh dưỡng."
         },
         {
@@ -798,7 +711,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Sua-2.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh bông lan Nhật Bản mềm xốp, thơm nhẹ hương sữa tươi."
         },
         {
@@ -807,7 +719,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/370-Fw-Bong-Lan-Socola.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh bông lan thơm ngọt, đậm đà vị sô cô la, phù hợp cho mọi dịp."
         },
         {
@@ -816,7 +727,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Dua-Luoi.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh thơm lừng vị dừa, với lớp vỏ giòn nhẹ và nhân ngọt ngào."
         },
         {
@@ -825,7 +735,6 @@ function loadDataToLocal() {
           "price" : 14000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mexico-Sua-Dua.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh Mexico mềm thơm, kết hợp hoàn hảo giữa sữa và dừa."
         },
         {
@@ -834,7 +743,6 @@ function loadDataToLocal() {
           "price" : 17000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Donnut.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh vòng tròn truyền thống, có lớp phủ đường hoặc sô cô la hấp dẫn."
         },
         {
@@ -843,7 +751,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bun-Lat.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh mì xúc xích mềm mại, dễ dàng kết hợp với các loại nhân khác."
         },
         {
@@ -852,7 +759,6 @@ function loadDataToLocal() {
           "price" : 30000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bun-Lat-Tron.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh mì tròn không vị, thích hợp để làm bánh sandwich hoặc kẹp nhân tùy thích."
         },
         {
@@ -861,7 +767,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Ga.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh mặn phủ đầy chà bông gà thơm ngon, giàu dinh dưỡng."
         },
         {
@@ -870,7 +775,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Heo.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh mềm với lớp chà bông heo mặn vừa, hợp khẩu vị đa số thực khách."
         },
         {
@@ -879,7 +783,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Cha-Bong-Heo-Cay.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Phiên bản bánh chà bông heo thêm chút cay nồng, kích thích vị giác."
         },
         {
@@ -888,7 +791,6 @@ function loadDataToLocal() {
           "price" : 13000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Bo.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh hình cua giòn nhẹ, nhân bơ béo ngậy thơm phức."
         },
         {
@@ -897,7 +799,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Mini.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Phiên bản mini của bánh cua, nhỏ gọn, tiện lợi khi mang theo."
         },
         {
@@ -906,7 +807,6 @@ function loadDataToLocal() {
           "price" : 12000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Cua-Pho-Mai.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh cua với nhân phô mai tan chảy, vị béo thơm đầy hấp dẫn."
         },
         {
@@ -915,7 +815,6 @@ function loadDataToLocal() {
           "price" : 19000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Xuc-Xich-Standard-Sausage.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Xúc xích cơ bản, hương vị truyền thống, lý tưởng cho các món nướng."
         },
         {
@@ -924,7 +823,6 @@ function loadDataToLocal() {
           "price" : 22000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Xuc-Xich-Pho-Mai-Cheese-Sausage.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Xúc xích phô mai thơm ngon, với lớp nhân phô mai tan chảy hấp dẫn."
         },
         {
@@ -933,7 +831,6 @@ function loadDataToLocal() {
           "price" : 15000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Quy-Nho.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh quy nhỏ nhiều hương vị, thích hợp làm món ăn nhẹ hoặc quà tặng."
         },
         {
@@ -942,7 +839,6 @@ function loadDataToLocal() {
           "price" : 35000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Mi-Bo-Toi.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh mì giòn thơm với lớp bơ tỏi hấp dẫn, phù hợp làm món khai vị."
         },
         {
@@ -951,7 +847,6 @@ function loadDataToLocal() {
           "price" : 16000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Bong-Lan-Chuoi.jpg",
           "category" : "Bánh nướng",
-          "quantity" : 20,
           "description" : "Bánh bông lan chuối mềm thơm, giữ nguyên hương vị tự nhiên của chuối."
         },
         {
@@ -960,7 +855,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Banh-Quy-Socola-Hanh-Nhan.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy sô cô la giòn rụm, thêm hạnh nhân bùi bùi hấp dẫn."
         },
         {
@@ -969,7 +863,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-nuong/Quy-Hanh-Nhan-01.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy vị vani thơm nhẹ, hòa quyện cùng hạnh nhân giòn tan."
         },
         {
@@ -978,7 +871,6 @@ function loadDataToLocal() {
           "price" : 39000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/4-Version1.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy truyền thống với hạnh nhân rang vàng, giòn và thơm phức."
         },
         {
@@ -987,7 +879,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/3-Version1.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Macaron nhỏ xinh, với vỏ giòn tan và nhân kem ngọt ngào, nhiều hương vị."
         },
         {
@@ -996,7 +887,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/5.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy thơm ngon kết hợp các loại trái cây khô, giàu dinh dưỡng."
         },
         {
@@ -1005,7 +895,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/1.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy thơm lừng hương cà phê, thích hợp làm món ăn nhẹ cùng trà."
         },
         {
@@ -1014,7 +903,6 @@ function loadDataToLocal() {
           "price" : 45000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/6-Version1.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy sô cô la thơm ngon với hạnh nhân bùi béo, giòn rụm."
         },
         {
@@ -1023,7 +911,6 @@ function loadDataToLocal() {
           "price" : 39000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/2-Version2.jpg",
           "category" : "Bánh quy",
-          "quantity" : 20,
           "description" : "Bánh quy thơm ngậy vị dừa, phù hợp cho mọi lứa tuổi."
         },
         {
@@ -1032,7 +919,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-07.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Bánh mì que nhân cá ngừ và bắp ngọt, phủ sốt mayonnaise béo ngậy."
         },
         {
@@ -1041,7 +927,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-03.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Bánh mì que nhân gà xé và phô mai tan chảy, hấp dẫn và tiện lợi."
         },
         {
@@ -1050,7 +935,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-08.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Bánh mì que với nhân pate đậm vị, mang hương vị truyền thống."
         },
         {
@@ -1059,7 +943,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-06.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Nhân gà xé sốt sate cay nồng, phù hợp cho những ai yêu thích vị cay."
         },
         {
@@ -1068,7 +951,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-05.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Bánh mì que kết hợp xá xíu và thịt xông khói đậm đà, thơm lừng."
         },
         {
@@ -1077,7 +959,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-04.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Nhân gà xé sốt thịt nướng đậm đà, thêm chút vị khói thơm ngon."
         },
         {
@@ -1086,7 +967,6 @@ function loadDataToLocal() {
           "price" : 49000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/san-pham/Banh-mi-que/Mock-Up-900X900-With-Nhan-02.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Phiên bản bánh mì que nhân chay, với rau củ và sốt đặc biệt thơm ngon."
         },
         {
@@ -1095,7 +975,6 @@ function loadDataToLocal() {
           "price" : 55000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/2-Version1.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Gói 5 bánh sừng trâu nhỏ giòn xốp, thích hợp dùng cho bữa tiệc nhẹ."
         },
         {
@@ -1104,7 +983,6 @@ function loadDataToLocal() {
           "price" : 65000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Banh-Ho-Dao-Maple-Pecan.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Gói 5 bánh hồ đào thơm lừng, giòn giòn và béo bùi."
         },
         {
@@ -1113,7 +991,6 @@ function loadDataToLocal() {
           "price" : 80000,
           "image" : "https://savourebakery.com/temp/500-500/savourebakery.com/storage/images/Banh-Xoan-So-Co-La-Chocolate-Twist.jpg",
           "category" : "Bánh mì que",
-          "quantity" : 20,
           "description" : "Gói 5 bánh xoắn sô cô la thơm ngon, đậm vị, thích hợp làm quà tặng."
         }
       ];
@@ -1131,8 +1008,9 @@ function loadAccountToLocal() {
             fullName: 'Nguyen Minh Vu',
             phone: '0123456789',
             cart: [],
+            address: "294 An Dương Vương, Phường 4, Quận 5, TP.HCM",
+            street: "294 An Dương Vương",
             provinceId: "01",
-            address: "294 An Dương Vương",
             districtId: "005",
             wardId: "00169",
             status: "0",
@@ -1144,8 +1022,9 @@ function loadAccountToLocal() {
             fullName: 'Nguyen Nhat Quang',
             phone: '0123456789',
             cart: [],
+            address: "294 An Dương Vương, Phường 4, Quận 5, TP.HCM",
+            street: "294 An Dương Vương",
             provinceId: "79",
-            address: "294 An Dương Vương",
             districtId: "777",
             wardId: "27454",
             status: "1",
@@ -1156,9 +1035,10 @@ function loadAccountToLocal() {
             password: '3',
             fullName: 'Nguyen Van Teo',
             phone: '0123456789',
-            cart: [],
+          cart: [],
+            address: "294 An Dương Vương, Phường 4, Quận 5, TP.HCM",
+            street: "432 Võ Thị Sáu",
             provinceId: "77",
-            address: "432 Võ Thị Sáu",
             districtId: "747",
             wardId: "26536",
             status: "1",

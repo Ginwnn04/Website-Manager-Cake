@@ -1624,11 +1624,15 @@ input[type="number"]::-webkit-inner-spin-button {
 .logout-modal .btn-yes {
     background-color: #ff5722;
     color: white;
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 35px !important;
 }
 
 .logout-modal .btn-no {
     background-color: #f0f0f0;
     color: #333;
+    width: 90px;
 }
 
 .logout-modal {
