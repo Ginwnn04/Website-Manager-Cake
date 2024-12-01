@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const populateUserInfo = () => {
         document.getElementById("user-name").value = userData.fullName || "Chưa cập nhật";
         document.getElementById("user-phone").value = userData.phone || "Chưa cập nhật";
-        document.getElementById("user-email").value = userData.email || "Chưa cập nhật";
+        document.getElementById("user-email").value = userData.gmail || "Chưa cập nhật";
         document.getElementById("address-summary").value = userData.address || "Chưa cập nhật";
 
         if (userData.provinceId) {
