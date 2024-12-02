@@ -126,7 +126,7 @@ function clearForm(){
   document.getElementById('password').value = '';
   document.getElementById('phone').value = '';
   document.getElementById('address').value = '';
-  document.getElementById('role').value = 'all';
+  document.getElementById('role').value = '';
 }
 
 
@@ -182,21 +182,22 @@ function addNewAccount() {
 
   // Kiểm tra các trường bắt buộc
   if (!name || !username || !password || !phone || !address || !role) {
-    alert('Vui lòng điền đầy đủ thông tin.');
+    showToast('error', 'Vui lòng nhập đầy đủ thông tin !');
+
     return;
   }
 
   // Kiểm tra định dạng email
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Biểu thức regex kiểm tra email
   if (!emailRegex.test(username)) {
-    alert('Tài khoản phải là địa chỉ email hợp lệ.');
+    showToast('error','Tài khoản phải là địa chỉ email hợp lệ.');
     return;
   }
 
   // Kiểm tra số điện thoại: phải đủ 10 chữ số và bắt đầu bằng 0
   let phoneRegex = /^0\d{9}$/; // Biểu thức regex kiểm tra số điện thoại
   if (!phoneRegex.test(phone)) {
-    alert('Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.');
+    showToast('error','Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.');
     return;
   }
 
@@ -206,7 +207,7 @@ function addNewAccount() {
   // Kiểm tra xem email đã tồn tại chưa
   let emailExists = listAccount.some(account => account.gmail === username);
   if (emailExists) {
-    alert('Email này đã được sử dụng. Vui lòng chọn email khác.');
+    showToast('error','Email này đã được sử dụng. Vui lòng chọn email khác.');
     return;
   }
 
@@ -233,7 +234,7 @@ function addNewAccount() {
 
   // Ẩn form và thông báo thành công
   hideForm();
-  alert('Tài khoản đã thêm thành công');
+  showToast('success','Tài khoản đã thêm thành công');
 
   // Hiển thị danh sách tài khoản
   showAccount(listAccount);
@@ -355,7 +356,7 @@ function toggleStatus(index) {
     // Hiển thị lại danh sách tài khoản sau khi thay đổi
     showAccount();
   } else {
-    alert("Không tìm thấy tài khoản.");
+   showToast('error',"Không tìm thấy tài khoản.");
   }
 }
 
@@ -455,7 +456,7 @@ function showDetailAccount(index) {
     // Hiển thị phần chi tiết tài khoản
     document.getElementById("detail_account").style.display = "flex";
   } else {
-    alert("Không tìm thấy tài khoản.");
+    showToast('error',"Không tìm thấy tài khoản.");
   }
 }
 
@@ -628,7 +629,7 @@ function viewInvoice(index) {
   );
 
   if (relatedOrders.length === 0) {
-    alert("Không tìm thấy hóa đơn liên quan đến sản phẩm này.");
+    showToast('error',"Không tìm thấy hóa đơn liên quan đến sản phẩm này.");
     return;
   }
   document.getElementById("name_product").textContent = `Tên sản phẩm: ${productName}`;
@@ -697,7 +698,7 @@ function rankUp() {
   const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
 
   if (sourceData.length === 0) {
-    alert("Không có dữ liệu để xếp hạng.");
+    showToast('error',"Không có dữ liệu để xếp hạng.");
     return;
   }
 
@@ -716,7 +717,7 @@ function rankDown() {
   const sourceData = currentProductSummary.length > 0 ? [...currentProductSummary] : [...productSummary];
 
   if (sourceData.length === 0) {
-    alert("Không có dữ liệu để xếp hạng.");
+    showToast('error',"Không có dữ liệu để xếp hạng.");
     return;
   }
 
@@ -729,14 +730,13 @@ function rankDown() {
   showProductSummary(sourceData);
 }
 
-// Sự kiện cho nút "Tìm kiếm"
 document.getElementById("search_button_rank").addEventListener("click", function () {
   const startDateValue = document.getElementById("date_start").value;
   const endDateValue = document.getElementById("date_end").value;
   const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
 
   if (!startDateValue || !endDateValue) {
-    alert("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.");
+    showToast('error', "Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc.");
     return;
   }
 
@@ -744,7 +744,7 @@ document.getElementById("search_button_rank").addEventListener("click", function
   const endDate = new Date(endDateValue);
 
   if (startDate > endDate) {
-    alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
+    showToast('error', "Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
     return;
   }
 
@@ -755,37 +755,98 @@ document.getElementById("search_button_rank").addEventListener("click", function
   });
 
   // Làm mới danh sách hiện tại
-  currentProductSummary = [];
+  let currentProductSummary = [];
   filteredOrders.forEach(order => {
     order.detailsOrder.forEach(product => {
       const existingProduct = currentProductSummary.find(item => item.name === product.name);
       if (existingProduct) {
         existingProduct.quantity += product.quantity;
+        existingProduct.revenue += product.quantity * product.price;
       } else {
         currentProductSummary.push({
           name: product.name,
           quantity: product.quantity,
-          price: product.price
+          price: product.price,
+          revenue: product.quantity * product.price,
+          image: product.image || "placeholder.jpg" // Đường dẫn ảnh mặc định nếu thiếu
         });
       }
     });
   });
 
+  // Sắp xếp sản phẩm theo số lượng bán được
+  currentProductSummary.sort((a, b) => b.quantity - a.quantity);
+
+  // Gọi hàm hiển thị sản phẩm
   if (currentProductSummary.length > 0) {
     showProductSummary(currentProductSummary);
+    displayTopAndBottomSellers(currentProductSummary); // Gọi hàm trực tiếp ở đây
   } else {
-    alert("Không có sản phẩm nào trong khoảng thời gian đã chọn.");
+    showToast('error', "Không có sản phẩm nào trong khoảng thời gian đã chọn.");
     document.getElementById("product_rank").innerHTML = `
       <tr>
         <td colspan="5">Không có dữ liệu</td>
       </tr>`;
+    document.getElementById("best_seller").innerHTML = "";
+    document.getElementById("worst_seller").innerHTML = "";
   }
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  // 1. Lọc các đơn hàng có trạng thái "Đã giao thành công"
+
+
+document.getElementById("reset_seach2").addEventListener("click", function () {
+  // Reset các ô ngày
+  document.getElementById("date_start").value = "";
+  document.getElementById("date_end").value = "";
+
+  // Trả lại dữ liệu ban đầu (không có lọc theo ngày)
+  let productSummary = []; // Khởi tạo danh sách sản phẩm rỗng
+
   const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
+  const filteredOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  // Xử lý dữ liệu sản phẩm
+  filteredOrders.forEach(order => {
+    order.detailsOrder.forEach(product => {
+      const existingProduct = productSummary.find(item => item.name === product.name);
+      if (existingProduct) {
+        existingProduct.quantity += product.quantity;
+        existingProduct.revenue += product.quantity * product.price;
+      } else {
+        productSummary.push({
+          name: product.name,
+          quantity: product.quantity,
+          price: product.price,
+          revenue: product.quantity * product.price,
+          image: product.image || "placeholder.jpg" // Đường dẫn ảnh mặc định nếu thiếu
+        });
+      }
+    });
+  });
+
+  // Sắp xếp danh sách giảm dần theo số lượng
+  productSummary.sort((a, b) => b.quantity - a.quantity);
+
+  // Hiển thị lại dữ liệu ban đầu
+  showProductSummary(productSummary);
+
+  // Cập nhật lại phần sản phẩm bán chạy và bán ế
+  if (productSummary.length > 0) {
+    displayTopAndBottomSellers(productSummary); // Gọi hàm hiển thị
+  } else {
+    // Nếu không có sản phẩm, xóa nội dung hiển thị
+    document.getElementById("best_seller").innerHTML = "";
+    document.getElementById("worst_seller").innerHTML = "";
+    showToast('info', "Không có dữ liệu để hiển thị.");
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Lấy dữ liệu đơn hàng từ localStorage
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
+
+  // 1. Lọc các đơn hàng có trạng thái "Đã giao thành công"
   const successfulOrders = listOrder.filter(order => order.status === "Đã giao thành công");
 
   // 2. Tính tổng doanh thu cho từng gmail
@@ -811,14 +872,123 @@ document.addEventListener("DOMContentLoaded", function () {
   // 3. Chuyển đổi dữ liệu từ object thành array và sắp xếp theo doanh thu giảm dần
   const sortedCustomers = Object.entries(customerRevenue)
     .map(([gmail, data]) => ({ gmail, ...data })) // Chuyển đổi thành đối tượng
-    .sort((a, b) => b.revenue - a.revenue) // Sắp xếp theo doanh thu giảm dần
-    .slice(0, 5); // Lấy 5 khách hàng có doanh thu cao nhất
+    .sort((a, b) => b.revenue - a.revenue); // Sắp xếp theo doanh thu giảm dần
 
   // 4. Hiển thị dữ liệu vào bảng
   const tbody = document.querySelector("#leaderboard tbody");
   tbody.innerHTML = ""; // Xóa nội dung cũ
 
-  sortedCustomers.forEach((customer, index) => {
+  sortedCustomers.slice(0, 5).forEach((customer, index) => {
+    const row = `
+      <tr>
+        <td>${index + 1}</td> <!-- Hạng -->
+        <td>${customer.name}</td> <!-- Tên người dùng -->
+        <td>${customer.orders}</td> <!-- Số đơn hàng -->
+        <td>${formatMoney(customer.revenue)}</td> <!-- Tổng doanh thu -->
+        <td><button class="view_invoice2" onclick="viewCustomerDetails('${customer.gmail}')"><i class='bx bx-detail'></i></button></td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  // Lắng nghe sự kiện tìm kiếm (theo thời gian)
+  document.getElementById("search_button_rank1").addEventListener("click", function () {
+    const startDate = document.getElementById("date_start1").value;
+    const endDate = document.getElementById("date_end1").value;
+
+    if (!startDate || !endDate) {
+      showToast('error',"Vui lòng chọn ngày bắt đầu và kết thúc.");
+      return;
+    }
+    if (startDate > endDate) {
+      showToast('error',"Ngày bắt đầu không thể lớn hơn ngày kết thúc.");
+      return;
+    }
+
+    // Lọc các đơn hàng trong khoảng thời gian đã chọn
+    const filteredOrders = successfulOrders.filter(order => {
+      const orderDate = new Date(order.timeCreate); // Chuyển thời gian đơn hàng thành đối tượng Date
+      return orderDate >= new Date(startDate) && orderDate <= new Date(endDate);
+    });
+
+    // Tính lại doanh thu cho từng khách hàng trong phạm vi ngày lọc
+    const filteredCustomerRevenue = {};
+
+    filteredOrders.forEach(order => {
+      const gmail = order.gmail;
+      const total = order.total;
+
+      if (filteredCustomerRevenue[gmail]) {
+        filteredCustomerRevenue[gmail].revenue += total;
+        filteredCustomerRevenue[gmail].orders += 1;
+      } else {
+        filteredCustomerRevenue[gmail] = {
+          name: order.name,
+          revenue: total,
+          orders: 1
+        };
+      }
+    });
+
+    // Sắp xếp lại và lấy top 5 khách hàng
+    const top5Customers = Object.entries(filteredCustomerRevenue)
+      .map(([gmail, data]) => ({ gmail, ...data }))
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 5);
+
+    // Hiển thị lại bảng với top 5 khách hàng trong khoảng thời gian lọc
+    tbody.innerHTML = ""; // Xóa nội dung cũ
+    top5Customers.forEach((customer, index) => {
+      const row = `
+        <tr>
+          <td>${index + 1}</td> <!-- Hạng -->
+          <td>${customer.name}</td> <!-- Tên người dùng -->
+          <td>${customer.orders}</td> <!-- Số đơn hàng -->
+          <td>${formatMoney(customer.revenue)}</td> <!-- Tổng doanh thu -->
+          <td><button class="view_invoice2" onclick="viewCustomerDetails('${customer.gmail}')"><i class='bx bx-detail'></i></button></td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+    });
+  });
+});
+
+document.getElementById("reset_seach1").addEventListener("click", function () {
+  // Reset các ô ngày
+  document.getElementById("date_start1").value = "";
+  document.getElementById("date_end1").value = "";
+
+  // Hiển thị lại top 5 khách hàng theo doanh thu ban đầu (không lọc theo ngày)
+  const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
+  const successfulOrders = listOrder.filter(order => order.status === "Đã giao thành công");
+
+  const customerRevenue = {};
+
+  successfulOrders.forEach(order => {
+    const gmail = order.gmail;
+    const total = order.total;
+
+    if (customerRevenue[gmail]) {
+      customerRevenue[gmail].revenue += total;
+      customerRevenue[gmail].orders += 1;
+    } else {
+      customerRevenue[gmail] = {
+        name: order.name,
+        revenue: total,
+        orders: 1
+      };
+    }
+  });
+
+  const sortedCustomers = Object.entries(customerRevenue)
+    .map(([gmail, data]) => ({ gmail, ...data }))
+    .sort((a, b) => b.revenue - a.revenue);
+
+  // Hiển thị lại bảng với dữ liệu ban đầu
+  const tbody = document.querySelector("#leaderboard tbody");
+  tbody.innerHTML = ""; // Xóa nội dung cũ
+
+  sortedCustomers.slice(0, 5).forEach((customer, index) => {
     const row = `
       <tr>
         <td>${index + 1}</td> <!-- Hạng -->
@@ -832,13 +1002,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+
+
 function viewCustomerDetails(gmail) {
   // Lọc danh sách hóa đơn theo gmail khách hàng
   const listOrder = JSON.parse(localStorage.getItem("listOrder")) || [];
   const customerOrders = listOrder.filter(order => order.gmail === gmail);
 
   if (customerOrders.length === 0) {
-    alert("Không tìm thấy hóa đơn nào cho khách hàng này.");
+    showToast('error',"Không tìm thấy hóa đơn nào cho khách hàng này.");
     return;
   }
 
@@ -862,6 +1034,7 @@ function viewCustomerDetails(gmail) {
   document.getElementById("invoiceList").innerHTML = invoiceHTML;
   modal.style.display = "block";
 }
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -950,6 +1123,24 @@ function displayTopAndBottomSellers(productSummary) {
 
 
 
+// -----------------------------Hiển thị tên admin ---------------------------------
+document.addEventListener("DOMContentLoaded", function () {
+  // Lấy thông tin userCurrent từ localStorage
+  const userCurrent = JSON.parse(localStorage.getItem("userCurrent"));
+
+  // Kiểm tra nếu tồn tại userCurrent
+  if (userCurrent && userCurrent.fullName) {
+    // Gán tên vào thẻ <p class="name-item">
+    const nameElement = document.querySelector(".name-item");
+    if (nameElement) {
+      nameElement.textContent = userCurrent.fullName;
+    } else {
+      console.error("Thẻ <p class='name-item'> không tồn tại.");
+    }
+  } else {
+    console.error("Không tìm thấy thông tin userCurrent hoặc không có fullName.");
+  }
+});
 
 
 
@@ -972,16 +1163,16 @@ function displayOrders() {
 
   // Kiểm tra nếu endDate nhỏ hơn startDate, yêu cầu người dùng sửa
   if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-    alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc. Vui lòng chọn lại!");
+    showToast('error',"Ngày bắt đầu không thể lớn hơn ngày kết thúc. Vui lòng chọn lại!");
     document.getElementById("startDate").value = '';
     document.getElementById("endDate").value = ''; 
     return; 
   }else if( endDate && new Date(endDate) > new Date()){
-    alert("Ngày kết thúc không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
+    showToast('error',"Ngày kết thúc không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
     document.getElementById("endDate").value = ''; 
     return; 
   }else if( startDate && new Date(startDate) > new Date()){
-    alert("Ngày bắt đầu không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
+    showToast('error',"Ngày bắt đầu không thể lớn hơn ngày hôm nay. Vui lòng chọn lại!");
     document.getElementById("startDate").value = ''; 
     return;
   }
@@ -1307,10 +1498,10 @@ function deleteOrder(id) {
       currentPageOrder = totalPages; 
     }
 
-    alert("Đơn hàng đã bị xóa!");
+    showToast('success',"Đơn hàng đã bị xóa!");
     displayOrders(); 
   } else {
-    alert("Đơn hàng không bị xóa."); // Thông báo khi người dùng hủy
+    show("Đơn hàng không bị xóa."); // Thông báo khi người dùng hủy
   }
 }
 
@@ -1600,18 +1791,18 @@ formP.addEventListener('submit', function (event) {
   const ProductCategory = document.getElementById('productCategory').value;
   const selectedCategory = categories.find(category => category.id === ProductCategory);
   if (!selectedCategory) {
-    alert("Loại sản phẩm không hợp lệ!");
+    showToast('error',"Loại sản phẩm không hợp lệ!");
     document.getElementById('productCategory').focus();
     return;
   }
   if (!isNaN(ProductName)) {
-    alert("Tên sản phẩm không được chỉ toàn số!");
+    showToast('error',"Tên sản phẩm không được chỉ toàn số!");
     document.getElementById('productName').focus();
     return;
   }
   const ProductStatus = document.querySelector('input[name="status"]:checked')?.value;
   if (!ProductStatus) {
-    alert("Vui lòng chọn trạng thái!");
+    showToast('error',"Vui lòng chọn trạng thái!");
     document.querySelector('.form-status').focus();
     return;
   }
@@ -1619,12 +1810,12 @@ formP.addEventListener('submit', function (event) {
   const ProductDescription = document.getElementById('productDescription').value.trim();
   let ProductPrice = document.getElementById('productPrice').value.trim();
   if(listProduct.some((p,i) => p.name===ProductName && i!==editProductIndex)){
-    alert("Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
+    showToast('error',"Tên sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
     document.getElementById('productName').focus();
     return;
   }
   if (!ProductName) {
-    alert("Tên sản phẩm không được để trống!");
+    showToast('error',"Tên sản phẩm không được để trống!");
     document.getElementById('productName').focus();
     return;
   }
@@ -1634,12 +1825,12 @@ formP.addEventListener('submit', function (event) {
     document.getElementById('productPrice').value = ProductPrice; // Cập nhật lại giá trị trong input
   }
   if (!ProductPrice || isNaN(ProductPrice)) {
-    alert("Giá sản phẩm không hợp lệ!");
+    showToast('error',"Giá sản phẩm không hợp lệ!");
     document.getElementById('productPrice').focus();
     return;
   }
   if (Number(ProductPrice) < 0) {
-    alert("Giá thành sản phẩm không được âm!");
+    showToast('error',"Giá thành sản phẩm không được âm!");
     document.getElementById('productPrice').focus();
     return;
   }
@@ -1695,11 +1886,11 @@ removeImageBtn.addEventListener('click',function(){
 function saveProduct(productData) {
   if (editProductIndex !== null) {
     listProduct[editProductIndex] = productData;
-    alert("Sản phẩm đã được cập nhật!");
+    showToast('success',"Sản phẩm đã được cập nhật!");
     editProductIndex = null;
   } else {
     listProduct.unshift(productData);
-    alert("Sản phẩm đã được thêm!");
+    showToast('success',"Sản phẩm đã được thêm!");
   }
   localStorage.setItem('listProduct', JSON.stringify(listProduct));
   cancelProduct();
@@ -2008,27 +2199,27 @@ function filterProducts() {
 
     // Kiểm tra giá trị hợp lệ của minPrice và maxPrice
     if (isNaN(minPrice)) {
-        alert("Giá nhỏ nhất không hợp lệ!");
+        showToast('error',"Giá nhỏ nhất không hợp lệ!");
         document.getElementById('minPrice').focus();
         return;
     }
     if (minPrice < 0) {
-        alert("Giá nhỏ nhất không được âm!");
+        showToast('error',"Giá nhỏ nhất không được âm!");
         document.getElementById('minPrice').focus();
         return;
     }
     if (isNaN(maxPrice)) {
-        alert("Giá lớn nhất không hợp lệ!");
+        showToast('error',"Giá lớn nhất không hợp lệ!");
         document.getElementById('maxPrice').focus();
         return;
     }
     if (maxPrice < 0) {
-        alert("Giá lớn nhất không được âm!");
+        showToast('error',"Giá lớn nhất không được âm!");
         document.getElementById('maxPrice').focus();
         return;
     }
     if (minPrice > maxPrice) {
-        alert("Giá lớn nhất không được nhỏ hơn giá nhỏ nhất!");
+        showToast('error',"Giá lớn nhất không được nhỏ hơn giá nhỏ nhất!");
         document.getElementById('maxPrice').focus();
         return;
     }
@@ -2132,15 +2323,15 @@ Submit.addEventListener('click', function (event) {
   if(editCategoryIndex!==null){
     categories[editCategoryIndex].name=Categoryname;
     categories[editCategoryIndex].description=Categorydescription;
-    alert("Loại sản phẩm đã được cập nhật!");
+    showToast('success',"Loại sản phẩm đã được cập nhật!");
   }else{
     if(categories.some((c,i)=>c.name===Categoryname && i!==editProductIndex)){
-      alert("Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
+      showToast('error',"Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
       document.getElementById('categoryName').focus();
       return;
     }
     if (!isNaN(Categoryname)) {
-      alert("Tên loại sản phẩm không được chỉ toàn số!");
+      showToast('error',"Tên loại sản phẩm không được chỉ toàn số!");
       document.getElementById('categoryName').focus();
       return;
     }
@@ -2150,7 +2341,7 @@ Submit.addEventListener('click', function (event) {
       description: Categorydescription
     }
     categories.unshift(category);
-    alert("Đã thêm thành công!");
+    showToast('success',"Đã thêm thành công!");
   }
   localStorage.setItem('categories',JSON.stringify(categories));
   formC.reset();
@@ -2295,3 +2486,66 @@ SearchInputC.addEventListener('input',searchCategories);
 
 //CATEGORY
 // PRODUCT,CATEGORY
+
+function showToast(type, message) {
+  const title = type === 'success' ? "Thành công!" : "Thất bại!";
+  // Trước khi hiển thị thông báo mới, xóa các thông báo cũ
+  const main = document.getElementById("toast");
+  if (main) {
+    // Xóa tất cả thông báo cũ
+    main.innerHTML = '';
+  }
+
+  toast({
+    title: title,
+    message: message,
+    type: type,
+    duration: 5000
+  });
+}
+
+function toast({ title = "", message = "", type = "info", duration = 3000 }) {
+  const main = document.getElementById("toast");
+  if (main) {
+    const toast = document.createElement("div");
+
+    // Auto remove toast
+    const autoRemoveId = setTimeout(function () {
+      main.removeChild(toast);
+    }, duration + 1000);
+
+    // Remove toast when clicked
+    toast.onclick = function (e) {
+      if (e.target.closest(".toast__close")) {
+        main.removeChild(toast);
+        clearTimeout(autoRemoveId);
+      }
+    };
+
+    const icons = {
+      success: "fas fa-check-circle",
+      info: "fas fa-info-circle",
+      warning: "fas fa-exclamation-circle",
+      error: "fas fa-exclamation-circle"
+    };
+    const icon = icons[type];
+    const delay = (duration / 1000).toFixed(2);
+
+    toast.classList.add("toast", `toast--${type}`);
+    toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+    toast.innerHTML = `
+                  <div class="toast__icon">
+                      <i class="${icon}"></i>
+                  </div>
+                  <div class="toast__body">
+                      <h3 class="toast__title">${title}</h3>
+                      <p class="toast__msg">${message}</p>
+                  </div>
+                  <div class="toast__close">
+                      <i class="fas fa-times"></i>
+                  </div>
+              `;
+    main.appendChild(toast);
+  }
+}

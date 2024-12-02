@@ -191,6 +191,8 @@ button{
     display: flex;
     align-items: center;
     grid-gap: 24px;
+    
+    
 }
 #content nav::before{
     content: '';
@@ -263,25 +265,21 @@ button{
 
 /* DASHBOARD */
 #dashboard {
-    overflow: hidden;
+    overflow-x:scroll;
 }
-#dashboard .head,
-#account_manager .head{
+#dashboard .head{
     width: 100%;
     padding: 10px;
     padding-left: 30px;
 } 
 
-#dashboard .head .left,
-#account_manager .head .left{
-    /* background: var(--light); */
+#dashboard .head .left{
     align-items: center;
     color: var(--black);
     justify-content: space-between;
     flex-wrap: wrap;
 }
-#dashboard .head .left h1,
-#account_manager .head .left h1{
+#dashboard .head .left h1{
     font-size: 36px;
     font-weight: 600px;
     display: block;
@@ -368,7 +366,7 @@ button{
 }
 
 #leaderboard tbody td {
-    height: calc(440px / 6); /* Chiều cao tự chia đều */
+    height: calc(320px / 6); /* Chiều cao tự chia đều */
     padding: 10px;
     border-top: 1px solid #ccc;
     font-size: 18px;
@@ -483,6 +481,9 @@ button{
 #sales_statistics label{
     font-size: 24px;
 }
+#table_rank label{
+    font-size: 24px;
+}
 #date_start{
     margin-top: 20px;
     height: 30px;
@@ -504,6 +505,46 @@ button{
     line-height: 30px;
     text-align: center;
 
+}
+#date_start1{
+    margin-top: 20px;
+    height: 30px;
+    width: 200px;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 18px;
+    margin-right: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#date_end1{
+    margin-top: 20px;
+    height: 30px;
+    width: 200px;
+    border-radius: 20px;
+    padding-left: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+#search_button_rank1{
+    margin-left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#reset_seach1{
+    margin-left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+#reset_seach2{
+    margin-left: 20px;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 #product_rank{
@@ -744,6 +785,7 @@ button{
     min-height: 500px; /* Thêm min-height */
     margin-top: 10px;
     min-width: 800px;
+    overflow: hidden;
     
 }
 #pagination1 {
@@ -1562,6 +1604,22 @@ button{
     .boxDetailContent1, .boxDetailContent2, .boxDetailContent3{
         width: calc(100% - 0px);
     }
+    #pagination {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 5px;
+        text-align: center; 
+    }
+    
+    #pagination .page-btn {
+        padding: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: var(--orange);
+        transition: background-color 0.3s;
+    }
     /* ---------------------------order manager--------------------------------*/
 }
 @media screen and (min-width: 375px) and (max-width: 767.98px){
@@ -1653,6 +1711,41 @@ button{
         width: auto;
         overflow: hidden;
     }
+    #acc_sell{
+        display: block;
+
+    }
+    #rank_sell{
+        width: calc(100% - 40px);
+        height: 250px;
+        background: var(--light);
+        border-radius: 20px;
+        display: flex;
+        min-width: 320px;
+        margin-left: 20px;
+        margin-top: 20px;
+        min-width: 700px;
+    }
+    #table_rank {
+        height: 500px; /* Chiều cao cố định */
+        width: calc(100% - 40px);
+    }
+    #pagination {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 5px;
+        text-align: center; 
+    }
+    
+    #pagination .page-btn {
+        padding: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: var(--orange);
+        transition: background-color 0.3s;
+    }
 }
 
 
@@ -1678,13 +1771,48 @@ button{
     .filter-menu {
         width: 80%; 
     }
-    .boxDetailContent1, .boxDetailContent2, .boxDetailContent3{
-        width: calc(100% - 0px);
+    #acc_sell{
+        display: block;
+
     }
+    #rank_sell{
+        width: calc(100% - 40px);
+        height: 250px;
+        background: var(--light);
+        border-radius: 20px;
+        display: flex;
+        min-width: 320px;
+        margin-left: 20px;
+        margin-top: 20px;
+        min-width: 700px;
+    }
+    #table_rank {
+        height: 500px; /* Chiều cao cố định */
+        width: calc(100% - 40px);
+    }
+    
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1199.98px) {
-    
+    #acc_sell{
+        display: block;
+
+    }
+    #rank_sell{
+        width: calc(100% - 40px);
+        height: 250px;
+        background: var(--light);
+        border-radius: 20px;
+        display: flex;
+        min-width: 320px;
+        margin-left: 20px;
+        margin-top: 20px;
+        min-width: 700px;
+    }
+    #table_rank {
+        height: 500px; /* Chiều cao cố định */
+        width: calc(100% - 40px);
+    }
 }
 
 
@@ -1699,74 +1827,14 @@ button{
 
 
 
-@media screen and (max-width: 760px ) {
-    #content{
-        width: calc(100% - 60px);   
-    }   
-}
 
-@media screen and (max-width: 600px) {
-
-    #content nav form .form-input input{
-        display: none;
-    }
-    #content nav form .form-input button{
-        width:auto ;
-        height: auto;
-        background: transparent;
-        border-radius: none;
-        color: var(--black);
-    }
-    #content nav form.show .form-input input{
-        display: block;
-        width: 200px;
-    }
-    #content nav form.show .form-input button{
-        width: 40px;
-        height: 100%;
-        border-radius: 0 30px 30px 0;
-        color: var(--light);
-        background:var(--red);
-        
-    }
-}
 
 
 /* CONTENT */
 
 
 
-@media screen and (max-width: 760px ) {
-    #content{
-        width: calc(100% - 60px);   
-    }   
-}
 
-@media screen and (max-width: 600px) {
-
-    #content nav form .form-input input{
-        display: none;
-    }
-    #content nav form .form-input button{
-        width:auto ;
-        height: auto;
-        background: transparent;
-        border-radius: none;
-        color: var(--black);
-    }
-    #content nav form.show .form-input input{
-        display: block;
-        width: 200px;
-    }
-    #content nav form.show .form-input button{
-        width: 40px;
-        height: 100%;
-        border-radius: 0 30px 30px 0;
-        color: var(--light);
-        background:var(--red);
-        
-    }
-}
 /* CONTENT */
 /* PRODUCT */
 .product-content{
@@ -2734,3 +2802,113 @@ input[type="file"]{
     }
 }
 /* CATEGORY */
+
+
+
+/* ======= Toast message ======== */
+
+#toast {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 999999;
+  }
+  
+  .toast {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    min-width: 250px;
+    max-width: 350px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.3s;
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(calc(100% + 32px));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+    }
+  }
+  
+  .toast--success {
+    border-color: #47d864;
+  }
+  
+  .toast--success .toast__icon {
+    color: #47d864;
+  }
+  
+  .toast--info {
+    border-color: #2f86eb;
+  }
+  
+  .toast--info .toast__icon {
+    color: #2f86eb;
+  }
+  
+  .toast--warning {
+    border-color: #ffc021;
+  }
+  
+  .toast--warning .toast__icon {
+    color: #ffc021;
+  }
+  
+  .toast--error {
+    border-color: #ff623d;
+  }
+  
+  .toast--error .toast__icon {
+    color: #ff623d;
+  }
+  
+  .toast + .toast {
+    margin-top: 24px;
+  }
+  
+  .toast__icon {
+    font-size: 24px;
+  }
+  
+  .toast__icon,
+  .toast__close {
+    padding: 0 16px;
+  }
+  
+  .toast__body {
+    flex-grow: 1;
+  }
+  
+  .toast__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .toast__msg {
+    font-size: 14px;
+    color: #888;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  
+  .toast__close {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  
