@@ -89,7 +89,6 @@
         </nav>
         <!-- CONTENT -->
         <!-- PRODUCT -->
-        <div id="toast"></div>
         <div class="product-container">
             <div class="head">
                 <div class="left">
@@ -223,14 +222,19 @@
                     </div>
                 </div>
                 <div class="pagination">
-                    <button onclick="navigateToPage('first')">
+                    <button id="firstPageBtn">
                         << </button>
-                            <button onclick="navigateToPage('prev')">
+                            <button id="prevPageBtn">
                                 < </button>
                                     <div class="page-numbers">
                                     </div>
-                                    <button onclick="navigateToPage('next')"> > </button>
-                                    <button onclick="navigateToPage('last')"> >> </button>
+                                    <button id="nextPageBtn"> > </button>
+                                    <button id="lastPageBtn"> >> </button>                   
+                    
+                </div>
+                <div class="goto-page">
+                    <input type="number" id="gotoPageInput" placeholder="Page" min="1" />
+                    <button id="gotoPageBtn">Go</button>
                 </div>
             </div>
             <form class="product-form" id="addProductForm">
