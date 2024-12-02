@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Hiển thị thông tin cá nhân từ localStorage
     const populateUserInfo = () => {
-        document.getElementById("user-name").value = userData.fullName || "Chưa cập nhật";
-        document.getElementById("user-phone").value = userData.phone || "Chưa cập nhật";
-        document.getElementById("user-gmail").value = userData.gmail || "Chưa cập nhật";
+        document.getElementById("user-name").value = userData.fullName;
+        document.getElementById("user-phone").value = userData.phone;
+        document.getElementById("user-gmail").value = userData.gmail;
         document.getElementById("address-summary").value = userData.address || "Chưa cập nhật";
-
+        document.getElementById("street").value = userData.street;
         if (userData.provinceId) {
             document.getElementById("province").value = userData.provinceId;
             loadDistricts(userData.provinceId, userData.districtId, userData.wardId);
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const addressSummary = `${province}, ${district}, ${ward}, ${street}`.replace(/, ,/g, ',').trim();
         document.getElementById("address-summary").value = addressSummary || "Chưa cập nhật";
     
-        // Lưu địa chỉ và các mã liên quan vào userCurrent
+        // Lưu địa chỉ vào userCurrent
         userData.address = addressSummary;
         userData.provinceId = document.getElementById("province").value;
         userData.districtId = document.getElementById("district").value;
@@ -130,36 +130,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
- // chỉnh sửa thông tin
+// chỉnh sửa thông tin
 document.getElementById("edit-btn").addEventListener("click", () => {
     const editButton = document.getElementById("edit-btn");
     const isEditing = editButton.textContent === "Sửa";
-    editButton.textContent = isEditing ? "Lưu" : "Sửa";
 
-    const inputs = document.querySelectorAll("#info-form input, #info-form select");
-    const addressFields = document.getElementById("address-fields");
-    const addressSummary = document.getElementById("address-summary");
-
-    // Gmail luôn luôn không thể chỉnh sửa
-    document.getElementById("user-gmail").disabled = true;
-
-    addressFields.style.display = isEditing ? "flex" : "none";
-    addressSummary.style.display = isEditing ? "none" : "block";
-
-
-    inputs.forEach((input) => {
-        if (input.id !== "user-gmail") {
-            input.disabled = !isEditing;
+    if (isEditing) {
+        editButton.textContent = "Lưu";
+    } else {
+        if (!validateForm()) {
+            return;
         }
-    });
 
-    if (!isEditing) {
         // Lấy giá trị từ form
         const name = document.getElementById("user-name").value.trim();
         const phone = document.getElementById("user-phone").value.trim();
         const provinceId = document.getElementById("province").value;
         const districtId = document.getElementById("district").value;
         const wardId = document.getElementById("ward").value;
+        const street = document.getElementById("street").value;
 
         // Cập nhật thông tin người dùng
         userData.fullName = name;
@@ -167,6 +156,7 @@ document.getElementById("edit-btn").addEventListener("click", () => {
         userData.provinceId = provinceId;
         userData.districtId = districtId;
         userData.wardId = wardId;
+        userData.street = street;
 
         updateAddressSummary();
 
@@ -180,14 +170,51 @@ document.getElementById("edit-btn").addEventListener("click", () => {
         });
 
         localStorage.setItem("listUser", JSON.stringify(listUser));
-
         localStorage.setItem("userCurrent", JSON.stringify(userData));
 
-        // Console log để kiểm tra
-        console.log("Updated userData: ", userData);
-        console.log("Updated listUser: ", listUser);
-
         alert("Thông tin đã được cập nhật!");
+
+        editButton.textContent = "Sửa";
+    }
+
+    // Gmail luôn luôn không thể chỉnh sửa
+    document.getElementById("user-gmail").disabled = true;
+
+    const inputs = document.querySelectorAll("#info-form input, #info-form select");
+    const addressFields = document.getElementById("address-fields");
+    const addressSummary = document.getElementById("address-summary");
+
+    addressFields.style.display = isEditing ? "flex" : "none";
+    addressSummary.style.display = isEditing ? "none" : "block";
+
+    inputs.forEach((input) => {
+        if (input.id !== "user-gmail") {
+            input.disabled = !isEditing;
+        }
+    });
+
+    function validateForm() {
+        const name = document.getElementById("user-name").value.trim();
+        const phone = document.getElementById("user-phone").value.trim();
+        const provinceId = document.getElementById("province").value;
+        const districtId = document.getElementById("district").value;
+        const wardId = document.getElementById("ward").value;
+        const street = document.getElementById("street").value;
+
+        if (!name) {
+            alert("Tên không được để trống.");
+            return false;
+        }
+        const phonePattern = /^[0-9]{10,15}$/;
+        if (!phonePattern.test(phone)) {
+            alert("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+            return false;
+        }
+        if (!provinceId || !districtId || !wardId || !street) {
+            alert("Vui lòng chọn đầy đủ thông tin địa chỉ.");
+            return false;
+        }
+        return true;
     }
 });
 
@@ -291,7 +318,6 @@ if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePas
 } else {
     console.error("Một hoặc nhiều phần tử không tồn tại trong DOM!");
 }
-
 
     // Xử lý sự kiện chuyển tab
     const menuButtons = document.querySelectorAll(".menu-btn");
