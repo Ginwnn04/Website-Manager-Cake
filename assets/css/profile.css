@@ -133,7 +133,7 @@ section h2 {
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 10px 15px;
+    padding: 10px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
@@ -147,11 +147,11 @@ section h2 {
 .change-password-btn {
     position: absolute;
     top: 10px;
-    right: 80px; /* Điều chỉnh để cách xa nút Sửa */
+    right: 70px; /* Điều chỉnh để cách xa nút Sửa */
     background-color: #f0ad4e;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
@@ -402,4 +402,17 @@ input[type="text"]:enabled {
         flex-direction: column;
         gap: 5px;
     }
+}
+@media screen and (min-width: 768px) and (max-width: 1023.98px) {
+    .edit-btn, .change-password-btn {
+        position: static;
+        display: block;
+        margin: 10px auto;
+        width: 80%;
+        text-align: center;
+        padding: 10px;
+    }
+    .change-password-btn {
+        margin-bottom: 10px;
+    }    
 }
