@@ -8,8 +8,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/profile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
 </head>
+
 <body>
     <div id="toast"></div>
     <div class="sidebar">
@@ -23,59 +26,59 @@
         <button class="return-home-btn">Quay về Trang Chính</button>
     </div>
     <div class="content">
- <!-- Lớp nền mờ (overlay) -->
-<div id="overlay" class="overlay"></div>
+        <!-- Lớp nền mờ (overlay) -->
+        <div id="overlay" class="overlay"></div>
 
-<!-- Thông Tin Cá Nhân -->
-<section id="personal-info" class="active">
-    <h2>Thông Tin Cá Nhân</h2>
-    
-    <!-- Thêm nút Đổi mật khẩu bên trái nút Sửa -->
-    <button class="change-password-btn" id="change-password-btn">Đổi Mật Khẩu</button>
-    <button class="edit-btn" id="edit-btn">Sửa</button>
-    
-    <form id="info-form">
-        <label><strong>Tên Gmail:</strong></label>
-        <input type="text" id="user-gmail" value="nguyenvana@gmail.com" disabled>
+        <!-- Thông Tin Cá Nhân -->
+        <section id="personal-info" class="active">
+            <h2>Thông Tin Cá Nhân</h2>
 
-        <label><strong>Họ và tên:</strong></label>
-        <input type="text" id="user-name" value="Nguyen Van A" disabled>
-    
-        <label><strong>Số điện thoại:</strong></label>
-        <input type="text" id="user-phone" value="0123456789" disabled>
-    
-        <label><strong>Địa chỉ:</strong></label>
-        <input type="text" id="address-summary" value="" disabled style="margin-bottom: 10px;" />
-        
-        <div id="address-fields" style="display: none; gap: 10px;">
-            <select id="province" disabled>
-                <option value="">Chọn Tỉnh/Thành</option>
-            </select>
-            <select id="district" disabled>
-                <option value="">Chọn Quận/Huyện</option>
-            </select>
-            <select id="ward" disabled>
-                <option value="">Chọn Phường/Xã</option>
-            </select>
-            <input type="text" id="street" placeholder="Số nhà/Tên đường" disabled style="flex: 1;" />
-        </div>
-    </form>
+            <!-- Thêm nút Đổi mật khẩu bên trái nút Sửa -->
+            <button class="change-password-btn" id="change-password-btn">Đổi Mật Khẩu</button>
+            <button class="edit-btn" id="edit-btn">Sửa</button>
 
-    <!-- Form Đổi mật khẩu -->
-    <div id="change-password-form" class="change-password-form" style="display: none;">
-        <label for="current-password">Mật khẩu hiện tại:</label>
-        <input type="password" id="current-password" name="current-password" required />
-        
-        <label for="new-password">Mật khẩu mới:</label>
-        <input type="password" id="new-password" name="new-password" required />
-        
-        <label for="confirm-password">Xác nhận mật khẩu mới:</label>
-        <input type="password" id="confirm-password" name="confirm-password" required />
-        
-        <button id="save-password-btn">Lưu thay đổi</button>
-        <button id="cancel-change-password-btn">Hủy</button>
-    </div>
-</section>
+            <form id="info-form">
+                <label><strong>Tên Gmail:</strong></label>
+                <input type="text" id="user-gmail" value="nguyenvana@gmail.com" disabled>
+
+                <label><strong>Họ và tên:</strong></label>
+                <input type="text" id="user-name" value="Nguyen Van A" disabled>
+
+                <label><strong>Số điện thoại:</strong></label>
+                <input type="text" id="user-phone" value="0123456789" disabled>
+
+                <label><strong>Địa chỉ:</strong></label>
+                <input type="text" id="address-summary" value="" disabled style="margin-bottom: 10px;" />
+
+                <div id="address-fields" style="display: none; gap: 10px;">
+                    <select id="province" disabled>
+                        <option value="">Chọn Tỉnh/Thành</option>
+                    </select>
+                    <select id="district" disabled>
+                        <option value="">Chọn Quận/Huyện</option>
+                    </select>
+                    <select id="ward" disabled>
+                        <option value="">Chọn Phường/Xã</option>
+                    </select>
+                    <input type="text" id="street" placeholder="Số nhà/Tên đường" disabled style="flex: 1;" />
+                </div>
+            </form>
+
+            <!-- Form Đổi mật khẩu -->
+            <div id="change-password-form" class="change-password-form" style="display: none;">
+                <label for="current-password">Mật khẩu hiện tại:</label>
+                <input type="password" id="current-password" name="current-password" required />
+
+                <label for="new-password">Mật khẩu mới:</label>
+                <input type="password" id="new-password" name="new-password" required />
+
+                <label for="confirm-password">Xác nhận mật khẩu mới:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required />
+
+                <button id="save-password-btn">Lưu thay đổi</button>
+                <button id="cancel-change-password-btn">Hủy</button>
+            </div>
+        </section>
 
 
 
@@ -108,10 +111,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>HD-1</td>
-                        <td>100.000đ</td>
-                        <td>19/11/2024</td>
-                        <td>Chưa xử lí</td>
+
                     </tr>
                 </tbody>
             </table>

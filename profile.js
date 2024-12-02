@@ -350,8 +350,8 @@ if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePas
 function myListOrder() {
     const body = document.querySelector('tbody');
     const listOrder = JSON.parse(localStorage.getItem('listOrder'));
-    const userLogin = JSON.parse(localStorage.getItem('userLogin'));
-    myOrder = listOrder.filter(order => order.account === userLogin.username);
+    const userLogin = JSON.parse(localStorage.getItem('userCurrent'));
+    myOrder = listOrder.filter(order => order.gmail === userLogin.gmail);
     renderData(1);
     renderButtonPage(myOrder);
 }
