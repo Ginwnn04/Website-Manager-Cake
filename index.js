@@ -192,7 +192,7 @@ function renderProducts(productsToRender) {
 function openProductDetail(index) {
     const product = listProduct[index];
     if (product.quantity === 0) { 
-        alert("Sản phẩm đã hết hàng.");
+        showToast("error", "Sản phẩm đã hết hàng.");
         return;
     };
     const txt = `
@@ -296,7 +296,7 @@ function inputQuantity(obj, index) {
     setTimeout(() => {
         const quantityInput = parseInt(obj.parentNode.querySelector(".quantity").value);
         if (quantityInput < 1) {
-            alert("Số lượng phải lớn hơn 0.");
+            showToast("warning", "Số lượng phải lớn hơn 0.");
             obj.parentNode.querySelector(".quantity").value = 1;
         }
         if (obj.parentNode.getAttribute('value') === 'details-product') {
@@ -319,11 +319,11 @@ function inputQuantity(obj, index) {
 // Hàm thêm vào giỏ hàng
 function addToCart() {
     if (userCurrent === null) {
-        alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
+        showToast("warning", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng.");
         return;
     }
     else if (userCurrent.status === "0") { 
-        alert("Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
+        showToast("error", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
         return;
     }
     const productCheckout = {};
@@ -344,7 +344,7 @@ function addToCart() {
         userCurrent.cart.push(productCheckout);
     }
 
-    alert(`Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
+    showToast("success", `Đã thêm ${productCheckout.quantity} x ${productCheckout.name} vào giỏ hàng.`);
     localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
     closeProductDetail();
 }
@@ -460,8 +460,8 @@ btnPayment.addEventListener("click", renderPayment);
 
 function renderPayment() {
     if (userCurrent === null || userCurrent.cart.length === 0) {
-        alert("Không thể thanh toán khi giở hàng đang trống.");
-        return;    
+        showToast("error", "Không thể thanh toán khi giỏ hàng đang trống.");
+        return;
     }
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
     localStorage.setItem("modalIsShow", "true");
@@ -552,32 +552,32 @@ btnPaymentSubmit.addEventListener("click", () => {
     const street = document.getElementById("txtAddress").value;
     const ward = document.getElementById("ward");
     if (name === "") {
-        alert("Vui lòng nhập tên.");
+        showToast("error", "Vui lòng nhập tên.");
         document.getElementById("txtName").focus();
         return;
     }
     else if (phone === "") {
-        alert("Vui lòng nhập số điện thoại.");
+        showToast("error", "Vui lòng nhập số điện thoại.");
         document.getElementById("txtPhone").focus();
         return;
     }
     else if (street === "") {
-        alert("Vui lòng nhập địa chỉ.");
+        showToast("error", "Vui lòng nhập địa chỉ.");
         document.getElementById("txtAddress").focus();
         return;    
     }
     else if (province.selectedIndex === 0) {
-        alert("Vui lòng chọn tỉnh/thành phố.");
+        showToast("error", "Vui lòng chọn tỉnh/thành phố.");
         return;
     }
     else if (district.selectedIndex === 0) {
-        alert("Vui lòng chọn quận/huyện.");
+        showToast("error", "Vui lòng chọn quận/huyện.");
         return;
     }
     else if (ward.selectedIndex === 0) {
-        alert("Vui lòng chọn phường/xã.");
+        showToast("error", "Vui lòng chọn phường/xã.");
         return;
-    }
+    }    
     const address = [];
     address.push(document.getElementById("txtAddress").value);
     address.push(ward[ward.selectedIndex].textContent);
@@ -613,7 +613,7 @@ btnPaymentSubmit.addEventListener("click", () => {
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
         userCurrent.cart = [];
         localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
-        alert("Đặt hàng thành công!");
+        showToast("success", "Đặt hàng thành công!");
         localStorage.removeItem("modalIsShow");
         window.location.href = '/';
     }
@@ -917,35 +917,35 @@ function registerUser() {
     const street = "";
 
     if (!fullName || !phone || !gmail || !password || !confirmPassword) {
-        alert("Vui lòng điền đầy đủ thông tin!");
+        showToast('error', "Vui lòng điền đầy đủ thông tin!");
         return;
     }
 
     if (password.length < 6) {
-        alert("Mật khẩu phải có ít nhất 6 ký tự!");
+        showToast('error', "Mật khẩu phải có ít nhất 6 ký tự!");
         return;
     }
 
     if (password !== confirmPassword) {
-        alert("Mật khẩu nhập lại không khớp!");
+        showToast('error', "Mật khẩu nhập lại không khớp!");
         return;
     }
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     if (!emailPattern.test(gmail)) {
-        alert("Email không đúng định dạng");
+        showToast('error', "Email không đúng định dạng");
         return;
     }
 
     const phonePattern = /^0[0-9]{9}$/;
     if (!phonePattern.test(phone)) {
-        alert("Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số!");
+        showToast('error', "Số điện thoại phải bắt đầu bằng số 0 và có đúng 10 chữ số!");
         return;
     }
 
     const existingUser = listUser.find(user => user.gmail === gmail);
     if (existingUser) {
-        alert("Gmail đã được sử dụng!");
+        showToast('error', "Gmail đã được sử dụng!");
         return;
     }
 
@@ -969,8 +969,9 @@ function registerUser() {
     loadDataUserCurrent();
     updateLoginButton();
     closeForm("signupForm");
-    alert("Đăng ký thành công! Bạn có thể mua sắm ngay bây giờ.");
+    showToast('success', "Đăng ký thành công! Bạn có thể mua sắm ngay bây giờ.");
 }
+
 // đăng nhập tài khoản
 function loginUser() {
     const gmail = document.getElementById("login-username").value.trim();
@@ -983,13 +984,12 @@ function loginUser() {
     );
 
     if (userCurrent) {
-
         localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
-        alert("Đăng nhập thành công!");
+        showToast('success', "Đăng nhập thành công!");
         closeForm('loginForm');
         updateLoginButton();
     } else {
-        alert("Thông tin đăng nhập không chính xác.");
+        showToast('error', "Thông tin đăng nhập không chính xác.");
     }
 }
 
@@ -1029,7 +1029,7 @@ function toggleUserOptions() {
 function logoutUser(isModal = false) {
     localStorage.removeItem("userCurrent");
     if (isModal) closeLogoutModal();
-    alert("Bạn đã đăng xuất thành công!");
+    showToast("success", "Bạn đã đăng xuất thành công!");
     window.location.href = "index.html";
 }
 
@@ -1099,20 +1099,20 @@ function updateUserInfo() {
     // Kiểm tra định dạng email
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-        alert("Email không hợp lệ!");
+        showToast("error", "Email không hợp lệ!");
         return;
     }
 
     // Kiểm tra số điện thoại (đơn giản chỉ kiểm tra số)
     const phoneRegex = /^[0-9]{10}$/;
     if (phone && !phoneRegex.test(phone)) {
-        alert("Số điện thoại phải chỉ chứa 10 chữ số!");
+        showToast("error", "Số điện thoại phải chỉ chứa 10 chữ số!");
         return;
     }
 
     // Kiểm tra xem người dùng có tồn tại không
     if (!userCurrent) {
-        alert("Không tìm thấy thông tin người dùng.");
+        showToast("error", "Không tìm thấy thông tin người dùng.");
         return;
     }
 
@@ -1131,10 +1131,9 @@ function updateUserInfo() {
     }
 
     localStorage.setItem("ListUser", JSON.stringify(listUser));
-
     localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
 
-    alert("Thông tin cá nhân đã được cập nhật!");
+    showToast("success", "Thông tin cá nhân đã được cập nhật!");
 }
 
 
@@ -1181,3 +1180,67 @@ function hiddenSearchBar() {
     document.querySelector(".search-txt").removeAttribute("style");
     document.querySelector(".filter-products").removeAttribute("style");
 }
+function showToast(type, message) {
+    const title = type === 'success' ? "Thành công!" : "Thất bại!";
+    
+    // Trước khi hiển thị thông báo mới, xóa các thông báo cũ
+    const main = document.getElementById("toast");
+    if (main) {
+      // Xóa tất cả thông báo cũ
+      main.innerHTML = '';
+    }
+  
+    toast({
+      title: title,
+      message: message,
+      type: type,
+      duration: 5000
+    });
+  }
+  
+  function toast({ title = "", message = "", type = "info", duration = 3000 }) {
+    const main = document.getElementById("toast");
+    if (main) {
+      const toast = document.createElement("div");
+  
+      // Auto remove toast
+      const autoRemoveId = setTimeout(function () {
+        main.removeChild(toast);
+      }, duration + 1000);
+  
+      // Remove toast when clicked
+      toast.onclick = function (e) {
+        if (e.target.closest(".toast__close")) {
+          main.removeChild(toast);
+          clearTimeout(autoRemoveId);
+        }
+      };
+  
+      const icons = {
+        success: "fas fa-check-circle",
+        info: "fas fa-info-circle",
+        warning: "fas fa-exclamation-circle",
+        error: "fas fa-exclamation-circle"
+      };
+      const icon = icons[type];
+      const delay = (duration / 1000).toFixed(2);
+  
+      toast.classList.add("toast", `toast--${type}`);
+      toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+  
+      toast.innerHTML = `
+        <div class="toast__icon">
+          <i class="${icon}"></i>
+        </div>
+        <div class="toast__body">
+          <h3 class="toast__title">${title}</h3>
+          <p class="toast__msg">${message}</p>
+        </div>
+        <div class="toast__close">
+          <i class="fas fa-times"></i>
+        </div>
+      `;
+      main.appendChild(toast);
+    }
+  }
+  
