@@ -615,7 +615,9 @@ btnPaymentSubmit.addEventListener("click", () => {
         localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
         showToast("success", "Đặt hàng thành công!");
         localStorage.removeItem("modalIsShow");
-        window.location.href = '/';
+        setTimeout(() => { 
+            window.location.href = '/';
+        }, 1000);
     }
     
 
