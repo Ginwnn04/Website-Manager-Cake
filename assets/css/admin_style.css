@@ -2500,7 +2500,9 @@ input[type="file"]{
     justify-content: center;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     gap: 5px;
+    align-items: center;
     margin-top: 20px;
 }
 .pagination button{
@@ -2539,12 +2541,52 @@ input[type="file"]{
     background-color: var(--orange);
     font-weight: bold;
 }
+.pagination .page-numbers span{
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-left: 4px;
+    margin-right: 4px;
+    background-color: var(--dark_grey);
+    color: #fff;
+}
 .gridView .pagination{
     display: flex;
     justify-content: center;
     align-items:flex-end;
     padding: 0px;
     width: 100%;
+}
+.goto-page {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.goto-page input {
+    width: 100px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+.goto-page input:focus{
+    border: 1px solid var(--black);
+}
+
+.goto-page button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--orange);
+    color: white;
+    cursor: pointer;
+}
+
+.goto-page button:hover {
+    background-color: var(--blue);
 }
 /* PRODUCT */
 /* CATEGORY */
@@ -2799,6 +2841,24 @@ input[type="file"]{
         height: auto;
         top: 65%;
         left: 58%;
+    }
+    .pagination{
+        justify-content: center;
+        align-items: center;
+    }
+    .pagination button{
+        padding: 5px 10px;
+        order:1;
+        flex-direction: row;
+    }
+    .pagination .page-numbers{
+        order: 4;
+    }
+    .pagination .page-numbers button{
+        order: 2;
+    }
+    .goto-page{
+        order: 3;
     }
 }
 /* CATEGORY */
