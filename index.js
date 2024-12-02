@@ -190,7 +190,7 @@ function renderProducts(productsToRender) {
 
 // Hàm mở form chi tiết sản phẩm
 function openProductDetail(index) {
-    const product = listProduct[index];
+    const product = listProductFilter[index];
     if (product.quantity === 0) { 
         showToast("error", "Sản phẩm đã hết hàng.");
         return;
