@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let listUser=JSON.parse(localStorage.getItem("listUser"))
 
     if (!userData) {
-        alert("Bạn chưa đăng nhập!");
+        showToast("warning", "Bạn chưa đăng nhập!");
         window.location.href = "index.html";
         return;
     }
@@ -172,7 +172,7 @@ document.getElementById("edit-btn").addEventListener("click", () => {
         localStorage.setItem("listUser", JSON.stringify(listUser));
         localStorage.setItem("userCurrent", JSON.stringify(userData));
 
-        alert("Thông tin đã được cập nhật!");
+        showToast("success", "Thông tin đã được cập nhật!");
 
         editButton.textContent = "Sửa";
     }
@@ -202,16 +202,16 @@ document.getElementById("edit-btn").addEventListener("click", () => {
         const street = document.getElementById("street").value;
 
         if (!name) {
-            alert("Tên không được để trống.");
+            showToast("error", "Tên không được để trống.");
             return false;
         }
         const phonePattern = /^[0-9]{10,15}$/;
         if (!phonePattern.test(phone)) {
-            alert("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+            showToast("error", "Số điện thoại không hợp lệ. Vui lòng nhập lại.");
             return false;
         }
         if (!provinceId || !districtId || !wardId || !street) {
-            alert("Vui lòng chọn đầy đủ thông tin địa chỉ.");
+            showToast("warning", "Vui lòng chọn đầy đủ thông tin địa chỉ.");
             return false;
         }
         return true;
@@ -267,31 +267,31 @@ if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePas
 
         
         if (!userData || !userData.password) {
-            alert("Không tìm thấy thông tin người dùng hiện tại!");
+            showToast("error", "Không tìm thấy thông tin người dùng hiện tại!");
             return;
         }
 
         
         if (currentPassword !== userData.password) {
-            alert("Mật khẩu hiện tại không chính xác!");
+            showToast("error", "Mật khẩu hiện tại không chính xác!");
             return;
         }
 
         
         if (newPassword === currentPassword) {
-            alert("Mật khẩu mới không được trùng với mật khẩu cũ!");
+            showToast("error", "Mật khẩu mới không được trùng với mật khẩu cũ!");
             return;
         }
 
         
         if (newPassword.length < 6) {
-            alert("Mật khẩu mới phải có ít nhất 6 ký tự!");
+            showToast("error", "Mật khẩu mới phải có ít nhất 6 ký tự!");
             return;
         }
 
         
         if (newPassword !== confirmPassword) {
-            alert("Mật khẩu mới và xác nhận mật khẩu không khớp!");
+            showToast("error", "Mật khẩu mới và xác nhận mật khẩu không khớp!");
             return;
         }
 
@@ -302,7 +302,7 @@ if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePas
         if (userIndex !== -1) {
             listUser[userIndex].password = newPassword;
         } else {
-            alert("Không tìm thấy người dùng trong danh sách!");
+            showToast("error", "Không tìm thấy người dùng trong danh sách!");
             return;
         }
 
@@ -313,7 +313,7 @@ if (changePasswordBtn && cancelChangePasswordBtn && savePasswordBtn && changePas
         
         changePasswordForm.style.display = "none";
         overlay.style.display = "none";
-        alert("Mật khẩu đã được thay đổi thành công!");
+        showToast("success", "Mật khẩu đã được thay đổi thành công!");
     });
 } else {
     console.error("Một hoặc nhiều phần tử không tồn tại trong DOM!");
@@ -391,3 +391,67 @@ function renderData(currentPage) {
                     </tr>`;
     }
 }
+function showToast(type, message) {
+    const title = type === 'success' ? "Thành công!" : "Thất bại!";
+    
+    // Trước khi hiển thị thông báo mới, xóa các thông báo cũ
+    const main = document.getElementById("toast");
+    if (main) {
+      // Xóa tất cả thông báo cũ
+      main.innerHTML = '';
+    }
+  
+    toast({
+      title: title,
+      message: message,
+      type: type,
+      duration: 5000
+    });
+  }
+  
+  function toast({ title = "", message = "", type = "info", duration = 3000 }) {
+    const main = document.getElementById("toast");
+    if (main) {
+      const toast = document.createElement("div");
+  
+      // Auto remove toast
+      const autoRemoveId = setTimeout(function () {
+        main.removeChild(toast);
+      }, duration + 1000);
+  
+      // Remove toast when clicked
+      toast.onclick = function (e) {
+        if (e.target.closest(".toast__close")) {
+          main.removeChild(toast);
+          clearTimeout(autoRemoveId);
+        }
+      };
+  
+      const icons = {
+        success: "fas fa-check-circle",
+        info: "fas fa-info-circle",
+        warning: "fas fa-exclamation-circle",
+        error: "fas fa-exclamation-circle"
+      };
+      const icon = icons[type];
+      const delay = (duration / 1000).toFixed(2);
+  
+      toast.classList.add("toast", `toast--${type}`);
+      toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+  
+      toast.innerHTML = `
+        <div class="toast__icon">
+          <i class="${icon}"></i>
+        </div>
+        <div class="toast__body">
+          <h3 class="toast__title">${title}</h3>
+          <p class="toast__msg">${message}</p>
+        </div>
+        <div class="toast__close">
+          <i class="fas fa-times"></i>
+        </div>
+      `;
+      main.appendChild(toast);
+    }
+  }
+  
