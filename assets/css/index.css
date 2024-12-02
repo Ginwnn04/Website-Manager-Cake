@@ -1529,6 +1529,9 @@ input[type="number"]::-webkit-inner-spin-button {
     .list-product .product-item {
         width: calc(100% / 3 - 10px);
     }
+    .footer_item {
+        width: calc(50% - 40px);
+    }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1199.98px) {
