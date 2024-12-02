@@ -281,6 +281,7 @@ input[type="text"]:disabled {
 input[type="text"]:enabled {
     border: 2px solid #ff7f00;
     box-shadow: 0 0 5px rgba(255, 127, 0, 0.5);
+    min-width: 120px;
 }
 
 
