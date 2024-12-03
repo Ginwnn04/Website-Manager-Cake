@@ -2585,7 +2585,8 @@ function deleteC(index){
   localStorage.setItem('listProduct',JSON.stringify(listProduct));
   showToast('success',"Loại sản phẩm đã bị xoá thành công!");
   updateCategoryOptions();
-  displayProducts(); 
+  listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
+  displayProducts(listProduct); 
   displayCategories();
 }
 Submit.addEventListener('blur',updateCategoryOptions);
