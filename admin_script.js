@@ -1,3 +1,8 @@
+
+
+let listDistrict1 = [];
+let listWard1 = [];
+
 const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 allSideMenu.forEach(item => {
     const li = item.parentElement;
@@ -58,10 +63,17 @@ function showAccountManager(event) {
     if (selectedItem === 'account') {
         AccountManager.style.display = 'block';
         showAccount();
+        const selectProvince = document.getElementById("province1");
+        txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
+        listProvince.forEach(province => {
+            txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
+        });
+        selectProvince.innerHTML = txtInner;
     } else {
         AccountManager.style.display = 'none';
     }
 }
+
 
 function showOrderManager(event) {
     const selectedItem = event.currentTarget.id;
@@ -125,8 +137,11 @@ function clearForm(){
   document.getElementById('username').value = '';
   document.getElementById('password').value = '';
   document.getElementById('phone').value = '';
-  document.getElementById('address').value = '';
+  document.getElementById('street').value = '';
   document.getElementById('role').value = '';
+  document.getElementById('province1').value = '';
+  document.getElementById('district1').value = '';
+  document.getElementById('ward1').value = '';
 }
 
 
@@ -146,8 +161,11 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
           let username = document.getElementById('username').value.trim();
           let password = document.getElementById('password').value.trim();
           let phone = document.getElementById('phone').value.trim();
-          let address = document.getElementById('address').value.trim();
+          let street = document.getElementById('street').value.trim();
           let role = document.getElementById('role').value.trim();
+          let provinceId = document.getElementById('province1').value.trim();
+          let districtId  = document.getElementById('district1').value.trim();
+          let wardId  = document.getElementById('ward1').value.trim();
 
           // Kiểm tra từng trường và focus vào trường đầu tiên bị thiếu
           if (!name) {
@@ -158,30 +176,106 @@ document.getElementById('accountForm').addEventListener('keydown', function(even
               document.getElementById('password').focus();
           } else if (!phone) {
               document.getElementById('phone').focus();
-          } else if (!address) {
-              document.getElementById('address').focus();
+          } else if (!street) {
+              document.getElementById('street').focus();
           } else if (!role) {
               document.getElementById('role').focus();
-          } else {
+          } else if (!provinceId) {
+            document.getElementById('province1').focus();
+          } else if (!districtId) {
+            document.getElementById('district1').focus();
+          } else if (!wardId) {
+            document.getElementById('ward1').focus();
+          }
+          else {
               addNewAccount();
+              
           }
       }
   }
 });
 
 
+// ------------------------------------------------- Địa chỉ -------------------------------------
 
+
+
+async function getDataDistrict1(idProvince) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listDistrict1 = [...data];
+      console.log(listDistrict1, idProvince);
+      renderDistrict1();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+async function getDataWard1(idDistrict) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=" + idDistrict;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listWard1 = [...data];
+      renderWard1();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+document.querySelector("#province1").addEventListener("change", () => {
+  const selectProvince = document.getElementById("province1");
+  getDataDistrict1(selectProvince.value);
+});
+
+function renderDistrict1() {
+  const selectProvince = document.getElementById("district1");
+  txtInner = `<option value="" disabled selected>Chọn huyện/quận</option>`;
+  listDistrict1.forEach(district => {
+      txtInner += `<option value="${district.idDistrict}">${district.name}</option>`;
+  });
+  selectProvince.innerHTML = txtInner;
+}
+
+document.querySelector("#district1").addEventListener("change", () => {
+  const selectDistrict = document.getElementById("district1");
+  getDataWard1(selectDistrict.value);
+});
+
+function renderWard1() {
+  const selectProvince = document.getElementById("ward1");
+  txtInner = `<option value="" disabled selected>Chọn phường/xã</option>`;
+  listWard1.forEach(district => {
+      txtInner += `<option value="${district.idCommune}">${district.name}</option>`;
+  });
+  selectProvince.innerHTML = txtInner;
+}
+
+
+
+
+
+// ---------------------------------------------------Tài Khoản ------------------------------------------
 function addNewAccount() {
   // Lấy giá trị từ các trường nhập liệu
   let name = document.getElementById('name').value.trim();
   let username = document.getElementById('username').value.trim();
   let password = document.getElementById('password').value.trim();
   let phone = document.getElementById('phone').value.trim();
-  let address = document.getElementById('address').value.trim();
+  let street = document.getElementById('street').value.trim();
   let role = document.getElementById('role').value.trim();
-
+  let provinceId = document.getElementById('province1').value.trim();
+  let districtId  = document.getElementById('district1').value.trim();
+  let wardId  = document.getElementById('ward1').value.trim();
   // Kiểm tra các trường bắt buộc
-  if (!name || !username || !password || !phone || !address || !role) {
+  if (!name || !username || !password || !phone || !street || !role || !provinceId || !districtId || !wardId) {
     showToast('error', 'Vui lòng nhập đầy đủ thông tin !');
 
     return;
@@ -217,12 +311,12 @@ function addNewAccount() {
     gmail: username,
     password: password,
     phone: phone,
-    address: address,
+    street: street,
     role: role,
     cart: [],           // Thêm thuộc tính cart mặc định
-    districtId: "",     // Thêm districtId mặc định
-    wardId: "",         // Thêm wardId mặc định
-    provinceId: "",     // Thêm provinceId mặc định
+    districtId: districtId,     // Thêm districtId mặc định
+    wardId: wardId,         // Thêm wardId mặc định
+    provinceId: provinceId,     // Thêm provinceId mặc định
     status: "1"         // Trạng thái mặc định
   });
 
@@ -238,78 +332,6 @@ function addNewAccount() {
 
   // Hiển thị danh sách tài khoản
   showAccount(listAccount);
-}
-async function getDataDistrict(idProvince) {
-  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
-  try {
-      const response = await fetch(url);
-      if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-      }
-      const data = await response.json();
-      listDistrict = [...data];
-      renderDistrict();
-  } catch (error) {
-      console.error(error.message);
-  }
-}
-
-
-async function getDataDistrict(idProvince) {
-  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
-  try {
-      const response = await fetch(url);
-      if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-      }
-      const data = await response.json();
-      listDistrict = [...data];
-      renderDistrict();
-  } catch (error) {
-      console.error(error.message);
-  }
-}
-
-async function getDataWard(idDistrict) {
-  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=" + idDistrict;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-      const data = await response.json();
-      listWard = [...data];
-      renderWard();        
-  } catch (error) {
-    console.error(error.message);
-  }
-}
-function renderProvince() {
-  loadDataProvince(); // Hàm này bạn cần định nghĩa để lấy danh sách tỉnh.
-  const selectProvince = document.getElementById("province");
-  let txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
-  listProvince.forEach(province => {
-      txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
-  });
-  selectProvince.innerHTML = txtInner;
-}
-
-function renderDistrict() {
-  const selectDistrict = document.getElementById("district");
-  let txtInner = `<option value="" disabled selected>Chọn quận/huyện</option>`;
-  listDistrict.forEach(district => {
-      txtInner += `<option value="${district.idDistrict}">${district.name}</option>`;
-  });
-  selectDistrict.innerHTML = txtInner;
-}
-
-function renderWard() {
-  const selectWard = document.getElementById("ward");
-  let txtInner = `<option value="" disabled selected>Chọn phường/xã</option>`;
-  listWard.forEach(ward => {
-      txtInner += `<option value="${ward.idCommune}">${ward.name}</option>`;
-  });
-  selectWard.innerHTML = txtInner;
 }
 
 
@@ -436,21 +458,41 @@ function toggleStatus(index) {
 
 
 
-function editAccount (index){
-  
+async function editAccount(index) {
   let listAccount = localStorage.getItem("listUser") ? JSON.parse(localStorage.getItem("listUser")) : [];
-  document.getElementById('name').value=listAccount[index].fullName;
-  document.getElementById('username').value=listAccount[index].gmail;
-  document.getElementById('password').value=listAccount[index].password;
-  document.getElementById('phone').value=listAccount[index].phone;
-  document.getElementById('address').value=listAccount[index].address;
-  document.getElementById('role').value=listAccount[index].role;
-  document.getElementById('index').value=index;
+
+  // Gán các giá trị cơ bản
+  document.getElementById('name').value = listAccount[index].fullName;
+  document.getElementById('username').value = listAccount[index].gmail;
+  document.getElementById('password').value = listAccount[index].password;
+  document.getElementById('phone').value = listAccount[index].phone;
+  document.getElementById('street').value = listAccount[index].street;
+  document.getElementById('role').value = listAccount[index].role;
+  document.getElementById('province1').value = listAccount[index].provinceId;
+
+  // Lấy mã tỉnh, huyện, xã từ tài khoản
+  const provinceId = listAccount[index].provinceId;
+  const districtId = listAccount[index].districtId;
+  const wardId = listAccount[index].wardId;
+
+  // Gọi API để lấy danh sách quận/huyện
+  await getDataDistrict1(provinceId);
+
+  // Gán giá trị quận/huyện và gọi API lấy danh sách xã
+  document.getElementById('district1').value = districtId;
+  await getDataWard1(districtId);
+
+  // Gán giá trị xã
+  document.getElementById('ward1').value = wardId;
+
+  // Hiển thị form chỉnh sửa
+  document.getElementById('index').value = index;
   showForm();
-  document.getElementById('save_account').style.display='none';
-  document.getElementById('reset_account').style.display='none';
-  document.getElementById('update_account').style.display='inline-block';
+  document.getElementById('save_account').style.display = 'none';
+  document.getElementById('reset_account').style.display = 'none';
+  document.getElementById('update_account').style.display = 'inline-block';
 }
+
 
 function changeAccount() {
   // Lấy danh sách tài khoản từ localStorage
@@ -458,15 +500,26 @@ function changeAccount() {
 
   // Lấy chỉ số tài khoản đang chỉnh sửa
   let index = document.getElementById('index').value;
-
+  const provinceComponent = document.getElementById("province1");
+  const districtComponent = document.getElementById("district1");
+  const wardComponent = document.getElementById("ward1");
+  const address = [];
+    address.push(document.getElementById("street").value);
+    address.push(wardComponent[wardComponent.selectedIndex].textContent);
+    address.push(districtComponent[districtComponent.selectedIndex].textContent);
+    address.push(provinceComponent[provinceComponent.selectedIndex].textContent);
   // Lấy thông tin hiện tại từ biểu mẫu
   let updatedAccount = {
     fullName: document.getElementById('name').value.trim(),
     gmail: document.getElementById('username').value.trim(),
     password: document.getElementById('password').value.trim(),
     phone: document.getElementById('phone').value.trim(),
-    address: document.getElementById('address').value.trim(),
-    role: document.getElementById('role').value.trim()
+    street: document.getElementById('street').value.trim(),
+    role: document.getElementById('role').value.trim(),
+    address: address.join(", "),
+    provinceId: document.getElementById('province1').value,
+    districtId: document.getElementById('district1').value,
+    wardId: document.getElementById('ward1').value
   };
 
   // Xóa các trường rỗng (nếu có)
@@ -514,16 +567,13 @@ function showDetailAccount(index) {
     // Lấy thông tin tài khoản
     const account = listAccount[index];
 
-    // Kiểm tra vai trò và hiển thị giá trị phù hợp
-    let roleText = account.role === "Admin" ? "Người quản trị" : "Khách hàng";
-
-    // Gán giá trị vào các phần tử <p>
     document.getElementById("detail_name").innerHTML = "Tên: " + account.fullName;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.gmail;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
     document.getElementById("detail_phone").innerHTML = "Số điện thoại: " + account.phone;
-    document.getElementById("detail_address").innerHTML = "Địa chỉ: " + account.address;
-    document.getElementById("detail_role").innerHTML = "Role: " + roleText;
+    document.getElementById("detail_street").innerHTML = "Địa chỉ: " + account.address;    
+
+
 
     // Hiển thị phần chi tiết tài khoản
     document.getElementById("detail_account").style.display = "flex";

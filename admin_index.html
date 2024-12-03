@@ -475,34 +475,32 @@
                                     <input type="text" id="username" placeholder="Tài khoản" class="form_input" required>
                                     <input type="text" id="password" placeholder="Mật khẩu" class="form_input" required>
                                     <input type="number" id="phone" placeholder="Số điện thoại" class="form_input" required>
-                                    <input type="text" id="address" placeholder="Địa chỉ" class="form_input" required>
+                                    <input type="text" id="street" placeholder="Địa chỉ" class="form_input" required>
                                     <input type="hidden" id="index">
                                     
-                                    <!-- Thêm chọn tỉnh -->
-                                    <select id="province" required onchange="getDataDistrict(this.value)">
-                                        <option value="" disabled selected>Chọn tỉnh/thành phố</option>
+                                    <select id="province1" required >
+                                      <option value="" disabled selected>Chọn tỉnh/thành phố</option>
                                     </select>
                                     
-                                    <!-- Thêm chọn huyện -->
-                                    <select id="district" required onchange="getDataWard(this.value)">
-                                        <option value="" disabled selected>Chọn quận/huyện</option>
+                                    <select id="district1" required >
+                                      <option value="" disabled selected>Chọn quận/huyện</option>
                                     </select>
                                     
-                                    <!-- Thêm chọn xã -->
-                                    <select id="ward" required>
-                                        <option value="" disabled selected>Chọn phường/xã</option>
+                                    <select id="ward1" required>
+                                      <option value="" disabled selected>Chọn phường/xã</option>
                                     </select>
-                                
+                                  
                                     <select id="role" required>
-                                        <option value="" disabled selected>Chọn vai trò</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="User">Khách hàng</option>
+                                      <option value="" disabled selected>Chọn vai trò</option>
+                                      <option value="Admin">Admin</option>
+                                      <option value="User">Khách hàng</option>
                                     </select>
-                                
+                                    
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu </button>
                                     <button type="reset" id="reset_account">Nhập lại</button>
                                     <button id="update_account" onclick="changeAccount()">Cập nhật tài khoản</button>
-                                </form>
+                                  </form>
+                                  
                                 
                             </div>
                         </div>
@@ -535,8 +533,13 @@
                                     <p id="detail_username"></p>
                                     <p id="detail_password"></p>
                                     <p id="detail_phone"></p>
-                                    <p id="detail_address"></p>
+                                    <p id="detail_street"></p>
                                     <p id="detail_role"></p>
+                                    <p id="detail_province"></p>
+                                    <p id="detail_district"></p>
+                                    <p id="detail_ward"></p>
+
+
                                 </div>
                             </div>
                         </div>
