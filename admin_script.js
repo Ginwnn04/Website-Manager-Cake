@@ -2492,12 +2492,16 @@ document.getElementById('openCategoryForm').addEventListener('click',toggleAddCa
 document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
 Submit.addEventListener('click', function (event) {
   event.preventDefault();
-
   const Categoryname = document.getElementById('categoryName').value.trim();
   const Categorydescription = document.getElementById('categoryDescription').value.trim();
-
+  if((Categoryname !== "Bánh kem") && (Categoryname !== "Bánh mì que") && (Categoryname !== "Bánh lạnh") && (Categoryname !== "Bánh nướng") && (Categoryname !== "Bánh quy")){
+    showToast('error',"Không thể nhập loại bánh khác ngoại trừ các loại bánh sau: Bánh kem, Bánh mì que, Bánh lạnh, Bánh nướng, Bánh quy! Vui lòng nhập lại!");
+    document.getElementById('categoryName').focus();
+      return;
+  }
   // Kiểm tra nếu đang chỉnh sửa một loại sản phẩm
   if (editCategoryIndex !== null) {
+    
       const oldCategoryName = categories[editCategoryIndex].name; // Lưu lại tên loại cũ
 
       // Cập nhật thông tin loại sản phẩm
@@ -2517,7 +2521,7 @@ Submit.addEventListener('click', function (event) {
       localStorage.setItem('categories', JSON.stringify(categories));
 
       showToast('success', "Loại sản phẩm đã được cập nhật và các sản phẩm liên quan cũng đã được thay đổi!");
-  } else {
+  }
       // Xử lý thêm mới loại sản phẩm
       if (categories.some((c, i) => c.name === Categoryname && i !== editProductIndex)) {
           showToast('error', "Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
@@ -2542,7 +2546,6 @@ Submit.addEventListener('click', function (event) {
       localStorage.setItem('categories', JSON.stringify(categories));
 
       showToast('success', "Đã thêm thành công!");
-  }
   formC.reset();
   formC.style.display='none';
   // Cập nhật giao diện sau khi thay đổi
