@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Icon -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
     <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/admin_style.css">
     <title>AdminHub</title>
@@ -53,7 +55,7 @@
             <li>
                 <a href="#order_manager" id="order">
                     <i class='bx bx-package'></i>
-                    <span class="text">Quản Lý Đơn Hàng</span>
+                    <span class="text">Quản Lí Đơn Hàng</span>
                 </a>
             </li>
         </ul>
@@ -230,8 +232,8 @@
                                     <div class="page-numbers">
                                     </div>
                                     <button id="nextPageBtn"> > </button>
-                                    <button id="lastPageBtn"> >> </button>                   
-                    
+                                    <button id="lastPageBtn"> >> </button>
+
                 </div>
                 <div class="goto-page">
                     <input type="number" id="gotoPageInput" placeholder="Page" min="1" />
@@ -384,7 +386,7 @@
                                 <tbody></tbody>
                             </table>
                         </div>
-                        
+
                         <div id="rank_sell">
                             <div id="best_seller">
 
@@ -471,37 +473,40 @@
                                 <i class='bx bx-x' onclick="hideForm() "></i>
                                 <h2>Thêm tài khoản</h2>
                                 <form id="accountForm">
-                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input" required>
-                                    <input type="text" id="username" placeholder="Tài khoản" class="form_input" required>
+                                    <input type="text" id="name" placeholder="Tên người dùng" class="form_input"
+                                        required>
+                                    <input type="text" id="username" placeholder="Tài khoản" class="form_input"
+                                        required>
                                     <input type="text" id="password" placeholder="Mật khẩu" class="form_input" required>
-                                    <input type="number" id="phone" placeholder="Số điện thoại" class="form_input" required>
+                                    <input type="number" id="phone" placeholder="Số điện thoại" class="form_input"
+                                        required>
                                     <input type="text" id="street" placeholder="Địa chỉ" class="form_input" required>
                                     <input type="hidden" id="index">
-                                    
-                                    <select id="province1" required >
-                                      <option value="" disabled selected>Chọn tỉnh/thành phố</option>
+
+                                    <select id="province1" required>
+                                        <option value="" disabled selected>Chọn tỉnh/thành phố</option>
                                     </select>
-                                    
-                                    <select id="district1" required >
-                                      <option value="" disabled selected>Chọn quận/huyện</option>
+
+                                    <select id="district1" required>
+                                        <option value="" disabled selected>Chọn quận/huyện</option>
                                     </select>
-                                    
+
                                     <select id="ward1" required>
-                                      <option value="" disabled selected>Chọn phường/xã</option>
+                                        <option value="" disabled selected>Chọn phường/xã</option>
                                     </select>
-                                  
+
                                     <select id="role" required>
-                                      <option value="" disabled selected>Chọn vai trò</option>
-                                      <option value="Admin">Admin</option>
-                                      <option value="User">Khách hàng</option>
+                                        <option value="" disabled selected>Chọn vai trò</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">Khách hàng</option>
                                     </select>
-                                    
+
                                     <button type="submit" onclick="addNewAccount()" id="save_account">Lưu </button>
                                     <button type="reset" id="reset_account">Nhập lại</button>
                                     <button id="update_account" onclick="changeAccount()">Cập nhật tài khoản</button>
-                                  </form>
-                                  
-                                
+                                </form>
+
+
                             </div>
                         </div>
                         <div class="info_account">

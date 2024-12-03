@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="./assets/css/payment.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <title>Payment</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
 </head>
 
 <body>
@@ -36,8 +38,8 @@
                     <i class="fa-solid fa-exclamation" style="font-size: 10px;"></i>
                 </div>
                 <div id="message">
-                    Đơn hàng của bạn đã thanh toán thành công và hiện đang được xử lý. Chúng tôi sẽ thông báo khi đơn
-                    hàng được giao hoặc có bất kỳ cập nhật nào.
+                    Đơn hàng của bạn đã thanh toán thành công và hiện đang được xử lý.
+                    <span>Xem chi tiết đơn hàng</span>
                 </div>
             </span>
             <span>Nếu cần hỗ trợ, vui lòng liên hệ [0399999999] hoặc [shopbanhtop1vn@gmail.com].</span>
@@ -47,7 +49,12 @@
             <button id="back">Quay lại</button>
         </div>
     </div>
-
+    <!-- Modal xem chi tiết đơn hàng -->
+    <div id="orderDetailModal" onclick="closeModal('orderDetailModal')">
+        <div class="modal-content">
+            <div id="orderDetailContent"></div>
+        </div>
+    </div>
     <script src="./data.js"></script>
     <script src="./payment.js"></script>
 </body>

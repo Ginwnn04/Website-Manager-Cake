@@ -566,13 +566,13 @@ function showDetailAccount(index) {
   if (listAccount && listAccount.length > 0 && listAccount[index]) {
     // Lấy thông tin tài khoản
     const account = listAccount[index];
-
+    let roleText = account.role === "Admin" ? "Người quản trị" : "Khách hàng";
     document.getElementById("detail_name").innerHTML = "Tên: " + account.fullName;
     document.getElementById("detail_username").innerHTML = "Tài Khoản: " + account.gmail;
     document.getElementById("detail_password").innerHTML = "Mật khẩu: " + account.password;
     document.getElementById("detail_phone").innerHTML = "Số điện thoại: " + account.phone;
     document.getElementById("detail_street").innerHTML = "Địa chỉ: " + account.address;    
-
+    document.getElementById("detail_role").innerHTML = "Vai trò: " + roleText;
 
 
     // Hiển thị phần chi tiết tài khoản
