@@ -106,6 +106,7 @@
                         <th>Tổng tiền</th>
                         <th>Ngày đặt</th>
                         <th>Trạng thái</th>
+                        <th>Huỷ đơn hàng</th>
                     </tr>
 
                 </thead>
@@ -119,7 +120,16 @@
             </div>
         </section>
     </div>
+
+
+    <!-- Modal xem chi tiết đơn hàng -->
+    <div id="orderDetailModal" onclick="closeModal('orderDetailModal')">
+        <div class="modal-content">
+            <div id="orderDetailContent"></div>
+        </div>
+    </div>
     <script src="profile.js"></script>
+    <script src="./util.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
+let currentPage = 1;
 document.addEventListener("DOMContentLoaded", () => {
-    
     let userData = JSON.parse(localStorage.getItem("userCurrent"));
     let listUser=JSON.parse(localStorage.getItem("listUser"))
 
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const district = document.getElementById("district").options[document.getElementById("district").selectedIndex]?.text || "";
         const ward = document.getElementById("ward").options[document.getElementById("ward").selectedIndex]?.text || "";
     
-        const addressSummary = `${province}, ${district}, ${ward}, ${street}`.replace(/, ,/g, ',').trim();
+        const addressSummary = `${street}, ${ward}, ${district}, ${province}`.replace(/, ,/g, ',').trim();
         document.getElementById("address-summary").value = addressSummary || "Chưa cập nhật";
     
         // Lưu địa chỉ vào userCurrent
@@ -372,7 +372,7 @@ function renderButtonPage(myOrder) {
 }
 
 function loadPage(obj) {
-    const currentPage = parseInt(obj.textContent);
+    currentPage = parseInt(obj.textContent);
     renderData(currentPage);
 }
 
@@ -386,12 +386,111 @@ function renderData(currentPage) {
     for (let i = start; i < end; i++) {
         document.querySelector('tbody').innerHTML += `<tr>
                         <td>${myOrder[i].id}</td>
-                        <td>${myOrder[i].total}</td>
+                        <td>${formatMoney(myOrder[i].total)}</td>
                         <td>${myOrder[i].timeCreate}</td>
                         <td>${myOrder[i].status}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewDetailOrder(${myOrder[i].id})">Xem</button>
+                            <button class="btn btn-primary" onclick="cancelOrder(${myOrder[i].id})">Huỷ</button>
+                        </td>
+                        
                     </tr>`;
     }
 }
+
+
+function viewDetailOrder(orderId) {
+    myOrder.forEach(order => {   
+        if (order.id == orderId) {
+            const orderDetailContent = document.getElementById("orderDetailContent");
+
+    // Lặp qua từng sản phẩm để tạo hàng bảng
+    let productRows = order.detailsOrder.map(item => `
+        <tr>
+            <td>${item.name}</td>
+            <td>x${item.quantity}</td>
+            <td>${formatMoney(item.price)}</td>
+        </tr>
+    `).join('');
+
+    // Hiển thị chi tiết đơn hàng
+    orderDetailContent.innerHTML = `
+      <button onclick="closeModal('orderDetailModal')" class="closeDetail">Đóng</button>
+      <h2>Chi tiết đơn hàng</h2>
+      <div class="boxDetail">
+        <div class="boxDetailContent1">
+            <p><strong>Mã đơn:</strong> ${order.id}</p>
+        </div>
+        <div class="boxDetailContent1">
+            <p><strong>Tài khoản:</strong> ${order.gmail}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>Người nhận:</strong> ${order.name}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>SĐT:</strong> ${order.phone}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)}</p>
+        </div>
+      </div>
+      <p><strong>Địa chỉ:</strong> ${order.address}</p>
+      <p><strong>Tình trạng ${order.status}</strong> 
+      </p>
+      <div class="tableOrder">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Tên SP</th>
+                      <th>SL</th>
+                      <th>Giá tiền</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${productRows}
+              </tbody>
+          </table>
+      </div>
+    `;
+
+    // Mở modal
+    document.getElementById("orderDetailModal").style.display = "flex";
+        }
+    });
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+
+function cancelOrder(orderId) {
+    myOrder.forEach(order => { 
+        if (order.id == orderId) {
+            if (order.status === "Chưa xử lý") {
+                order.status = "Đã huỷ";
+                localStorage.setItem('listOrder', JSON.stringify(myOrder));
+                renderData(currentPage);
+                showToast("success", "Huỷ đơn hàng thành công!");
+                return;
+            }
+            else if (order.status === "Đã huỷ") {
+                showToast("error", "Đơn hàng đã huỷ!");
+                return;
+            }
+            else {
+                showToast("error", "Không thể huỷ đơn hàng đã xử lý!");
+                return;
+            }
+        }
+    });
+
+}
+
+
 function showToast(type, message) {
     const title = type === 'success' ? "Thành công!" : "Thất bại!";
     

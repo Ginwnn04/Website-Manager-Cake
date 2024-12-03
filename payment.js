@@ -1,14 +1,5 @@
 window.onload = test();
-window.onload = authenticate();
 
-
-
-
-function authenticate() {
-  if (localStorage.getItem('modalIsShow') === null) {
-    window.location.href = '/';
-  }
-}
 
 
 function test() {
@@ -35,17 +26,12 @@ function test() {
     console.log(isSuccess);
     if (isSuccess) {
 
-        userCurrent.cart.forEach(product => {
-            const findProduct = listProduct.find(item => item.name === product.name);
-            findProduct.quantity -= product.quantity;
-        });
-        localStorage.setItem(LIST_PRODUCT, JSON.stringify(listProduct));
-
         document.getElementById('title').innerHTML = 'Giao dịch thành công';
         const order = JSON.parse(localStorage.getItem("order"));
         const userCurrent = JSON.parse(localStorage.getItem(USER_LOGIN));
         const listOrder = localStorage.getItem(LIST_ORDER) ? JSON.parse(localStorage.getItem(LIST_ORDER)) : [];
-        const nextOrderId = localStorage.getItem(NEXT_ID);
+      const nextOrderId = localStorage.getItem(NEXT_ID);
+      order.paid = true;
         localStorage.setItem(NEXT_ID, parseInt(nextOrderId) + 1);
         listOrder.push(order);
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));

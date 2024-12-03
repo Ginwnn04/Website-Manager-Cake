@@ -1,3 +1,14 @@
+
+:root {
+    --primary-color: #ff7f00;
+    --background-color: #fdfdfd;
+    --black-color: #090909;
+    --white-color: #fff;
+    --grey-color: #5c6370;
+}
+
+
+
 body {
     font-family: "Roboto", sans-serif;
     margin: 0;
@@ -6,6 +17,18 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
+}
+
+
+.btn-primary {
+    font-family: "Roboto", sans-serif;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 /* Sidebar bên trái */
@@ -334,7 +357,7 @@ input[type="text"]:enabled {
 
 
 /* Responsive Design */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.98px) {
     body {
         flex-direction: column;
         height: auto; /* Cho phép chiều cao linh hoạt */
@@ -403,6 +426,9 @@ input[type="text"]:enabled {
         flex-direction: column;
         gap: 5px;
     }
+    .btn-primary:first-child {
+        margin-bottom: 10px;
+    }
 }
 @media screen and (min-width: 768px) and (max-width: 1023.98px) {
     .edit-btn, .change-password-btn {
@@ -415,7 +441,11 @@ input[type="text"]:enabled {
     }
     .change-password-btn {
         margin-bottom: 10px;
-    }    
+    }   
+    
+    .btn-primary:first-child {
+        margin-bottom: 10px;
+    }
 }
 
 #toast {
@@ -523,3 +553,148 @@ input[type="text"]:enabled {
     cursor: pointer;
   }
   
+
+
+
+
+  /* Modal chi tiết đơn hàng */
+#orderDetailModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--white-color);
+    padding: 5px;
+    border-radius: 5px;
+    max-width: 600px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-content button.closeDetail {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+}
+
+
+.modal-content button.closeDetail:hover {
+    color: var(--action-color-hover);
+}
+
+.modal-content h2{
+    text-align: center;
+    color: var(--orange);
+    padding: 10px;
+}
+.modal-content p{
+    
+    padding: 5px;
+}
+.modal-content .tableOrder {
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+.modal-content table{
+    width: 98%;
+    border-collapse: collapse;
+    border: 1px solid;
+}
+.modal-content table th,td{
+    text-align: left;
+    padding: 5px;
+}
+.modal-content table thead{
+    border-bottom: 1px solid;
+    position: sticky;
+    top: 0; 
+    background-color: var(--grey); 
+    z-index: 1; 
+}
+.modal-content table thead th:nth-child(1),
+.modal-content table tbody td:nth-child(1) {
+    width: 75%;
+}
+.modal-content table thead th:nth-child(2),
+.modal-content table tbody td:nth-child(2) {
+    width: 5%;
+}
+.modal-content table thead th:nth-child(3),
+.modal-content table tbody td:nth-child(3) {
+    width: 20%;
+}
+.modal-content table tbody tr:hover{
+    background-color: var(--grey);
+}
+.modal-content #statusSelect{
+    padding: 5px;
+}
+.boxDetail{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.boxDetailContent1, .boxDetailContent2, .boxDetailContent3{
+    width: calc(50% - 0px);
+}
+
+.product-item-detail {
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: center;  
+    gap: 10px;  
+}
+
+.product-item {
+    display: flex;
+    justify-content: center; 
+    border: 1px solid ; 
+}
+
+.product-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    text-align: center; 
+}
+
+#pagination .page-btn {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--orange);
+    transition: background-color 0.3s;
+}
+
+#pagination .page-btn:hover {
+    background-color: var(--action-color-hover);
+    color: var(--light);
+}
+
+#pagination .page-btn.active {
+    background-color: var(--action-color);
+    color: var(--light);
+}

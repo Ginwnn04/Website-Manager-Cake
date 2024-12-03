@@ -1667,7 +1667,7 @@ function viewOrderDetails(id) {
             <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
         </div>
         <div class="boxDetailContent3">
-            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)} Đ</p>
+            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)}</p>
         </div>
       </div>
       <p><strong>Địa chỉ:</strong> ${order.address}</p>
@@ -1839,6 +1839,8 @@ const categoryOptionFilter = document.getElementById('productCategoryFilter');
 let categories= [];
 let listProduct =  [];
 let editProductIndex = null; 
+let filteredProducts=[];
+let isFiltering = false;
 const fileLabel = document.getElementById('fileNameLabel');
 function toggleAddProductForm() {
   formTitleP.textContent='Thêm sản phẩm';
@@ -2017,7 +2019,7 @@ function saveProduct(productData) {
     editProductIndex = null;
   } else {
     listProduct.unshift(productData);
-    showToast('succuss',"Sản phẩm đã được thêm!");
+    showToast('success',"Sản phẩm đã được thêm!");
   }
   localStorage.setItem('listProduct', JSON.stringify(listProduct));
   cancelProduct();
@@ -2047,7 +2049,13 @@ editButton.style.display = 'none';
 
 function editP(index) {
   editProductIndex = index;
-  const product = listProduct[index];
+  let product;
+  if(isFiltering === true){
+    product = filteredProducts[index];
+  }
+  if(isFiltering === false){
+    product = listProduct[index];
+  }
   formP.style.display = 'block';
   formTitleP.textContent = 'Xem sản phẩm'; 
   document.getElementById('productName').value = product.name;
@@ -2061,6 +2069,7 @@ function editP(index) {
     preview.style.display = 'block';
     removeImageBtn.disabled=true;
   } else {
+    removeImageBtn.disabled=true;
     preview.src=img.src;
     preview.style.display = 'block';
   }
@@ -2239,7 +2248,7 @@ function updatePaginationDisplay(listProduct) {
   const pageButtonsContainer = document.querySelector('.page-numbers');
   pageButtonsContainer.innerHTML = ''; // Xóa các nút phân trang cũ
 
-  // Luôn hiển thị nút cho trang đầu tiên
+  if(listProduct.length>0)
   createPaginationButton(1, pageButtonsContainer);
   // Hiển thị các nút ở giữa nếu cần
   if (currentPageP > 4) {
@@ -2314,8 +2323,7 @@ function sortProduct(attribute) {
   localStorage.setItem('listProduct', JSON.stringify(listProduct));
   displayProducts(listProduct);
 }
-let filteredProducts=[];
-let isFiltering = false;
+
 function navigateToPageforFilter(action,filteredProducts) {
   const totalPages = Math.ceil(filteredProducts.length / maxIndex);
   if (action === 'first') currentPageP = 1;
@@ -2344,7 +2352,8 @@ function updatePaginationDisplayforFilter(filteredProducts) {
   pageButtonsContainer.innerHTML = ''; // Xóa các nút phân trang cũ
 
   // Luôn hiển thị nút cho trang đầu tiên
-  createPaginationButtonforfilter(1, pageButtonsContainer);
+  if(filteredProducts.length>0)
+    createPaginationButtonforfilter(1, pageButtonsContainer);
   // Hiển thị các nút ở giữa nếu cần
   if (currentPageP > 4) {
       // Nếu cách xa trang đầu tiên, thêm dấu "..."
@@ -2379,7 +2388,7 @@ function gotoPage() {
   const pageNumber = parseInt(input.value, 10); // Chuyển giá trị input sang số nguyên
 
   // Xác định nguồn dữ liệu dựa trên trạng thái của `filteredProducts`
-  const dataSource = (isFiltering===true && filteredProducts.length > 0) ? filteredProducts : listProduct;
+  const dataSource = (isFiltering===true) ? filteredProducts : listProduct;
   const totalPages = Math.ceil(dataSource.length / maxIndex); // Tính tổng số trang từ nguồn
 
   // Kiểm tra và điều hướng trang
@@ -2605,12 +2614,16 @@ document.getElementById('openCategoryForm').addEventListener('click',toggleAddCa
 document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
 Submit.addEventListener('click', function (event) {
   event.preventDefault();
-
   const Categoryname = document.getElementById('categoryName').value.trim();
   const Categorydescription = document.getElementById('categoryDescription').value.trim();
-
+  if((Categoryname !== "Bánh kem") && (Categoryname !== "Bánh mì que") && (Categoryname !== "Bánh lạnh") && (Categoryname !== "Bánh nướng") && (Categoryname !== "Bánh quy")){
+    showToast('error',"Không thể nhập loại bánh khác ngoại trừ các loại bánh sau: Bánh kem, Bánh mì que, Bánh lạnh, Bánh nướng, Bánh quy! Vui lòng nhập lại!");
+    document.getElementById('categoryName').focus();
+      return;
+  }
   // Kiểm tra nếu đang chỉnh sửa một loại sản phẩm
   if (editCategoryIndex !== null) {
+    
       const oldCategoryName = categories[editCategoryIndex].name; // Lưu lại tên loại cũ
 
       // Cập nhật thông tin loại sản phẩm
@@ -2630,7 +2643,7 @@ Submit.addEventListener('click', function (event) {
       localStorage.setItem('categories', JSON.stringify(categories));
 
       showToast('success', "Loại sản phẩm đã được cập nhật và các sản phẩm liên quan cũng đã được thay đổi!");
-  } else {
+  }
       // Xử lý thêm mới loại sản phẩm
       if (categories.some((c, i) => c.name === Categoryname && i !== editProductIndex)) {
           showToast('error', "Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
@@ -2655,7 +2668,6 @@ Submit.addEventListener('click', function (event) {
       localStorage.setItem('categories', JSON.stringify(categories));
 
       showToast('success', "Đã thêm thành công!");
-  }
   formC.reset();
   formC.style.display='none';
   // Cập nhật giao diện sau khi thay đổi
