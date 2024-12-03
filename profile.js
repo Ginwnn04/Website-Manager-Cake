@@ -358,6 +358,7 @@ function myListOrder() {
 
 
 function renderButtonPage(myOrder) {
+    document.querySelector('.group-btn').innerHTML = "";
     totalPage = Math.ceil(myOrder.length / 10);
     console.log(myOrder.length, totalPage);
     for (let i = 1; i <= totalPage; i++) {
