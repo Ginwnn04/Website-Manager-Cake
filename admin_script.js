@@ -239,6 +239,78 @@ function addNewAccount() {
   // Hiển thị danh sách tài khoản
   showAccount(listAccount);
 }
+async function getDataDistrict(idProvince) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+      }
+      const data = await response.json();
+      listDistrict = [...data];
+      renderDistrict();
+  } catch (error) {
+      console.error(error.message);
+  }
+}
+
+
+async function getDataDistrict(idProvince) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+      }
+      const data = await response.json();
+      listDistrict = [...data];
+      renderDistrict();
+  } catch (error) {
+      console.error(error.message);
+  }
+}
+
+async function getDataWard(idDistrict) {
+  const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/commune?idDistrict=" + idDistrict;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+      const data = await response.json();
+      listWard = [...data];
+      renderWard();        
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+function renderProvince() {
+  loadDataProvince(); // Hàm này bạn cần định nghĩa để lấy danh sách tỉnh.
+  const selectProvince = document.getElementById("province");
+  let txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
+  listProvince.forEach(province => {
+      txtInner += `<option value="${province.idProvince}">${province.name}</option>`;
+  });
+  selectProvince.innerHTML = txtInner;
+}
+
+function renderDistrict() {
+  const selectDistrict = document.getElementById("district");
+  let txtInner = `<option value="" disabled selected>Chọn quận/huyện</option>`;
+  listDistrict.forEach(district => {
+      txtInner += `<option value="${district.idDistrict}">${district.name}</option>`;
+  });
+  selectDistrict.innerHTML = txtInner;
+}
+
+function renderWard() {
+  const selectWard = document.getElementById("ward");
+  let txtInner = `<option value="" disabled selected>Chọn phường/xã</option>`;
+  listWard.forEach(ward => {
+      txtInner += `<option value="${ward.idCommune}">${ward.name}</option>`;
+  });
+  selectWard.innerHTML = txtInner;
+}
 
 
 
