@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const district = document.getElementById("district").options[document.getElementById("district").selectedIndex]?.text || "";
         const ward = document.getElementById("ward").options[document.getElementById("ward").selectedIndex]?.text || "";
     
-        const addressSummary = `${province}, ${district}, ${ward}, ${street}`.replace(/, ,/g, ',').trim();
+        const addressSummary = `${street}, ${ward}, ${district}, ${province}`.replace(/, ,/g, ',').trim();
         document.getElementById("address-summary").value = addressSummary || "Chưa cập nhật";
     
         // Lưu địa chỉ vào userCurrent

@@ -195,7 +195,7 @@ function openProductDetail(index) {
             </div>
             <div class="product-detail-right">
                 <h2 id="product-name">${product.name}</h2>
-                <p class="product-price" id="product-price">Giá: ${product.price}</p>
+                <p class="product-price" id="product-price">Giá: ${formatMoney(product.price)}</p>
                 <p id="product-description">${product.description}</p>
                 <label for="note">Ghi chú:</label>
                 <textarea id="note" placeholder="Ghi chú cho đơn hàng..."></textarea>
