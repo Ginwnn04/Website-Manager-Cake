@@ -14,6 +14,7 @@ const perPage = 15;
 
 
 
+
 window.onload = loadAllData();
 
 function loadAllData() {
@@ -23,7 +24,14 @@ function loadAllData() {
     loadDataUserCurrent();
     loadListOrder();
     callBackVnPay();
+    loadDataProvince();
 }
+
+
+function loadDataProvince() {
+    listProvince = localStorage.getItem("listProvince") ? JSON.parse(localStorage.getItem("listProvince")) : [];
+}
+
 
 function openTransfer(orderId, total) {
     fetch("http://localhost:8080/vnpay", {
@@ -73,29 +81,12 @@ function loadNextOrderId() {
     nextOrderId = localStorage.getItem("nextOrderId") ? parseInt(localStorage.getItem("nextOrderId")) : 1;
     localStorage.setItem(NEXT_ID, nextOrderId);
 };
-function formatPrice(price) {
-    return price.toLocaleString('vi-VN') + " ₫";
-}
 function parsePrice(priceString) {
     const price = priceString.replace(/[^\d]/g, '');
     return parseInt(price); 
 }
 
 
-async function getDataProvince() {
-    const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/province";
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-        const data = await response.json();
-        listProvince = [...data];
-
-    } catch (error) {
-      console.error(error.message);
-    }
-}
 
 async function getDataDistrict(idProvince) {
     const url = "https://api-tinh-thanh-git-main-toiyours-projects.vercel.app/district?idProvince=" + idProvince;
@@ -129,6 +120,7 @@ async function getDataWard(idDistrict) {
 
 
 function renderProvince() {
+    loadDataProvince();
     const selectProvince = document.getElementById("province");
     txtInner = `<option value="" disabled selected>Chọn tỉnh/thành phố</option>`;
     listProvince.forEach(province => {
@@ -175,7 +167,7 @@ function renderProducts(productsToRender) {
                 <div class="info-product">
                     <h3 class="name-product">${product.name}</h3>
                     <div class="bottom-product">
-                        <h3 class="price-product">${formatPrice(product.price)}</h3>
+                        <h3 class="price-product">${formatMoney(product.price)}</h3>
                         <button class="btn">
                             <i class="fa-solid fa-cart-plus"></i> Thêm
                         </button>
@@ -235,7 +227,7 @@ function openProductDetail(index) {
 function updateTotalPrice(basePrice) {
     const quantity = parseInt(document.getElementById("quantity-product-details").value);
     const totalPrice = basePrice * quantity;
-    document.getElementById("total-price").textContent = formatPrice(totalPrice);
+    document.getElementById("total-price").textContent = formatMoney(totalPrice);
 }
 
 // đóng form chi tiết sản phẩm
@@ -262,7 +254,7 @@ function increaseQuantity(obj, index) {
         });
         localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
         const totalPriceComponent = document.querySelector(".total-price-cart");
-        totalPriceComponent.innerHTML = formatPrice(totalPrice);
+        totalPriceComponent.innerHTML = formatMoney(totalPrice);
     }
 }
 
@@ -286,7 +278,7 @@ function decreaseQuantity(obj, index) {
             });
             localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
             const totalPriceComponent = document.querySelector(".total-price-cart");
-            totalPriceComponent.innerHTML = formatPrice(totalPrice);
+            totalPriceComponent.innerHTML = formatMoney(totalPrice);
         }
         
     }
@@ -311,7 +303,7 @@ function inputQuantity(obj, index) {
             });
             localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
             const totalPriceComponent = document.querySelector(".total-price-cart");
-            totalPriceComponent.innerHTML = formatPrice(totalPrice);
+            totalPriceComponent.innerHTML = formatMoney(totalPrice);
         }
      }, 500);
 };
@@ -394,16 +386,16 @@ function renderItemCheckout(listItem) {
                     <div class="item">
                         <span class="quantity-item">${product.quantity}x</span>
                         <span class="name-item">${product.name}</span>
-                        <span class="price-item">${formatPrice(product.price)}</span>
+                        <span class="price-item">${formatMoney(product.price)}</span>
                     </div>`;
     });
     const listItemComponent = document.querySelector(".list-details");
     listItemComponent.innerHTML = txtHtml;
     const totalAmountPayment = document.querySelector(".amount-payment");
-    totalAmountPayment.innerHTML = formatPrice(totalPrice);
+    totalAmountPayment.innerHTML = formatMoney(totalPrice);
 
     const totalPricePayment = document.querySelector(".total-price-payment");
-    totalPricePayment.innerHTML = formatPrice(totalPrice + 50000);
+    totalPricePayment.innerHTML = formatMoney(totalPrice + 50000);
 
 
 }
@@ -420,7 +412,7 @@ function renderCart(cart) {
                             <span class="name-product-checkout">${product.name}</span>
                             <div>
                                 <span>Đơn giá: </span>
-                                <span class="unit-product-checkout">${product.price}</span>
+                                <span class="unit-product-checkout">${formatMoney(product.price)}</span>
                             </div>
                             <span class="quantity-product-checkout">Số lượng</span>
                             <div class="btnCustom" value="checkout-product">
@@ -445,7 +437,7 @@ function renderCart(cart) {
         totalPrice += product.quantity * product.price;
     });
     const totalPriceComponent = document.querySelector(".total-price-cart");
-    totalPriceComponent.innerHTML = formatPrice(totalPrice);
+    totalPriceComponent.innerHTML = formatMoney(totalPrice);
 }
 
 function deleteProduct(index) {
@@ -464,6 +456,7 @@ function renderPayment() {
         return;
     }
     document.querySelector(".modal-payment").classList.add("modal-payment--show");
+    document.querySelector("body").style.overflow = "hidden";
     localStorage.setItem("modalIsShow", "true");
     renderProvince();
     renderInforUser();
@@ -628,6 +621,7 @@ btnPaymentSubmit.addEventListener("click", () => {
 const btnBack = document.querySelector('.btn-back');
 btnBack.addEventListener("click", () => {
     document.querySelector(".modal-payment").classList.remove("modal-payment--show");
+    document.querySelector("body").style.overflow = "auto";
     localStorage.removeItem("modalIsShow");
 });
 
