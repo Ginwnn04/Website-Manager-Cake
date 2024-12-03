@@ -1545,7 +1545,7 @@ function viewOrderDetails(id) {
             <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
         </div>
         <div class="boxDetailContent3">
-            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)} Đ</p>
+            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)}</p>
         </div>
       </div>
       <p><strong>Địa chỉ:</strong> ${order.address}</p>

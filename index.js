@@ -577,7 +577,7 @@ btnPaymentSubmit.addEventListener("click", () => {
     address.push(district[district.selectedIndex].textContent);
     address.push(province[province.selectedIndex].textContent);
     order = {
-        id: `HD-${nextOrderId++}`,
+        id: `${nextOrderId++}`,
         gmail: userCurrent.gmail,
         name: name,
         phone: phone,
@@ -586,6 +586,7 @@ btnPaymentSubmit.addEventListener("click", () => {
         detailsOrder: userCurrent.cart,
         timeCreate: new Date().toISOString().slice(0, 10),
         status: "Chưa xử lý",
+        paid: false,
         total: userCurrent.cart.reduce((totalPrice, product) => totalPrice + product.price * product.quantity, 0)
     }
     const methodPayment = document.querySelector('input[name="chb-cash"]:checked').value;
@@ -606,11 +607,13 @@ btnPaymentSubmit.addEventListener("click", () => {
         localStorage.setItem(LIST_ORDER, JSON.stringify(listOrder));
         userCurrent.cart = [];
         localStorage.setItem("userCurrent", JSON.stringify(userCurrent));
-        showToast("success", "Đặt hàng thành công!");
+        showToast("success", "Đặt hàng thành công!. Sau 5s sẽ chuyển về trang chủ.");
         localStorage.removeItem("modalIsShow");
+        console.log(order.id);
+        viewDetailOrder(order.id);
         setTimeout(() => { 
             window.location.href = '/';
-        }, 1000);
+        }, 5000);
     }
     
 
@@ -1241,5 +1244,72 @@ function showToast(type, message) {
       `;
       main.appendChild(toast);
     }
-  }
+}
+function viewDetailOrder(orderId) {
+    listOrder.forEach(order => {   
+        if (order.id == orderId) {
+            const orderDetailContent = document.getElementById("orderDetailContent");
+
+    // Lặp qua từng sản phẩm để tạo hàng bảng
+    let productRows = order.detailsOrder.map(item => `
+        <tr>
+            <td>${item.name}</td>
+            <td>x${item.quantity}</td>
+            <td>${formatMoney(item.price)}</td>
+        </tr>
+    `).join('');
+
+    // Hiển thị chi tiết đơn hàng
+    orderDetailContent.innerHTML = `
+      <button onclick="closeModal('orderDetailModal')" class="closeDetail">Đóng</button>
+      <h2>Chi tiết đơn hàng</h2>
+      <div class="boxDetail">
+        <div class="boxDetailContent1">
+            <p><strong>Mã đơn:</strong> ${order.id}</p>
+        </div>
+        <div class="boxDetailContent1">
+            <p><strong>Tài khoản:</strong> ${order.gmail}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>Người nhận:</strong> ${order.name}</p>
+        </div>
+        <div class="boxDetailContent2">
+            <p><strong>SĐT:</strong> ${order.phone}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Ngày đặt:</strong> ${order.timeCreate}</p>
+        </div>
+        <div class="boxDetailContent3">
+            <p><strong>Tổng đơn:</strong> ${formatMoney(order.total)}</p>
+        </div>
+      </div>
+      <p><strong>Địa chỉ:</strong> ${order.address}</p>
+      <p><strong>Tình trạng ${order.status}</strong> 
+      </p>
+      <div class="tableOrder">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Tên SP</th>
+                      <th>SL</th>
+                      <th>Giá tiền</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${productRows}
+              </tbody>
+          </table>
+      </div>
+    `;
+
+    // Mở modal
+    document.getElementById("orderDetailModal").style.display = "flex";
+        }
+    });
+}
+
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
   
