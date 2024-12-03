@@ -1870,7 +1870,7 @@ formP.addEventListener('submit', function (event) {
 formP.addEventListener('blur',function(){
   formTitleP='Thêm sản phẩm';
 });
-formP.addEventListener('blur',displayProducts);
+// formP.addEventListener('blur',displayProducts);
 const removeImageBtn = document.getElementById('removeImageBtn');
 removeImageBtn.addEventListener('click',function(){
   const fileLabel = document.getElementById('fileNameLabel');
@@ -2480,36 +2480,62 @@ document.getElementById('openCategoryForm').addEventListener('click',toggleAddCa
 document.getElementById('cancelCategoryInput').addEventListener('click',cancelCategory);
 Submit.addEventListener('click', function (event) {
   event.preventDefault();
-  const Categoryname = document.getElementById('categoryName').value;
-  const Categorydescription = document.getElementById('categoryDescription').value;
-  if(editCategoryIndex!==null){
-    categories[editCategoryIndex].name=Categoryname;
-    categories[editCategoryIndex].description=Categorydescription;
-    showToast('success',"Loại sản phẩm đã được cập nhật!");
-  }else{
-    if(categories.some((c,i)=>c.name===Categoryname && i!==editProductIndex)){
-      showToast('error',"Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
-      document.getElementById('categoryName').focus();
-      return;
-    }
-    if (!isNaN(Categoryname)) {
-      showToast('error',"Tên loại sản phẩm không được chỉ toàn số! Vui lòng nhập lại!");
-      document.getElementById('categoryName').focus();
-      return;
-    }
-    const category = {
-      id: randomId(categories.map(cat => cat.id)),
-      name: Categoryname,
-      description: Categorydescription
-    }
-    categories.unshift(category);
-    showToast('success',"Đã thêm thành công!");
+
+  const Categoryname = document.getElementById('categoryName').value.trim();
+  const Categorydescription = document.getElementById('categoryDescription').value.trim();
+
+  // Kiểm tra nếu đang chỉnh sửa một loại sản phẩm
+  if (editCategoryIndex !== null) {
+      const oldCategoryName = categories[editCategoryIndex].name; // Lưu lại tên loại cũ
+
+      // Cập nhật thông tin loại sản phẩm
+      categories[editCategoryIndex].name = Categoryname;
+      categories[editCategoryIndex].description = Categorydescription;
+
+      // Cập nhật tên loại trong danh sách sản phẩm
+      listProduct = listProduct.map(product => {
+          if (product.category === oldCategoryName) {
+              product.category = Categoryname; // Thay đổi tên loại cũ bằng tên mới
+          }
+          return product;
+      });
+
+      // Lưu lại danh sách sản phẩm vào localStorage
+      localStorage.setItem('listProduct', JSON.stringify(listProduct));
+      localStorage.setItem('categories', JSON.stringify(categories));
+
+      showToast('success', "Loại sản phẩm đã được cập nhật và các sản phẩm liên quan cũng đã được thay đổi!");
+  } else {
+      // Xử lý thêm mới loại sản phẩm
+      if (categories.some((c, i) => c.name === Categoryname && i !== editProductIndex)) {
+          showToast('error', "Tên loại sản phẩm đã tồn tại! Vui lòng chọn tên khác!");
+          document.getElementById('categoryName').focus();
+          return;
+      }
+      if (!isNaN(Categoryname)) {
+          showToast('error', "Tên loại sản phẩm không được chỉ toàn số! Vui lòng nhập lại!");
+          document.getElementById('categoryName').focus();
+          return;
+      }
+
+      // Tạo loại sản phẩm mới
+      const category = {
+          id: randomId(categories.map(cat => cat.id)),
+          name: Categoryname,
+          description: Categorydescription
+      };
+      categories.unshift(category);
+
+      // Lưu danh sách loại sản phẩm vào localStorage
+      localStorage.setItem('categories', JSON.stringify(categories));
+
+      showToast('success', "Đã thêm thành công!");
   }
-  localStorage.setItem('categories',JSON.stringify(categories));
   formC.reset();
   formC.style.display='none';
-  editCategoryIndex=null;
-  displayCategories();
+  // Cập nhật giao diện sau khi thay đổi
+  displayCategories(categories); // Cập nhật danh sách loại sản phẩm
+  displayProducts(listProduct); // Cập nhật danh sách sản phẩm
 });
 const categoryPage=document.querySelector('.categories-page');
 function displayCategories(){
