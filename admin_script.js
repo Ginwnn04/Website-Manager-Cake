@@ -1870,7 +1870,10 @@ formP.addEventListener('submit', function (event) {
 formP.addEventListener('blur',function(){
   formTitleP='Thêm sản phẩm';
 });
-// formP.addEventListener('blur',displayProducts);
+formP.addEventListener('change',() => {
+  listProduct=JSON.parse(localStorage.getItem('listProduct')) || [];
+  displayProducts(listProduct);
+});
 const removeImageBtn = document.getElementById('removeImageBtn');
 removeImageBtn.addEventListener('click',function(){
   const fileLabel = document.getElementById('fileNameLabel');
@@ -2419,7 +2422,7 @@ resetFilterButton.addEventListener('click', () => {
   // Reset filteredProducts và trạng thái lọc
   filteredProducts = []; // Reset filteredProducts về mảng trống
   isFiltering = false; // Đặt lại trạng thái lọc
-
+  listProduct = JSON.parse(localStorage.getItem('listProduct')) || [];
   // Hiển thị lại toàn bộ sản phẩm
   displayProducts(listProduct); 
 });
