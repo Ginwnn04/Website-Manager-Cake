@@ -279,6 +279,7 @@ main {
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    cursor: pointer;
     max-height: 37px;
     /* min-width: 103px; */
     white-space: nowrap;
