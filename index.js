@@ -687,7 +687,7 @@ btnHeader.forEach(btn => {
 
         }
         else {
-            const listProductFilter = listProduct.filter(product => product.category === btn.getAttribute("value"));
+            listProductFilter = listProduct.filter(product => product.category === btn.getAttribute("value"));
             totalPage = Math.ceil(listProductFilter.length / perPage);
             renderProducts(listProductFilter);
             console.log(totalPage);
@@ -708,9 +708,11 @@ searchInput.addEventListener("input", () => {
         renderProducts(listProductFilter);
     } else {
         const keywordFilteredProducts = listProductFilter.filter(product => {
-            return product.name.toLowerCase().includes(keyword) ||
-                    product.category.toLowerCase().includes(keyword);
+            return product.name.toLowerCase().includes(keyword);
         });
+        console.log(keywordFilteredProducts);
+        totalPage = Math.ceil(keywordFilteredProducts.length / perPage);
+        renderBtnPage();
         renderProducts(keywordFilteredProducts);
     }
 });
@@ -723,7 +725,7 @@ document.getElementById("apply-filter").addEventListener("click", () => {
     // alert(category + " " + minPrice + " " + maxPrice);
 
     // Lọc sản phẩm theo tiêu chí
-    listProductFilter = listProduct.filter(product => {
+    listProductFilter = listProductFilter.filter(product => {
         if (category !== "") {
             return product.category === category && product.price >= minPrice && product.price <= maxPrice;
         }
@@ -787,6 +789,7 @@ btnReset.addEventListener("click", () => {
 
 function renderBtnPage() {
     const btnPage = document.querySelector(".pagination");
+    btnPage.innerHTML = "";
     let txtHtml = "";
     for (let i = 1; i <= totalPage; i++) {
         if (i === 1) {

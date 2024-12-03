@@ -1,4 +1,16 @@
 window.onload = test();
+window.onload = authenticate();
+
+
+
+
+function authenticate() {
+  if (localStorage.getItem('modalIsShow') === null) {
+    window.location.href = '/';
+  }
+}
+
+
 function test() {
     let isSuccess = false;
     const url = window.location.href;
