@@ -1501,7 +1501,7 @@ function deleteOrder(id) {
     showToast('success',"Đơn hàng đã bị xóa!");
     displayOrders(); 
   } else {
-    show("Đơn hàng không bị xóa."); // Thông báo khi người dùng hủy
+    showToast('error',"Đơn hàng không bị xóa."); // Thông báo khi người dùng hủy
   }
 }
 
