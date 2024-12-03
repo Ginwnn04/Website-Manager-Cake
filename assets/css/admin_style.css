@@ -1442,7 +1442,7 @@ button{
 }
 .modal-content table thead th:nth-child(1),
 .modal-content table tbody td:nth-child(1) {
-    width: 80%;
+    width: 75%;
 }
 .modal-content table thead th:nth-child(2),
 .modal-content table tbody td:nth-child(2) {
@@ -1450,7 +1450,7 @@ button{
 }
 .modal-content table thead th:nth-child(3),
 .modal-content table tbody td:nth-child(3) {
-    width: 15%;
+    width: 20%;
 }
 .modal-content table tbody tr:hover{
     background-color: var(--grey);
@@ -1571,6 +1571,9 @@ button{
         border-radius: 5px;
         background-color: var(--orange);
         transition: background-color 0.3s;
+    }
+    .modal-content {
+        max-width: 450px;
     }
 
     /* ---------------------------order manager--------------------------------*/
