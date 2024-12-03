@@ -2798,7 +2798,7 @@ input[type="file"]{
     justify-content: space-between;
     margin-top: 20px;
 }
-@media screen and (max-width:520px){
+@media screen and (max-width:440px){
     .product-content-actions{
         flex-direction: column;
     }
